@@ -37,3 +37,8 @@ MaterialFormat.create([
                       { name: 'Contracts' },
                       { name: 'Personal Papers and Other Items' },
                       ])
+
+Cataloger.create([
+                 { name: 'Michael W. Harris', email: 'michaelwharris1980@gmail.com ' },
+                 { name: 'Sienna M. Wood', email: 'sienna.m.wood@gmail.com' }
+                 ])

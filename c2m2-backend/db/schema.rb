@@ -10,25 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180510142941) do
+ActiveRecord::Schema.define(version: 20180510145159) do
+
+  create_table "catalogers", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "email", null: false
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_catalogers_on_email", unique: true
+  end
 
   create_table "countries", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_countries_on_name", unique: true
   end
 
   create_table "material_formats", force: :cascade do |t|
     t.string "name", null: false
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_material_formats_on_name", unique: true
   end
 
   create_table "media_types", force: :cascade do |t|
     t.string "name", null: false
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_media_types_on_name", unique: true
   end
 
 end

@@ -1,0 +1,2 @@
+class Cataloger < ApplicationRecord
+end
