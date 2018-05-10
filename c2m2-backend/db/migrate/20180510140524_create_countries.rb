@@ -6,5 +6,6 @@ class CreateCountries < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
+    add_index :countries, :name, unique: true
   end
 end
