@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  secondary_title: MyString
+  year: 1
+  finding_aid_link: MyString
+  digital_copy_link: MyString
+  rights_holder: MyString
+
+two:
+  title: MyString
+  secondary_title: MyString
+  year: 1
+  finding_aid_link: MyString
+  digital_copy_link: MyString
+  rights_holder: MyString
