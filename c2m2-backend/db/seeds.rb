@@ -24,3 +24,16 @@ MediaType.create([
                  { name: 'Video Game' },
                  { name: 'Radio or Podcast' },
                  ])
+
+MaterialFormat.create([
+                      { name: 'Manuscript Scores' },
+                      { name: 'Printed Scores and Parts' },
+                      { name: 'Short Scores' },
+                      { name: 'Sketches' },
+                      { name: 'Published Scores or Collections' },
+                      { name: 'Cue Sheets' },
+                      { name: 'Working Notes' },
+                      { name: 'Recordings' },
+                      { name: 'Contracts' },
+                      { name: 'Personal Papers and Other Items' },
+                      ])
