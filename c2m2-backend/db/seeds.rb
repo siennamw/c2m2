@@ -11,3 +11,16 @@ Country.create([
                { name: 'Japan' },
                { name: 'United Kingdom' }
                ])
+
+MediaType.create([
+                 { name: 'Feature Film - Narrative' },
+                 { name: 'Feature Film - Documentary/Other' },
+                 { name: 'Short Film - Narrative' },
+                 { name: 'Short Film - Documentary/Other' },
+                 { name: 'Silent Film - Feature, Short, or Photoplay' },
+                 { name: 'Serial Series - Narrative' },
+                 { name: 'Serial Series - Documentary/Other' },
+                 { name: 'Serial Series - Information/Education' },
+                 { name: 'Video Game' },
+                 { name: 'Radio or Podcast' },
+                 ])
