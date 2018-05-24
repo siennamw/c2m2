@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180524185407) do
+ActiveRecord::Schema.define(version: 20180524195934) do
 
   create_table "catalogers", force: :cascade do |t|
     t.string "name", null: false
@@ -21,11 +21,19 @@ ActiveRecord::Schema.define(version: 20180524185407) do
     t.index ["email"], name: "index_catalogers_on_email", unique: true
   end
 
+  create_table "collections", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "composers", force: :cascade do |t|
     t.string "name", null: false
     t.string "imdb_link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_composers_on_name"
   end
 
   create_table "countries", force: :cascade do |t|
@@ -34,6 +42,14 @@ ActiveRecord::Schema.define(version: 20180524185407) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_countries_on_name", unique: true
+  end
+
+  create_table "directors", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "imdb_link"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_directors_on_name"
   end
 
   create_table "material_formats", force: :cascade do |t|
@@ -50,6 +66,28 @@ ActiveRecord::Schema.define(version: 20180524185407) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_media_types_on_name", unique: true
+  end
+
+  create_table "production_companies", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "contact_info"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "publishers", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "contact_info"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "repositories", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "location", null: false
+    t.string "website"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "works", force: :cascade do |t|
