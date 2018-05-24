@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180524195934) do
+ActiveRecord::Schema.define(version: 20180524221007) do
 
   create_table "catalogers", force: :cascade do |t|
     t.string "name", null: false
@@ -30,12 +30,26 @@ ActiveRecord::Schema.define(version: 20180524195934) do
     t.index ["repository_id"], name: "index_collections_on_repository_id"
   end
 
+  create_table "collections_works", id: false, force: :cascade do |t|
+    t.integer "work_id", null: false
+    t.integer "collection_id", null: false
+    t.index ["collection_id", "work_id"], name: "index_collections_works_on_collection_id_and_work_id"
+    t.index ["work_id", "collection_id"], name: "index_collections_works_on_work_id_and_collection_id"
+  end
+
   create_table "composers", force: :cascade do |t|
     t.string "name", null: false
     t.string "imdb_link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_composers_on_name"
+  end
+
+  create_table "composers_works", id: false, force: :cascade do |t|
+    t.integer "work_id", null: false
+    t.integer "composer_id", null: false
+    t.index ["composer_id", "work_id"], name: "index_composers_works_on_composer_id_and_work_id"
+    t.index ["work_id", "composer_id"], name: "index_composers_works_on_work_id_and_composer_id"
   end
 
   create_table "countries", force: :cascade do |t|
@@ -52,6 +66,13 @@ ActiveRecord::Schema.define(version: 20180524195934) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_directors_on_name"
+  end
+
+  create_table "directors_works", id: false, force: :cascade do |t|
+    t.integer "work_id", null: false
+    t.integer "director_id", null: false
+    t.index ["director_id", "work_id"], name: "index_directors_works_on_director_id_and_work_id"
+    t.index ["work_id", "director_id"], name: "index_directors_works_on_work_id_and_director_id"
   end
 
   create_table "material_formats", force: :cascade do |t|
@@ -77,11 +98,25 @@ ActiveRecord::Schema.define(version: 20180524195934) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "production_companies_works", id: false, force: :cascade do |t|
+    t.integer "work_id", null: false
+    t.integer "production_company_id", null: false
+    t.index ["production_company_id", "work_id"], name: "index_pcs_works_on_pc_id_and_work_id"
+    t.index ["work_id", "production_company_id"], name: "index_pcs_works_on_work_id_and_pc_id"
+  end
+
   create_table "publishers", force: :cascade do |t|
     t.string "name", null: false
     t.text "contact_info"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "publishers_works", id: false, force: :cascade do |t|
+    t.integer "work_id", null: false
+    t.integer "publisher_id", null: false
+    t.index ["publisher_id", "work_id"], name: "index_publishers_works_on_publisher_id_and_work_id"
+    t.index ["work_id", "publisher_id"], name: "index_publishers_works_on_work_id_and_publisher_id"
   end
 
   create_table "repositories", force: :cascade do |t|
