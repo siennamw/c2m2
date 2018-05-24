@@ -24,8 +24,10 @@ ActiveRecord::Schema.define(version: 20180524195934) do
   create_table "collections", force: :cascade do |t|
     t.string "name", null: false
     t.string "description"
+    t.integer "repository_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["repository_id"], name: "index_collections_on_repository_id"
   end
 
   create_table "composers", force: :cascade do |t|
@@ -100,8 +102,16 @@ ActiveRecord::Schema.define(version: 20180524195934) do
     t.text "citation_source"
     t.text "alias_alternates"
     t.text "cataloging_notes"
+    t.integer "country_id"
+    t.integer "media_type_id"
+    t.integer "material_format_id"
+    t.integer "cataloger_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["cataloger_id"], name: "index_works_on_cataloger_id"
+    t.index ["country_id"], name: "index_works_on_country_id"
+    t.index ["material_format_id"], name: "index_works_on_material_format_id"
+    t.index ["media_type_id"], name: "index_works_on_media_type_id"
   end
 
 end

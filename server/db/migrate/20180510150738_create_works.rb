@@ -12,12 +12,12 @@ class CreateWorks < ActiveRecord::Migration[5.1]
       t.text :alias_alternates
       t.text :cataloging_notes
 
+      t.belongs_to :country, optional: true
+      t.belongs_to :media_type
+      t.belongs_to :material_format
+      t.belongs_to :cataloger
+
       t.timestamps
     end
-
-    add_foreign_key :works, :countries
-    add_foreign_key :works, :media_types
-    add_foreign_key :works, :material_formats
-    add_foreign_key :works, :catalogers
   end
 end
