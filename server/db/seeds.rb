@@ -9,7 +9,7 @@
 Country.create([
                { name: 'United States' },
                { name: 'Japan' },
-               { name: 'United Kingdom' }
+               { name: 'United Kingdom' },
                ])
 
 MediaType.create([
@@ -40,5 +40,16 @@ MaterialFormat.create([
 
 Cataloger.create([
                  { name: 'Michael W. Harris', email: 'michaelwharris1980@gmail.com ' },
-                 { name: 'Sienna M. Wood', email: 'sienna.m.wood@gmail.com' }
+                 { name: 'Sienna M. Wood', email: 'sienna.m.wood@gmail.com' },
                  ])
+
+Composer.create([
+                { name: 'Broughton, Bruce, 1945-', imdb_link: 'http://www.imdb.com/name/nm0005976/' },
+                { name: 'Davis, Don, 1957-', imdb_link: 'http://www.imdb.com/name/nm0204485/' },
+                { name: 'Elfman, Danny', imdb_link: 'http://www.imdb.com/name/nm0000384/' },
+                { name: 'Horner, James', imdb_link: 'http://www.imdb.com/name/nm0000035/' },
+                { name: 'Silvestri, Alan', imdb_link: 'http://www.imdb.com/name/nm0006293/' },
+                { name: 'Hayasaka, Fumio, 1914-1955', imdb_link: 'http://www.imdb.com/name/nm0370593/' },
+                { name: 'Grusin, Dave', imdb_link: 'http://www.imdb.com/name/nm0006115/'},
+                { name: 'Jarre, Maurice', imdb_link: 'http://www.imdb.com/name/nm0003574/'},
+                ])
