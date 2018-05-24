@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180510150738) do
+ActiveRecord::Schema.define(version: 20180524185407) do
 
   create_table "catalogers", force: :cascade do |t|
     t.string "name", null: false
@@ -19,6 +19,13 @@ ActiveRecord::Schema.define(version: 20180510150738) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_catalogers_on_email", unique: true
+  end
+
+  create_table "composers", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "imdb_link"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "countries", force: :cascade do |t|
