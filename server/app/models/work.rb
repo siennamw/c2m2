@@ -4,7 +4,8 @@ class Work < ApplicationRecord
   belongs_to :material_format
   belongs_to :cataloger
 
-  has_many :composers
+  has_and_belongs_to_many :composers
+  has_and_belongs_to_many :directors
 
   validates_presence_of :title
 end
