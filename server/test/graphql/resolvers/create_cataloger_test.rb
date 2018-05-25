@@ -9,11 +9,17 @@ class Resolvers::CreateCatalogerTest < ActiveSupport::TestCase
     name = 'Jane Doe'
     email = 'jane.doe@example.com'
     description = 'great cataloger'
+    password = '[omitted]'
 
     cataloger = perform(
-    name: name,
-    email: email,
-    description: description,
+      name: name,
+      authProvider: {
+        email: {
+          email: email,
+          password: password,
+        }
+      },
+      description: description,
     )
 
     assert cataloger.persisted?

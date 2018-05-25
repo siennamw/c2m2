@@ -39,9 +39,9 @@ MaterialFormat.create([
                       { name: 'Personal Papers and Other Items' },
                       ])
 
-# Catalogers
-michael = Cataloger.create(name: 'Michael W. Harris', email: 'michaelwharris1980@gmail.com ')
-sienna = Cataloger.create(name: 'Sienna M. Wood', email: 'sienna.m.wood@gmail.com')
+# Catalogers - with dummy passwords for development only!!
+michael = Cataloger.create(name: 'Michael W. Harris', email: 'michael.harris@example.com', password: 'password')
+sienna = Cataloger.create(name: 'Sienna M. Wood', email: 'sienna.wood@example.com', password: 'password')
 
 # Repositories
 harris = Repository.create(name: 'Michael W. Harris Family Archive and Arcade Fun Complex', location: 'Boulder, CO', website: 'http://www.michaelwharris.net/')

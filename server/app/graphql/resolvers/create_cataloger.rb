@@ -1,7 +1,13 @@
 class Resolvers::CreateCataloger < GraphQL::Function
+  AuthProviderInput = GraphQL::InputObjectType.define do
+    name 'AuthProviderSignupData'
+
+    argument :email, Types::AuthProviderEmailInput
+  end
+
   # arguments passed as "args"
   argument :name, !types.String
-  argument :email, !types.String
+  argument :authProvider, !AuthProviderInput
   argument :description, types.String
 
   # return type from the mutation
@@ -14,7 +20,8 @@ class Resolvers::CreateCataloger < GraphQL::Function
   def call(_obj, args, _ctx)
     Cataloger.create!(
     name: args[:name],
-    email: args[:email],
+    email: args[:authProvider][:email][:email],
+    password: args[:authProvider][:email][:password],
     description: args[:description],
     )
   end
