@@ -3,7 +3,9 @@
 one:
   name: MyString
   description: MyString
+  repository: one
 
 two:
   name: MyString
   description: MyString
+  repository: two
