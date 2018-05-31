@@ -5,4 +5,5 @@ Types::MutationType = GraphQL::ObjectType.define do
   field :createMediaType, function: Resolvers::CreateMediaType.new
   field :createMaterialFormat, function: Resolvers::CreateMaterialFormat.new
   field :createCataloger, function: Resolvers::CreateCataloger.new
+  field :signInCataloger, function: Resolvers::SignInCataloger.new
 end
