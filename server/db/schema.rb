@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180525211434) do
+ActiveRecord::Schema.define(version: 20180531211907) do
 
   create_table "catalogers", force: :cascade do |t|
     t.string "name", null: false
@@ -34,8 +34,8 @@ ActiveRecord::Schema.define(version: 20180525211434) do
   create_table "collections_works", id: false, force: :cascade do |t|
     t.integer "work_id", null: false
     t.integer "collection_id", null: false
-    t.index ["collection_id", "work_id"], name: "index_collections_works_on_collection_id_and_work_id"
-    t.index ["work_id", "collection_id"], name: "index_collections_works_on_work_id_and_collection_id"
+    t.index ["collection_id", "work_id"], name: "index_coll_works_on_coll_id_and_work_id"
+    t.index ["work_id", "collection_id"], name: "index_coll_works_on_work_id_and_coll_id"
   end
 
   create_table "composers", force: :cascade do |t|
@@ -131,7 +131,7 @@ ActiveRecord::Schema.define(version: 20180525211434) do
   create_table "works", force: :cascade do |t|
     t.string "title", null: false
     t.string "secondary_title"
-    t.integer "year"
+    t.integer "year", null: false
     t.string "finding_aid_link"
     t.string "digital_copy_link"
     t.string "rights_holder"
