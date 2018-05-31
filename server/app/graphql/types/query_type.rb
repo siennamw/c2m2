@@ -29,6 +29,14 @@ Types::QueryType = GraphQL::ObjectType.define do
     resolve ->(obj, args, ctx) { MediaType.all }
   end
 
+  field :allProductionCompanies, types[Types::ProductionCompanyType] do
+    resolve ->(obj, args, ctx) { ProductionCompany.all }
+  end
+
+  field :allPublishers, types[Types::PublisherType] do
+    resolve ->(obj, args, ctx) { Publisher.all }
+  end
+
   field :allRepositories, types[Types::RepositoryType] do
     resolve ->(obj, args, ctx) { Repository.all }
   end
