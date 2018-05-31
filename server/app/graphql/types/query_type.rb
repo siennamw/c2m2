@@ -9,8 +9,16 @@ Types::QueryType = GraphQL::ObjectType.define do
     resolve ->(obj, args, ctx) { Collection.all }
   end
 
+  field :allComposers, types[Types::ComposerType] do
+    resolve ->(obj, args, ctx) { Composer.all }
+  end
+
   field :allCountries, types[Types::CountryType] do
     resolve ->(obj, args, ctx) { Country.all }
+  end
+
+  field :allDirectors, types[Types::DirectorType] do
+    resolve ->(obj, args, ctx) { Director.all }
   end
 
   field :allMaterialFormats, types[Types::MaterialFormatType] do
