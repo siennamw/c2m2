@@ -5,4 +5,6 @@ Types::CatalogerType = GraphQL::ObjectType.define do
   field :name, !types.String
   field :email, !types.String
   field :description, types.String
+
+  field :works, ( -> { !types[Types::WorkType] })
 end

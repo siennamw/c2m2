@@ -40,4 +40,8 @@ Types::QueryType = GraphQL::ObjectType.define do
   field :allRepositories, types[Types::RepositoryType] do
     resolve ->(obj, args, ctx) { Repository.all }
   end
+
+  field :allWorks, types[Types::WorkType] do
+    resolve ->(obj, args, ctx) { Work.all }
+  end
 end

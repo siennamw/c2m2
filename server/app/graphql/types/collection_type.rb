@@ -6,4 +6,6 @@ Types::CollectionType = GraphQL::ObjectType.define do
   field :description, types.String
 
   field :repository, (-> { Types::RepositoryType })
+
+  field :works, ( -> { !types[Types::WorkType] })
 end
