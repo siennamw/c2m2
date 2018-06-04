@@ -41,7 +41,5 @@ Types::QueryType = GraphQL::ObjectType.define do
     resolve ->(obj, args, ctx) { Repository.all }
   end
 
-  field :allWorks, types[Types::WorkType] do
-    resolve ->(obj, args, ctx) { Work.all }
-  end
+  field :allWorks, function: Resolvers::WorksSearch
 end
