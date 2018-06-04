@@ -9,8 +9,11 @@ class Resolvers::CreateProductionCompany < GraphQL::Function
   # the mutation method
   def call(_obj, args, _ctx)
     ProductionCompany.create!(
-    name: args[:name],
-    contact_info: args[:contact_info],
+      name: args[:name],
+      contact_info: args[:contact_info],
     )
+  rescue ActiveRecord::RecordInvalid => e
+    # this would catch all validation errors and translate them to GraphQL::ExecutionError
+    GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")
   end
 end

@@ -9,8 +9,11 @@ class Resolvers::CreateComposer < GraphQL::Function
   # the mutation method
   def call(_obj, args, _ctx)
     Composer.create!(
-    name: args[:name],
-    imdb_link: args[:imdb_link],
+      name: args[:name],
+      imdb_link: args[:imdb_link],
     )
+  rescue ActiveRecord::RecordInvalid => e
+    # this would catch all validation errors and translate them to GraphQL::ExecutionError
+    GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")
   end
 end

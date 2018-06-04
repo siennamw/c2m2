@@ -13,9 +13,12 @@ class Resolvers::CreateCollection < GraphQL::Function
     return unless repository
 
     Collection.create!(
-    name: args[:name],
-    description: args[:description],
-    repository: repository,
+      name: args[:name],
+      description: args[:description],
+      repository: repository,
     )
+  rescue ActiveRecord::RecordInvalid => e
+    # this would catch all validation errors and translate them to GraphQL::ExecutionError
+    GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")
   end
 end

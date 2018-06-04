@@ -10,9 +10,12 @@ class Resolvers::CreateRepository < GraphQL::Function
   # the mutation method
   def call(_obj, args, _ctx)
     Repository.create!(
-    name: args[:name],
-    location: args[:location],
-    website: args[:website],
+      name: args[:name],
+      location: args[:location],
+      website: args[:website],
     )
+  rescue ActiveRecord::RecordInvalid => e
+    # this would catch all validation errors and translate them to GraphQL::ExecutionError
+    GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")
   end
 end

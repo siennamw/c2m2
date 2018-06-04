@@ -12,8 +12,11 @@ class Resolvers::CreateMediaType < GraphQL::Function
   # _ctx - is the GraphQL context
   def call(_obj, args, _ctx)
     MediaType.create!(
-    name: args[:name],
-    description: args[:description],
+      name: args[:name],
+      description: args[:description],
     )
+  rescue ActiveRecord::RecordInvalid => e
+    # this would catch all validation errors and translate them to GraphQL::ExecutionError
+    GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")
   end
 end
