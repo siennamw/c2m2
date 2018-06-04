@@ -22,6 +22,16 @@ class Resolvers::WorksSearch
 
   # when "filter" is passed "apply_filter" would be called to narrow the scope
   option :filter, type: WorkFilter, with: :apply_filter
+  option :first, type: types.Int, with: :apply_first
+  option :skip, type: types.Int, with: :apply_skip
+
+  def apply_first(scope, value)
+    scope.limit(value)
+  end
+
+  def apply_skip(scope, value)
+    scope.offset(value)
+  end
 
   # apply_filter recursively loops through "OR" branches
   def apply_filter(scope, value)
