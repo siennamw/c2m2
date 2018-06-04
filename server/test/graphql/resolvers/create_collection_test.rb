@@ -5,25 +5,23 @@ class Resolvers::CreateCollectionTest < ActiveSupport::TestCase
     Resolvers::CreateCollection.new.call(nil, args, {})
   end
 
-  test 'creating new collection' do
-    # create a parent repository
-    repo_args = { name: 'Parent Repo', location: 'Boulder, CO' }
-    Resolvers::CreateRepository.new.call(nil, repo_args, {})
+  setup do
+    @repository = Repository.create!(name: 'Parent Repo', location: 'Boulder, CO')
+  end
 
-    # create a collection
+  test 'creating new collection' do
     name = 'Great Collection'
     description = 'Super great'
-    repository_id = Repository.first.id
 
     collection = perform(
       name: name,
       description: description,
-      repository_id: repository_id,
+      repository_id: @repository.id,
     )
 
     assert collection.persisted?
     assert_equal collection.name, name
     assert_equal collection.description, description
-    assert_equal collection.repository.id, repository_id
+    assert_equal collection.repository, @repository
   end
 end
