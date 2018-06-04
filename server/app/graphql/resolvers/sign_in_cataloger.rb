@@ -15,7 +15,7 @@ class Resolvers::SignInCataloger < GraphQL::Function
     # basic validation
     return unless input
 
-    cataloger = Cataloger.find_by email: input[:email]
+    cataloger = Cataloger.find_by(email: input[:email])
 
     # ensures we have the correct cataloger
     return unless cataloger
