@@ -15,11 +15,11 @@ class Resolvers::CreateWork < GraphQL::Function
   argument :media_type_id, !types.Int
   argument :material_format_id, !types.Int
 
-  argument :collection_ids, ( -> { !types[Types::CollectionType] })
-  argument :composer_ids, ( -> { !types[Types::ComposerType] })
-  argument :director_ids, ( -> { !types[Types::DirectorType] })
-  argument :production_company_ids, ( -> { !types[Types::ProductionCompanyType] })
-  argument :publisher_ids, ( -> { !types[Types::PublisherType] })
+  argument :collection_ids, types[types.ID]
+  argument :composer_ids, types[types.ID]
+  argument :director_ids, types[types.ID]
+  argument :production_company_ids, types[types.ID]
+  argument :publisher_ids, types[types.ID]
 
   # return type from the mutation
   type Types::WorkType
