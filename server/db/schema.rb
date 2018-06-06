@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180531211907) do
+ActiveRecord::Schema.define(version: 20180606210449) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -142,8 +142,8 @@ ActiveRecord::Schema.define(version: 20180531211907) do
     t.text "alias_alternates"
     t.text "cataloging_notes"
     t.bigint "country_id"
-    t.bigint "media_type_id"
-    t.bigint "material_format_id"
+    t.bigint "media_type_id", null: false
+    t.bigint "material_format_id", null: false
     t.bigint "cataloger_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
