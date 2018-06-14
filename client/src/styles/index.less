@@ -1,0 +1,56 @@
+@import 'npm://sienna-boilerplate/sienna-boilerplate.less';
+
+// Colors
+@primary: #0099F6;
+@secondary: lighten(@primary, 20%);
+@link-color: @primary;
+
+.logo {
+  width: 14em;
+  padding: 1em;
+}
+
+.title a {
+  color: inherit;
+}
+
+main {
+  clear: both;
+}
+
+p.message {
+  text-align: center;
+  padding: 10px;
+  background: #FFFF99;
+  margin-bottom: 1rem;
+}
+
+p.caption {
+  font-style: italic;
+  font-size: 90%;
+  text-align: center;
+}
+
+form {
+  input[type='submit'] {
+    display: block;
+    margin: 2.5rem auto;
+    width: 60%;
+
+    &.button-primary:focus, &.button-primary:hover {
+      background-color: darken(@primary, 10%);
+    }
+  }
+
+  .g-recaptcha > div {
+    margin: 1rem auto;
+  }
+}
+
+footer {
+  clear: both;
+  border-top: solid @light-gray 1px;
+  margin: 5rem 0 0 0;
+  padding: 3rem 0;
+  text-align: center;
+}
