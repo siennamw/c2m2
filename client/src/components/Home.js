@@ -1,16 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Home = () => (
   <div>
-    <h2>About C2M2</h2>
     <p>Welcome to Collections of Cinema and Media Music, or <b>C2M2</b>, a guide to
       archival collections of film and media music. C2M2 is currently in development
-      and we welcome <a href="#">
-        suggestions for resources to be included in the database</a>.
-      You may also <a href="#">contact us with general questions or
-        comments</a> or <a href="#">read more about our plans for C2M2</a>.</p>
+      and we welcome <Link to="/suggest">
+        suggestions for resources to be included in the database</Link>.
+      You may also <Link to="/contact">contact us with general questions or
+        comments</Link> or <Link to="/vision">read more about our plans for C2M2</Link>.</p>
 
-    <h2>Contributors</h2>
+    <h3>Contributors</h3>
     <div className="row">
       <div className="six columns">
         <h3>Michael W. Harris, Ph.D.</h3>
