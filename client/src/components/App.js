@@ -1,14 +1,23 @@
 import React from 'react';
-import Home from './Home';
+import { Route, Switch } from 'react-router-dom'
+
 import Header from './Header';
+
+import Home from './Home';
+import About from './About';
+import UnknownRoute from './UnknownRoute';
 
 class App extends React.Component {
   render() {
     return (
       <div className="app container">
-        <Header />
+        <Header/>
         <main>
-          <Home />
+          <Switch>
+            <Route exact path="/" component={Home}/>
+            <Route exact path="/about" component={About}/>
+            <Route component={UnknownRoute}/>
+          </Switch>
         </main>
       </div>
     );

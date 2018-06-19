@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 import icon from '../c2m2_logo.svg';
 
@@ -25,9 +26,9 @@ class Header extends React.Component {
             Show/Hide Menu
           </button>
           <ul id="nav-menu" className={this.state.narrowNavShown ? 'show' : undefined}>
-            <li><a href="/">Home</a></li>
+            <li><NavLink exact to="/">Home</NavLink></li>
             <li><a href="#">Vision &amp; Design</a></li>
-            <li><a href="#">Why C2M2?</a></li>
+            <li><NavLink exact to="about">Why C2M2?</NavLink></li>
             <li><a href="#">External Links</a>
               <ul>
                 <li>
