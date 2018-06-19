@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Home from './Home';
 import Header from './Header';
 
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
       <div className="app container">
         <Header />
         <main>
-          <p>
-            To get started, edit <code>src/App.js</code> and save to reload.
-          </p>
+          <Home />
         </main>
       </div>
     );
