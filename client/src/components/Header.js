@@ -9,48 +9,74 @@ class Header extends React.Component {
     this.state = { narrowNavShown: false };
   }
 
-  toggleNarrowMenu = () => {
-    this.setState({ narrowNavShown: !this.state.narrowNavShown })
+  hideNarrowMenu = () => {
+    this.setState({ narrowNavShown: false });
+  };
+
+  showNarrowMenu = () => {
+    this.setState({ narrowNavShown: true });
   };
 
   render() {
     return (
       <header>
         <div className="center-text">
-          <a href="/"><img className="logo" src={icon} alt="C2M2"/></a>
+          <NavLink to="/"><img className="logo" src={icon} alt="C2M2"/></NavLink>
           <h1 className="title"><a href="/">Collections of Cinema and Media Music</a></h1>
         </div>
         <nav id="main-nav">
           <button className="nav-toggle button-primary" aria-expanded={this.state.narrowNavShown}
-                  onClick={this.toggleNarrowMenu}>
+                  onClick={this.state.narrowNavShown ? this.hideNarrowMenu : this.showNarrowMenu}>
             Show/Hide Menu
           </button>
           <ul id="nav-menu" className={this.state.narrowNavShown ? 'show' : undefined}>
-            <li><NavLink exact to="/">Home</NavLink></li>
-            <li><a href="#">Vision &amp; Design</a></li>
-            <li><NavLink exact to="about">Why C2M2?</NavLink></li>
-            <li><a href="#">External Links</a>
+            <li>
+              <NavLink exact to="/" onClick={this.hideNarrowMenu}>
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/vision" onClick={this.hideNarrowMenu}>
+                Vision &amp; Design
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/about" onClick={this.hideNarrowMenu}>
+                Why C2M2?
+              </NavLink>
+            </li>
+            <li><a>External Links</a>
               <ul>
                 <li>
                   <a href="http://www.michaelwharris.net/" target="_blank"
-                     rel="noopener noreferrer">
+                     rel="noopener noreferrer" onClick={this.hideNarrowMenu}>
                     Michael W. Harris: Archivist and Film Musicologist
                   </a>
                 </li>
                 <li>
-                  <a href="http://www.thetemptrack.com" target="_blank" rel="noopener noreferrer">
+                  <a href="http://www.thetemptrack.com" target="_blank" rel="noopener noreferrer"
+                     onClick={this.hideNarrowMenu}>
                     The Temp Track
                   </a>
                 </li>
                 <li>
-                  <a href="http://www.siennamwood.com" target="_blank" rel="noopener noreferrer">
+                  <a href="http://www.siennamwood.com" target="_blank" rel="noopener noreferrer"
+                     onClick={this.hideNarrowMenu}>
                     Sienna M. Wood: Musicologist and Web Developer
                   </a>
                 </li>
               </ul>
             </li>
-            <li><a href="#">Suggest a Resource</a></li>
-            <li><a href="#">Contact</a></li>
+            <li>
+              <NavLink to="/suggest" onClick={this.hideNarrowMenu}>
+                Suggest a Resource
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/contact" onClick={this.hideNarrowMenu}>
+                Contact
+              </NavLink>
+            </li>
           </ul>
         </nav>
       </header>
