@@ -50,7 +50,7 @@ class Header extends React.Component {
                 <li>
                   <a href="http://www.michaelwharris.net/" target="_blank"
                      rel="noopener noreferrer" onClick={this.hideNarrowMenu}>
-                    Michael W. Harris: Archivist and Film Musicologist
+                    Michael W. Harris: Librarian, Archivist, and Musicologist
                   </a>
                 </li>
                 <li>
