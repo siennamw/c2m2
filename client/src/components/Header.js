@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import icon from '../c2m2_logo.svg';
+import icon from '../images/c2m2_logo.svg';
 
 class Header extends React.Component {
   constructor(props) {
@@ -62,7 +62,7 @@ class Header extends React.Component {
                 <li>
                   <a href="http://www.siennamwood.com" target="_blank" rel="noopener noreferrer"
                      onClick={this.hideNarrowMenu}>
-                    Sienna M. Wood: Musicologist and Web Developer
+                    Sienna M. Wood: Software Engineer and Musicologist
                   </a>
                 </li>
               </ul>

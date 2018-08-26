@@ -5,6 +5,7 @@ import Header from './Header';
 
 import Home from './Home';
 import About from './About';
+import Vision from './Vision';
 import UnknownRoute from './UnknownRoute';
 
 class App extends React.Component {
@@ -16,6 +17,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={Home}/>
             <Route exact path="/about" component={About}/>
+            <Route exact path="/vision" component={Vision}/>
             <Route component={UnknownRoute}/>
           </Switch>
         </main>
