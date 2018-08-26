@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom'
 
 import Header from './Header';
+import Footer from './Footer';
 
 import Home from './Home';
 import About from './About';
@@ -25,6 +26,7 @@ class App extends React.Component {
             <Route component={UnknownRoute}/>
           </Switch>
         </main>
+        <Footer/>
       </div>
     );
   }
