@@ -15,7 +15,7 @@
     "react-dom": "^16.3.2",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
-    "sienna-boilerplate": "https://github.com/siennamw/sienna-boilerplate"
+    "sienna-boilerplate": "github:siennamw/sienna-boilerplate"
   },
   "scripts": {
     "build-css": "less-watch-compiler --run-once --plugins less-plugin-npm-import --main-file=index.less src/styles src/styles",
