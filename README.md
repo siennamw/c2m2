@@ -26,6 +26,6 @@ with the Apollo client. To develop on your local machine:
 - Install Node packages and launch client on `http://localhost:3001/`:
     ```
     cd ../client
-    npm i
-    npm start
+    yarn
+    yarn start
     ```

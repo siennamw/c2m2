@@ -3278,6 +3278,12 @@ hoist-non-react-statics@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.0.tgz#d2ca2dfc19c5a91c5a6615ce8e564ef0347e2a40"
 
+hoist-non-react-statics@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.0.1.tgz#fba3e7df0210eb9447757ca1a7cb607162f0a364"
+  dependencies:
+    react-is "^16.3.2"
+
 home-or-tmp@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/home-or-tmp/-/home-or-tmp-2.0.0.tgz#e36c3f2d2cae7d746a857e38d18d5f32a7882db8"
@@ -5661,18 +5667,18 @@ promise@~7.0.1:
   dependencies:
     asap "~2.0.3"
 
+prop-types@^15.5.0, prop-types@^15.6.1:
+  version "15.6.2"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
+  dependencies:
+    loose-envify "^1.3.1"
+    object-assign "^4.1.1"
+
 prop-types@^15.5.10, prop-types@^15.6.0:
   version "15.6.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.1.tgz#36644453564255ddda391191fb3a125cbdf654ca"
   dependencies:
     fbjs "^0.8.16"
-    loose-envify "^1.3.1"
-    object-assign "^4.1.1"
-
-prop-types@^15.6.1:
-  version "15.6.2"
-  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
-  dependencies:
     loose-envify "^1.3.1"
     object-assign "^4.1.1"
 
@@ -5808,6 +5814,13 @@ react-apollo@^2.1.5:
     lodash "4.17.10"
     prop-types "^15.6.0"
 
+react-async-script@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-async-script/-/react-async-script-1.0.0.tgz#3578153247bc3f9654a5878c4142539ffbf65c2d"
+  dependencies:
+    hoist-non-react-statics "^3.0.1"
+    prop-types "^15.5.0"
+
 react-dev-utils@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-5.0.1.tgz#1f396e161fe44b595db1b186a40067289bf06613"
@@ -5843,6 +5856,17 @@ react-dom@^16.3.2:
 react-error-overlay@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-4.0.0.tgz#d198408a85b4070937a98667f500c832f86bd5d4"
+
+react-google-recaptcha@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-google-recaptcha/-/react-google-recaptcha-1.0.0.tgz#ab3f7a04efcb2c598f674e54c6754e30729e87ec"
+  dependencies:
+    prop-types "^15.5.0"
+    react-async-script "^1.0.0"
+
+react-is@^16.3.2:
+  version "16.4.2"
+  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.4.2.tgz#84891b56c2b6d9efdee577cc83501dfc5ecead88"
 
 react-router-dom@^4.3.1:
   version "4.3.1"
@@ -6463,9 +6487,9 @@ shellwords@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/shellwords/-/shellwords-0.1.1.tgz#d6b9181c1a48d397324c84871efbcfc73fc0654b"
 
-"sienna-boilerplate@https://github.com/siennamw/sienna-boilerplate":
+"sienna-boilerplate@github:siennamw/sienna-boilerplate":
   version "0.0.1"
-  resolved "https://github.com/siennamw/sienna-boilerplate#2533b74af1c2be33a83f39bd115fd2c5519c3163"
+  resolved "https://codeload.github.com/siennamw/sienna-boilerplate/tar.gz/2533b74af1c2be33a83f39bd115fd2c5519c3163"
   dependencies:
     jquery "^3.2.1"
     normalize.css "^4.1.1"
