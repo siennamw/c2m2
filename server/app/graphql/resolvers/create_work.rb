@@ -26,6 +26,10 @@ class Resolvers::CreateWork < GraphQL::Function
 
   # the mutation method
   def call(_obj, args, ctx)
+    if ctx[:current_user].blank?
+      raise GraphQL::ExecutionError.new("Authentication required")
+    end
+
     Work.create!(
       title: args[:title],
       secondary_title: args[:secondary_title],
@@ -50,6 +54,7 @@ class Resolvers::CreateWork < GraphQL::Function
       production_company_ids: args[:production_company_ids],
       publisher_ids: args[:publisher_ids]
     )
+
   rescue ActiveRecord::RecordInvalid => e
     # this would catch all validation errors and translate them to GraphQL::ExecutionError
     GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")

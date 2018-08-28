@@ -16,6 +16,8 @@ gem 'puma', '~> 3.7'
 gem 'turbolinks', '~> 5'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
+# Use JSON web tokens for authentication
+gem "json_web_token", "~> 0.3.5"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -26,6 +28,8 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  # Manage environment variables
+  gem "dotenv-rails", "~> 2.5"
 end
 
 group :development do

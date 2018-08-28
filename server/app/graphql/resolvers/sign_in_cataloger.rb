@@ -9,7 +9,7 @@ class Resolvers::SignInCataloger < GraphQL::Function
     field :cataloger, Types::CatalogerType
   end
 
-  def call(_obj, args, ctx)
+  def call(_obj, args, _ctx)
     input = args[:email]
 
     # basic validation
@@ -21,13 +21,10 @@ class Resolvers::SignInCataloger < GraphQL::Function
     return unless cataloger
     return unless cataloger.authenticate(input[:password])
 
-    # use Ruby on Rails - ActiveSupport::MessageEncryptor, to build a token
-    crypt = ActiveSupport::MessageEncryptor.new(Rails.application.secrets.secret_key_base.byteslice(0..31))
-    token = crypt.encrypt_and_sign("cataloger-id:#{ cataloger.id }")
-
-    ctx[:session][:token] = token
-
-    OpenStruct.new({ cataloger: cataloger, token: token })
+    OpenStruct.new({
+      token: AuthToken.token(cataloger),
+      cataloger: cataloger
+    })
 
   rescue ActiveRecord::RecordInvalid => e
     # this would catch all validation errors and translate them to GraphQL::ExecutionError

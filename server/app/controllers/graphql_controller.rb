@@ -4,7 +4,6 @@ class GraphqlController < ApplicationController
     query = params[:query]
     operation_name = params[:operationName]
     context = {
-      session: session,
       current_user: current_user
     }
     result = C2m2BackendSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
@@ -14,15 +13,12 @@ class GraphqlController < ApplicationController
 
   private
 
-  # gets current user from token stored in session
+  # gets current user from JSON web token
   def current_user
-    # if we want to change the sign-in strategy, this is the place to do it
-    return unless session[:token]
-
-    crypt = ActiveSupport::MessageEncryptor.new(Rails.application.secrets.secret_key_base.byteslice(0..31))
-    token = crypt.decrypt_and_verify(session[:token])
-    user_id = token.gsub('cataloger-id:', '').to_i
-    Cataloger.find(user_id)
+    return nil if request.headers['Authorization'].blank?
+    token = request.headers['Authorization'].split(' ').last
+    return nil if token.blank?
+    AuthToken.verify(token)
   rescue ActiveSupport::MessageVerifier::InvalidSignature
     nil
   end

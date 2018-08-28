@@ -8,7 +8,11 @@ class Resolvers::CreateCollection < GraphQL::Function
   type Types::CollectionType
 
   # the mutation method
-  def call(_obj, args, _ctx)
+  def call(_obj, args, ctx)
+    if ctx[:current_user].blank?
+      raise GraphQL::ExecutionError.new("Authentication required")
+    end
+
     repository = Repository.find(args[:repository_id])
     return unless repository
 
@@ -17,6 +21,7 @@ class Resolvers::CreateCollection < GraphQL::Function
       description: args[:description],
       repository: repository,
     )
+
   rescue ActiveRecord::RecordInvalid => e
     # this would catch all validation errors and translate them to GraphQL::ExecutionError
     GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")

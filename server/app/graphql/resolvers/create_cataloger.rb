@@ -1,5 +1,5 @@
 class Resolvers::CreateCataloger < GraphQL::Function
-  AuthProviderInput = GraphQL::InputObjectType.define do
+  auth_provider_input = GraphQL::InputObjectType.define do
     name 'AuthProviderSignupData'
 
     argument :email, Types::AuthProviderEmailInput
@@ -7,7 +7,7 @@ class Resolvers::CreateCataloger < GraphQL::Function
 
   # arguments passed as "args"
   argument :name, !types.String
-  argument :authProvider, !AuthProviderInput
+  argument :authProvider, !auth_provider_input
   argument :description, types.String
 
   # return type from the mutation
@@ -17,7 +17,11 @@ class Resolvers::CreateCataloger < GraphQL::Function
   # _obj - is parent object, which in this case is nil
   # args - are the arguments passed
   # _ctx - is the GraphQL context
-  def call(_obj, args, _ctx)
+  def call(_obj, args, ctx)
+    if ctx[:current_user].blank?
+      raise GraphQL::ExecutionError.new("Authentication required")
+    end
+
     Cataloger.create!(
       name: args[:name],
       email: args[:authProvider][:email][:email],

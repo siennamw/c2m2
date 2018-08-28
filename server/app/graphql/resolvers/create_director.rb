@@ -7,11 +7,16 @@ class Resolvers::CreateDirector < GraphQL::Function
   type Types::DirectorType
 
   # the mutation method
-  def call(_obj, args, _ctx)
+  def call(_obj, args, ctx)
+    if ctx[:current_user].blank?
+      raise GraphQL::ExecutionError.new("Authentication required")
+    end
+
     Director.create!(
       name: args[:name],
       imdb_link: args[:imdb_link],
     )
+
   rescue ActiveRecord::RecordInvalid => e
     # this would catch all validation errors and translate them to GraphQL::ExecutionError
     GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")
