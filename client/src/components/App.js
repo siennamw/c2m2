@@ -9,6 +9,8 @@ import About from './About';
 import Vision from './Vision';
 import ResourceSuggestion from './ResourceSuggestion';
 import Contact from './Contact';
+import CatalogerDashboard from './CatalogerDashboard';
+
 import UnknownRoute from './UnknownRoute';
 
 class App extends React.Component {
@@ -23,6 +25,7 @@ class App extends React.Component {
             <Route exact path="/vision" component={Vision}/>
             <Route exact path="/suggest" component={ResourceSuggestion}/>
             <Route exact path="/contact" component={Contact}/>
+            <Route path="/dashboard" component={CatalogerDashboard}/>
             <Route component={UnknownRoute}/>
           </Switch>
         </main>
