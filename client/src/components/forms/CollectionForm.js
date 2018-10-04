@@ -5,15 +5,9 @@ import * as Yup from 'yup';
 const validationSchema = Yup.object().shape({
   name: Yup.string()
     .required('Name is required'),
-  email: Yup.string()
-    .email('E-mail is not valid')
-    .required('E-mail is required'),
-  password: Yup.string()
-    .min(6, 'Password must be longer than 6 characters')
-    .required('Password is required')
 });
 
-const InnerCatalogerForm = ({ handleSubmit, isSubmitting }) => {
+const InnerCollectionForm = ({ handleSubmit, isSubmitting }) => {
   return (
     <Form>
       <label htmlFor='name'>
@@ -22,24 +16,11 @@ const InnerCatalogerForm = ({ handleSubmit, isSubmitting }) => {
       <Field type='text'
              name='name'
              className='u-full-width'/>
-      <label htmlFor='email'>
-        Email <ErrorMessage name='email' component='div' className='form-error' />
-      </label>
-      <Field type='email'
-             name='email'
-             className='u-full-width'/>
-      <label htmlFor='description'>
+      <label htmlFor='name'>
         Description <ErrorMessage name='description' component='div' className='form-error' />
       </label>
       <Field type='text'
              name='description'
-             className='u-full-width'/>
-      <label htmlFor='password'>
-        Password <ErrorMessage name='password' component='div' className='form-error' />
-      </label>
-      <Field type='password'
-             name='password'
-             autoComplete='new-password'
              className='u-full-width'/>
       <button type='submit'
               className='button-primary u-full-width'
@@ -51,23 +32,21 @@ const InnerCatalogerForm = ({ handleSubmit, isSubmitting }) => {
   )
 };
 
-const CatalogerForm = () => {
+const CollectionForm = () => {
   return (
     <div>
-      <h3>New Cataloger</h3>
+      <h3>New Collection</h3>
       <Formik
         initialValues={{
           name: '',
-          email: '',
           description: '',
-          password: '',
         }}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => console.log(values)}
-        render={InnerCatalogerForm}
+        render={InnerCollectionForm}
       />
     </div>
   )
 };
 
-export default CatalogerForm;
+export default CollectionForm;
