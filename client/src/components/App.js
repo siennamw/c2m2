@@ -10,6 +10,7 @@ import Vision from './Vision';
 import ResourceSuggestion from './ResourceSuggestion';
 import Contact from './Contact';
 import CatalogerDashboard from './CatalogerDashboard';
+import WorksList from './WorksList';
 
 import UnknownRoute from './UnknownRoute';
 
@@ -25,6 +26,7 @@ class App extends React.Component {
             <Route exact path="/vision" component={Vision}/>
             <Route exact path="/suggest" component={ResourceSuggestion}/>
             <Route exact path="/contact" component={Contact}/>
+            <Route exact path="/works" component={WorksList}/>
             <Route path="/dashboard" component={CatalogerDashboard}/>
             <Route component={UnknownRoute}/>
           </Switch>

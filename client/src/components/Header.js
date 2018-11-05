@@ -36,14 +36,23 @@ class Header extends React.Component {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/vision" onClick={this.hideNarrowMenu}>
-                Vision &amp; Design
+              <NavLink to="/works" onClick={this.hideNarrowMenu}>
+                Browse
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/about" onClick={this.hideNarrowMenu}>
-                Why C2M2?
-              </NavLink>
+            <li><a>About</a>
+              <ul>
+                <li>
+                  <NavLink to="/vision" onClick={this.hideNarrowMenu}>
+                    Vision &amp; Design
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/about" onClick={this.hideNarrowMenu}>
+                    Why C2M2?
+                  </NavLink>
+                </li>
+              </ul>
             </li>
             <li><a>External Links</a>
               <ul>
