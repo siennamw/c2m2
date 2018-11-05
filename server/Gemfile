@@ -8,7 +8,7 @@ end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.6'
-# Use PostgreSQL as the database for Actipostgresqlve Record
+# Use PostgreSQL as the database
 gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
@@ -18,6 +18,8 @@ gem 'turbolinks', '~> 5'
 gem 'bcrypt', '~> 3.1.7'
 # Use JSON web tokens for authentication
 gem "json_web_token", "~> 0.3.5"
+# For CORS
+gem "rack-cors", require: "rack/cors"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
