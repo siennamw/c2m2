@@ -40,51 +40,24 @@ class Header extends React.Component {
                 Browse
               </NavLink>
             </li>
-            <li><a>About</a>
+            <li>
+              <NavLink to="/search" onClick={this.hideNarrowMenu}>
+                Search
+              </NavLink>
+            </li>
+            <li><a>Contact</a>
               <ul>
                 <li>
-                  <NavLink to="/vision" onClick={this.hideNarrowMenu}>
-                    Vision &amp; Design
+                  <NavLink to="/contact">
+                    Contact Us
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/about" onClick={this.hideNarrowMenu}>
-                    Why C2M2?
+                  <NavLink to="/suggest">
+                    Suggest a Resource
                   </NavLink>
                 </li>
               </ul>
-            </li>
-            <li><a>External Links</a>
-              <ul>
-                <li>
-                  <a href="http://www.michaelwharris.net/" target="_blank"
-                     rel="noopener noreferrer" onClick={this.hideNarrowMenu}>
-                    Michael W. Harris: Librarian, Archivist, and Musicologist
-                  </a>
-                </li>
-                <li>
-                  <a href="http://www.thetemptrack.com" target="_blank" rel="noopener noreferrer"
-                     onClick={this.hideNarrowMenu}>
-                    The Temp Track
-                  </a>
-                </li>
-                <li>
-                  <a href="http://www.siennamwood.com" target="_blank" rel="noopener noreferrer"
-                     onClick={this.hideNarrowMenu}>
-                    Sienna M. Wood: Software Engineer and Musicologist
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <NavLink to="/suggest" onClick={this.hideNarrowMenu}>
-                Suggest a Resource
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/contact" onClick={this.hideNarrowMenu}>
-                Contact
-              </NavLink>
             </li>
           </ul>
         </nav>
