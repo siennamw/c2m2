@@ -1,6 +1,25 @@
 import React from 'react';
+
+import gql from 'graphql-tag'
+import { Mutation } from 'react-apollo'
+
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+
+import * as constants from '../constants';
+
+const SIGN_IN_MUTATION = gql`
+  mutation SignInCataloger($email: String!, $password: String!){
+    signInCataloger(email: {email: $email, password: $password}) {
+      token
+      cataloger {
+        id
+        name
+        email
+      }
+    }
+  }
+`;
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -39,18 +58,38 @@ const CatalogerSignInForm = ({ handleSubmit, isSubmitting }) => {
 };
 
 const CatalogerSignIn = () => {
+  const handleSubmit = async (mutation, values) => {
+    const payload = {
+      variables: {
+        email: values.email,
+        password: values.password
+      }
+    };
+    const {data} = await mutation(payload);
+
+    if(data.signInCataloger){
+      sessionStorage.setItem(constants.SESSION_STORAGE_KEY, data.signInCataloger.token);
+    } else {
+      console.log('failed to sign in');
+    };
+  };
+
   return (
     <div>
-      <h3>Cataloger Sign In</h3>
-      <Formik
-        initialValues={{
-          email: '',
-          password: '',
-        }}
-        validationSchema={validationSchema}
-        onSubmit={(values, { setSubmitting }) => console.log(values)}
-        render={CatalogerSignInForm}
-      />
+      <h2>Cataloger Sign In</h2>
+      <Mutation mutation={SIGN_IN_MUTATION}>
+        {(signInMutation) => (
+          <Formik
+            initialValues={{
+              email: '',
+              password: '',
+            }}
+            validationSchema={validationSchema}
+            onSubmit={(values, { setSubmitting }) => handleSubmit(signInMutation, values)}
+            render={CatalogerSignInForm}
+          />
+        )}
+      </Mutation>
     </div>
   )
 };
