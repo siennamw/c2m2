@@ -2,13 +2,13 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom'
 
 import Header from './Header';
-import Footer from './Footer';
+import Footer from './footer/Footer';
 
 import Home from './Home';
 import About from './About';
 import Vision from './Vision';
-import ResourceSuggestion from './ResourceSuggestion';
-import Contact from './Contact';
+import ResourceSuggestion from './contact/ResourceSuggestion';
+import GeneralContact from './contact/GeneralContact';
 import CatalogerDashboard from './CatalogerDashboard';
 import WorksList from './WorksList';
 import CatalogerSignIn from './CatalogerSignIn';
@@ -26,7 +26,7 @@ class App extends React.Component {
             <Route exact path="/about" component={About}/>
             <Route exact path="/vision" component={Vision}/>
             <Route exact path="/suggest" component={ResourceSuggestion}/>
-            <Route exact path="/contact" component={Contact}/>
+            <Route exact path="/contact" component={GeneralContact}/>
             <Route exact path="/works" component={WorksList}/>
             <Route exact path="/sign-in" component={CatalogerSignIn}/>
             <Route path="/dashboard" component={CatalogerDashboard}/>

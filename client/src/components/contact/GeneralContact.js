@@ -1,7 +1,7 @@
 import React from 'react';
 import ReCAPTCHA from "react-google-recaptcha";
 
-export default class Contact extends React.Component {
+export default class GeneralContact extends React.Component {
   state = {
     name: '',
     email: '',
@@ -27,7 +27,7 @@ export default class Contact extends React.Component {
   render() {
     return (
       <div>
-        <h2>Suggest a Resource</h2>
+        <h2>Contact Us</h2>
         <form className="resource-suggest"
               onSubmit={this.onSubmit}
         >
