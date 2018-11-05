@@ -5,6 +5,15 @@
 @secondary: lighten(@primary, 20%);
 @link-color: @primary;
 
+.uppercase() {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: inherit;
+  text-decoration: none;
+  letter-spacing: .1rem;
+  color: inherit;
+}
+
 .logo {
   width: 14em;
   padding: 1em;
@@ -62,10 +71,28 @@ form {
 
 footer {
   clear: both;
-  border-top: solid @light-gray 1px;
-  margin: 5rem 0 0 0;
-  padding: 3rem 0;
-  text-align: center;
+  margin: 6rem 0 0 0;
+  font-size: 90%;
+
+  & > * {
+    border-top: solid @light-gray 1px;
+    padding: 3rem 0;
+  }
+
+  #footer-links {
+    h5 {
+      .uppercase();
+      margin: 1rem 0;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+  }
+
+  #footer-attribution {
+    text-align: center;
+  }
 }
 
 #works-list-table {

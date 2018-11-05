@@ -1,14 +1,13 @@
 import React from 'react';
 
-const Footer = () => {
+const FooterAttribution = () => {
   const date = new Date();
   const year = date.getFullYear();
   return (
-    <footer>
-      <p>
+      <div id='footer-attribution'>
         Copyright &copy; {year} <a href="http://www.michaelwharris.net/"
-           target="_blank"
-           rel="noopener noreferrer"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
         >
           Michael W. Harris
         </a> and <a href="http://www.siennamwood.com"
@@ -17,9 +16,8 @@ const Footer = () => {
         >
           Sienna M. Wood
         </a>
-      </p>
-    </footer>
+      </div>
   )
 };
 
-export default Footer;
+export default FooterAttribution;
