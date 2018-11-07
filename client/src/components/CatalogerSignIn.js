@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 
 import gql from 'graphql-tag'
 import { Mutation } from 'react-apollo'
@@ -7,6 +8,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 import * as constants from '../constants';
+import { isAuthenticated } from '../utils';
 
 const SIGN_IN_MUTATION = gql`
   mutation SignInCataloger($email: String!, $password: String!){
@@ -34,14 +36,14 @@ const CatalogerSignInForm = ({ handleSubmit, isSubmitting }) => {
   return (
     <Form>
       <label htmlFor='email'>
-        Email <ErrorMessage name='email' component='div' className='form-error' />
+        Email <ErrorMessage name='email' component='div' className='form-error'/>
       </label>
       <Field type='email'
              name='email'
              autoComplete='email'
              className='u-full-width'/>
       <label htmlFor='password'>
-        Password <ErrorMessage name='password' component='div' className='form-error' />
+        Password <ErrorMessage name='password' component='div' className='form-error'/>
       </label>
       <Field type='password'
              name='password'
@@ -57,41 +59,56 @@ const CatalogerSignInForm = ({ handleSubmit, isSubmitting }) => {
   )
 };
 
-const CatalogerSignIn = () => {
-  const handleSubmit = async (mutation, values) => {
+class CatalogerSignIn extends React.Component {
+  state = {
+    redirect: isAuthenticated(), // if authenticated, redirect immediately
+  };
+
+  handleSubmit = async (mutation, values, setSubmitting) => {
     const payload = {
       variables: {
         email: values.email,
         password: values.password
       }
     };
-    const {data} = await mutation(payload);
+    const { data } = await mutation(payload);
+    setSubmitting(false);
 
-    if(data.signInCataloger){
+    if (data.signInCataloger) {
       sessionStorage.setItem(constants.SESSION_STORAGE_KEY, data.signInCataloger.token);
+      this.setState({ redirect: true });
     } else {
       console.log('failed to sign in');
-    };
+    }
   };
 
-  return (
-    <div>
-      <h2>Cataloger Sign In</h2>
-      <Mutation mutation={SIGN_IN_MUTATION}>
-        {(signInMutation) => (
-          <Formik
-            initialValues={{
-              email: '',
-              password: '',
-            }}
-            validationSchema={validationSchema}
-            onSubmit={(values, { setSubmitting }) => handleSubmit(signInMutation, values)}
-            render={CatalogerSignInForm}
-          />
-        )}
-      </Mutation>
-    </div>
-  )
+  render = () => {
+    const { from } = this.props.location.state || { from: { pathname: '/dashboard' } };
+    const { redirect } = this.state;
+
+    if (redirect) {
+      return <Redirect to={from}/>;
+    }
+
+    return (
+      <div>
+        <h2>Cataloger Sign In</h2>
+        <Mutation mutation={SIGN_IN_MUTATION}>
+          {(signInMutation) => (
+            <Formik
+              initialValues={{
+                email: '',
+                password: '',
+              }}
+              validationSchema={validationSchema}
+              onSubmit={(values, { setSubmitting }) => this.handleSubmit(signInMutation, values, setSubmitting)}
+              render={CatalogerSignInForm}
+            />
+          )}
+        </Mutation>
+      </div>
+    )
+  }
 };
 
 export default CatalogerSignIn;
