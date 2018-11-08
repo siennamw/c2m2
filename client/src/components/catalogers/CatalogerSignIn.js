@@ -7,8 +7,8 @@ import { Mutation } from 'react-apollo'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-import * as constants from '../constants';
-import { isAuthenticated } from '../utils';
+import * as constants from '../../constants';
+import { isAuthenticated } from '../../utils';
 
 const SIGN_IN_MUTATION = gql`
   mutation SignInCataloger($email: String!, $password: String!){

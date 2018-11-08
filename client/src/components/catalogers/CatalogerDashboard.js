@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link, Route, Switch } from 'react-router-dom'
 
-import Nav from './nav/Nav';
+import Nav from '../nav/Nav';
 
 import CatalogerHome from "./CatalogerHome";
-import CatalogerForm from "./forms/CatalogerForm";
-import CollectionForm from "./forms/CollectionForm";
-import RepositoryForm from "./forms/RepositoryForm";
+import CatalogerForm from "../forms/CatalogerForm";
+import CollectionForm from "../forms/CollectionForm";
+import RepositoryForm from "../forms/RepositoryForm";
 
 const CatalogerDashboard = ({ match }) => {
   return (

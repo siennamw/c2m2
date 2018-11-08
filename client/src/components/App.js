@@ -5,8 +5,8 @@ import Header from './Header';
 import Footer from './footer/Footer';
 
 import About from './About';
-import CatalogerDashboard from './CatalogerDashboard';
-import CatalogerSignIn from './CatalogerSignIn';
+import CatalogerDashboard from './catalogers/CatalogerDashboard';
+import CatalogerSignIn from './catalogers/CatalogerSignIn';
 import GeneralContact from './contact/GeneralContact';
 import Home from './Home';
 import ResourceSuggestion from './contact/ResourceSuggestion';
