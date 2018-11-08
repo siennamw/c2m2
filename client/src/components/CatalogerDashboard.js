@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link, Route, Switch } from 'react-router-dom'
 
+import Nav from './nav/Nav';
+
 import CatalogerHome from "./CatalogerHome";
-import CatalogerSignIn from "./CatalogerSignIn";
 import CatalogerForm from "./forms/CatalogerForm";
 import CollectionForm from "./forms/CollectionForm";
 import RepositoryForm from "./forms/RepositoryForm";
@@ -11,14 +12,12 @@ const CatalogerDashboard = ({ match }) => {
   return (
     <div>
       <h2>Cataloger Dashboard</h2>
-      <nav className='dashboard-nav'>
-        <ul>
+      <Nav>
           <li><Link to={`${match.path}`}>Home</Link></li>
           <li><Link to={`${match.path}/cataloger`}>New Cataloger</Link></li>
           <li><Link to={`${match.path}/collection`}>New Collection</Link></li>
           <li><Link to={`${match.path}/repository`}>New Repository</Link></li>
-        </ul>
-      </nav>
+      </Nav>
       <div className="tabs">
         <Switch>
           <Route exact path={`${match.path}`} component={CatalogerHome} />

@@ -31,17 +31,6 @@ main {
   }
 }
 
-.dashboard-nav {
-  margin-bottom: 2rem;
-}
-
-p.message {
-  text-align: center;
-  padding: 10px;
-  background: #FFFF99;
-  margin-bottom: 1rem;
-}
-
 p.caption {
   font-style: italic;
   font-size: 90%;
@@ -53,10 +42,6 @@ form {
     display: block;
     margin: 2.5rem auto;
     width: 60%;
-
-    &.button-primary:focus, &.button-primary:hover {
-      background-color: darken(@primary, 10%);
-    }
   }
 
   .form-error {
@@ -97,6 +82,6 @@ footer {
 
 #works-list-table {
   td > span {
-    display: block;
+    display: block; // gives new line for each item (ex. two directors)
   }
 }
