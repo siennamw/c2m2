@@ -75,7 +75,7 @@ class CatalogerSignIn extends React.Component {
     setSubmitting(false);
 
     if (data.signInCataloger) {
-      sessionStorage.setItem(constants.SESSION_STORAGE_KEY, data.signInCataloger.token);
+      localStorage.setItem(constants.LOCAL_STORAGE_KEY, data.signInCataloger.token);
       this.setState({ redirect: true });
     } else {
       console.log('failed to sign in');
@@ -83,7 +83,7 @@ class CatalogerSignIn extends React.Component {
   };
 
   render = () => {
-    const { from } = this.props.location.state || { from: { pathname: '/dashboard' } };
+    const { from } = this.props.location.state || { from: { pathname: '/dashboard/home' } };
     const { redirect } = this.state;
 
     if (redirect) {

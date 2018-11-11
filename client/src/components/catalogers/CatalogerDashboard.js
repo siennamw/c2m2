@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Route, Switch } from 'react-router-dom'
+import { NavLink, Route, Switch } from 'react-router-dom'
 
 import Nav from '../nav/Nav';
 
@@ -13,17 +13,19 @@ const CatalogerDashboard = ({ match }) => {
     <div>
       <h2>Cataloger Dashboard</h2>
       <Nav>
-          <Link to={`${match.path}`}>Home</Link>
-          <Link to={`${match.path}/cataloger`}>New Cataloger</Link>
-          <Link to={`${match.path}/collection`}>New Collection</Link>
-          <Link to={`${match.path}/repository`}>New Repository</Link>
+        <NavLink to={`${match.path}/home`}>Home</NavLink>
+        <NavLink to={`${match.path}/cataloger`}>New Cataloger</NavLink>
+        <NavLink to={`${match.path}/collection`}>New Collection</NavLink>
+        <NavLink to={`${match.path}/repository`}>New Repository</NavLink>
+        <NavLink to={'/sign-out'}>Sign Out</NavLink>
       </Nav>
       <div className="tabs">
         <Switch>
-          <Route exact path={`${match.path}`} component={CatalogerHome} />
-          <Route path={`${match.path}/cataloger`} component={CatalogerForm} />
-          <Route path={`${match.path}/collection`} component={CollectionForm} />
-          <Route path={`${match.path}/repository`} component={RepositoryForm} />
+          <Route exact path={`${match.path}/home`} component={CatalogerHome} />
+          <Route exact path={`${match.path}/cataloger`} component={CatalogerForm} />
+          <Route exact path={`${match.path}/collection`} component={CollectionForm} />
+          <Route exact path={`${match.path}/repository`} component={RepositoryForm} />
+          <Route component={CatalogerHome}/>
         </Switch>
       </div>
     </div>

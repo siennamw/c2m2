@@ -7,6 +7,7 @@ import Footer from './footer/Footer';
 import About from './About';
 import CatalogerDashboard from './catalogers/CatalogerDashboard';
 import CatalogerSignIn from './catalogers/CatalogerSignIn';
+import CatalogerSignOut from './catalogers/CatalogerSignOut';
 import GeneralContact from './contact/GeneralContact';
 import Home from './Home';
 import ResourceSuggestion from './contact/ResourceSuggestion';
@@ -26,6 +27,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/about" component={About}/>
             <Route exact path="/sign-in" component={CatalogerSignIn}/>
+            <Route exact path="/sign-out" component={CatalogerSignOut}/>
             <Route exact path="/contact" component={GeneralContact}/>
             <Route exact path="/" component={Home}/>
             <Route exact path="/suggest" component={ResourceSuggestion}/>
