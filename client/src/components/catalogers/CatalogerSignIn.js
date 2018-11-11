@@ -32,7 +32,7 @@ const validationSchema = Yup.object().shape({
     .required('Password is required')
 });
 
-const CatalogerSignInForm = ({ handleSubmit, isSubmitting }) => {
+const CatalogerSignInForm = ({ handleSubmit, isSubmitting, status }) => {
   return (
     <Form>
       <label htmlFor='email'>
@@ -55,6 +55,11 @@ const CatalogerSignInForm = ({ handleSubmit, isSubmitting }) => {
               onClick={handleSubmit}>
         Sign In
       </button>
+      {
+        status ?
+          <div className='form-error api-error'>{status}</div> :
+          undefined
+      }
     </Form>
   )
 };
@@ -64,21 +69,26 @@ class CatalogerSignIn extends React.Component {
     redirect: isAuthenticated(), // if authenticated, redirect immediately
   };
 
-  handleSubmit = async (mutation, values, setSubmitting) => {
-    const payload = {
-      variables: {
-        email: values.email,
-        password: values.password
-      }
-    };
-    const { data } = await mutation(payload);
-    setSubmitting(false);
+  handleSubmit = async (mutation, values, setSubmitting, setStatus) => {
+    try {
+      const payload = {
+        variables: {
+          email: values.email,
+          password: values.password
+        }
+      };
+      const { data } = await mutation(payload);
+      setSubmitting(false);
 
-    if (data.signInCataloger) {
-      localStorage.setItem(constants.LOCAL_STORAGE_KEY, data.signInCataloger.token);
-      this.setState({ redirect: true });
-    } else {
-      console.log('failed to sign in');
+      if (data.signInCataloger) {
+        localStorage.setItem(constants.LOCAL_STORAGE_KEY, data.signInCataloger.token);
+        this.setState({ redirect: true });
+      } else {
+        setStatus('Failed to sign in. Please check email and password.');
+      }
+    } catch (err) {
+      console.log('Error signing in', err);
+      setStatus('Unknown error signing in. Please try again later.');
     }
   };
 
@@ -101,7 +111,7 @@ class CatalogerSignIn extends React.Component {
                 password: '',
               }}
               validationSchema={validationSchema}
-              onSubmit={(values, { setSubmitting }) => this.handleSubmit(signInMutation, values, setSubmitting)}
+              onSubmit={(values, { setSubmitting, setStatus }) => this.handleSubmit(signInMutation, values, setSubmitting, setStatus)}
               render={CatalogerSignInForm}
             />
           )}
