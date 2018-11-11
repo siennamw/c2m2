@@ -13,10 +13,10 @@ const CatalogerDashboard = ({ match }) => {
     <div>
       <h2>Cataloger Dashboard</h2>
       <Nav>
-          <li><Link to={`${match.path}`}>Home</Link></li>
-          <li><Link to={`${match.path}/cataloger`}>New Cataloger</Link></li>
-          <li><Link to={`${match.path}/collection`}>New Collection</Link></li>
-          <li><Link to={`${match.path}/repository`}>New Repository</Link></li>
+          <Link to={`${match.path}`}>Home</Link>
+          <Link to={`${match.path}/cataloger`}>New Cataloger</Link>
+          <Link to={`${match.path}/collection`}>New Collection</Link>
+          <Link to={`${match.path}/repository`}>New Repository</Link>
       </Nav>
       <div className="tabs">
         <Switch>
