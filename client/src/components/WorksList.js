@@ -4,16 +4,41 @@ import { Query } from 'react-apollo';
 
 import * as queries from '../queries';
 
-const WorksList = () => {
+const WorksList = ({filter, itemsPerPage}) => {
+  const loadMore = (data, fetchMore) => {
+    fetchMore({
+      variables: {
+        skip: data.allWorks.length
+      },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return prev;
+        return {...prev, ...{
+            allWorks: [...prev.allWorks, ...fetchMoreResult.allWorks]
+          }};
+      }
+    })
+  };
+
   return (
-    <Query query={queries.WORKS_SEARCH}>
-      {({ loading, error, data }) => {
+    <Query query={queries.WORKS_SEARCH}
+           variables={{
+             filter: filter || {},
+             first: itemsPerPage || 5,
+             skip: 0
+           }}
+    >
+      {({ loading, error, data, fetchMore }) => {
         return (
           <div>
             <h2>Browse Works</h2>
             { loading ? <div>Fetching...</div> : undefined }
             { error ? <div>Error: Works could not be fetched.</div> : undefined }
-            { !loading && !error ? <WorksListTable works={data.allWorks} /> : undefined }
+            { !loading && !error ?
+              <WorksListTable works={data.allWorks}
+                              onLoadMore={() => loadMore(data, fetchMore)}
+              /> :
+              undefined
+            }
           </div>
         );
       }}
@@ -21,7 +46,7 @@ const WorksList = () => {
   );
 };
 
-const WorksListTable = ({works}) => {
+const WorksListTable = ({works, onLoadMore}) => {
   const wrapWithLink = (item) => (
     // TODO: make this link functional
     <span key={item.id}><a href={item.id}>{item.name}</a></span>
@@ -51,9 +76,12 @@ const WorksListTable = ({works}) => {
   );
 
   return (
-    <table id='works-list-table' className="u-full-width">
-      {items}
-    </table>
+    <div>
+      <table id='works-list-table' className="u-full-width">
+        {items}
+      </table>
+      <button className='center load-more' onClick={onLoadMore}>Load More Results</button>
+    </div>
   )
 };
 
