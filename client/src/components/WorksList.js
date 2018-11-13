@@ -3,6 +3,8 @@ import React from 'react';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 
+import * as constants from '../constants';
+
 const WORKS_QUERY = gql`
   {
     allWorks {
@@ -30,13 +32,12 @@ const WorksList = () => {
   return (
     <Query query={WORKS_QUERY}>
       {({ loading, error, data }) => {
-        if (loading) return <div>Fetching</div>;
-        if (error) return <div>Error</div>;
-
         return (
           <div>
             <h2>Browse Works</h2>
-            <WorksListTable works={data.allWorks} />
+            { loading ? <div>Fetching...</div> : undefined }
+            { error ? <div>Error: Works could not be fetched.</div> : undefined }
+            { !loading && !error ? <WorksListTable works={data.allWorks} /> : undefined }
           </div>
         );
       }}
