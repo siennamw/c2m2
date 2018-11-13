@@ -1,27 +1,15 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
-import gql from 'graphql-tag'
 import { Mutation } from 'react-apollo'
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 import * as constants from '../../constants';
+import * as mutations from '../../mutations';
 import { isAuthenticated } from '../../utils';
 
-const SIGN_IN_MUTATION = gql`
-  mutation SignInCataloger($email: String!, $password: String!){
-    signInCataloger(email: {email: $email, password: $password}) {
-      token
-      cataloger {
-        id
-        name
-        email
-      }
-    }
-  }
-`;
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -103,7 +91,7 @@ class CatalogerSignIn extends React.Component {
     return (
       <div>
         <h2>Cataloger Sign In</h2>
-        <Mutation mutation={SIGN_IN_MUTATION}>
+        <Mutation mutation={mutations.SIGN_IN}>
           {(signInMutation) => (
             <Formik
               initialValues={{

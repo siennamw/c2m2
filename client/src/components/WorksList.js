@@ -1,36 +1,12 @@
 import React from 'react';
 
-import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 
-import * as constants from '../constants';
-
-const WORKS_QUERY = gql`
-  {
-    allWorks {
-      id
-      year
-      title
-      secondary_title
-      composers {
-        id
-        name
-      }
-      directors {
-        id
-        name
-      }
-      country {
-        id
-        name
-      }
-    }
-  }
-`;
+import * as queries from '../queries';
 
 const WorksList = () => {
   return (
-    <Query query={WORKS_QUERY}>
+    <Query query={queries.WORKS_SEARCH}>
       {({ loading, error, data }) => {
         return (
           <div>
