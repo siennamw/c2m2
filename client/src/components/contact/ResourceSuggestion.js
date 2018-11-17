@@ -83,7 +83,7 @@ const InnerSuggestionForm = ({ handleSubmit, isSubmitting, setFieldValue }) => {
 
 const ResourceSuggestion = () => (
   <div>
-    <h2>Contact Us</h2>
+    <h2>Suggest a Resource</h2>
     <Formik
       initialValues={{
         name: '',
