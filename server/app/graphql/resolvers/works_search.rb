@@ -43,9 +43,9 @@ class Resolvers::WorksSearch
   def normalize_filters(value, branches = [])
     # add like SQL conditions
     scope = Work.all
-    scope = scope.where('title LIKE ?', "%#{value['title_contains']}%") if value['title_contains']
-    scope = scope.where('secondary_title LIKE ?', "%#{value['secondary_title_contains']}%") if value['secondary_title_contains']
-    scope = scope.where('alias_alternates LIKE ?', "%#{value['alias_alternates_contains']}%") if value['alias_alternates_contains']
+    scope = scope.where('title ILIKE ?', "%#{value['title_contains']}%") if value['title_contains']
+    scope = scope.where('secondary_title ILIKE ?', "%#{value['secondary_title_contains']}%") if value['secondary_title_contains']
+    scope = scope.where('alias_alternates ILIKE ?', "%#{value['alias_alternates_contains']}%") if value['alias_alternates_contains']
 
     branches << scope
 
