@@ -8,7 +8,7 @@ const validationSchema = Yup.object().shape({
   location: Yup.string()
     .required('Location is required'),
   website: Yup.string()
-    .url('Website is invalid'),
+    .url('Website is not a valid URL'),
 });
 
 const InnerRepositoryForm = ({ handleSubmit, isSubmitting }) => {

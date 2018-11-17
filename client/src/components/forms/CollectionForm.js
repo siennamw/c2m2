@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 const validationSchema = Yup.object().shape({
   name: Yup.string()
     .required('Name is required'),
+  description: Yup.string(),
 });
 
 const InnerCollectionForm = ({ handleSubmit, isSubmitting }) => {
@@ -21,7 +22,8 @@ const InnerCollectionForm = ({ handleSubmit, isSubmitting }) => {
       </label>
       <Field type='text'
              name='description'
-             className='u-full-width'/>
+             className='u-full-width'
+             component='textarea'/>
       <button type='submit'
               className='button-primary u-full-width'
               disabled={isSubmitting}

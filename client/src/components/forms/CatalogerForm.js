@@ -8,6 +8,7 @@ const validationSchema = Yup.object().shape({
   email: Yup.string()
     .email('E-mail is not valid')
     .required('E-mail is required'),
+  description: Yup.string(),
   password: Yup.string()
     .min(6, 'Password must be longer than 6 characters')
     .required('Password is required')
@@ -33,7 +34,8 @@ const InnerCatalogerForm = ({ handleSubmit, isSubmitting }) => {
       </label>
       <Field type='text'
              name='description'
-             className='u-full-width'/>
+             className='u-full-width'
+             component='textarea'/>
       <label htmlFor='password'>
         Password <ErrorMessage name='password' component='div' className='form-error' />
       </label>
