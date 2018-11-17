@@ -3,8 +3,7 @@ import { Redirect } from 'react-router-dom';
 
 import { withApollo } from 'react-apollo';
 
-import * as constants from '../../constants';
-import { isAuthenticated } from "../../utils";
+import { isAuthenticated, signOut } from "../../utils";
 
 class CatalogerSignOut extends React.Component {
   state = {
@@ -15,12 +14,12 @@ class CatalogerSignOut extends React.Component {
   async componentDidMount() {
     try {
       await this.props.client.resetStore();
-      localStorage.removeItem(constants.LOCAL_STORAGE_KEY);
     } catch (err) {
       this.setState({ ...this.state, err });
       console.log('Error signing out', err);
     }
 
+    signOut();
     this.setState({ ...this.state, authenticated: isAuthenticated() });
   }
 
