@@ -1,76 +1,73 @@
 import React from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 import ReCAPTCHA from "react-google-recaptcha";
 
-export default class GeneralContact extends React.Component {
-  state = {
-    name: '',
-    email: '',
-    message: '',
-    recaptcha: null,
-  };
+const validationSchema = Yup.object().shape({
+  name: Yup.string()
+    .required('Name is required'),
+  email: Yup.string()
+    .email('E-mail is not valid')
+    .required('E-mail is required'),
+  message: Yup.string()
+    .required('Message is required'),
+  recaptcha: Yup.string()
+    .required('ReCaptcha is required'),
+});
 
-  onChange = (e) => {
-    const newState = {...this.state};
-    newState[e.target.name] = e.target.value;
-    this.setState(newState);
-  };
-
-  onReCaptchaChange = (value) => {
-    this.setState({...this.state, recaptcha: value });
-  };
-
-  onSubmit = () => {
-    // if ReCaptcha is valid,
-    // call graphQL mutation triggering email here
-  };
-
-  render() {
-    return (
-      <div>
-        <h2>Contact Us</h2>
-        <form className="resource-suggest"
-              onSubmit={this.onSubmit}
-        >
-          <label htmlFor="name">Your Name *</label>
-          <input type="text"
-                 id="name"
-                 name="name"
-                 className="u-full-width"
-                 tabIndex="1"
-                 required
-                 onChange={this.onChange}
-          />
-          <label htmlFor="email">Your Email *</label>
-          <input type="email"
-                 id="email"
-                 name="email"
-                 className="u-full-width"
-                 tabIndex="2"
-                 required
-                 onChange={this.onChange}
-          />
-          <label htmlFor="message">Message</label>
-          <textarea id="message"
-                    name="message"
-                    className="u-full-width"
-                    tabIndex="7"
-                    cols="40"
-                    rows="100"
-                    onChange={this.onChange}
-          />
-          <ReCAPTCHA sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
-                     onChange={this.onReCaptchaChange}
-                     className="g-recaptcha"
-                     tabIndex="8"
-          />
-          <input className="button-primary"
-                 type="submit"
-                 value="Submit"
-                 tabIndex="9"
-          />
-        </form>
-      </div>
-    )
-  }
+const InnerContactForm = ({ handleSubmit, isSubmitting, setFieldValue }) => {
+  return (
+    <Form>
+      <label htmlFor='name'>
+        Name <ErrorMessage name='name' component='div' className='form-error'/>
+      </label>
+      <Field type='text'
+             name='name'
+             className='u-full-width'/>
+      <label htmlFor='email'>
+        Email <ErrorMessage name='email' component='div' className='form-error'/>
+      </label>
+      <Field type='email'
+             name='email'
+             className='u-full-width'/>
+      <label htmlFor='message'>
+        Message <ErrorMessage name='message' component='div' className='form-error'/>
+      </label>
+      <Field type='text'
+             name='message'
+             className='u-full-width'
+             component='textarea'/>
+      <ErrorMessage name='recaptcha' component='div' className='form-error'/>
+      <ReCAPTCHA sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+                 className="g-recaptcha"
+                 onChange={(response) => {
+                   setFieldValue("recaptcha", response);
+                 }}/>
+      <button type='submit'
+              className='button-primary u-full-width'
+              disabled={isSubmitting}
+              onClick={handleSubmit}>
+        Submit
+      </button>
+    </Form>
+  )
 };
 
+const GeneralContact = () => (
+  <div>
+    <h2>Contact Us</h2>
+    <Formik
+      initialValues={{
+        name: '',
+        email: '',
+        message: '',
+        recaptcha: '',
+      }}
+      validationSchema={validationSchema}
+      onSubmit={(values, { setSubmitting }) => console.log(values)}
+      render={InnerContactForm}
+    />
+  </div>
+);
+
+export default GeneralContact;

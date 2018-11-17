@@ -1,114 +1,105 @@
 import React from 'react';
 import ReCAPTCHA from "react-google-recaptcha";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import * as Yup from "yup";
 
-export default class ResourceSuggestion extends React.Component {
-  state = {
-    name: '',
-    email: '',
-    composer: '',
-    works: '',
-    link: '',
-    location: '',
-    comments: '',
-    recaptcha: null,
-  };
+const validationSchema = Yup.object().shape({
+  name: Yup.string()
+    .required('Name is required'),
+  email: Yup.string()
+    .email('E-mail is not valid')
+    .required('E-mail is required'),
+  composer: Yup.string(),
+  works: Yup.string(),
+  link: Yup.string()
+    .url('Link is not a valid URL'),
+  location: Yup.string(),
+  comment: Yup.string(),
+  recaptcha: Yup.string()
+    .required('ReCaptcha is required'),
+});
 
-  onChange = (e) => {
-    const newState = {...this.state};
-    newState[e.target.name] = e.target.value;
-    this.setState(newState);
-  };
-
-  onReCaptchaChange = (value) => {
-    this.setState({...this.state, recaptcha: value });
-  };
-
-  onSubmit = () => {
-    // if ReCaptcha is valid,
-    // call graphQL mutation triggering email here
-  };
-
-  render() {
-    return (
-      <div>
-        <h2>Suggest a Resource</h2>
-        <form className="resource-suggest"
-              onSubmit={this.onSubmit}
-        >
-          <label htmlFor="name">Your Name *</label>
-          <input type="text"
-                 id="name"
-                 name="name"
-                 className="u-full-width"
-                 tabIndex="1"
-                 required
-                 onChange={this.onChange}
-          />
-          <label htmlFor="email">Your Email *</label>
-          <input type="email"
-                 id="email"
-                 name="email"
-                 className="u-full-width"
-                 tabIndex="2"
-                 required
-                 onChange={this.onChange}
-          />
-          <label htmlFor="composer">Composer(s) Concerned</label>
-          <input type="text"
-                 id="composer"
-                 name="composer"
-                 className="u-full-width"
-                 tabIndex="3"
-                 onChange={this.onChange}
-          />
-          <label htmlFor="works">Major Work(s) and/or Film(s) Concerned</label>
-          <input type="text"
-                 id="works"
-                 name="works"
-                 className="u-full-width"
-                 tabIndex="4"
-                 onChange={this.onChange}
-          />
-          <label htmlFor="link">Link to Resource</label>
-          <input type="url"
-                 id="link"
-                 name="link"
-                 className="u-full-width"
-                 tabIndex="5"
-                 onChange={this.onChange}
-          />
-          <label htmlFor="location">
-            Location (name of library, repository, database...)
-          </label>
-          <input type="text"
-                 id="location"
-                 name="location"
-                 className="u-full-width"
-                 tabIndex="6"
-                 onChange={this.onChange}
-          />
-          <label htmlFor="comments">Comments</label>
-          <textarea id="comments"
-                    name="comments"
-                    className="u-full-width"
-                    tabIndex="7"
-                    cols="40"
-                    rows="100"
-                    onChange={this.onChange}
-          />
-          <ReCAPTCHA sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
-                     onChange={this.onReCaptchaChange}
-                     className="g-recaptcha"
-                     tabIndex="8"
-          />
-          <input className="button-primary"
-                 type="submit"
-                 value="Submit"
-                 tabIndex="9"
-          />
-        </form>
-      </div>
-    )
-  }
+const InnerSuggestionForm = ({ handleSubmit, isSubmitting, setFieldValue }) => {
+  return (
+    <Form>
+      <label htmlFor='name'>
+        Name <ErrorMessage name='name' component='div' className='form-error'/>
+      </label>
+      <Field type='text'
+             name='name'
+             className='u-full-width'/>
+      <label htmlFor='email'>
+        Email <ErrorMessage name='email' component='div' className='form-error'/>
+      </label>
+      <Field type='email'
+             name='email'
+             className='u-full-width'/>
+      <label htmlFor='composer'>
+        Composer(s) Concerned <ErrorMessage name='composer' component='div' className='form-error'/>
+      </label>
+      <Field type='text'
+             name='composer'
+             className='u-full-width'/>
+      <label htmlFor='works'>
+        Major Work(s) and/or Film(s) Concerned <ErrorMessage name='works' component='div' className='form-error'/>
+      </label>
+      <Field type='text'
+             name='works'
+             className='u-full-width'/>
+      <label htmlFor='link'>
+        Link to Resource <ErrorMessage name='link' component='div' className='form-error'/>
+      </label>
+      <Field type='text'
+             name='link'
+             className='u-full-width'/>
+      <label htmlFor='location'>
+        Location (name of library, repository, database...) <ErrorMessage name='location' component='div' className='form-error'/>
+      </label>
+      <Field type='text'
+             name='location'
+             className='u-full-width'/>
+      <label htmlFor='comment'>
+        Comments <ErrorMessage name='comment' component='div' className='form-error'/>
+      </label>
+      <Field type='text'
+             name='comment'
+             className='u-full-width'
+             component='textarea'/>
+      <ErrorMessage name='recaptcha' component='div' className='form-error'/>
+      <ReCAPTCHA sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+                 className="g-recaptcha"
+                 onChange={(response) => {
+                   setFieldValue("recaptcha", response);
+                 }}/>
+      <button type='submit'
+              className='button-primary u-full-width'
+              disabled={isSubmitting}
+              onClick={handleSubmit}>
+        Submit
+      </button>
+    </Form>
+  )
 };
 
+const ResourceSuggestion = () => (
+  <div>
+    <h2>Contact Us</h2>
+    <Formik
+      initialValues={{
+        name: '',
+        email: '',
+        composer: '',
+        works: '',
+        link: '',
+        location: '',
+        comment: '',
+        recaptcha: '',
+      }}
+      validationSchema={validationSchema}
+      onSubmit={(values, { setSubmitting }) => console.log(values)}
+      render={InnerSuggestionForm}
+    />
+  </div>
+);
+
+export default ResourceSuggestion;
