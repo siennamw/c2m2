@@ -14,7 +14,7 @@ const validationSchema = Yup.object().shape({
     .required('Password is required')
 });
 
-const InnerCatalogerForm = ({ handleSubmit, isSubmitting }) => {
+const InnerCatalogerForm = ({ handleSubmit, isSubmitting, status }) => {
   return (
     <Form>
       <label htmlFor='name'>
@@ -49,6 +49,11 @@ const InnerCatalogerForm = ({ handleSubmit, isSubmitting }) => {
               onClick={handleSubmit}>
         Submit
       </button>
+      {
+        status ?
+        <div className='form-error api-error'>{status}</div> :
+        undefined
+      }
     </Form>
   )
 };

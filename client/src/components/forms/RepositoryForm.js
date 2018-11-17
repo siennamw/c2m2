@@ -11,7 +11,7 @@ const validationSchema = Yup.object().shape({
     .url('Website is not a valid URL'),
 });
 
-const InnerRepositoryForm = ({ handleSubmit, isSubmitting }) => {
+const InnerRepositoryForm = ({ handleSubmit, isSubmitting, status }) => {
   return (
     <Form>
       <label htmlFor='name'>
@@ -38,6 +38,11 @@ const InnerRepositoryForm = ({ handleSubmit, isSubmitting }) => {
               onClick={handleSubmit}>
         Submit
       </button>
+      {
+        status ?
+        <div className='form-error api-error'>{status}</div> :
+        undefined
+      }
     </Form>
   )
 };

@@ -8,7 +8,7 @@ const validationSchema = Yup.object().shape({
   description: Yup.string(),
 });
 
-const InnerCollectionForm = ({ handleSubmit, isSubmitting }) => {
+const InnerCollectionForm = ({ handleSubmit, isSubmitting, status }) => {
   return (
     <Form>
       <label htmlFor='name'>
@@ -30,6 +30,11 @@ const InnerCollectionForm = ({ handleSubmit, isSubmitting }) => {
               onClick={handleSubmit}>
         Submit
       </button>
+      {
+        status ?
+        <div className='form-error api-error'>{status}</div> :
+        undefined
+      }
     </Form>
   )
 };
