@@ -5,6 +5,10 @@
 @secondary: lighten(@primary, 20%);
 @link-color: @primary;
 
+@error: red;
+@warn: goldenrod;
+@success: forestgreen;
+
 .uppercase() {
   text-transform: uppercase;
   font-weight: bold;
@@ -44,12 +48,23 @@ form {
     width: 60%;
   }
 
-  .form-error {
-    color: red;
+  .form-message {
     font-weight: bold;
     float: right;
 
-    &.api-error {
+    &.error {
+      color: @error;
+    }
+
+    &.warn {
+      color: @warn;
+    }
+
+    &.success {
+      color: @success;
+    }
+
+    &.api-message {
       float: none;
       margin-bottom: 1rem;
       text-align: center;

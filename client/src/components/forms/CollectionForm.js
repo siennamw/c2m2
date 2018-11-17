@@ -12,13 +12,13 @@ const InnerCollectionForm = ({ handleSubmit, isSubmitting, status }) => {
   return (
     <Form>
       <label htmlFor='name'>
-        Name <ErrorMessage name='name' component='div' className='form-error' />
+        Name <ErrorMessage name='name' component='div' className='form-message error' />
       </label>
       <Field type='text'
              name='name'
              className='u-full-width'/>
       <label htmlFor='name'>
-        Description <ErrorMessage name='description' component='div' className='form-error' />
+        Description <ErrorMessage name='description' component='div' className='form-message error' />
       </label>
       <Field type='text'
              name='description'
@@ -32,7 +32,7 @@ const InnerCollectionForm = ({ handleSubmit, isSubmitting, status }) => {
       </button>
       {
         status ?
-        <div className='form-error api-error'>{status}</div> :
+        <div className={`form-message api-message ${status.type}`}>{status.message}</div> :
         undefined
       }
     </Form>

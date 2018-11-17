@@ -18,26 +18,26 @@ const InnerCatalogerForm = ({ handleSubmit, isSubmitting, status }) => {
   return (
     <Form>
       <label htmlFor='name'>
-        Name <ErrorMessage name='name' component='div' className='form-error' />
+        Name <ErrorMessage name='name' component='div' className='form-message error' />
       </label>
       <Field type='text'
              name='name'
              className='u-full-width'/>
       <label htmlFor='email'>
-        Email <ErrorMessage name='email' component='div' className='form-error' />
+        Email <ErrorMessage name='email' component='div' className='form-message error' />
       </label>
       <Field type='email'
              name='email'
              className='u-full-width'/>
       <label htmlFor='description'>
-        Description <ErrorMessage name='description' component='div' className='form-error' />
+        Description <ErrorMessage name='description' component='div' className='form-message error' />
       </label>
       <Field type='text'
              name='description'
              className='u-full-width'
              component='textarea'/>
       <label htmlFor='password'>
-        Password <ErrorMessage name='password' component='div' className='form-error' />
+        Password <ErrorMessage name='password' component='div' className='form-message error' />
       </label>
       <Field type='password'
              name='password'
@@ -51,7 +51,7 @@ const InnerCatalogerForm = ({ handleSubmit, isSubmitting, status }) => {
       </button>
       {
         status ?
-        <div className='form-error api-error'>{status}</div> :
+        <div className={`form-message api-message ${status.type}`}>{status.message}</div> :
         undefined
       }
     </Form>

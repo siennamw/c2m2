@@ -19,53 +19,53 @@ const validationSchema = Yup.object().shape({
     .required('ReCaptcha is required'),
 });
 
-const InnerSuggestionForm = ({ handleSubmit, isSubmitting, setFieldValue }) => {
+const InnerSuggestionForm = ({ handleSubmit, isSubmitting, setFieldValue, status }) => {
   return (
     <Form>
       <label htmlFor='name'>
-        Name <ErrorMessage name='name' component='div' className='form-error'/>
+        Name <ErrorMessage name='name' component='div' className='form-message error'/>
       </label>
       <Field type='text'
              name='name'
              className='u-full-width'/>
       <label htmlFor='email'>
-        Email <ErrorMessage name='email' component='div' className='form-error'/>
+        Email <ErrorMessage name='email' component='div' className='form-message error'/>
       </label>
       <Field type='email'
              name='email'
              className='u-full-width'/>
       <label htmlFor='composer'>
-        Composer(s) Concerned <ErrorMessage name='composer' component='div' className='form-error'/>
+        Composer(s) Concerned <ErrorMessage name='composer' component='div' className='form-message error'/>
       </label>
       <Field type='text'
              name='composer'
              className='u-full-width'/>
       <label htmlFor='works'>
-        Major Work(s) and/or Film(s) Concerned <ErrorMessage name='works' component='div' className='form-error'/>
+        Major Work(s) and/or Film(s) Concerned <ErrorMessage name='works' component='div' className='form-message error'/>
       </label>
       <Field type='text'
              name='works'
              className='u-full-width'/>
       <label htmlFor='link'>
-        Link to Resource <ErrorMessage name='link' component='div' className='form-error'/>
+        Link to Resource <ErrorMessage name='link' component='div' className='form-message error'/>
       </label>
       <Field type='text'
              name='link'
              className='u-full-width'/>
       <label htmlFor='location'>
-        Location (name of library, repository, database...) <ErrorMessage name='location' component='div' className='form-error'/>
+        Location (name of library, repository, database...) <ErrorMessage name='location' component='div' className='form-message error'/>
       </label>
       <Field type='text'
              name='location'
              className='u-full-width'/>
       <label htmlFor='comment'>
-        Comments <ErrorMessage name='comment' component='div' className='form-error'/>
+        Comments <ErrorMessage name='comment' component='div' className='form-message error'/>
       </label>
       <Field type='text'
              name='comment'
              className='u-full-width'
              component='textarea'/>
-      <ErrorMessage name='recaptcha' component='div' className='form-error'/>
+      <ErrorMessage name='recaptcha' component='div' className='form-message error'/>
       <ReCAPTCHA sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
                  className="g-recaptcha"
                  onChange={(response) => {
@@ -77,6 +77,11 @@ const InnerSuggestionForm = ({ handleSubmit, isSubmitting, setFieldValue }) => {
               onClick={handleSubmit}>
         Submit
       </button>
+      {
+        status ?
+        <div className={`form-message api-message ${status.type}`}>{status.message}</div> :
+        undefined
+      }
     </Form>
   )
 };

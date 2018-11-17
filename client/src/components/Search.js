@@ -12,7 +12,7 @@ const InnerBasicSearchForm = ({ handleSubmit, isSubmitting }) => {
   return (
     <Form>
       <label htmlFor='title'>
-        Title <ErrorMessage name='title' component='div' className='form-error'/>
+        Title <ErrorMessage name='title' component='div' className='form-message error'/>
       </label>
       <Field type='text'
              name='title'

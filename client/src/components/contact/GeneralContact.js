@@ -15,29 +15,29 @@ const validationSchema = Yup.object().shape({
     .required('ReCaptcha is required'),
 });
 
-const InnerContactForm = ({ handleSubmit, isSubmitting, setFieldValue }) => {
+const InnerContactForm = ({ handleSubmit, isSubmitting, setFieldValue, status }) => {
   return (
     <Form>
       <label htmlFor='name'>
-        Name <ErrorMessage name='name' component='div' className='form-error'/>
+        Name <ErrorMessage name='name' component='div' className='form-message error'/>
       </label>
       <Field type='text'
              name='name'
              className='u-full-width'/>
       <label htmlFor='email'>
-        Email <ErrorMessage name='email' component='div' className='form-error'/>
+        Email <ErrorMessage name='email' component='div' className='form-message error'/>
       </label>
       <Field type='email'
              name='email'
              className='u-full-width'/>
       <label htmlFor='message'>
-        Message <ErrorMessage name='message' component='div' className='form-error'/>
+        Message <ErrorMessage name='message' component='div' className='form-message error'/>
       </label>
       <Field type='text'
              name='message'
              className='u-full-width'
              component='textarea'/>
-      <ErrorMessage name='recaptcha' component='div' className='form-error'/>
+      <ErrorMessage name='recaptcha' component='div' className='form-message error'/>
       <ReCAPTCHA sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
                  className="g-recaptcha"
                  onChange={(response) => {
@@ -49,6 +49,11 @@ const InnerContactForm = ({ handleSubmit, isSubmitting, setFieldValue }) => {
               onClick={handleSubmit}>
         Submit
       </button>
+      {
+        status ?
+        <div className={`form-message api-message ${status.type}`}>{status.message}</div> :
+        undefined
+      }
     </Form>
   )
 };

@@ -24,14 +24,14 @@ const CatalogerSignInForm = ({ handleSubmit, isSubmitting, status }) => {
   return (
     <Form>
       <label htmlFor='email'>
-        Email <ErrorMessage name='email' component='div' className='form-error'/>
+        Email <ErrorMessage name='email' component='div' className='form-message error'/>
       </label>
       <Field type='email'
              name='email'
              autoComplete='email'
              className='u-full-width'/>
       <label htmlFor='password'>
-        Password <ErrorMessage name='password' component='div' className='form-error'/>
+        Password <ErrorMessage name='password' component='div' className='form-message error'/>
       </label>
       <Field type='password'
              name='password'
@@ -45,7 +45,7 @@ const CatalogerSignInForm = ({ handleSubmit, isSubmitting, status }) => {
       </button>
       {
         status ?
-          <div className='form-error api-error'>{status}</div> :
+          <div className='form-message error api-message'>{status}</div> :
           undefined
       }
     </Form>
@@ -72,11 +72,17 @@ class CatalogerSignIn extends React.Component {
         localStorage.setItem(constants.LOCAL_STORAGE_KEY, data.signInCataloger.token);
         this.setState({ redirect: true });
       } else {
-        setStatus('Failed to sign in. Please check email and password.');
+        setStatus({
+          type: 'error',
+          message: 'Failed to sign in. Please check email and password.',
+        });
       }
     } catch (err) {
       console.log('Error signing in', err);
-      setStatus('Unknown error signing in. Please try again later.');
+      setStatus({
+        type: 'error',
+        message: 'Unknown error signing in. Please try again later.',
+      });
     }
   };
 
