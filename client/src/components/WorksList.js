@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Query } from 'react-apollo';
+import { isEqual } from 'lodash';
 
 import * as queries from '../queries';
 
@@ -9,6 +10,13 @@ class WorksList extends React.Component {
   constructor(props) {
     super(props);
     this.state = { moreResults: true };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!isEqual(this.props.filter, prevProps.filter)) {
+      // make sure button is enabled for a new search
+      this.setState({ moreResults: true });
+    }
   }
 
   loadMore = (data, fetchMore) => {
@@ -22,7 +30,7 @@ class WorksList extends React.Component {
           !fetchMoreResult.allWorks ||
           fetchMoreResult.allWorks.length === 0;
 
-        if (noMore){
+        if (noMore) {
           result = prev;
           this.setState({ moreResults: false });
         } else {
@@ -32,6 +40,7 @@ class WorksList extends React.Component {
               allWorks: [...prev.allWorks, ...fetchMoreResult.allWorks]
             }
           };
+          this.setState({ moreResults: true });
         }
         return result;
       }
@@ -40,12 +49,12 @@ class WorksList extends React.Component {
 
   render() {
     const content = (loading, error, data, fetchMore) => {
-      if(loading) return <div>Fetching...</div>;
-      if(error) return <div>Sorry! There was an error fetching results.</div>;
+      if (loading) return <div>Fetching...</div>;
+      if (error) return <div>Sorry! There was an error fetching results.</div>;
 
       const haveData = data && data.allWorks && data.allWorks.length > 0;
 
-      if(haveData) {
+      if (haveData) {
         return <WorksListTable works={data.allWorks}
                                loadMore={() => this.loadMore(data, fetchMore)}
                                moreResults={this.state.moreResults}
@@ -59,24 +68,19 @@ class WorksList extends React.Component {
       <Query query={queries.WORKS_SEARCH}
              variables={{
                filter: this.props.filter || {},
-               first: this.props.itemsPerPage || 5,
+               first: 5,
                skip: 0
              }}
       >
         {({ loading, error, data, fetchMore }) => {
-          return (
-            <div>
-              <h2>Browse Works</h2>
-              { content(loading, error, data, fetchMore) }
-            </div>
-          );
+          return content(loading, error, data, fetchMore);
         }}
       </Query>
     );
   }
 };
 
-const WorksListTable = ({works, loadMore, moreResults}) => {
+const WorksListTable = ({ works, loadMore, moreResults }) => {
   const wrapWithLink = (item) => (
     // TODO: make this link functional
     <span key={item.id}><a href={item.id}>{item.name}</a></span>
@@ -84,23 +88,23 @@ const WorksListTable = ({works, loadMore, moreResults}) => {
 
   const items = works.map(work => (
       <tbody key={work.id}>
-        <tr>
-          <td colSpan="4">
-            <h4>{work.title}{work.secondary_title ? `: ${work.secondary_title}` : ''}</h4>
-          </td>
-        </tr>
-        <tr>
-          <th>Year</th>
-          <th>Composer</th>
-          <th>Director</th>
-          <th>Country</th>
-        </tr>
-        <tr>
-          <td>{work.year}</td>
-          <td>{work.composers.map(composer => wrapWithLink(composer))}</td>
-          <td>{work.directors.map(director => wrapWithLink(director))}</td>
-          <td>{wrapWithLink(work.country)}</td>
-        </tr>
+      <tr>
+        <td colSpan="4">
+          <h4>{work.title}{work.secondary_title ? `: ${work.secondary_title}` : ''}</h4>
+        </td>
+      </tr>
+      <tr>
+        <th>Year</th>
+        <th>Composer</th>
+        <th>Director</th>
+        <th>Country</th>
+      </tr>
+      <tr>
+        <td>{work.year}</td>
+        <td>{work.composers.map(composer => wrapWithLink(composer))}</td>
+        <td>{work.directors.map(director => wrapWithLink(director))}</td>
+        <td>{wrapWithLink(work.country)}</td>
+      </tr>
       </tbody>
     )
   );

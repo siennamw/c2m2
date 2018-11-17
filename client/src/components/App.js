@@ -11,8 +11,9 @@ import CatalogerSignOut from './catalogers/CatalogerSignOut';
 import GeneralContact from './contact/GeneralContact';
 import Home from './Home';
 import ResourceSuggestion from './contact/ResourceSuggestion';
+import SimpleSearch from './Search';
 import Vision from './Vision';
-import WorksList from './WorksList';
+import Browse from './Browse';
 
 import PrivateRoute from './PrivateRoute';
 
@@ -30,9 +31,10 @@ class App extends React.Component {
             <Route exact path="/sign-out" component={CatalogerSignOut}/>
             <Route exact path="/contact" component={GeneralContact}/>
             <Route exact path="/" component={Home}/>
+            <Route exact path="/search" component={SimpleSearch}/>
             <Route exact path="/suggest" component={ResourceSuggestion}/>
             <Route exact path="/vision" component={Vision}/>
-            <Route exact path="/works" component={WorksList}/>
+            <Route exact path="/works" component={Browse}/>
 
             <PrivateRoute path="/dashboard" component={CatalogerDashboard}/>
 
