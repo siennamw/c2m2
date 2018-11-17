@@ -12,3 +12,13 @@ export const SIGN_IN = gql`
     }
   }
 `;
+
+export const CREATE_COUNTRY = gql`
+  mutation CreateCountry($name: String!, $description: String){
+    createCountry(name: $name, description: $description) {
+      id
+      name
+      description
+    }
+  }
+`;
