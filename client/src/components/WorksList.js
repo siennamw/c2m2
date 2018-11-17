@@ -4,49 +4,79 @@ import { Query } from 'react-apollo';
 
 import * as queries from '../queries';
 
-const WorksList = ({filter, itemsPerPage}) => {
-  const loadMore = (data, fetchMore) => {
+
+class WorksList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { moreResults: true };
+  }
+
+  loadMore = (data, fetchMore) => {
     fetchMore({
       variables: {
         skip: data.allWorks.length
       },
       updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult) return prev;
-        return {...prev, ...{
-            allWorks: [...prev.allWorks, ...fetchMoreResult.allWorks]
-          }};
+        let result;
+        const noMore = !fetchMoreResult ||
+          !fetchMoreResult.allWorks ||
+          fetchMoreResult.allWorks.length === 0;
+
+        if (noMore){
+          result = prev;
+          this.setState({ moreResults: false });
+        } else {
+          result = {
+            ...prev,
+            ...{
+              allWorks: [...prev.allWorks, ...fetchMoreResult.allWorks]
+            }
+          };
+        }
+        return result;
       }
-    })
+    });
   };
 
-  return (
-    <Query query={queries.WORKS_SEARCH}
-           variables={{
-             filter: filter || {},
-             first: itemsPerPage || 5,
-             skip: 0
-           }}
-    >
-      {({ loading, error, data, fetchMore }) => {
-        return (
-          <div>
-            <h2>Browse Works</h2>
-            { loading ? <div>Fetching...</div> : undefined }
-            { error ? <div>Error: Works could not be fetched.</div> : undefined }
-            { !loading && !error ?
-              <WorksListTable works={data.allWorks}
-                              onLoadMore={() => loadMore(data, fetchMore)}
-              /> :
-              undefined
-            }
-          </div>
-        );
-      }}
-    </Query>
-  );
+  render() {
+    const content = (loading, error, data, fetchMore) => {
+      if(loading) return <div>Fetching...</div>;
+      if(error) return <div>Sorry! There was an error fetching results.</div>;
+
+      const haveData = data && data.allWorks && data.allWorks.length > 0;
+
+      if(haveData) {
+        return <WorksListTable works={data.allWorks}
+                               loadMore={() => this.loadMore(data, fetchMore)}
+                               moreResults={this.state.moreResults}
+        />
+      }
+
+      return <div>Sorry! No results were found.</div>;
+    };
+
+    return (
+      <Query query={queries.WORKS_SEARCH}
+             variables={{
+               filter: this.props.filter || {},
+               first: this.props.itemsPerPage || 5,
+               skip: 0
+             }}
+      >
+        {({ loading, error, data, fetchMore }) => {
+          return (
+            <div>
+              <h2>Browse Works</h2>
+              { content(loading, error, data, fetchMore) }
+            </div>
+          );
+        }}
+      </Query>
+    );
+  }
 };
 
-const WorksListTable = ({works, onLoadMore}) => {
+const WorksListTable = ({works, loadMore, moreResults}) => {
   const wrapWithLink = (item) => (
     // TODO: make this link functional
     <span key={item.id}><a href={item.id}>{item.name}</a></span>
@@ -80,7 +110,9 @@ const WorksListTable = ({works, onLoadMore}) => {
       <table id='works-list-table' className="u-full-width">
         {items}
       </table>
-      <button className='center load-more' onClick={onLoadMore}>Load More Results</button>
+      <button className='center load-more' onClick={loadMore} disabled={!moreResults}>
+        {moreResults ? 'Load More Results' : 'No More Results'}
+      </button>
     </div>
   )
 };
