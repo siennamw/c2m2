@@ -7,7 +7,9 @@ import CatalogerHome from './CatalogerHome';
 
 import CatalogerForm from '../forms/CatalogerForm';
 import CollectionForm from '../forms/CollectionForm';
+
 import NewCountry from '../forms/country/NewCountry';
+import NewMaterialFormat from '../forms/materialFormat/NewMaterialFormat';
 import NewMediaType from '../forms/mediaType/NewMediaType';
 import NewRepository from '../forms/repository/NewRepository';
 
@@ -19,6 +21,7 @@ const CatalogerDashboard = ({ match }) => {
         <NavLink to={`${match.path}/home`}>Home</NavLink>
         <NavLink to={`${match.path}/country`}>New Country</NavLink>
         <NavLink to={`${match.path}/media-type`}>New Media Type</NavLink>
+        <NavLink to={`${match.path}/material-format`}>New Material Format</NavLink>
         <NavLink to={`${match.path}/repository`}>New Repository</NavLink>
         <NavLink to={`${match.path}/cataloger`}>New Cataloger</NavLink>
         <NavLink to={`${match.path}/collection`}>New Collection</NavLink>
@@ -28,6 +31,7 @@ const CatalogerDashboard = ({ match }) => {
         <Switch>
           <Route exact path={`${match.path}/home`} component={CatalogerHome} />
           <Route exact path={`${match.path}/country`} component={NewCountry} />
+          <Route exact path={`${match.path}/material-format`} component={NewMaterialFormat} />
           <Route exact path={`${match.path}/media-type`} component={NewMediaType} />
           <Route exact path={`${match.path}/repository`} component={NewRepository} />
           <Route exact path={`${match.path}/cataloger`} component={CatalogerForm} />
