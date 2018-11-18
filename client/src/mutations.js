@@ -22,3 +22,14 @@ export const CREATE_COUNTRY = gql`
     }
   }
 `;
+
+export const CREATE_REPOSITORY = gql`
+  mutation CreateRepository($name: String!, $location: String!, $website: String){
+    createRepository(name: $name, location: $location, website: $website) {
+      id
+      name
+      location
+      website
+    }
+  }
+`;
