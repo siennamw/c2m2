@@ -5,11 +5,11 @@ import Nav from '../nav/Nav';
 
 import CatalogerHome from "./CatalogerHome";
 
-import NewCountry from '../forms/NewCountry';
+import NewCountry from '../forms/country/NewCountry';
 
 import CatalogerForm from "../forms/CatalogerForm";
 import CollectionForm from "../forms/CollectionForm";
-import NewRepository from "../forms/NewRepository";
+import NewRepository from "../forms/repository/NewRepository";
 
 const CatalogerDashboard = ({ match }) => {
   return (

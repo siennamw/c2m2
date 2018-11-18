@@ -4,8 +4,8 @@ import { Mutation } from "react-apollo";
 import { isEmpty } from 'lodash';
 
 import CountryForm from './CountryForm';
-import { CREATE_COUNTRY } from '../../mutations';
-import { countryValidationSchema } from '../../validationSchemas';
+import { CREATE_COUNTRY } from '../../../mutations';
+import { countryValidationSchema } from '../../../validationSchemas';
 
 const NewCountry = () => {
   const handleSubmit = async (mutation, values, setSubmitting, setStatus, resetForm) => {

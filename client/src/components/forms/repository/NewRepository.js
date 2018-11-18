@@ -4,8 +4,8 @@ import { Mutation } from "react-apollo";
 import { isEmpty } from 'lodash';
 
 import RepositoryForm from './RepositoryForm';
-import { CREATE_REPOSITORY } from "../../mutations";
-import { repositoryValidationSchema } from '../../validationSchemas';
+import { CREATE_REPOSITORY } from "../../../mutations";
+import { repositoryValidationSchema } from '../../../validationSchemas';
 
 const NewRepository = () => {
   const handleSubmit = async (mutation, values, setSubmitting, setStatus, resetForm) => {
