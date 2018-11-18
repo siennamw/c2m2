@@ -10,6 +10,7 @@ import CollectionForm from '../entries/CollectionForm';
 
 import NewComposer from '../entries/composer/NewComposer';
 import NewCountry from '../entries/country/NewCountry';
+import NewDirector from '../entries/director/NewDirector';
 import NewMaterialFormat from '../entries/materialFormat/NewMaterialFormat';
 import NewMediaType from '../entries/mediaType/NewMediaType';
 import NewProductionCompany from '../entries/productionCompany/NewProductionCompany';
@@ -24,6 +25,7 @@ const CatalogerDashboard = ({ match }) => {
         <NavLink to={`${match.path}/home`}>Home</NavLink>
         <NavLink to={`${match.path}/composer`}>New Composer</NavLink>
         <NavLink to={`${match.path}/country`}>New Country</NavLink>
+        <NavLink to={`${match.path}/director`}>New Director</NavLink>
         <NavLink to={`${match.path}/material-format`}>New Material Format</NavLink>
         <NavLink to={`${match.path}/media-type`}>New Media Type</NavLink>
         <NavLink to={`${match.path}/production-company`}>New Production Company</NavLink>
@@ -38,6 +40,7 @@ const CatalogerDashboard = ({ match }) => {
           <Route exact path={`${match.path}/home`} component={CatalogerHome} />
           <Route exact path={`${match.path}/composer`} component={NewComposer} />
           <Route exact path={`${match.path}/country`} component={NewCountry} />
+          <Route exact path={`${match.path}/director`} component={NewDirector} />
           <Route exact path={`${match.path}/material-format`} component={NewMaterialFormat} />
           <Route exact path={`${match.path}/media-type`} component={NewMediaType} />
           <Route exact path={`${match.path}/production-company`} component={NewProductionCompany} />

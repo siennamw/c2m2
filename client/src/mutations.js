@@ -33,6 +33,16 @@ export const CREATE_COUNTRY = gql`
   }
 `;
 
+export const CREATE_DIRECTOR = gql`
+  mutation CreateDirector($name: String!, $imdb_link: String){
+    createDirector(name: $name, imdb_link: $imdb_link) {
+      id
+      name
+      imdb_link
+    }
+  }
+`;
+
 export const CREATE_MATERIAL_FORMAT = gql`
   mutation CreateMaterialFormat($name: String!, $description: String){
     createMaterialFormat(name: $name, description: $description) {

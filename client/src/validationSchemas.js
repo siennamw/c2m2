@@ -12,6 +12,12 @@ export const countryValidationSchema = Yup.object().shape({
   description: Yup.string(),
 });
 
+export const directorValidationSchema = Yup.object().shape({
+  name: Yup.string()
+    .required('Name is required'),
+  imdb_link: Yup.string(),
+});
+
 export const materialFormatValidationSchema = Yup.object().shape({
   name: Yup.string()
     .required('Name is required'),
