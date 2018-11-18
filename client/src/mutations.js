@@ -13,6 +13,16 @@ export const SIGN_IN = gql`
   }
 `;
 
+export const CREATE_COMPOSER = gql`
+  mutation CreateComposer($name: String!, $imdb_link: String){
+    createComposer(name: $name, imdb_link: $imdb_link) {
+      id
+      name
+      imdb_link
+    }
+  }
+`;
+
 export const CREATE_COUNTRY = gql`
   mutation CreateCountry($name: String!, $description: String){
     createCountry(name: $name, description: $description) {

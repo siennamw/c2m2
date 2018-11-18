@@ -1,5 +1,11 @@
 import * as Yup from 'yup';
 
+export const composerValidationSchema = Yup.object().shape({
+  name: Yup.string()
+    .required('Name is required'),
+  imdb_link: Yup.string(),
+});
+
 export const countryValidationSchema = Yup.object().shape({
   name: Yup.string()
     .required('Name is required'),

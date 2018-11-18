@@ -8,6 +8,7 @@ import CatalogerHome from './CatalogerHome';
 import CatalogerForm from '../forms/CatalogerForm';
 import CollectionForm from '../forms/CollectionForm';
 
+import NewComposer from '../forms/composer/NewComposer';
 import NewCountry from '../forms/country/NewCountry';
 import NewMaterialFormat from '../forms/materialFormat/NewMaterialFormat';
 import NewMediaType from '../forms/mediaType/NewMediaType';
@@ -21,6 +22,7 @@ const CatalogerDashboard = ({ match }) => {
       <h2>Cataloger Dashboard</h2>
       <Nav>
         <NavLink to={`${match.path}/home`}>Home</NavLink>
+        <NavLink to={`${match.path}/composer`}>New Composer</NavLink>
         <NavLink to={`${match.path}/country`}>New Country</NavLink>
         <NavLink to={`${match.path}/material-format`}>New Material Format</NavLink>
         <NavLink to={`${match.path}/media-type`}>New Media Type</NavLink>
@@ -34,6 +36,7 @@ const CatalogerDashboard = ({ match }) => {
       <div className='tabs'>
         <Switch>
           <Route exact path={`${match.path}/home`} component={CatalogerHome} />
+          <Route exact path={`${match.path}/composer`} component={NewComposer} />
           <Route exact path={`${match.path}/country`} component={NewCountry} />
           <Route exact path={`${match.path}/material-format`} component={NewMaterialFormat} />
           <Route exact path={`${match.path}/media-type`} component={NewMediaType} />
