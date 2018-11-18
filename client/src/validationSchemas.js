@@ -18,6 +18,12 @@ export const mediaTypeValidationSchema = Yup.object().shape({
   description: Yup.string(),
 });
 
+export const productionCompanyValidationSchema = Yup.object().shape({
+  name: Yup.string()
+    .required('Name is required'),
+  contact_info: Yup.string(),
+});
+
 export const publisherValidationSchema = Yup.object().shape({
   name: Yup.string()
     .required('Name is required'),

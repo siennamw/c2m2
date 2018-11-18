@@ -43,6 +43,16 @@ export const CREATE_MEDIA_TYPE = gql`
   }
 `;
 
+export const CREATE_PRODUCTION_COMPANY = gql`
+  mutation CreateProductionCompany($name: String!, $contact_info: String){
+    createProductionCompany(name: $name, contact_info: $contact_info) {
+      id
+      name
+      contact_info
+    }
+  }
+`;
+
 export const CREATE_PUBLISHER = gql`
   mutation CreatePublisher($name: String!, $contact_info: String){
     createPublisher(name: $name, contact_info: $contact_info) {
