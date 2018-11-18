@@ -1,18 +1,6 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-
-const validationSchema = Yup.object().shape({
-  name: Yup.string()
-    .required('Name is required'),
-  email: Yup.string()
-    .email('E-mail is not valid')
-    .required('E-mail is required'),
-  description: Yup.string(),
-  password: Yup.string()
-    .min(6, 'Password must be longer than 6 characters')
-    .required('Password is required')
-});
+import { catalogerValidationSchema } from '../../../validationSchemas';
 
 const InnerCatalogerForm = ({ handleSubmit, isSubmitting, status }) => {
   return (
@@ -58,22 +46,19 @@ const InnerCatalogerForm = ({ handleSubmit, isSubmitting, status }) => {
   )
 };
 
-const CatalogerForm = () => {
+const CatalogerForm = ({ mutation, handleSubmit, validationSchema }) => {
+  const initialValues = Object.keys(catalogerValidationSchema.fields).reduce((acc, item) => {
+    acc[item] = '';
+    return acc;
+  }, {});
+
   return (
-    <div>
-      <h3>New Cataloger</h3>
-      <Formik
-        initialValues={{
-          name: '',
-          email: '',
-          description: '',
-          password: '',
-        }}
-        validationSchema={validationSchema}
-        onSubmit={(values, { setSubmitting }) => console.log(values)}
-        render={InnerCatalogerForm}
-      />
-    </div>
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={(values, { setSubmitting, setStatus, resetForm }) => handleSubmit(mutation, values, setSubmitting, setStatus, resetForm)}
+      render={InnerCatalogerForm}
+    />
   )
 };
 

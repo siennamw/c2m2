@@ -2,13 +2,32 @@ import gql from "graphql-tag";
 
 export const SIGN_IN = gql`
   mutation SignInCataloger($email: String!, $password: String!){
-    signInCataloger(email: {email: $email, password: $password}) {
+    signInCataloger(email: { email: $email, password: $password }) {
       token
       cataloger {
         id
         name
         email
       }
+    }
+  }
+`;
+
+export const CREATE_CATALOGER = gql`
+  mutation CreateCataloger(
+    $name: String!, 
+    $email: String!,
+    $password: String!,
+    $description: String
+  ){
+    createCataloger(
+      name: $name, 
+      authProvider: { email: { email: $email, password: $password } },
+      description: $description
+    ) {
+      id
+      name
+      email
     }
   }
 `;
