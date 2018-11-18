@@ -1,5 +1,6 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { repositoryValidationSchema } from '../../../validationSchemas';
 
 const InnerRepositoryForm = ({ handleSubmit, isSubmitting, status }) => {
   return (
@@ -37,17 +38,20 @@ const InnerRepositoryForm = ({ handleSubmit, isSubmitting, status }) => {
   )
 };
 
-const RepositoryForm = ({ mutation, handleSubmit, validationSchema }) => (
-  <Formik
-    initialValues={{
-      name: '',
-      location: '',
-      website: '',
-    }}
-    validationSchema={validationSchema}
-    onSubmit={(values, { setSubmitting, setStatus, resetForm }) => handleSubmit(mutation, values, setSubmitting, setStatus, resetForm)}
-    render={InnerRepositoryForm}
-  />
-);
+const RepositoryForm = ({ mutation, handleSubmit, validationSchema }) => {
+  const initialValues = Object.keys(repositoryValidationSchema.fields).reduce((acc, item) => {
+    acc[item] = '';
+    return acc;
+  }, {});
+
+  return (
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={(values, { setSubmitting, setStatus, resetForm }) => handleSubmit(mutation, values, setSubmitting, setStatus, resetForm)}
+      render={InnerRepositoryForm}
+    />
+  )
+};
 
 export default RepositoryForm;

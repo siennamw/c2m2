@@ -1,5 +1,6 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { mediaTypeValidationSchema } from '../../../validationSchemas';
 
 const InnerMediaTypeForm = ({ handleSubmit, isSubmitting, status }) => {
   return (
@@ -33,16 +34,20 @@ const InnerMediaTypeForm = ({ handleSubmit, isSubmitting, status }) => {
   )
 };
 
-const MediaTypeForm = ({ mutation, handleSubmit, validationSchema }) => (
-  <Formik
-    initialValues={{
-      name: '',
-      description: '',
-    }}
-    validationSchema={validationSchema}
-    onSubmit={(values, { setSubmitting, setStatus, resetForm }) => handleSubmit(mutation, values, setSubmitting, setStatus, resetForm)}
-    render={InnerMediaTypeForm}
-  />
-);
+const MediaTypeForm = ({ mutation, handleSubmit, validationSchema }) => {
+  const initialValues = Object.keys(mediaTypeValidationSchema.fields).reduce((acc, item) => {
+    acc[item] = '';
+    return acc;
+  }, {});
+
+  return (
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={(values, { setSubmitting, setStatus, resetForm }) => handleSubmit(mutation, values, setSubmitting, setStatus, resetForm)}
+      render={InnerMediaTypeForm}
+    />
+  )
+};
 
 export default MediaTypeForm;
