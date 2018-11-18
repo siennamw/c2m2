@@ -21,8 +21,8 @@ const CatalogerDashboard = ({ match }) => {
       <Nav>
         <NavLink to={`${match.path}/home`}>Home</NavLink>
         <NavLink to={`${match.path}/country`}>New Country</NavLink>
-        <NavLink to={`${match.path}/media-type`}>New Media Type</NavLink>
         <NavLink to={`${match.path}/material-format`}>New Material Format</NavLink>
+        <NavLink to={`${match.path}/media-type`}>New Media Type</NavLink>
         <NavLink to={`${match.path}/publisher`}>New Publisher</NavLink>
         <NavLink to={`${match.path}/repository`}>New Repository</NavLink>
         <NavLink to={`${match.path}/cataloger`}>New Cataloger</NavLink>
