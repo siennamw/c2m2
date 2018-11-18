@@ -5,16 +5,16 @@ import Nav from '../nav/Nav';
 
 import CatalogerHome from './CatalogerHome';
 
-import CatalogerForm from '../forms/CatalogerForm';
-import CollectionForm from '../forms/CollectionForm';
+import CatalogerForm from '../entries/CatalogerForm';
+import CollectionForm from '../entries/CollectionForm';
 
-import NewComposer from '../forms/composer/NewComposer';
-import NewCountry from '../forms/country/NewCountry';
-import NewMaterialFormat from '../forms/materialFormat/NewMaterialFormat';
-import NewMediaType from '../forms/mediaType/NewMediaType';
-import NewProductionCompany from '../forms/productionCompany/NewProductionCompany';
-import NewPublisher from '../forms/publisher/NewPublisher';
-import NewRepository from '../forms/repository/NewRepository';
+import NewComposer from '../entries/composer/NewComposer';
+import NewCountry from '../entries/country/NewCountry';
+import NewMaterialFormat from '../entries/materialFormat/NewMaterialFormat';
+import NewMediaType from '../entries/mediaType/NewMediaType';
+import NewProductionCompany from '../entries/productionCompany/NewProductionCompany';
+import NewPublisher from '../entries/publisher/NewPublisher';
+import NewRepository from '../entries/repository/NewRepository';
 
 const CatalogerDashboard = ({ match }) => {
   return (
