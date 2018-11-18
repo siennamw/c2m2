@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { publisherValidationSchema } from '../../../validationSchemas';
 
-const InnerMaterialFormatForm = ({ handleSubmit, isSubmitting, status }) => {
+const InnerPublisherForm = ({ handleSubmit, isSubmitting, status }) => {
   return (
     <Form>
       <label htmlFor='name'>
@@ -46,7 +46,7 @@ const PublisherForm = ({ mutation, handleSubmit, validationSchema }) => {
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting, setStatus, resetForm }) => handleSubmit(mutation, values, setSubmitting, setStatus, resetForm)}
-      render={InnerMaterialFormatForm}
+      render={InnerPublisherForm}
     />
   )
 };

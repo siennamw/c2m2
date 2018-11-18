@@ -1,9 +1,8 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-
 import { productionCompanyValidationSchema } from '../../../validationSchemas';
 
-const InnerMaterialFormatForm = ({ handleSubmit, isSubmitting, status }) => {
+const InnerProductionCompanyForm = ({ handleSubmit, isSubmitting, status }) => {
   return (
     <Form>
       <label htmlFor='name'>
@@ -47,7 +46,7 @@ const ProductionCompanyForm = ({ mutation, handleSubmit, validationSchema }) => 
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting, setStatus, resetForm }) => handleSubmit(mutation, values, setSubmitting, setStatus, resetForm)}
-      render={InnerMaterialFormatForm}
+      render={InnerProductionCompanyForm}
     />
   )
 };
