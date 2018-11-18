@@ -6,6 +6,12 @@ export const countryValidationSchema = Yup.object().shape({
   description: Yup.string(),
 });
 
+export const mediaTypeValidationSchema = Yup.object().shape({
+  name: Yup.string()
+    .required('Name is required'),
+  description: Yup.string(),
+});
+
 export const repositoryValidationSchema = Yup.object().shape({
   name: Yup.string()
     .required('Name is required'),

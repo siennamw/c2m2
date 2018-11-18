@@ -23,6 +23,16 @@ export const CREATE_COUNTRY = gql`
   }
 `;
 
+export const CREATE_MEDIA_TYPE = gql`
+  mutation CreateMediaType($name: String!, $description: String){
+    createMediaType(name: $name, description: $description) {
+      id
+      name
+      description
+    }
+  }
+`;
+
 export const CREATE_REPOSITORY = gql`
   mutation CreateRepository($name: String!, $location: String!, $website: String){
     createRepository(name: $name, location: $location, website: $website) {
