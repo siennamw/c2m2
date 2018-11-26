@@ -15,7 +15,8 @@ export const catalogerValidationSchema = Yup.object().shape({
 export const composerValidationSchema = Yup.object().shape({
   name: Yup.string()
     .required('Name is required'),
-  imdb_link: Yup.string(),
+  imdb_link: Yup.string()
+    .url('Website is not a valid URL'),
 });
 
 export const countryValidationSchema = Yup.object().shape({
@@ -27,7 +28,8 @@ export const countryValidationSchema = Yup.object().shape({
 export const directorValidationSchema = Yup.object().shape({
   name: Yup.string()
     .required('Name is required'),
-  imdb_link: Yup.string(),
+  imdb_link: Yup.string()
+    .url('Website is not a valid URL'),
 });
 
 export const materialFormatValidationSchema = Yup.object().shape({
