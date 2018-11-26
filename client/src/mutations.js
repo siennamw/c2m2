@@ -32,6 +32,19 @@ export const CREATE_CATALOGER = gql`
   }
 `;
 
+export const CREATE_COLLECTION = gql`
+  mutation CreateCollection($name: String!, $description: String, $repository_id: Int!){
+    createCollection(name: $name, description: $description, repository_id: $repository_id) {
+      id
+      name
+      description
+      repository {
+        id
+      }
+    }
+  }
+`;
+
 export const CREATE_COMPOSER = gql`
   mutation CreateComposer($name: String!, $imdb_link: String){
     createComposer(name: $name, imdb_link: $imdb_link) {

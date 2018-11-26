@@ -2,20 +2,20 @@ import React from "react";
 
 import NewEntry from '../../NewEntry';
 
-import CatalogerForm from './CatalogerForm';
-import { CREATE_CATALOGER } from "../../../mutations";
-import { catalogerValidationSchema } from '../../../validationSchemas';
+import CollectionForm from './CollectionForm';
+import { CREATE_COLLECTION } from "../../../mutations";
+import { collectionValidationSchema } from '../../../validationSchemas';
 
-const NewCataloger = () => {
+const NewCollection = () => {
   return (
     <NewEntry
-      title='New Cataloger'
-      variablesList={Object.keys(catalogerValidationSchema.fields)}
-      gqlMutation={CREATE_CATALOGER}
-      yupSchema={catalogerValidationSchema}
-      FormComponent={CatalogerForm}
+      title='New Collection'
+      variablesList={Object.keys(collectionValidationSchema.fields)}
+      gqlMutation={CREATE_COLLECTION}
+      yupSchema={collectionValidationSchema}
+      FormComponent={CollectionForm}
     />
   );
 };
 
-export default NewCataloger;
+export default NewCollection;

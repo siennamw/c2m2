@@ -5,9 +5,8 @@ import Nav from '../nav/Nav';
 
 import CatalogerHome from './CatalogerHome';
 
-import CollectionForm from '../entries/CollectionForm';
-
 import NewCataloger from '../entries/cataloger/NewCataloger';
+import NewCollection from '../entries/collection/NewCollection';
 import NewComposer from '../entries/composer/NewComposer';
 import NewCountry from '../entries/country/NewCountry';
 import NewDirector from '../entries/director/NewDirector';
@@ -24,6 +23,7 @@ const CatalogerDashboard = ({ match }) => {
       <Nav>
         <NavLink to={`${match.path}/home`}>Home</NavLink>
         <NavLink to={`${match.path}/cataloger`}>New Cataloger</NavLink>
+        <NavLink to={`${match.path}/collection`}>New Collection</NavLink>
         <NavLink to={`${match.path}/composer`}>New Composer</NavLink>
         <NavLink to={`${match.path}/country`}>New Country</NavLink>
         <NavLink to={`${match.path}/director`}>New Director</NavLink>
@@ -32,13 +32,13 @@ const CatalogerDashboard = ({ match }) => {
         <NavLink to={`${match.path}/production-company`}>New Production Company</NavLink>
         <NavLink to={`${match.path}/publisher`}>New Publisher</NavLink>
         <NavLink to={`${match.path}/repository`}>New Repository</NavLink>
-        <NavLink to={`${match.path}/collection`}>New Collection</NavLink>
         <NavLink to={'/sign-out'}>Sign Out</NavLink>
       </Nav>
       <div className='tabs'>
         <Switch>
           <Route exact path={`${match.path}/home`} component={CatalogerHome} />
           <Route exact path={`${match.path}/cataloger`} component={NewCataloger} />
+          <Route exact path={`${match.path}/collection`} component={NewCollection} />
           <Route exact path={`${match.path}/composer`} component={NewComposer} />
           <Route exact path={`${match.path}/country`} component={NewCountry} />
           <Route exact path={`${match.path}/director`} component={NewDirector} />
@@ -47,7 +47,6 @@ const CatalogerDashboard = ({ match }) => {
           <Route exact path={`${match.path}/production-company`} component={NewProductionCompany} />
           <Route exact path={`${match.path}/publisher`} component={NewPublisher} />
           <Route exact path={`${match.path}/repository`} component={NewRepository} />
-          <Route exact path={`${match.path}/collection`} component={CollectionForm} />
           <Route component={CatalogerHome}/>
         </Switch>
       </div>

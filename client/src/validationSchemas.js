@@ -12,6 +12,16 @@ export const catalogerValidationSchema = Yup.object().shape({
     .required('Password is required')
 });
 
+export const collectionValidationSchema = Yup.object().shape({
+  name: Yup.string()
+    .required('Name is required'),
+  description: Yup.string(),
+  repository_id: Yup.number()
+    .integer('Number must be an integer')
+    .positive('Number must be positive')
+    .moreThan(0, 'Number must be greater than 0'),
+});
+
 export const composerValidationSchema = Yup.object().shape({
   name: Yup.string()
     .required('Name is required'),

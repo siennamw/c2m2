@@ -1,12 +1,6 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-
-const validationSchema = Yup.object().shape({
-  name: Yup.string()
-    .required('Name is required'),
-  description: Yup.string(),
-});
+import { collectionValidationSchema } from '../../../validationSchemas';
 
 const InnerCollectionForm = ({ handleSubmit, isSubmitting, status }) => {
   return (
@@ -17,7 +11,14 @@ const InnerCollectionForm = ({ handleSubmit, isSubmitting, status }) => {
       <Field type='text'
              name='name'
              className='u-full-width'/>
-      <label htmlFor='name'>
+      <label htmlFor='repository_id'>
+        Repository ID <ErrorMessage name='repository_id' component='div' className='form-message error' />
+      </label>
+      <Field type='number'
+             min='1'
+             name='repository_id'
+             className='u-full-width'/>
+      <label htmlFor='description'>
         Description <ErrorMessage name='description' component='div' className='form-message error' />
       </label>
       <Field type='text'
@@ -39,20 +40,19 @@ const InnerCollectionForm = ({ handleSubmit, isSubmitting, status }) => {
   )
 };
 
-const CollectionForm = () => {
+const CollectionForm = ({ mutation, handleSubmit, validationSchema }) => {
+  const initialValues = Object.keys(collectionValidationSchema.fields).reduce((acc, item) => {
+    acc[item] = '';
+    return acc;
+  }, {});
+
   return (
-    <div>
-      <h3>New Collection</h3>
-      <Formik
-        initialValues={{
-          name: '',
-          description: '',
-        }}
-        validationSchema={validationSchema}
-        onSubmit={(values, { setSubmitting }) => console.log(values)}
-        render={InnerCollectionForm}
-      />
-    </div>
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={(values, { setSubmitting, setStatus, resetForm }) => handleSubmit(mutation, values, setSubmitting, setStatus, resetForm)}
+      render={InnerCollectionForm}
+    />
   )
 };
 
