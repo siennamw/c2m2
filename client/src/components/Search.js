@@ -39,6 +39,11 @@ class BasicSearch extends React.Component {
   handleSubmit = (title, setSubmitting) => {
     const filter = {
       title_contains: title,
+      OR: {
+        secondary_title_contains: title,
+        OR: { alias_alternates_contains: title }
+      },
+
     };
     this.setState({ showResults: true, filter: filter });
     setSubmitting(false);
