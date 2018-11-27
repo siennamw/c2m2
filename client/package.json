@@ -20,7 +20,7 @@
     "react-google-recaptcha": "^1.0.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
-    "sienna-boilerplate": "github:siennamw/sienna-boilerplate",
+    "sienna-boilerplate": "github:siennamw/sienna-boilerplate#402e2600f947060742d429bec2226c1c44fd6627",
     "yup": "^0.26.6"
   },
   "scripts": {

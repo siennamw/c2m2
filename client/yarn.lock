@@ -7583,7 +7583,7 @@ shellwords@^0.1.1:
   resolved "https://registry.yarnpkg.com/shellwords/-/shellwords-0.1.1.tgz#d6b9181c1a48d397324c84871efbcfc73fc0654b"
   integrity sha512-vFwSUfQvqybiICwZY5+DAWIPLKsWO31Q91JSKl3UYv+K5c2QRPzn0qzec6QPu1Qc9eHYItiP3NdJqNVqetYAww==
 
-"sienna-boilerplate@github:siennamw/sienna-boilerplate":
+"sienna-boilerplate@github:siennamw/sienna-boilerplate#402e2600f947060742d429bec2226c1c44fd6627":
   version "0.0.1"
   resolved "https://codeload.github.com/siennamw/sienna-boilerplate/tar.gz/402e2600f947060742d429bec2226c1c44fd6627"
   dependencies:
