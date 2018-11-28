@@ -75,3 +75,42 @@ export const repositoryValidationSchema = Yup.object().shape({
     .url('Website is not a valid URL'),
 });
 
+export const workValidationSchema = Yup.object().shape({
+  title: Yup.string()
+    .required('Title is required'),
+  secondary_title: Yup.string(),
+  alias_alternates: Yup.string(),
+  year: Yup.number()
+    .integer('Year must be an integer')
+    .positive('Year must be a positive number')
+    .min(1900, 'Year must be 1900 or after')
+    .required('Year is required'),
+  digital_copy_link: Yup.string()
+    .url('Digital copy link is not a valid URL'),
+  finding_aid_link: Yup.string()
+    .url('Finding aid link is not a valid URL'),
+  rights_holder: Yup.string(),
+  citation_source: Yup.string(),
+  cataloging_notes: Yup.string(),
+  country_id: Yup.number()
+    .integer()
+    .positive(),
+  media_type_id: Yup.number()
+    .integer()
+    .positive()
+    .required('Media type is required'),
+  material_format_id: Yup.number()
+    .integer()
+    .positive()
+    .required('Material format is required'),
+  collection_ids: Yup.array()
+    .of(Yup.number().integer().positive()),
+  composer_ids: Yup.array()
+    .of(Yup.number().integer().positive()),
+  director_ids: Yup.array()
+    .of(Yup.number().integer().positive()),
+  production_company_ids: Yup.array()
+    .of(Yup.number().integer().positive()),
+  publisher_ids: Yup.array()
+    .of(Yup.number().integer().positive()),
+});

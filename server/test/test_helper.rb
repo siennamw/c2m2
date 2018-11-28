@@ -7,4 +7,14 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  def get_signed_in_user
+    password = 'password'
+    cataloger = Cataloger.create!(
+      name: 'Test Cataloger',
+      email: 'cataloger@test.com',
+      password: password
+    )
+
+    signInCataloger(email: { email: cataloger.email, password: password})
+  end
 end

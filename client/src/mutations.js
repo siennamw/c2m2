@@ -125,3 +125,88 @@ export const CREATE_REPOSITORY = gql`
     }
   }
 `;
+
+export const CREATE_WORK = gql`
+  mutation CreateWork(
+    $title: String!,
+    $secondary_title: String,
+    $alias_alternates: String,
+    $year: Int!,
+    $digital_copy_link: String,
+    $finding_aid_link: String,
+    $rights_holder: String,
+    $citation_source: String,
+    $cataloging_notes: String,
+    $country_id: Int,
+    $media_type_id: Int!,
+    $material_format_id: Int!,
+    $collection_ids: [ID],
+    $composer_ids: [ID],
+    $director_ids: [ID],
+    $production_company_ids: [ID],
+    $publisher_ids: [ID],
+  ){
+    createWork(
+      title: $title,
+      secondary_title: $secondary_title,
+      alias_alternates: $alias_alternates,
+      year: $year,
+      digital_copy_link: $digital_copy_link,
+      finding_aid_link: $finding_aid_link,
+      rights_holder: $rights_holder,
+      citation_source: $citation_source,
+      cataloging_notes: $cataloging_notes,
+      country_id: $country_id,
+      media_type_id: $media_type_id,
+      material_format_id: $material_format_id,
+      collection_ids: $collection_ids,
+      composer_ids: $composer_ids,
+      director_ids: $director_ids,
+      production_company_ids: $production_company_ids,
+      publisher_ids: $publisher_ids,
+    ) {
+      id
+      title
+      secondary_title
+      alias_alternates
+      year
+      digital_copy_link
+      finding_aid_link
+      rights_holder
+      citation_source
+      cataloging_notes
+      country {
+        id
+        name
+      }
+      media_type {
+        id
+        name
+      }
+      material_format {
+        id
+        name
+      }
+      collections {
+        id
+        name
+      }
+      composers {
+        id
+        name
+      }
+      directors {
+        id
+        name
+      }
+      production_companies {
+        id
+        name
+      }
+      publishers {
+        id
+        name
+      }
+    }
+  }
+`;

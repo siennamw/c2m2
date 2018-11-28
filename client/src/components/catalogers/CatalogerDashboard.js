@@ -15,6 +15,7 @@ import NewMediaType from '../entries/mediaType/NewMediaType';
 import NewProductionCompany from '../entries/productionCompany/NewProductionCompany';
 import NewPublisher from '../entries/publisher/NewPublisher';
 import NewRepository from '../entries/repository/NewRepository';
+import NewWork from '../entries/work/NewWork';
 
 const CatalogerDashboard = ({ match }) => {
   return (
@@ -32,6 +33,7 @@ const CatalogerDashboard = ({ match }) => {
         <NavLink to={`${match.path}/production-company`}>New Production Company</NavLink>
         <NavLink to={`${match.path}/publisher`}>New Publisher</NavLink>
         <NavLink to={`${match.path}/repository`}>New Repository</NavLink>
+        <NavLink to={`${match.path}/work`}>New Work</NavLink>
         <NavLink to={'/sign-out'}>Sign Out</NavLink>
       </Nav>
       <div className='tabs'>
@@ -47,6 +49,7 @@ const CatalogerDashboard = ({ match }) => {
           <Route exact path={`${match.path}/production-company`} component={NewProductionCompany} />
           <Route exact path={`${match.path}/publisher`} component={NewPublisher} />
           <Route exact path={`${match.path}/repository`} component={NewRepository} />
+          <Route exact path={`${match.path}/work`} component={NewWork} />
           <Route component={CatalogerHome}/>
         </Switch>
       </div>
