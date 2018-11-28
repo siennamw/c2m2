@@ -78,7 +78,7 @@ class WorksList extends React.Component {
       </Query>
     );
   }
-};
+}
 
 const WorksListTable = ({ works, loadMore, moreResults }) => {
   const wrapWithLink = (item) => (
@@ -103,7 +103,7 @@ const WorksListTable = ({ works, loadMore, moreResults }) => {
         <td>{work.year}</td>
         <td>{work.composers.map(composer => wrapWithLink(composer))}</td>
         <td>{work.directors.map(director => wrapWithLink(director))}</td>
-        <td>{wrapWithLink(work.country)}</td>
+        <td>{work.country ? wrapWithLink(work.country) : null}</td>
       </tr>
       </tbody>
     )
