@@ -1,0 +1,62 @@
+# Ruby CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-ruby/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+    # specify the version you desire here
+    - image: circleci/ruby:2.4.1-node-browsers
+      environment:
+        PGHOST: localhost
+        PGUSER: c2m2-test
+        RAILS_ENV: test
+    - image: circleci/postgres:10.4
+      environment:
+        POSTGRES_USER: c2m2-test
+        POSTGRES_DB: c2m2-test_test
+        POSTGRES_PASSWORD: ""
+
+    working_directory: ~/c2m2
+
+    steps:
+    - checkout
+
+    # Download and cache dependencies
+    - restore_cache:
+        keys:
+        - v1-dependencies-{{ checksum "server/Gemfile.lock" }}
+        # fallback to using the latest cache if no exact match is found
+        - v1-dependencies-
+
+    - run:
+        name: install dependencies
+        command: |
+          cd server
+          bundle install --jobs=4 --retry=3 --path vendor/bundle
+
+    - save_cache:
+        paths:
+        - ./server/vendor/bundle
+        key: v1-dependencies-{{ checksum "server/Gemfile.lock" }}
+
+    - run:
+        name: Wait for DB
+        command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+    # Database setup
+    - run:
+        name: database setup
+        command: |
+          cd server
+          bundle exec rake db:create
+          bundle exec rake db:schema:load
+
+    # run tests!
+    - run:
+        name: run tests
+        command: |
+          mkdir /tmp/test-results
+          cd server
+          rails test
