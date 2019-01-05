@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Resolvers::CreateMaterialFormatTest < ActiveSupport::TestCase
   def perform(args = {})
-    Resolvers::CreateMaterialFormat.new.call(nil, args, {})
+    Resolvers::CreateMaterialFormat.new.call(nil, args, { current_user: 'nobody' })
   end
 
   test 'creating new material format' do

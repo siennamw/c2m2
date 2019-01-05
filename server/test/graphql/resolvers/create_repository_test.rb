@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Resolvers::CreateRepositoryTest < ActiveSupport::TestCase
   def perform(args = {})
-    Resolvers::CreateRepository.new.call(nil, args, {})
+    Resolvers::CreateRepository.new.call(nil, args, { current_user: 'nobody' })
   end
 
   test 'creating new repository' do

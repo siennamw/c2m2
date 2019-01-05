@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Resolvers::CreateCountryTest < ActiveSupport::TestCase
   def perform(args = {})
-    Resolvers::CreateCountry.new.call(nil, args, {})
+    Resolvers::CreateCountry.new.call(nil, args, { current_user: 'nobody' })
   end
 
   test 'creating new country' do

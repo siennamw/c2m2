@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Resolvers::CreateCollectionTest < ActiveSupport::TestCase
   def perform(args = {})
-    Resolvers::CreateCollection.new.call(nil, args, {})
+    Resolvers::CreateCollection.new.call(nil, args, { current_user: 'nobody' })
   end
 
   setup do

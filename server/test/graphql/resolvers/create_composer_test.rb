@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Resolvers::CreateComposerTest < ActiveSupport::TestCase
   def perform(args = {})
-    Resolvers::CreateComposer.new.call(nil, args, {})
+    Resolvers::CreateComposer.new.call(nil, args, { current_user: 'nobody' })
   end
 
   test 'creating new composer' do

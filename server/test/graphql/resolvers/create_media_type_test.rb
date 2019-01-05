@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Resolvers::CreateMediaTypeTest < ActiveSupport::TestCase
   def perform(args = {})
-    Resolvers::CreateMediaType.new.call(nil, args, {})
+    Resolvers::CreateMediaType.new.call(nil, args, { current_user: 'nobody' })
   end
 
   test 'creating new media type' do

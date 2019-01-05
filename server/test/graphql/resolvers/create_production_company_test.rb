@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Resolvers::CreateProductionCompanyTest < ActiveSupport::TestCase
   def perform(args = {})
-    Resolvers::CreateProductionCompany.new.call(nil, args, {})
+    Resolvers::CreateProductionCompany.new.call(nil, args, { current_user: 'nobody' })
   end
 
   test 'creating new production company' do

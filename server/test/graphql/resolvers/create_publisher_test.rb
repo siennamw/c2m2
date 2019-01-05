@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Resolvers::CreatePublisherTest < ActiveSupport::TestCase
   def perform(args = {})
-    Resolvers::CreatePublisher.new.call(nil, args, {})
+    Resolvers::CreatePublisher.new.call(nil, args, { current_user: 'nobody' })
   end
 
   test 'creating new publisher' do

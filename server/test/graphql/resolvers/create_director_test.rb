@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Resolvers::CreateDirectorTest < ActiveSupport::TestCase
   def perform(args = {})
-    Resolvers::CreateDirector.new.call(nil, args, {})
+    Resolvers::CreateDirector.new.call(nil, args, { current_user: 'nobody' })
   end
 
   test 'creating new director' do

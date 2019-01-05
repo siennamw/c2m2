@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Resolvers::CreateCatalogerTest < ActiveSupport::TestCase
   def perform(args = {})
-    Resolvers::CreateCataloger.new.call(nil, args, {})
+    Resolvers::CreateCataloger.new.call(nil, args, { current_user: 'nobody' })
   end
 
   test 'creating new cataloger' do
