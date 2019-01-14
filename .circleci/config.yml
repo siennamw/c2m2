@@ -31,7 +31,14 @@ jobs:
         - v1-dependencies-
 
     - run:
-        name: install dependencies
+        name: install javascript dependencies, build app
+        command: |
+          cd client
+          yarn
+          yarn build
+
+    - run:
+        name: install ruby dependencies
         command: |
           cd server
           bundle install --jobs=4 --retry=3 --path vendor/bundle
