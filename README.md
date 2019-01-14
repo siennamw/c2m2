@@ -29,3 +29,10 @@ with the Apollo client. To develop on your local machine:
     yarn
     yarn start
     ```
+
+# Build for Deployment and Run Locally
+Server is run on port 3000, client on port 3001.
+```
+cd server
+bin/rake start
+```
