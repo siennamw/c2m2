@@ -5,7 +5,6 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.6'
 # Use PostgreSQL as the database
@@ -20,6 +19,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem "json_web_token", "~> 0.3.5"
 # For CORS
 gem "rack-cors", require: "rack/cors"
+# For JS uglification
+gem 'uglifier'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
