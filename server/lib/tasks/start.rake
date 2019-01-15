@@ -1,6 +1,6 @@
 namespace :start do
   task :build do
-    exec 'foreman start -f Procfile.dev'
+    exec 'foreman start -f ../Procfile'
   end
 end
 

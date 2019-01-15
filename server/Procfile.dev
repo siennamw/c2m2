@@ -1,2 +1,0 @@
-api: cd ../server && bundle exec puma -p 3000
-web: cd ../client && PORT=3001 && npm run build && npm run serve
