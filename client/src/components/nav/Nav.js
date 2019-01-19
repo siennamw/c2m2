@@ -16,10 +16,13 @@ class Nav extends React.Component {
 
   render() {
     const items = this.props.children.map((item, index) => {
-      if(item.type.name !== 'NavSubMenu'){
-        return <li key={index}>{item}</li>;
+      if(item.type.name === 'NavSubMenu' ||
+        // build does not recognize ^^, so check if children is an array with length
+        (Array.isArray(item.props.children) && item.props.children.length > 0)
+      ){
+        return item;
       } else {
-        return item
+        return <li key={index}>{item}</li>;
       }
     });
 
