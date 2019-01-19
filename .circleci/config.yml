@@ -57,7 +57,7 @@ jobs:
         key: v1-js-dependencies-{{ checksum "client/yarn.lock" }}
 
     - run:
-        name: Wait for DB
+        name: wait for DB
         command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
     # Database setup
@@ -73,3 +73,9 @@ jobs:
         command: |
           mkdir /tmp/test-results
           rails test
+
+    - run:
+        name: deploy master to Heroku
+        command: |
+          git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+
