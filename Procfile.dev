@@ -1,2 +1,2 @@
-web: cd client && POT=3001 && yarn && yarn start
+web: cd client && yarn && yarn start
 api: PORT=3000 && bundle exec rails s
