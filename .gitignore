@@ -46,3 +46,12 @@ bower.json
 
 # Ignore node_modules
 node_modules/
+
+# Ignore JS app build
+public/assets
+public/icons
+public/static
+public/asset-manifest.json
+public/index.html
+public/manifest.json
+public/service-worker.js
