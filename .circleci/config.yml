@@ -26,27 +26,35 @@ jobs:
     # Download and cache dependencies
     - restore_cache:
         keys:
-        - v1-dependencies-{{ checksum "server/Gemfile.lock" }}
+        - v1-ruby-dependencies-{{ checksum "Gemfile.lock" }}
         # fallback to using the latest cache if no exact match is found
-        - v1-dependencies-
+        - v1-ruby-dependencies-
+
+    - restore_cache:
+        keys:
+        - v1-js-dependencies-{{ checksum "client/yarn.lock" }}
+        # fallback to using the latest cache if no exact match is found
+        - v1-js-dependencies-
 
     - run:
         name: install javascript dependencies, build app
         command: |
-          cd client
-          yarn
-          yarn build
+          npm i
 
     - run:
         name: install ruby dependencies
         command: |
-          cd server
           bundle install --jobs=4 --retry=3 --path vendor/bundle
 
     - save_cache:
         paths:
-        - ./server/vendor/bundle
-        key: v1-dependencies-{{ checksum "server/Gemfile.lock" }}
+        - ./vendor/bundle
+        key: v1-ruby-dependencies-{{ checksum "Gemfile.lock" }}
+
+    - save_cache:
+        paths:
+        - ./client/node_modules
+        key: v1-js-dependencies-{{ checksum "client/yarn.lock" }}
 
     - run:
         name: Wait for DB
@@ -56,7 +64,6 @@ jobs:
     - run:
         name: database setup
         command: |
-          cd server
           bundle exec rake db:create
           bundle exec rake db:schema:load
 
@@ -65,5 +72,4 @@ jobs:
         name: run tests
         command: |
           mkdir /tmp/test-results
-          cd server
           rails test
