@@ -16,7 +16,7 @@ import App from './components/App';
 import { getAuthorizationToken, signOut } from './utils';
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:3000/graphql'
+  uri: '/graphql'
 });
 
 const authLink = setContext((_, { headers }) => {

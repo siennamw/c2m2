@@ -1,0 +1,14 @@
+{
+  "name": "c2m2",
+  "engines": {
+    "node": "8.11.3"
+  },
+  "scripts": {
+    "build": "cd client && yarn && yarn run build && cd ..",
+    "deploy": "cp -a client/build/. public/",
+    "postinstall": "npm run build && npm run deploy && echo 'Client built!'"
+  },
+  "dependencies": {
+    "yarn": "^1.13.0"
+  }
+}

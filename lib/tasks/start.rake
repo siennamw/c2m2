@@ -1,8 +1,13 @@
 namespace :start do
-  task :build do
-    exec 'foreman start -f Procfile'
+  task :development do
+    exec 'foreman start -f Procfile.dev'
+  end
+
+  desc 'Start production server'
+  task :production do
+    exec 'NPM_CONFIG_PRODUCTION=true && foreman start'
   end
 end
 
-desc 'Start build server'
-task :start => 'start:build'
+desc 'Start development server'
+task :start => 'start:development'
