@@ -8,30 +8,20 @@ and [Michael W. Harris, Ph.D.](http://www.michaelwharris.net/), librarian, archi
 This project is __currently in development__.  A static informational site is available at
 [http://www.c2m2.org/](http://www.c2m2.org/), which will also be the home of the completed project.
 
-# Development
+## Develop
 This project consists of a Ruby on Rails back-end serving a GraphQL endpoint, and a React front-end
-with the Apollo client. To develop on your local machine:
-
-- Clone this repository and navigate into it:
-    ```
-    git clone https://github.com/siennamw/c2m2.git
-    cd c2m2
-    ```
-- Install Ruby gems and launch server on `http://localhost:3000/` (GraphiQL will be available at `http://localhost:3000/graphiql`):
-    ```
-    cd server
-    bundle install
-    rails server
-    ```
-- Install Node packages and launch client on `http://localhost:3001/`:
-    ```
-    cd ../client
-    yarn
-    yarn start
-    ```
-
-# Build for Deployment and Run Locally
-Server is run on port 3000, client on port 3001.
+with the Apollo client. To run on your local machine:
 ```
+git clone https://github.com/siennamw/c2m2.git
+cd c2m2
 bin/rake start
 ```
+
+The Rails server will run on `http://localhost:3000/`
+(GraphiQL will be available at `http://localhost:3000/graphiql`).
+The React app will run on `http://localhost:3001/`.
+
+## Deployment
+This project is set up to be deployed to Heroku.  In production there is only one server.  The React
+app is built, then the build is moved to `/public` where it is served up by the Rails server in
+addition to the GraphQL endpoint.
