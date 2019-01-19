@@ -44,9 +44,9 @@ const CatalogerSignInForm = ({ handleSubmit, isSubmitting, status }) => {
         Sign In
       </button>
       {
-        status ?
-          <div className='form-message error api-message'>{status}</div> :
-          undefined
+        status
+        ? <div className={`form-message api-message ${status.type}`}>{status.message}</div>
+        : undefined
       }
     </Form>
   )

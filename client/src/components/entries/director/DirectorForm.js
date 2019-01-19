@@ -24,9 +24,9 @@ const InnerDirectorForm = ({ handleSubmit, isSubmitting, status }) => {
         Submit
       </button>
       {
-        status ?
-        <div className={`form-message api-message ${status.type}`}>{status.message}</div> :
-        undefined
+        status
+        ? <div className={`form-message api-message ${status.type}`}>{status.message}</div>
+        : undefined
       }
     </Form>
   )

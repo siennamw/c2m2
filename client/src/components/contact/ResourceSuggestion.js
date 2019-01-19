@@ -78,9 +78,9 @@ const InnerSuggestionForm = ({ handleSubmit, isSubmitting, setFieldValue, status
         Submit
       </button>
       {
-        status ?
-        <div className={`form-message api-message ${status.type}`}>{status.message}</div> :
-        undefined
+        status
+        ? <div className={`form-message api-message ${status.type}`}>{status.message}</div>
+        : undefined
       }
     </Form>
   )
