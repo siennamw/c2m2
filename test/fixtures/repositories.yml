@@ -4,8 +4,10 @@ one:
   name: MyString
   location: MyString
   website: MyString
+  cataloger: one
 
 two:
   name: MyString
   location: MyString
   website: MyString
+  cataloger: two

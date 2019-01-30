@@ -2,7 +2,11 @@ require 'test_helper'
 
 class Resolvers::CreateCatalogerTest < ActiveSupport::TestCase
   def perform(args = {})
-    Resolvers::CreateCataloger.new.call(nil, args, { current_user: 'nobody' })
+    Resolvers::CreateCataloger.new.call(nil, args, { current_user: @cataloger })
+  end
+
+  setup do
+    @cataloger = Cataloger.create!(name: 'test', email: 'test@email.com', password: 'test_test')
   end
 
   test 'creating new cataloger' do
@@ -26,5 +30,6 @@ class Resolvers::CreateCatalogerTest < ActiveSupport::TestCase
     assert_equal cataloger.name, name
     assert_equal cataloger.email, email
     assert_equal cataloger.description, description
+    assert_equal cataloger.created_by, @cataloger
   end
 end

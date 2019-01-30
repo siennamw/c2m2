@@ -3,7 +3,10 @@
 one:
   name: MyString
   contact_info: MyString
+  cataloger: one
 
 two:
   name: MyString2
   contact_info: MyString2
+  cataloger: two
+

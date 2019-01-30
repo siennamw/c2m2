@@ -3,7 +3,9 @@
 one:
   name: MyString
   imdb_link: MyString
+  cataloger: one
 
 two:
   name: MyString
   imdb_link: MyString
+  cataloger: two

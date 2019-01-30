@@ -7,8 +7,8 @@ class Resolvers::WorksSearchTest < ActiveSupport::TestCase
 
   setup do
     @cataloger = Cataloger.create!( name: 'test', email: 'test@example.com', password: '12345678' )
-    @media_type = MediaType.create!(name: 'a media type')
-    @material_format = MaterialFormat.create!(name: 'a material format')
+    @media_type = MediaType.create!(name: 'a media type', cataloger: @cataloger)
+    @material_format = MaterialFormat.create!(name: 'a material format', cataloger: @cataloger)
   end
 
   test 'filter option' do

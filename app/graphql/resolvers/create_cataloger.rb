@@ -27,6 +27,7 @@ class Resolvers::CreateCataloger < GraphQL::Function
       email: args[:authProvider][:email][:email],
       password: args[:authProvider][:email][:password],
       description: args[:description],
+      created_by: ctx[:current_user],
     )
   rescue ActiveRecord::RecordInvalid => e
     # this would catch all validation errors and translate them to GraphQL::ExecutionError

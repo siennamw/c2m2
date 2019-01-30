@@ -1,4 +1,5 @@
 class Repository < ApplicationRecord
+  belongs_to :cataloger
   has_many :collections
   has_many :works, through: :collections
 

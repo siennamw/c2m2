@@ -8,11 +8,11 @@ class Resolvers::CreateWorkTest < ActiveSupport::TestCase
   setup do
     @cataloger = Cataloger.create!(name: 'test', email: 'test@email.com', password: 'test_test')
 
-    @country = Country.create!(name: 'a country')
-    @media_type = MediaType.create!(name: 'a media type')
-    @material_format = MaterialFormat.create!(name: 'a material format')
+    @country = Country.create!(name: 'a country', cataloger: @cataloger)
+    @media_type = MediaType.create!(name: 'a media type', cataloger: @cataloger)
+    @material_format = MaterialFormat.create!(name: 'a material format', cataloger: @cataloger)
 
-    @repository = Repository.create!(name: 'a repository', location: 'Boulder, CO')
+    @repository = Repository.create!(name: 'a repository', location: 'Boulder, CO', cataloger: @cataloger)
 
     @collection_ids = []
     @composer_ids = []
@@ -21,11 +21,11 @@ class Resolvers::CreateWorkTest < ActiveSupport::TestCase
     @publisher_ids = []
 
     2.times do |n|
-      @collection_ids << Collection.create!(name: "collection #{n}", repository: @repository).id
-      @composer_ids << Composer.create!(name: "composer #{n}").id
-      @director_ids << Director.create!(name: "director #{n}").id
-      @production_company_ids << ProductionCompany.create!(name: "production company #{n}").id
-      @publisher_ids << Publisher.create!(name: "publisher #{n}").id
+      @collection_ids << Collection.create!(name: "collection #{n}", repository: @repository, cataloger: @cataloger).id
+      @composer_ids << Composer.create!(name: "composer #{n}", cataloger: @cataloger).id
+      @director_ids << Director.create!(name: "director #{n}", cataloger: @cataloger).id
+      @production_company_ids << ProductionCompany.create!(name: "production company #{n}", cataloger: @cataloger).id
+      @publisher_ids << Publisher.create!(name: "publisher #{n}", cataloger: @cataloger).id
     end
   end
 

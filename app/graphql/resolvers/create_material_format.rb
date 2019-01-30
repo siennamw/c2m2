@@ -15,6 +15,7 @@ class Resolvers::CreateMaterialFormat < GraphQL::Function
     MaterialFormat.create!(
       name: args[:name],
       description: args[:description],
+      cataloger: ctx[:current_user],
     )
 
   rescue ActiveRecord::RecordInvalid => e

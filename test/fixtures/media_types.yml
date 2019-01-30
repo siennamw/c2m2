@@ -3,7 +3,9 @@
 one:
   name: MyString
   description: MyString
+  cataloger: one
 
 two:
   name: MyString2
   description: MyString2
+  cataloger: two
