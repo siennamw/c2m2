@@ -22,13 +22,19 @@ class Resolvers::CreateCataloger < GraphQL::Function
       raise GraphQL::ExecutionError.new("Authentication required")
     end
 
-    Cataloger.create!(
+    cataloger = Cataloger.create!(
       name: args[:name],
       email: args[:authProvider][:email][:email],
       password: args[:authProvider][:email][:password],
       description: args[:description],
       created_by: ctx[:current_user],
     )
+
+    # Tell the UserMailer to send a welcome email asynchronously
+    UserMailer.with(user: cataloger).welcome_email.deliver_later
+
+    # Return cataloger
+    cataloger
   rescue ActiveRecord::RecordInvalid => e
     # this would catch all validation errors and translate them to GraphQL::ExecutionError
     GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")
