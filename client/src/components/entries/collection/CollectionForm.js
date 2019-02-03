@@ -3,6 +3,7 @@ import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik';
 import { collectionValidationSchema } from '../../../validationSchemas';
+import RepositorySelectField from '../RepositorySelectField';
 
 const InnerCollectionForm = ({ handleSubmit, isSubmitting, status }) => (
   <Form>
@@ -14,15 +15,7 @@ const InnerCollectionForm = ({ handleSubmit, isSubmitting, status }) => (
       name="name"
       className="u-full-width"
     />
-    <label htmlFor="repository_id">
-      Repository ID <ErrorMessage name="repository_id" component="div" className="form-message error" />
-    </label>
-    <Field
-      type="number"
-      min="1"
-      name="repository_id"
-      className="u-full-width"
-    />
+    <RepositorySelectField/>
     <label htmlFor="description">
       Description <ErrorMessage name="description" component="div" className="form-message error" />
     </label>
@@ -48,7 +41,7 @@ const InnerCollectionForm = ({ handleSubmit, isSubmitting, status }) => (
   </Form>
 );
 
-const CollectionForm = ({ mutation, handleSubmit, validationSchema }) => {
+const CollectionForm = ({ mutation, handleSubmit, validationSchema, selectData }) => {
   const initialValues = Object.keys(collectionValidationSchema.fields).reduce((acc, item) => {
     acc[item] = '';
     return acc;
@@ -56,6 +49,7 @@ const CollectionForm = ({ mutation, handleSubmit, validationSchema }) => {
 
   return (
     <Formik
+      enableReinitialize={true}
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting, setStatus, resetForm }) => handleSubmit(mutation, values, setSubmitting, setStatus, resetForm)}

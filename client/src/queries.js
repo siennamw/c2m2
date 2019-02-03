@@ -1,5 +1,14 @@
 import gql from 'graphql-tag';
 
+export const LIST_ALL_REPOSITORIES = gql`
+  query allRepositories {
+    allRepositories {
+      id
+      name
+    }
+  }
+`;
+
 export const WORKS_SEARCH = gql`
   query searchWorks($filter: WorkFilter, $first: Int, $skip: Int){
     allWorks(filter: $filter, first: $first, skip: $skip) {
