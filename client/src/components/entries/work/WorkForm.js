@@ -101,45 +101,27 @@ const InnerWorkForm = ({
         name="citation_source"
         className="u-full-width"
       />
-      <label htmlFor="country_id">
-        Country ID <ErrorMessage name="country_id" component="div" className="form-message error" />
-      </label>
-      <Field
-        name="country_id"
-        className="u-full-width"
-        component="select"
-      >
-        <option value="">Select</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-      </Field>
-      <label htmlFor="media_type_id">
-        Media Type ID <ErrorMessage name="media_type_id" component="div" className="form-message error" />
-      </label>
-      <Field
-        name="media_type_id"
-        className="u-full-width"
-        component="select"
-      >
-        <option value="">Select</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-      </Field>
-      <label htmlFor="material_format_id">
-        Material Format ID <ErrorMessage name="material_format_id" component="div" className="form-message error" />
-      </label>
-      <Field
-        name="material_format_id"
-        className="u-full-width"
-        component="select"
-      >
-        <option value="">Select</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-      </Field>
+      <SelectFieldWithQuery
+        displayName="Country"
+        fieldName="country_id"
+        onChangeCallback={selectOnChange}
+        query={queries.LIST_ALL_COUNTRIES}
+        queryName="allCountries"
+      />
+      <SelectFieldWithQuery
+        displayName="Media Type"
+        fieldName="media_type_id"
+        onChangeCallback={selectOnChange}
+        query={queries.LIST_ALL_MEDIA_TYPES}
+        queryName="allMediaTypes"
+      />
+      <SelectFieldWithQuery
+        displayName="Material Format"
+        fieldName="material_format_id"
+        onChangeCallback={selectOnChange}
+        query={queries.LIST_ALL_MATERIAL_FORMATS}
+        queryName="allMaterialFormats"
+      />
       <SelectFieldWithQuery
         displayName="Collection(s)"
         fieldName="collection_ids"
@@ -148,62 +130,38 @@ const InnerWorkForm = ({
         query={queries.LIST_ALL_COLLECTIONS}
         queryName="allCollections"
       />
-      <label htmlFor="composer_ids">
-        Composer IDs <ErrorMessage name="composer_ids" component="div" className="form-message error" />
-      </label>
-      <Field
-        name="composer_ids"
-        className="u-full-width"
-        component="select"
-        multiple
-        onChange={evt => multiSelectOnChange(evt, 'composer_ids')}
-      >
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-      </Field>
-      <label htmlFor="director_ids">
-        Director IDs <ErrorMessage name="director_ids" component="div" className="form-message error" />
-      </label>
-      <Field
-        name="director_ids"
-        className="u-full-width"
-        component="select"
-        multiple
-        onChange={evt => multiSelectOnChange(evt, 'director_ids')}
-      >
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-      </Field>
-      <label htmlFor="production_company_ids">
-        Production Company IDs <ErrorMessage name="production_company_ids" component="div" className="form-message error" />
-      </label>
-      <Field
-        name="production_company_ids"
-        className="u-full-width"
-        component="select"
-        multiple
-        onChange={evt => multiSelectOnChange(evt, 'production_company_ids')}
-      >
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-      </Field>
-      <label htmlFor="publisher_ids">
-        Publisher IDs <ErrorMessage name="publisher_ids" component="div" className="form-message error" />
-      </label>
-      <Field
-        name="publisher_ids"
-        className="u-full-width"
-        component="select"
-        multiple
-        onChange={evt => multiSelectOnChange(evt, 'publisher_ids')}
-      >
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-      </Field>
+      <SelectFieldWithQuery
+        displayName="Composer(s)"
+        fieldName="composer_ids"
+        isMulti
+        onChangeCallback={multiSelectOnChange}
+        query={queries.LIST_ALL_COMPOSERS}
+        queryName="allComposers"
+      />
+      <SelectFieldWithQuery
+        displayName="Director(s)"
+        fieldName="director_ids"
+        isMulti
+        onChangeCallback={multiSelectOnChange}
+        query={queries.LIST_ALL_DIRECTORS}
+        queryName="allDirectors"
+      />
+      <SelectFieldWithQuery
+        displayName="Production Company or Companies"
+        fieldName="production_company_ids"
+        isMulti
+        onChangeCallback={multiSelectOnChange}
+        query={queries.LIST_ALL_PRODUCTION_COMPANIES}
+        queryName="allProductionCompanies"
+      />
+      <SelectFieldWithQuery
+        displayName="Publisher(s)"
+        fieldName="publisher_ids"
+        isMulti
+        onChangeCallback={multiSelectOnChange}
+        query={queries.LIST_ALL_PUBLISHERS}
+        queryName="allPublishers"
+      />
       <label htmlFor="cataloging_notes">
         Cataloging Notes <ErrorMessage name="cataloging_notes" component="div" className="form-message error" />
       </label>
