@@ -1,18 +1,5 @@
 import gql from "graphql-tag";
 
-export const SIGN_IN = gql`
-  mutation SignInCataloger($email: String!, $password: String!){
-    signInCataloger(email: { email: $email, password: $password }) {
-      token
-      cataloger {
-        id
-        name
-        email
-      }
-    }
-  }
-`;
-
 export const CREATE_CATALOGER = gql`
   mutation CreateCataloger(
     $name: String!, 
@@ -209,4 +196,45 @@ export const CREATE_WORK = gql`
       }
     }
   }
+`;
+
+export const HANDLE_SUGGESTION_FORM = gql`
+    mutation handleSuggestionForm(
+    $name: String!,
+    $email: String!,
+    $composers: String,
+    $works: String,
+    $link: String,
+    $location: String,
+    $comments: String,
+    ){
+        handleSuggestionForm(
+            name: $name,
+            email: $email,
+            composers: $composers,
+            works: $works,
+            link: $link,
+            location: $location,
+            comments: $comments
+        )
+    }
+`;
+
+export const HANDLE_CONTACT_FORM = gql`
+    mutation handleContactForm($name: String!, $email: String!, $message: String!){
+        handleContactForm(name: $name, email: $email, message: $message)
+    }
+`;
+
+export const SIGN_IN = gql`
+    mutation SignInCataloger($email: String!, $password: String!){
+        signInCataloger(email: { email: $email, password: $password }) {
+            token
+            cataloger {
+                id
+                name
+                email
+            }
+        }
+    }
 `;

@@ -1,7 +1,10 @@
 import React from 'react';
+import { Mutation } from "react-apollo";
+import { Formik, ErrorMessage, Field, Form } from "formik";
 import ReCAPTCHA from "react-google-recaptcha";
-import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
+
+import * as mutations from '../../mutations';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -9,12 +12,12 @@ const validationSchema = Yup.object().shape({
   email: Yup.string()
     .email('E-mail is not valid')
     .required('E-mail is required'),
-  composer: Yup.string(),
+  composers: Yup.string(),
   works: Yup.string(),
   link: Yup.string()
     .url('Link is not a valid URL'),
   location: Yup.string(),
-  comment: Yup.string(),
+  comments: Yup.string(),
   recaptcha: Yup.string()
     .required('ReCaptcha is required'),
 });
@@ -34,11 +37,11 @@ const InnerSuggestionForm = ({ handleSubmit, isSubmitting, setFieldValue, status
       <Field type='email'
              name='email'
              className='u-full-width'/>
-      <label htmlFor='composer'>
-        Composer(s) Concerned <ErrorMessage name='composer' component='div' className='form-message error'/>
+      <label htmlFor='composers'>
+        Composer(s) Concerned <ErrorMessage name='composers' component='div' className='form-message error'/>
       </label>
       <Field type='text'
-             name='composer'
+             name='composers'
              className='u-full-width'/>
       <label htmlFor='works'>
         Major Work(s) and/or Film(s) Concerned <ErrorMessage name='works' component='div' className='form-message error'/>
@@ -58,11 +61,11 @@ const InnerSuggestionForm = ({ handleSubmit, isSubmitting, setFieldValue, status
       <Field type='text'
              name='location'
              className='u-full-width'/>
-      <label htmlFor='comment'>
-        Comments <ErrorMessage name='comment' component='div' className='form-message error'/>
+      <label htmlFor='comments'>
+        Comments <ErrorMessage name='comments' component='div' className='form-message error'/>
       </label>
       <Field type='text'
-             name='comment'
+             name='comments'
              className='u-full-width'
              component='textarea'/>
       <ErrorMessage name='recaptcha' component='div' className='form-message error'/>
@@ -86,25 +89,69 @@ const InnerSuggestionForm = ({ handleSubmit, isSubmitting, setFieldValue, status
   )
 };
 
-const ResourceSuggestion = () => (
-  <div>
-    <h2>Suggest a Resource</h2>
-    <Formik
-      initialValues={{
-        name: '',
-        email: '',
-        composer: '',
-        works: '',
-        link: '',
-        location: '',
-        comment: '',
-        recaptcha: '',
-      }}
-      validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting }) => console.log(values)}
-      render={InnerSuggestionForm}
-    />
-  </div>
-);
+class ResourceSuggestion extends React.Component {
+  handleSubmit = async (mutation, values, setSubmitting, setStatus) => {
+    try {
+      const payload = {
+        variables: {
+          name: values.name,
+          email: values.email,
+          composers: values.composers,
+          works: values.works,
+          link: values.link,
+          location: values.location,
+          comments: values.comments,
+        }
+      };
+      const { data } = await mutation(payload);
+      setSubmitting(false);
+
+      if (data.handleSuggestionForm) {
+        setStatus({
+          type: 'success',
+          message: 'Success!',
+        });
+      } else {
+        setStatus({
+          type: 'error',
+          message: 'Sorry, your form was not submitted successfully.  Please try again later.',
+        });
+      }
+    } catch (err) {
+      console.log('Error submitting resource suggestion form', err);
+      setStatus({
+        type: 'error',
+        message: 'Sorry, your form was not submitted successfully.  Please try again later.',
+      });
+    }
+  };
+
+  render = () => {
+    return (
+      <div>
+        <h2>Suggest a Resource</h2>
+        <Mutation mutation={mutations.HANDLE_SUGGESTION_FORM}>
+          {(handleSuggestionForm) => (
+            <Formik
+              initialValues={{
+                name: '',
+                email: '',
+                composer: '',
+                works: '',
+                link: '',
+                location: '',
+                comment: '',
+                recaptcha: '',
+              }}
+              validationSchema={validationSchema}
+              onSubmit={(values, { setSubmitting, setStatus }) => this.handleSubmit(handleSuggestionForm, values, setSubmitting, setStatus)}
+              render={InnerSuggestionForm}
+            />
+          )}
+        </Mutation>
+      </div>
+    )
+  }
+}
 
 export default ResourceSuggestion;

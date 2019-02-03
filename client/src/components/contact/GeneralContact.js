@@ -1,7 +1,10 @@
 import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
+import { Mutation } from "react-apollo";
+import { Formik, ErrorMessage, Field, Form } from "formik";
 import ReCAPTCHA from "react-google-recaptcha";
+import * as Yup from 'yup';
+
+import * as mutations from '../../mutations';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -58,21 +61,61 @@ const InnerContactForm = ({ handleSubmit, isSubmitting, setFieldValue, status })
   )
 };
 
-const GeneralContact = () => (
-  <div>
-    <h2>Contact Us</h2>
-    <Formik
-      initialValues={{
-        name: '',
-        email: '',
-        message: '',
-        recaptcha: '',
-      }}
-      validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting }) => console.log(values)}
-      render={InnerContactForm}
-    />
-  </div>
-);
+class GeneralContact extends React.Component {
+  handleSubmit = async (mutation, values, setSubmitting, setStatus) => {
+    try {
+      const payload = {
+        variables: {
+          name: values.name,
+          email: values.email,
+          message: values.message,
+        }
+      };
+      const { data } = await mutation(payload);
+      setSubmitting(false);
+
+      if (data.handleContactForm) {
+        setStatus({
+          type: 'success',
+          message: 'Success!',
+        });
+      } else {
+        setStatus({
+          type: 'error',
+          message: 'Sorry, your form was not submitted successfully.  Please try again later.',
+        });
+      }
+    } catch (err) {
+      console.log('Error submitting resource suggestion form', err);
+      setStatus({
+        type: 'error',
+        message: 'Sorry, your form was not submitted successfully.  Please try again later.',
+      });
+    }
+  };
+
+  render = () => {
+    return (
+      <div>
+        <h2>Contact Us</h2>
+        <Mutation mutation={mutations.HANDLE_CONTACT_FORM}>
+          {(handleContactForm) => (
+            <Formik
+              initialValues={{
+                name: '',
+                email: '',
+                message: '',
+                recaptcha: '',
+              }}
+              validationSchema={validationSchema}
+              onSubmit={(values, { setSubmitting, setStatus }) => this.handleSubmit(handleContactForm, values, setSubmitting, setStatus)}
+              render={InnerContactForm}
+            />
+          )}
+        </Mutation>
+      </div>
+    )
+  }
+}
 
 export default GeneralContact;
