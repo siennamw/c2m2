@@ -1,5 +1,14 @@
 import gql from 'graphql-tag';
 
+export const LIST_ALL_COLLECTIONS = gql`
+    query allCollections {
+        allCollections {
+            id
+            name
+        }
+    }
+`;
+
 export const LIST_ALL_REPOSITORIES = gql`
   query allRepositories {
     allRepositories {

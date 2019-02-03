@@ -3,17 +3,33 @@ import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik';
 import { workValidationSchema } from '../../../validationSchemas';
+import CollectionMultiSelectField from '../collection/CollectionMultiSelectField';
 
 const InnerWorkForm = ({
   handleSubmit, isSubmitting, status, setFieldValue,
 }) => {
+  const selectOnChange = (evt, name) => {
+    // when selecting from a dropdown to set an ID,
+    // coerce value to number on change
+    if (name.includes('_id')) {
+      setFieldValue(
+        name,
+        Number(evt.target.value),
+      );
+    }
+  };
   const multiSelectOnChange = (evt, name) => {
-    setFieldValue(
-      name,
-      [].slice
-        .call(evt.target.selectedOptions)
-        .map(option => option.value),
-    );
+    // when selecting from a multiselect to set an array of IDs,
+    // build array manually & coerce values to numbers on change
+    if (name.includes('_ids')) {
+      setFieldValue(
+        name,
+        // turn array-like object into a real array
+        [].slice
+          .call(evt.target.selectedOptions)
+          .map(option => Number(option.value)),
+      );
+    }
   };
 
   return (
@@ -122,20 +138,7 @@ const InnerWorkForm = ({
         <option value="2">2</option>
         <option value="3">3</option>
       </Field>
-      <label htmlFor="collection_ids">
-        Collection IDs <ErrorMessage name="collection_ids" component="div" className="form-message error" />
-      </label>
-      <Field
-        name="collection_ids"
-        className="u-full-width"
-        component="select"
-        multiple
-        onChange={evt => multiSelectOnChange(evt, 'collection_ids')}
-      >
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-      </Field>
+      <CollectionMultiSelectField multiSelectOnChange={multiSelectOnChange} />
       <label htmlFor="composer_ids">
         Composer IDs <ErrorMessage name="composer_ids" component="div" className="form-message error" />
       </label>

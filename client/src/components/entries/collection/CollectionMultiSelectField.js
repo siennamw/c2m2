@@ -3,7 +3,7 @@ import { Field, ErrorMessage } from 'formik';
 import { Query } from 'react-apollo';
 import { LIST_ALL_COLLECTIONS } from '../../../queries';
 
-const CollectionSelectField = (multiSelectOnChange) => (
+const CollectionMultiSelectField = ({ multiSelectOnChange }) => (
   <Query query={LIST_ALL_COLLECTIONS}>
     {({ error, data }) => {
       let content = (
@@ -55,4 +55,4 @@ const CollectionSelectField = (multiSelectOnChange) => (
   </Query>
 );
 
-export default CollectionSelectField;
+export default CollectionMultiSelectField;
