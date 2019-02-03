@@ -2,8 +2,10 @@ import React from 'react';
 import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik';
+
 import { workValidationSchema } from '../../../validationSchemas';
-import CollectionMultiSelectField from '../collection/CollectionMultiSelectField';
+import MultiSelectFieldWithQuery from '../MultiSelectFieldWithQuery';
+import * as queries from '../../../queries';
 
 const InnerWorkForm = ({
   handleSubmit, isSubmitting, status, setFieldValue,
@@ -138,7 +140,13 @@ const InnerWorkForm = ({
         <option value="2">2</option>
         <option value="3">3</option>
       </Field>
-      <CollectionMultiSelectField multiSelectOnChange={multiSelectOnChange} />
+      <MultiSelectFieldWithQuery
+        displayName="Collection(s)"
+        fieldName="collection_ids"
+        multiSelectOnChange={multiSelectOnChange}
+        query={queries.LIST_ALL_COLLECTIONS}
+        queryName="allCollections"
+      />
       <label htmlFor="composer_ids">
         Composer IDs <ErrorMessage name="composer_ids" component="div" className="form-message error" />
       </label>
