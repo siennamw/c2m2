@@ -1,5 +1,5 @@
 import React from 'react';
-import WorksList from "./WorksList";
+import WorksList from './WorksList';
 
 const Browse = () => (
   <div>

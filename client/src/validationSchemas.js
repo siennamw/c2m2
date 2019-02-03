@@ -9,7 +9,7 @@ export const catalogerValidationSchema = Yup.object().shape({
   description: Yup.string(),
   password: Yup.string()
     .min(6, 'Password must be longer than 6 characters')
-    .required('Password is required')
+    .required('Password is required'),
 });
 
 export const collectionValidationSchema = Yup.object().shape({

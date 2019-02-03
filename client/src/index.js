@@ -16,7 +16,7 @@ import App from './components/App';
 import { getAuthorizationToken, signOut } from './utils';
 
 const httpLink = createHttpLink({
-  uri: '/graphql'
+  uri: '/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -24,29 +24,29 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : ''
-    }
-  }
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
 });
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   let notAuthorized = false;
   if (graphQLErrors) {
     graphQLErrors.forEach(({ message, locations, path }) => {
-      if(message.toLowerCase().includes('authentication required')){
+      if (message.toLowerCase().includes('authentication required')) {
         notAuthorized = true;
       }
       console.log(
-        `[GraphQL error]: Message: ${message}, Location: ${JSON.stringify(locations)}, Path: ${path}`
+        `[GraphQL error]: Message: ${message}, Location: ${JSON.stringify(locations)}, Path: ${path}`,
       );
-    }
-  )}
-  if (networkError){
-    if (networkError.statusCode === 401){
+    });
+  }
+  if (networkError) {
+    if (networkError.statusCode === 401) {
       notAuthorized = true;
     }
   }
-  if(notAuthorized) signOut();
+  if (notAuthorized) signOut();
 });
 
 const client = new ApolloClient({
@@ -63,6 +63,6 @@ ReactDOM.render(
       <App />
     </Router>
   </ApolloProvider>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 registerServiceWorker();

@@ -1,9 +1,11 @@
-import React from "react";
-import { Mutation } from "react-apollo";
+import React from 'react';
+import { Mutation } from 'react-apollo';
 
 import { isEmpty } from 'lodash';
 
-const NewEntry = ({title, variablesList, gqlMutation, yupSchema, FormComponent}) => {
+const NewEntry = ({
+  title, variablesList, gqlMutation, yupSchema, FormComponent,
+}) => {
   const handleSubmit = async (mutation, values, setSubmitting, setStatus, resetForm) => {
     try {
       const variables = variablesList.reduce((acc, item) => {
@@ -40,10 +42,12 @@ const NewEntry = ({title, variablesList, gqlMutation, yupSchema, FormComponent})
     <div>
       <h3>{title}</h3>
       <Mutation mutation={gqlMutation}>
-        {(mutation) => (
-          <FormComponent mutation={mutation}
-                         handleSubmit={handleSubmit}
-                         validationSchema={yupSchema}/>
+        {mutation => (
+          <FormComponent
+            mutation={mutation}
+            handleSubmit={handleSubmit}
+            validationSchema={yupSchema}
+          />
         )}
       </Mutation>
     </div>
