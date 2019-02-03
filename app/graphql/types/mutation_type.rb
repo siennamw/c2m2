@@ -13,4 +13,7 @@ Types::MutationType = GraphQL::ObjectType.define do
   field :createRepository, function: Resolvers::CreateRepository.new
   field :createWork, function: Resolvers::CreateWork.new
   field :signInCataloger, function: Resolvers::SignInCataloger.new
+
+  field :handleContactForm, function: Resolvers::HandleContactForm.new
+  field :handleSuggestionForm, function: Resolvers::HandleSuggestionForm.new
 end

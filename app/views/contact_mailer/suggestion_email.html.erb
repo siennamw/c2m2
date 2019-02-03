@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+<p align="center">
+<%= image_tag("c2m2_logo.png") %>
+</p>
+<h2 align="center">Suggestion Form Submission from C2M2 Dev</h2>
+<p>Name: <%= @name %></p>
+<p>Email: <%= @email %></p>
+<% @fields.each_pair do |key, value| %>
+  <p><%= key.capitalize %>: <%= value %></p>
+<% end %>
+</body>
+</html>
