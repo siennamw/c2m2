@@ -4,7 +4,7 @@ import {
 } from 'formik';
 
 import { workValidationSchema } from '../../../validationSchemas';
-import MultiSelectFieldWithQuery from '../MultiSelectFieldWithQuery';
+import SelectFieldWithQuery from '../SelectFieldWithQuery';
 import * as queries from '../../../queries';
 
 const InnerWorkForm = ({
@@ -140,10 +140,11 @@ const InnerWorkForm = ({
         <option value="2">2</option>
         <option value="3">3</option>
       </Field>
-      <MultiSelectFieldWithQuery
+      <SelectFieldWithQuery
         displayName="Collection(s)"
         fieldName="collection_ids"
-        multiSelectOnChange={multiSelectOnChange}
+        isMulti
+        onChangeCallback={multiSelectOnChange}
         query={queries.LIST_ALL_COLLECTIONS}
         queryName="allCollections"
       />

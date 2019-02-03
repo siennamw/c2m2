@@ -2,8 +2,10 @@ import React from 'react';
 import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik';
+
 import { collectionValidationSchema } from '../../../validationSchemas';
-import RepositorySelectField from '../repository/RepositorySelectField';
+import SelectFieldWithQuery from '../SelectFieldWithQuery';
+import { LIST_ALL_REPOSITORIES } from '../../../queries';
 
 const InnerCollectionForm = ({
   handleSubmit, isSubmitting, status, setFieldValue
@@ -29,7 +31,13 @@ const InnerCollectionForm = ({
         name="name"
         className="u-full-width"
       />
-      <RepositorySelectField onChange={selectOnChange} />
+      <SelectFieldWithQuery
+        displayName="Repository"
+        fieldName="repository_id"
+        onChangeCallback={selectOnChange}
+        query={LIST_ALL_REPOSITORIES}
+        queryName="allRepositories"
+      />
       <label htmlFor="description">
         Description <ErrorMessage name="description" component="div" className="form-message error" />
       </label>

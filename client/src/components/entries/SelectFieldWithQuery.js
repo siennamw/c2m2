@@ -2,8 +2,8 @@ import React from 'react';
 import { Field, ErrorMessage } from 'formik';
 import { Query } from 'react-apollo';
 
-const MultiSelectFieldWithQuery = ({
-  fieldName, displayName, multiSelectOnChange, query, queryName
+const SelectFieldWithQuery = ({
+  fieldName, displayName, isMulti, onChangeCallback, query, queryName
 }) => (
   <Query query={query}>
     {({ error, data }) => {
@@ -20,23 +20,35 @@ const MultiSelectFieldWithQuery = ({
       } else if (data && data[queryName]) {
         const items = data[queryName].sort((a, b) => (
           a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+        )).map(i => (
+          <option key={i.id} value={Number(i.id)}>{i.name}</option>
         ));
 
-        content = (
-          <Field
-            name={fieldName}
-            className="u-full-width"
-            component="select"
-            multiple
-            onChange={evt => multiSelectOnChange(evt, fieldName)}
-          >
-            {
-              items.map(i => (
-                <option key={i.id} value={Number(i.id)}>{i.name}</option>
-              ))
-            }
-          </Field>
-        );
+        if (isMulti) {
+          content = (
+            <Field
+              name={fieldName}
+              className="u-full-width"
+              component="select"
+              multiple
+              onChange={evt => onChangeCallback(evt, fieldName)}
+            >
+              { items }
+            </Field>
+          );
+        } else {
+          content = (
+            <Field
+              name={fieldName}
+              className="u-full-width"
+              component="select"
+              onChange={evt => onChangeCallback(evt, fieldName)}
+            >
+              <option key="none" value="">Select</option>
+              { items }
+            </Field>
+          );
+        }
       }
 
       return (
@@ -56,4 +68,4 @@ const MultiSelectFieldWithQuery = ({
   </Query>
 );
 
-export default MultiSelectFieldWithQuery;
+export default SelectFieldWithQuery;
