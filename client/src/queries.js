@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export const WORKS_SEARCH = gql`
   query searchWorks($filter: WorkFilter, $first: Int, $skip: Int){
