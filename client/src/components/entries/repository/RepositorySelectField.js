@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, ErrorMessage } from 'formik';
 import { Query } from 'react-apollo';
-import { LIST_ALL_REPOSITORIES } from '../../queries';
+import { LIST_ALL_REPOSITORIES } from '../../../queries';
 
 const RepositorySelectField = () => (
   <Query query={LIST_ALL_REPOSITORIES}>

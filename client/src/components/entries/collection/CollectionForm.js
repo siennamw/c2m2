@@ -3,7 +3,7 @@ import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik';
 import { collectionValidationSchema } from '../../../validationSchemas';
-import RepositorySelectField from '../RepositorySelectField';
+import RepositorySelectField from '../repository/RepositorySelectField';
 
 const InnerCollectionForm = ({ handleSubmit, isSubmitting, status }) => (
   <Form>
