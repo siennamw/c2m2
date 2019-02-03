@@ -9,14 +9,7 @@ const NewEntry = ({
   const handleSubmit = async (mutation, values, setSubmitting, setStatus, resetForm) => {
     try {
       const variables = variablesList.reduce((acc, item) => {
-        let val = values[item] ? values[item] : null;
-
-        if(val && yupSchema.fields[item]._type === 'number') {
-          // coerce string to number if yupSchema is looking for a number
-          val = Number(val);
-        }
-
-        acc[item] = val;
+        acc[item] = values[item] ? values[item] : null;
         return acc;
       }, {});
 

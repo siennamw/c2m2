@@ -1,10 +1,10 @@
 import React from 'react';
 import { Field, ErrorMessage } from 'formik';
 import { Query } from 'react-apollo';
-import { LIST_ALL_REPOSITORIES } from '../../../queries';
+import { LIST_ALL_COLLECTIONS } from '../../../queries';
 
-const RepositorySelectField = ({ onChange }) => (
-  <Query query={LIST_ALL_REPOSITORIES}>
+const CollectionSelectField = (multiSelectOnChange) => (
+  <Query query={LIST_ALL_COLLECTIONS}>
     {({ error, data }) => {
       let content = (
         <div className="form-message api-message warn">Fetching...</div>
@@ -13,22 +13,22 @@ const RepositorySelectField = ({ onChange }) => (
       if (error) {
         content = (
           <div className="form-message api-message error">
-            Sorry! There was an error fetching the list of repositories.
+            Sorry! There was an error fetching the list of collections.
           </div>
         );
-      } else if (data && data.allRepositories) {
-        const repositories = data.allRepositories.sort((a, b) => (
+      } else if (data && data.allCollections) {
+        const repositories = data.allCollections.sort((a, b) => (
           a.name.toLowerCase().localeCompare(b.name.toLowerCase())
         ));
 
         content = (
           <Field
-            name="repository_id"
+            name="collection_ids"
             className="u-full-width"
             component="select"
-            onChange={evt => onChange(evt, 'repository_id')}
+            multiple
+            onChange={evt => multiSelectOnChange(evt, 'collection_ids')}
           >
-            <option key="empty" value="">Select</option>
             {
               repositories.map(repo => (
                 <option key={repo.id} value={Number(repo.id)}>{repo.name}</option>
@@ -40,10 +40,10 @@ const RepositorySelectField = ({ onChange }) => (
 
       return (
         <div>
-          <label htmlFor="repository_id">
-            Repository
+          <label htmlFor="collection_ids">
+            Collection
             <ErrorMessage
-              name="repository_id"
+              name="collection_ids"
               component="div"
               className="form-message error"
             />
@@ -55,4 +55,4 @@ const RepositorySelectField = ({ onChange }) => (
   </Query>
 );
 
-export default RepositorySelectField;
+export default CollectionSelectField;
