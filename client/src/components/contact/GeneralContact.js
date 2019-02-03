@@ -62,7 +62,7 @@ const InnerContactForm = ({ handleSubmit, isSubmitting, setFieldValue, status })
 };
 
 class GeneralContact extends React.Component {
-  handleSubmit = async (mutation, values, setSubmitting, setStatus) => {
+  handleSubmit = async (mutation, values, setSubmitting, setStatus, resetForm) => {
     try {
       const payload = {
         variables: {
@@ -75,6 +75,7 @@ class GeneralContact extends React.Component {
       setSubmitting(false);
 
       if (data.handleContactForm) {
+        resetForm();
         setStatus({
           type: 'success',
           message: 'Success!',
@@ -108,7 +109,7 @@ class GeneralContact extends React.Component {
                 recaptcha: '',
               }}
               validationSchema={validationSchema}
-              onSubmit={(values, { setSubmitting, setStatus }) => this.handleSubmit(handleContactForm, values, setSubmitting, setStatus)}
+              onSubmit={(values, { setSubmitting, setStatus, resetForm }) => this.handleSubmit(handleContactForm, values, setSubmitting, setStatus, resetForm)}
               render={InnerContactForm}
             />
           )}

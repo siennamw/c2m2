@@ -90,7 +90,7 @@ const InnerSuggestionForm = ({ handleSubmit, isSubmitting, setFieldValue, status
 };
 
 class ResourceSuggestion extends React.Component {
-  handleSubmit = async (mutation, values, setSubmitting, setStatus) => {
+  handleSubmit = async (mutation, values, setSubmitting, setStatus, resetForm) => {
     try {
       const payload = {
         variables: {
@@ -107,6 +107,7 @@ class ResourceSuggestion extends React.Component {
       setSubmitting(false);
 
       if (data.handleSuggestionForm) {
+        resetForm();
         setStatus({
           type: 'success',
           message: 'Success!',
@@ -144,7 +145,7 @@ class ResourceSuggestion extends React.Component {
                 recaptcha: '',
               }}
               validationSchema={validationSchema}
-              onSubmit={(values, { setSubmitting, setStatus }) => this.handleSubmit(handleSuggestionForm, values, setSubmitting, setStatus)}
+              onSubmit={(values, { setSubmitting, setStatus, resetForm }) => this.handleSubmit(handleSuggestionForm, values, setSubmitting, setStatus, resetForm)}
               render={InnerSuggestionForm}
             />
           )}
