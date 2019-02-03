@@ -1,6 +1,6 @@
 import React from "react";
 
-import NewEntry from '../../NewEntry';
+import NewEntry from '../NewEntry';
 
 import MediaTypeForm from './MediaTypeForm';
 import { CREATE_MEDIA_TYPE } from '../../../mutations';

@@ -1,6 +1,6 @@
 import React from "react";
 
-import NewEntry from '../../NewEntry';
+import NewEntry from '../NewEntry';
 
 import CollectionForm from './CollectionForm';
 import { CREATE_COLLECTION } from "../../../mutations";

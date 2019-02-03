@@ -1,6 +1,6 @@
 import React from "react";
 
-import NewEntry from '../../NewEntry';
+import NewEntry from '../NewEntry';
 
 import PublisherForm from './PublisherForm';
 import { CREATE_PUBLISHER } from '../../../mutations';

@@ -1,6 +1,6 @@
 import React from "react";
 
-import NewEntry from '../../NewEntry';
+import NewEntry from '../NewEntry';
 
 import ProductionCompanyForm from './ProductionCompanyForm';
 import { CREATE_PRODUCTION_COMPANY } from '../../../mutations';

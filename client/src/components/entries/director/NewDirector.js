@@ -1,6 +1,6 @@
 import React from "react";
 
-import NewEntry from '../../NewEntry';
+import NewEntry from '../NewEntry';
 
 import DirectorForm from './DirectorForm';
 import { CREATE_DIRECTOR } from "../../../mutations";

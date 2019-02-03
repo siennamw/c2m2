@@ -1,6 +1,6 @@
 import React from "react";
 
-import NewEntry from '../../NewEntry';
+import NewEntry from '../NewEntry';
 
 import CountryForm from './CountryForm';
 import { CREATE_COUNTRY } from '../../../mutations';

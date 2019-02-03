@@ -1,6 +1,6 @@
 import React from "react";
 
-import NewEntry from '../../NewEntry';
+import NewEntry from '../NewEntry';
 
 import CatalogerForm from './CatalogerForm';
 import { CREATE_CATALOGER } from "../../../mutations";

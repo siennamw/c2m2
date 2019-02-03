@@ -1,6 +1,6 @@
 import React from "react";
 
-import NewEntry from '../../NewEntry';
+import NewEntry from '../NewEntry';
 
 import MaterialFormatForm from './MaterialFormatForm';
 import { CREATE_MATERIAL_FORMAT } from '../../../mutations';

@@ -1,6 +1,6 @@
 import React from "react";
 
-import NewEntry from '../../NewEntry';
+import NewEntry from '../NewEntry';
 
 import WorkForm from './WorkForm';
 import { CREATE_WORK } from "../../../mutations";
