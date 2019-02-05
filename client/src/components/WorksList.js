@@ -9,17 +9,25 @@ import * as queries from '../queries';
 class WorksList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { moreResults: true };
+    this.state = {
+      moreResults: true,
+      loadingResults: false,
+    };
   }
 
   componentDidUpdate(prevProps) {
     if (!isEqual(this.props.filter, prevProps.filter)) {
       // make sure button is enabled for a new search
-      this.setState({ moreResults: true });
+      this.setState({
+        moreResults: true,
+        loadingResults: false,
+      });
     }
   }
 
   loadMore = (data, fetchMore) => {
+    this.setState({ loadingResults: true });
+
     fetchMore({
       variables: {
         skip: data.allWorks.length
@@ -32,7 +40,10 @@ class WorksList extends React.Component {
 
         if (noMore) {
           result = prev;
-          this.setState({ moreResults: false });
+          this.setState({
+            moreResults: false,
+            loadingResults: false,
+          });
         } else {
           result = {
             ...prev,
@@ -40,7 +51,10 @@ class WorksList extends React.Component {
               allWorks: [...prev.allWorks, ...fetchMoreResult.allWorks]
             }
           };
-          this.setState({ moreResults: true });
+          this.setState({
+            moreResults: true,
+            loadingResults: false,
+          });
         }
         return result;
       }
@@ -58,6 +72,7 @@ class WorksList extends React.Component {
         return <WorksListTable works={data.allWorks}
                                loadMore={() => this.loadMore(data, fetchMore)}
                                moreResults={this.state.moreResults}
+                               loadingResults={this.state.loadingResults}
         />
       }
 
@@ -80,7 +95,7 @@ class WorksList extends React.Component {
   }
 }
 
-const WorksListTable = ({ works, loadMore, moreResults }) => {
+const WorksListTable = ({ works, loadMore, moreResults, loadingResults }) => {
   const wrapWithLink = (item) => (
     // TODO: make this link functional
     <span key={item.id}><a href={item.id}>{item.name}</a></span>
@@ -109,13 +124,21 @@ const WorksListTable = ({ works, loadMore, moreResults }) => {
     )
   );
 
+  let buttonText = 'Load More Results';
+
+  if(loadingResults){
+    buttonText = 'Loading...';
+  } else if(!moreResults){
+    buttonText = 'No More Results';
+  }
+
   return (
     <div>
       <table id='works-list-table' className="u-full-width">
         {items}
       </table>
-      <button className='center load-more' onClick={loadMore} disabled={!moreResults}>
-        {moreResults ? 'Load More Results' : 'No More Results'}
+      <button className='center load-more' onClick={loadMore} disabled={!moreResults || loadingResults}>
+        {buttonText}
       </button>
     </div>
   )
