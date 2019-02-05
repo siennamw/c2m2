@@ -20,9 +20,13 @@ import PrivateRoute from './PrivateRoute';
 import UnknownRoute from './UnknownRoute';
 
 class App extends React.Component {
+  componentDidUpdate() {
+    document.getElementById('top').scrollIntoView(true);
+  }
+
   render() {
     return (
-      <div className="app container">
+      <div className="app container" id="top">
         <Header />
         <main>
           <Switch>
