@@ -4,8 +4,10 @@ import {
 } from 'formik';
 
 import { collectionValidationSchema } from '../../../validationSchemas';
-import SelectFieldWithQuery from '../SelectFieldWithQuery';
 import { LIST_ALL_REPOSITORIES } from '../../../queries';
+
+import SelectFieldWithQuery from '../SelectFieldWithQuery';
+import NewRepository from '../repository/NewRepository';
 
 const InnerCollectionForm = ({
   handleSubmit, isSubmitting, status, setFieldValue
@@ -24,7 +26,8 @@ const InnerCollectionForm = ({
   return (
     <Form>
       <label htmlFor="name">
-        Name <ErrorMessage name="name" component="div" className="form-message error" />
+        Name
+        <ErrorMessage name="name" component="div" className="form-message error" />
       </label>
       <Field
         type="text"
@@ -37,9 +40,11 @@ const InnerCollectionForm = ({
         onChangeCallback={selectOnChange}
         query={LIST_ALL_REPOSITORIES}
         queryName="allRepositories"
+        componentForModal={<NewRepository />}
       />
       <label htmlFor="description">
-        Description <ErrorMessage name="description" component="div" className="form-message error" />
+        Description
+        <ErrorMessage name="description" component="div" className="form-message error" />
       </label>
       <Field
         type="text"
@@ -72,7 +77,6 @@ const CollectionForm = ({ mutation, handleSubmit, validationSchema, selectData }
 
   return (
     <Formik
-      enableReinitialize={true}
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting, setStatus, resetForm }) => handleSubmit(mutation, values, setSubmitting, setStatus, resetForm)}

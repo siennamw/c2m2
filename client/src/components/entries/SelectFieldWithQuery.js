@@ -1,14 +1,13 @@
 import React from 'react';
 import { Field, ErrorMessage } from 'formik';
 import { Query } from 'react-apollo';
+import Modal from 'react-modal';
+
+import { ModalConsumer } from '../modal/ModalContext';
 
 const SelectFieldWithQuery = ({
-  fieldName, displayName, isMulti, onChangeCallback, query, queryName
+  fieldName, displayName, isMulti, onChangeCallback, query, queryName, componentForModal
 }) => {
-  const handleClick = () => {
-    console.log('this button will open a modal');
-  };
-
   return (
     <Query query={query}>
       {({ error, data }) => {
@@ -23,12 +22,14 @@ const SelectFieldWithQuery = ({
             </div>
           );
         } else if (data && data[queryName]) {
+          // sort alphabetically and map results to <option> elements
           const items = data[queryName].sort((a, b) => (
             a.name.toLowerCase().localeCompare(b.name.toLowerCase())
           )).map(i => (
             <option key={i.id} value={Number(i.id)}>{i.name}</option>
           ));
 
+          // multi vs. single (dropdown) select
           if (isMulti) {
             content = (
               <Field
@@ -58,6 +59,14 @@ const SelectFieldWithQuery = ({
 
         const tooltip = `Add New ${displayName}`;
 
+        // modal for creating a new entry in this category
+        const modal = ({ onRequestClose, ...otherProps }) => (
+          <Modal isOpen onRequestClose={onRequestClose} {...otherProps}>
+            <button onClick={onRequestClose}>close</button>
+            {componentForModal}
+          </Modal>
+        );
+
         return (
           <div className="select-with-query">
             <label htmlFor={fieldName}>
@@ -69,14 +78,18 @@ const SelectFieldWithQuery = ({
               />
             </label>
             {content}
-            <button
-              type="button"
-              onClick={handleClick}
-              className="button-primary"
-              title={tooltip}
-            >
-              +
-            </button>
+            <ModalConsumer>
+              {({ showModal }) => (
+                <button
+                  type="button"
+                  onClick={() => showModal(modal)}
+                  className="button-primary"
+                  title={tooltip}
+                >
+                  +
+                </button>
+              )}
+            </ModalConsumer>
           </div>
         );
       }}

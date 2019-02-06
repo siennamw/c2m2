@@ -7,6 +7,15 @@ import { workValidationSchema } from '../../../validationSchemas';
 import SelectFieldWithQuery from '../SelectFieldWithQuery';
 import * as queries from '../../../queries';
 
+import NewCollection from '../collection/NewCollection';
+import NewComposer from '../composer/NewComposer';
+import NewCountry from '../country/NewCountry';
+import NewDirector from '../director/NewDirector';
+import NewMaterialFormat from "../materialFormat/NewMaterialFormat";
+import NewMediaType from "../mediaType/NewMediaType";
+import NewProductionCompany from "../productionCompany/NewProductionCompany";
+import NewPublisher from "../publisher/NewPublisher";
+
 const InnerWorkForm = ({
   handleSubmit, isSubmitting, status, setFieldValue,
 }) => {
@@ -37,7 +46,8 @@ const InnerWorkForm = ({
   return (
     <Form>
       <label htmlFor="title">
-       Title <ErrorMessage name="title" component="div" className="form-message error" />
+       Title
+        <ErrorMessage name="title" component="div" className="form-message error" />
       </label>
       <Field
         type="text"
@@ -45,7 +55,8 @@ const InnerWorkForm = ({
         className="u-full-width"
       />
       <label htmlFor="secondary_title">
-        Secondary Title <ErrorMessage name="secondary_title" component="div" className="form-message error" />
+        Secondary Title
+        <ErrorMessage name="secondary_title" component="div" className="form-message error" />
       </label>
       <Field
         type="text"
@@ -53,7 +64,8 @@ const InnerWorkForm = ({
         className="u-full-width"
       />
       <label htmlFor="alias_alternates">
-        Alias or Alternate Title(s) <ErrorMessage name="alias_alternates" component="div" className="form-message error" />
+        Alias or Alternate Title(s)
+        <ErrorMessage name="alias_alternates" component="div" className="form-message error" />
       </label>
       <Field
         type="text"
@@ -61,7 +73,8 @@ const InnerWorkForm = ({
         className="u-full-width"
       />
       <label htmlFor="year">
-        Year <ErrorMessage name="year" component="div" className="form-message error" />
+        Year
+        <ErrorMessage name="year" component="div" className="form-message error" />
       </label>
       <Field
         type="number"
@@ -70,7 +83,8 @@ const InnerWorkForm = ({
         className="u-full-width"
       />
       <label htmlFor="finding_aid_link">
-        Finding Aid Link <ErrorMessage name="finding_aid_link" component="div" className="form-message error" />
+        Finding Aid Link
+        <ErrorMessage name="finding_aid_link" component="div" className="form-message error" />
       </label>
       <Field
         type="url"
@@ -78,7 +92,8 @@ const InnerWorkForm = ({
         className="u-full-width"
       />
       <label htmlFor="digital_copy_link">
-        Digital Copy Link <ErrorMessage name="digital_copy_link" component="div" className="form-message error" />
+        Digital Copy Link
+        <ErrorMessage name="digital_copy_link" component="div" className="form-message error" />
       </label>
       <Field
         type="url"
@@ -86,7 +101,8 @@ const InnerWorkForm = ({
         className="u-full-width"
       />
       <label htmlFor="rights_holder">
-        Rights Holder <ErrorMessage name="rights_holder" component="div" className="form-message error" />
+        Rights Holder
+        <ErrorMessage name="rights_holder" component="div" className="form-message error" />
       </label>
       <Field
         type="text"
@@ -94,7 +110,8 @@ const InnerWorkForm = ({
         className="u-full-width"
       />
       <label htmlFor="citation_source">
-        Citation Source <ErrorMessage name="citation_source" component="div" className="form-message error" />
+        Citation Source
+        <ErrorMessage name="citation_source" component="div" className="form-message error" />
       </label>
       <Field
         type="text"
@@ -107,6 +124,7 @@ const InnerWorkForm = ({
         onChangeCallback={selectOnChange}
         query={queries.LIST_ALL_COUNTRIES}
         queryName="allCountries"
+        componentForModal={<NewCountry />}
       />
       <SelectFieldWithQuery
         displayName="Media Type"
@@ -114,6 +132,7 @@ const InnerWorkForm = ({
         onChangeCallback={selectOnChange}
         query={queries.LIST_ALL_MEDIA_TYPES}
         queryName="allMediaTypes"
+        componentForModal={<NewMediaType />}
       />
       <SelectFieldWithQuery
         displayName="Material Format"
@@ -121,6 +140,7 @@ const InnerWorkForm = ({
         onChangeCallback={selectOnChange}
         query={queries.LIST_ALL_MATERIAL_FORMATS}
         queryName="allMaterialFormats"
+        componentForModal={<NewMaterialFormat />}
       />
       <SelectFieldWithQuery
         displayName="Collection(s)"
@@ -129,6 +149,7 @@ const InnerWorkForm = ({
         onChangeCallback={multiSelectOnChange}
         query={queries.LIST_ALL_COLLECTIONS}
         queryName="allCollections"
+        componentForModal={<NewCollection />}
       />
       <SelectFieldWithQuery
         displayName="Composer(s)"
@@ -137,6 +158,7 @@ const InnerWorkForm = ({
         onChangeCallback={multiSelectOnChange}
         query={queries.LIST_ALL_COMPOSERS}
         queryName="allComposers"
+        componentForModal={<NewComposer />}
       />
       <SelectFieldWithQuery
         displayName="Director(s)"
@@ -145,6 +167,7 @@ const InnerWorkForm = ({
         onChangeCallback={multiSelectOnChange}
         query={queries.LIST_ALL_DIRECTORS}
         queryName="allDirectors"
+        componentForModal={<NewDirector />}
       />
       <SelectFieldWithQuery
         displayName="Production Company or Companies"
@@ -153,6 +176,7 @@ const InnerWorkForm = ({
         onChangeCallback={multiSelectOnChange}
         query={queries.LIST_ALL_PRODUCTION_COMPANIES}
         queryName="allProductionCompanies"
+        componentForModal={<NewProductionCompany />}
       />
       <SelectFieldWithQuery
         displayName="Publisher(s)"
@@ -161,9 +185,11 @@ const InnerWorkForm = ({
         onChangeCallback={multiSelectOnChange}
         query={queries.LIST_ALL_PUBLISHERS}
         queryName="allPublishers"
+        componentForModal={<NewPublisher />}
       />
       <label htmlFor="cataloging_notes">
-        Cataloging Notes <ErrorMessage name="cataloging_notes" component="div" className="form-message error" />
+        Cataloging Notes
+        <ErrorMessage name="cataloging_notes" component="div" className="form-message error" />
       </label>
       <Field
         type="text"
