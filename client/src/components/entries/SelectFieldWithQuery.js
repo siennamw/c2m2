@@ -61,9 +61,26 @@ const SelectFieldWithQuery = ({
 
         // modal for creating a new entry in this category
         const modal = ({ onRequestClose, ...otherProps }) => (
-          <Modal isOpen onRequestClose={onRequestClose} {...otherProps}>
-            <button onClick={onRequestClose}>close</button>
+          <Modal
+            isOpen
+            onRequestClose={onRequestClose}
+            className="custom-modal"
+            overlayClassName="custom-modal-overlay"
+            {...otherProps}
+          >
+            <a
+              onClick={onRequestClose}
+              className="custom-modal-x"
+            >
+              x
+            </a>
             {componentForModal}
+            <button
+              onClick={onRequestClose}
+              className="u-full-width custom-modal-cancel-button"
+            >
+              Cancel
+            </button>
           </Modal>
         );
 

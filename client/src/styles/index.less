@@ -18,6 +18,16 @@
   color: inherit;
 }
 
+.button-symbol() {
+  padding: 0;
+  font-size: 30px;
+  line-height: 1;
+  vertical-align: top; // needed for horizontal alignment
+  cursor: pointer;
+  text-align: center;
+  font-weight: bold;
+}
+
 .logo {
   width: 14em;
   padding: 1em;
@@ -77,12 +87,9 @@ form {
     }
 
     button {
-      padding: 0;
+      .button-symbol();
       margin-left: 12px;
       width: 38px;
-      font-size: 30px;
-      line-height: 1;
-      vertical-align: top; // needed for horizontal alignment
     }
   }
 
@@ -125,4 +132,47 @@ footer {
 
 .load-more {
   margin-top: 6rem;
+}
+
+// Modal
+.custom-modal-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+
+  .custom-modal {
+    position: fixed;
+    max-height: calc(90%);
+    top: 10%;
+    right: 20%;
+    left: 20%;
+    border: 1px solid @border-color;
+    background: @white;
+    overflow: auto;
+    overflow-scrolling: touch;
+    border-right: 4px;
+    outline: none;
+    padding: 30px;
+
+    .custom-modal-x {
+      .button-symbol();
+      display: inline-block;
+      margin-left: 1rem;
+      float: right;
+      color: @gray;
+      text-transform: lowercase;
+    }
+
+    h3 {
+      margin-top: 0;
+      clear: none;
+    }
+
+    form {
+      margin-bottom: 0;
+    }
+  }
 }
