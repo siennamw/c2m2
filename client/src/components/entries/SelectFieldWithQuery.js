@@ -10,7 +10,7 @@ const SelectFieldWithQuery = ({
 }) => {
   return (
     <Query query={query}>
-      {({ error, data }) => {
+      {({ error, data, refetch }) => {
         let content = (
           <div className="form-message api-message warn">Fetching...</div>
         );
@@ -59,24 +59,29 @@ const SelectFieldWithQuery = ({
 
         const tooltip = `Add New ${displayName}`;
 
+        const updateOnCloseModal = (onClose) => {
+          onClose();
+          refetch();
+        };
+
         // modal for creating a new entry in this category
         const modal = ({ onRequestClose, ...otherProps }) => (
           <Modal
             isOpen
-            onRequestClose={onRequestClose}
+            onRequestClose={() => updateOnCloseModal(onRequestClose)}
             className="custom-modal"
             overlayClassName="custom-modal-overlay"
             {...otherProps}
           >
             <a
-              onClick={onRequestClose}
+              onClick={() => updateOnCloseModal(onRequestClose)}
               className="custom-modal-x"
             >
               x
             </a>
             {componentForModal}
             <button
-              onClick={onRequestClose}
+              onClick={() => updateOnCloseModal(onRequestClose)}
               className="u-full-width custom-modal-cancel-button"
             >
               Cancel
