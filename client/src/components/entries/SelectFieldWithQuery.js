@@ -98,20 +98,20 @@ const SelectFieldWithQuery = ({
                 component="div"
                 className="form-message error"
               />
+              {content}
+              <ModalConsumer>
+                {({ showModal }) => (
+                  <button
+                    type="button"
+                    onClick={() => showModal(modal)}
+                    className="button-primary"
+                    title={tooltip}
+                  >
+                    +
+                  </button>
+                )}
+              </ModalConsumer>
             </label>
-            {content}
-            <ModalConsumer>
-              {({ showModal }) => (
-                <button
-                  type="button"
-                  onClick={() => showModal(modal)}
-                  className="button-primary"
-                  title={tooltip}
-                >
-                  +
-                </button>
-              )}
-            </ModalConsumer>
           </div>
         );
       }}

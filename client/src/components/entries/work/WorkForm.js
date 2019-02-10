@@ -48,76 +48,76 @@ const InnerWorkForm = ({
       <label htmlFor="title">
        Title
         <ErrorMessage name="title" component="div" className="form-message error" />
+        <Field
+          type="text"
+          name="title"
+          className="u-full-width"
+        />
       </label>
-      <Field
-        type="text"
-        name="title"
-        className="u-full-width"
-      />
       <label htmlFor="secondary_title">
         Secondary Title
         <ErrorMessage name="secondary_title" component="div" className="form-message error" />
+        <Field
+          type="text"
+          name="secondary_title"
+          className="u-full-width"
+        />
       </label>
-      <Field
-        type="text"
-        name="secondary_title"
-        className="u-full-width"
-      />
       <label htmlFor="alias_alternates">
         Alias or Alternate Title(s)
         <ErrorMessage name="alias_alternates" component="div" className="form-message error" />
+        <Field
+          type="text"
+          name="alias_alternates"
+          className="u-full-width"
+        />
       </label>
-      <Field
-        type="text"
-        name="alias_alternates"
-        className="u-full-width"
-      />
       <label htmlFor="year">
         Year
         <ErrorMessage name="year" component="div" className="form-message error" />
+        <Field
+          type="number"
+          min="1900"
+          name="year"
+          className="u-full-width"
+        />
       </label>
-      <Field
-        type="number"
-        min="1900"
-        name="year"
-        className="u-full-width"
-      />
       <label htmlFor="finding_aid_link">
         Finding Aid Link
         <ErrorMessage name="finding_aid_link" component="div" className="form-message error" />
+        <Field
+          type="url"
+          name="finding_aid_link"
+          className="u-full-width"
+        />
       </label>
-      <Field
-        type="url"
-        name="finding_aid_link"
-        className="u-full-width"
-      />
       <label htmlFor="digital_copy_link">
         Digital Copy Link
         <ErrorMessage name="digital_copy_link" component="div" className="form-message error" />
+        <Field
+          type="url"
+          name="digital_copy_link"
+          className="u-full-width"
+        />
       </label>
-      <Field
-        type="url"
-        name="digital_copy_link"
-        className="u-full-width"
-      />
       <label htmlFor="rights_holder">
         Rights Holder
         <ErrorMessage name="rights_holder" component="div" className="form-message error" />
+        <Field
+          type="text"
+          name="rights_holder"
+          className="u-full-width"
+        />
       </label>
-      <Field
-        type="text"
-        name="rights_holder"
-        className="u-full-width"
-      />
       <label htmlFor="citation_source">
         Citation Source
         <ErrorMessage name="citation_source" component="div" className="form-message error" />
+        <Field
+          type="text"
+          name="citation_source"
+          className="u-full-width"
+        />
       </label>
-      <Field
-        type="text"
-        name="citation_source"
-        className="u-full-width"
-      />
       <SelectFieldWithQuery
         displayName="Country"
         fieldName="country_id"
@@ -190,13 +190,13 @@ const InnerWorkForm = ({
       <label htmlFor="cataloging_notes">
         Cataloging Notes
         <ErrorMessage name="cataloging_notes" component="div" className="form-message error" />
+        <Field
+          type="text"
+          name="cataloging_notes"
+          className="u-full-width"
+          component="textarea"
+        />
       </label>
-      <Field
-        type="text"
-        name="cataloging_notes"
-        className="u-full-width"
-        component="textarea"
-      />
       <button
         type="submit"
         className="button-primary u-full-width"

@@ -28,12 +28,12 @@ const InnerCollectionForm = ({
       <label htmlFor="name">
         Name
         <ErrorMessage name="name" component="div" className="form-message error" />
+        <Field
+          type="text"
+          name="name"
+          className="u-full-width"
+        />
       </label>
-      <Field
-        type="text"
-        name="name"
-        className="u-full-width"
-      />
       <SelectFieldWithQuery
         displayName="Repository"
         fieldName="repository_id"
@@ -45,13 +45,13 @@ const InnerCollectionForm = ({
       <label htmlFor="description">
         Description
         <ErrorMessage name="description" component="div" className="form-message error" />
+        <Field
+          type="text"
+          name="description"
+          className="u-full-width"
+          component="textarea"
+        />
       </label>
-      <Field
-        type="text"
-        name="description"
-        className="u-full-width"
-        component="textarea"
-      />
       <button
         type="submit"
         className="button-primary u-full-width"
@@ -66,10 +66,10 @@ const InnerCollectionForm = ({
           : undefined
       }
     </Form>
-  )
+  );
 };
 
-const CollectionForm = ({ mutation, handleSubmit, validationSchema, selectData }) => {
+const CollectionForm = ({ mutation, handleSubmit, validationSchema }) => {
   const initialValues = Object.keys(collectionValidationSchema.fields).reduce((acc, item) => {
     acc[item] = '';
     return acc;
@@ -79,7 +79,9 @@ const CollectionForm = ({ mutation, handleSubmit, validationSchema, selectData }
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting, setStatus, resetForm }) => handleSubmit(mutation, values, setSubmitting, setStatus, resetForm)}
+      onSubmit={(values, { setSubmitting, setStatus, resetForm }) => (
+        handleSubmit(mutation, values, setSubmitting, setStatus, resetForm)
+      )}
       render={InnerCollectionForm}
     />
   );

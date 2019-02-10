@@ -7,39 +7,43 @@ import { catalogerValidationSchema } from '../../../validationSchemas';
 const InnerCatalogerForm = ({ handleSubmit, isSubmitting, status }) => (
   <Form>
     <label htmlFor="name">
-      Name <ErrorMessage name="name" component="div" className="form-message error" />
+      Name
+      <ErrorMessage name="name" component="div" className="form-message error" />
+      <Field
+        type="text"
+        name="name"
+        className="u-full-width"
+      />
     </label>
-    <Field
-      type="text"
-      name="name"
-      className="u-full-width"
-    />
     <label htmlFor="email">
-      Email <ErrorMessage name="email" component="div" className="form-message error" />
+      Email
+      <ErrorMessage name="email" component="div" className="form-message error" />
+      <Field
+        type="email"
+        name="email"
+        className="u-full-width"
+      />
     </label>
-    <Field
-      type="email"
-      name="email"
-      className="u-full-width"
-    />
     <label htmlFor="description">
-      Description <ErrorMessage name="description" component="div" className="form-message error" />
+      Description
+      <ErrorMessage name="description" component="div" className="form-message error" />
+      <Field
+        type="text"
+        name="description"
+        className="u-full-width"
+        component="textarea"
+      />
     </label>
-    <Field
-      type="text"
-      name="description"
-      className="u-full-width"
-      component="textarea"
-    />
     <label htmlFor="password">
-      Password <ErrorMessage name="password" component="div" className="form-message error" />
+      Password
+      <ErrorMessage name="password" component="div" className="form-message error" />
+      <Field
+        type="password"
+        name="password"
+        autoComplete="new-password"
+        className="u-full-width"
+      />
     </label>
-    <Field
-      type="password"
-      name="password"
-      autoComplete="new-password"
-      className="u-full-width"
-    />
     <button
       type="submit"
       className="button-primary u-full-width"

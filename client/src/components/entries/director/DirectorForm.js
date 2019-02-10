@@ -7,21 +7,23 @@ import { directorValidationSchema } from '../../../validationSchemas';
 const InnerDirectorForm = ({ handleSubmit, isSubmitting, status }) => (
   <Form>
     <label htmlFor="name">
-      Name <ErrorMessage name="name" component="div" className="form-message error" />
+      Name
+      <ErrorMessage name="name" component="div" className="form-message error" />
+      <Field
+        type="text"
+        name="name"
+        className="u-full-width"
+      />
     </label>
-    <Field
-      type="text"
-      name="name"
-      className="u-full-width"
-    />
     <label htmlFor="imdb_link">
-      IMDB Link <ErrorMessage name="imdb_link" component="div" className="form-message error" />
+      IMDB Link
+      <ErrorMessage name="imdb_link" component="div" className="form-message error" />
+      <Field
+        type="url"
+        name="imdb_link"
+        className="u-full-width"
+      />
     </label>
-    <Field
-      type="url"
-      name="imdb_link"
-      className="u-full-width"
-    />
     <button
       type="submit"
       className="button-primary u-full-width"

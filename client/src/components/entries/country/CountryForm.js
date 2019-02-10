@@ -7,26 +7,28 @@ import { countryValidationSchema } from '../../../validationSchemas';
 const InnerCountryForm = ({ handleSubmit, isSubmitting, status }) => (
   <Form>
     <label htmlFor="name">
-      Name <ErrorMessage name="name" component="div" className="form-message error" />
+      Name
+      <ErrorMessage name="name" component="div" className="form-message error" />
+      <Field
+        type="text"
+        name="name"
+        className="u-full-width"
+      />
     </label>
-    <Field
-      type="text"
-      name="name"
-      className="u-full-width"
-    />
     <label htmlFor="description">
-      Description <ErrorMessage
+      Description
+      <ErrorMessage
         name="description"
         component="div"
         className="form-message error"
       />
+      <Field
+        type="text"
+        name="description"
+        className="u-full-width"
+        component="textarea"
+      />
     </label>
-    <Field
-      type="text"
-      name="description"
-      className="u-full-width"
-      component="textarea"
-    />
     <button
       type="submit"
       className="button-primary u-full-width"
