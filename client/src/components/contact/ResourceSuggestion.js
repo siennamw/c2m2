@@ -22,72 +22,66 @@ const validationSchema = Yup.object().shape({
     .required('ReCaptcha is required'),
 });
 
-const InnerSuggestionForm = ({ handleSubmit, isSubmitting, setFieldValue, status }) => {
-  return (
-    <Form>
-      <label htmlFor='name'>
-        Name <ErrorMessage name='name' component='div' className='form-message error'/>
-      </label>
-      <Field type='text'
-             name='name'
-             className='u-full-width'/>
-      <label htmlFor='email'>
-        Email <ErrorMessage name='email' component='div' className='form-message error'/>
-      </label>
-      <Field type='email'
-             name='email'
-             className='u-full-width'/>
-      <label htmlFor='composers'>
-        Composer(s) Concerned <ErrorMessage name='composers' component='div' className='form-message error'/>
-      </label>
-      <Field type='text'
-             name='composers'
-             className='u-full-width'/>
-      <label htmlFor='works'>
-        Major Work(s) and/or Film(s) Concerned <ErrorMessage name='works' component='div' className='form-message error'/>
-      </label>
-      <Field type='text'
-             name='works'
-             className='u-full-width'/>
-      <label htmlFor='link'>
-        Link to Resource <ErrorMessage name='link' component='div' className='form-message error'/>
-      </label>
-      <Field type='text'
-             name='link'
-             className='u-full-width'/>
-      <label htmlFor='location'>
-        Location (name of library, repository, database...) <ErrorMessage name='location' component='div' className='form-message error'/>
-      </label>
-      <Field type='text'
-             name='location'
-             className='u-full-width'/>
-      <label htmlFor='comments'>
-        Comments <ErrorMessage name='comments' component='div' className='form-message error'/>
-      </label>
-      <Field type='text'
-             name='comments'
-             className='u-full-width'
-             component='textarea'/>
-      <ErrorMessage name='recaptcha' component='div' className='form-message error'/>
-      <ReCAPTCHA sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
-                 className="g-recaptcha"
-                 onChange={(response) => {
-                   setFieldValue("recaptcha", response);
-                 }}/>
-      <button type='submit'
-              className='button-primary u-full-width'
-              disabled={isSubmitting}
-              onClick={handleSubmit}>
-        Submit
-      </button>
-      {
-        status
-        ? <div className={`form-message api-message ${status.type}`}>{status.message}</div>
-        : undefined
-      }
-    </Form>
-  )
-};
+const InnerSuggestionForm = ({ handleSubmit, isSubmitting, setFieldValue, status }) => (
+  <Form>
+    <label htmlFor='name'>
+      Name
+      <ErrorMessage name='name' component='div' className='form-message error'/>
+      <Field type='text' name='name' className='u-full-width'/>
+    </label>
+    <label htmlFor='email'>
+      Email
+      <ErrorMessage name='email' component='div' className='form-message error'/>
+      <Field type='email' name='email' className='u-full-width'/>
+    </label>
+    <label htmlFor='composers'>
+      Composer(s) Concerned
+      <ErrorMessage name='composers' component='div' className='form-message error'/>
+      <Field type='text' name='composers' className='u-full-width'/>
+    </label>
+    <label htmlFor='works'>
+      Major Work(s) and/or Film(s) Concerned
+      <ErrorMessage name='works' component='div' className='form-message error'/>
+      <Field type='text' name='works' className='u-full-width'/>
+    </label>
+    <label htmlFor='link'>
+      Link to Resource
+      <ErrorMessage name='link' component='div' className='form-message error'/>
+      <Field type='text' name='link' className='u-full-width'/>
+    </label>
+    <label htmlFor='location'>
+      Location (name of library, repository, database...)
+      <ErrorMessage name='location' component='div' className='form-message error'/>
+      <Field type='text' name='location' className='u-full-width'/>
+    </label>
+    <label htmlFor='comments'>
+      Comments
+      <ErrorMessage name='comments' component='div' className='form-message error'/>
+      <Field type='text' name='comments' className='u-full-width' component='textarea'/>
+    </label>
+    <ErrorMessage name='recaptcha' component='div' className='form-message error'/>
+    <ReCAPTCHA
+      sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+      className="g-recaptcha"
+      onChange={(response) => {
+        setFieldValue("recaptcha", response);
+      }}
+    />
+    <button
+      type='submit'
+      className='button-primary u-full-width'
+      disabled={isSubmitting}
+      onClick={handleSubmit}
+    >
+      Submit
+    </button>
+    {
+      status
+      ? <div className={`form-message api-message ${status.type}`}>{status.message}</div>
+      : undefined
+    }
+  </Form>
+);
 
 class ResourceSuggestion extends React.Component {
   handleSubmit = async (mutation, values, setSubmitting, setStatus, resetForm) => {
@@ -127,32 +121,32 @@ class ResourceSuggestion extends React.Component {
     }
   };
 
-  render = () => {
-    return (
-      <div>
-        <h2>Suggest a Resource</h2>
-        <Mutation mutation={mutations.HANDLE_SUGGESTION_FORM}>
-          {(handleSuggestionForm) => (
-            <Formik
-              initialValues={{
-                name: '',
-                email: '',
-                composer: '',
-                works: '',
-                link: '',
-                location: '',
-                comment: '',
-                recaptcha: '',
-              }}
-              validationSchema={validationSchema}
-              onSubmit={(values, { setSubmitting, setStatus, resetForm }) => this.handleSubmit(handleSuggestionForm, values, setSubmitting, setStatus, resetForm)}
-              render={InnerSuggestionForm}
-            />
-          )}
-        </Mutation>
-      </div>
-    )
-  }
+  render = () => (
+    <div>
+      <h2>Suggest a Resource</h2>
+      <Mutation mutation={mutations.HANDLE_SUGGESTION_FORM}>
+        {(handleSuggestionForm) => (
+          <Formik
+            initialValues={{
+              name: '',
+              email: '',
+              composer: '',
+              works: '',
+              link: '',
+              location: '',
+              comment: '',
+              recaptcha: '',
+            }}
+            validationSchema={validationSchema}
+            onSubmit={(values, { setSubmitting, setStatus, resetForm }) => (
+              this.handleSubmit(handleSuggestionForm, values, setSubmitting, setStatus, resetForm)
+            )}
+            render={InnerSuggestionForm}
+          />
+        )}
+      </Mutation>
+    </div>
+  )
 }
 
 export default ResourceSuggestion;

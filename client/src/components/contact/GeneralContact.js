@@ -18,48 +18,45 @@ const validationSchema = Yup.object().shape({
     .required('ReCaptcha is required'),
 });
 
-const InnerContactForm = ({ handleSubmit, isSubmitting, setFieldValue, status }) => {
-  return (
-    <Form>
-      <label htmlFor='name'>
-        Name <ErrorMessage name='name' component='div' className='form-message error'/>
-      </label>
-      <Field type='text'
-             name='name'
-             className='u-full-width'/>
-      <label htmlFor='email'>
-        Email <ErrorMessage name='email' component='div' className='form-message error'/>
-      </label>
-      <Field type='email'
-             name='email'
-             className='u-full-width'/>
-      <label htmlFor='message'>
-        Message <ErrorMessage name='message' component='div' className='form-message error'/>
-      </label>
-      <Field type='text'
-             name='message'
-             className='u-full-width'
-             component='textarea'/>
-      <ErrorMessage name='recaptcha' component='div' className='form-message error'/>
-      <ReCAPTCHA sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
-                 className="g-recaptcha"
-                 onChange={(response) => {
-                   setFieldValue("recaptcha", response);
-                 }}/>
-      <button type='submit'
-              className='button-primary u-full-width'
-              disabled={isSubmitting}
-              onClick={handleSubmit}>
-        Submit
-      </button>
-      {
-        status
-        ? <div className={`form-message api-message ${status.type}`}>{status.message}</div>
-        : undefined
-      }
-    </Form>
-  )
-};
+const InnerContactForm = ({ handleSubmit, isSubmitting, setFieldValue, status }) => (
+  <Form>
+    <label htmlFor='name'>
+      Name
+      <ErrorMessage name='name' component='div' className='form-message error'/>
+      <Field type='text' name='name' className='u-full-width'/>
+    </label>
+    <label htmlFor='email'>
+      Email
+      <ErrorMessage name='email' component='div' className='form-message error'/>
+      <Field type='email' name='email' className='u-full-width'/>
+    </label>
+    <label htmlFor='message'>
+      Message
+      <ErrorMessage name='message' component='div' className='form-message error'/>
+      <Field type='text' name='message' className='u-full-width' component='textarea'/>
+    </label>
+    <ErrorMessage name='recaptcha' component='div' className='form-message error'/>
+    <ReCAPTCHA
+      sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+      className="g-recaptcha"
+      onChange={(response) => {
+        setFieldValue("recaptcha", response);
+      }}
+    />
+    <button
+      type='submit'
+      className='button-primary u-full-width'
+      disabled={isSubmitting}
+      onClick={handleSubmit}>
+      Submit
+    </button>
+    {
+      status
+      ? <div className={`form-message api-message ${status.type}`}>{status.message}</div>
+      : undefined
+    }
+  </Form>
+);
 
 class GeneralContact extends React.Component {
   handleSubmit = async (mutation, values, setSubmitting, setStatus, resetForm) => {
@@ -95,28 +92,26 @@ class GeneralContact extends React.Component {
     }
   };
 
-  render = () => {
-    return (
-      <div>
-        <h2>Contact Us</h2>
-        <Mutation mutation={mutations.HANDLE_CONTACT_FORM}>
-          {(handleContactForm) => (
-            <Formik
-              initialValues={{
-                name: '',
-                email: '',
-                message: '',
-                recaptcha: '',
-              }}
-              validationSchema={validationSchema}
-              onSubmit={(values, { setSubmitting, setStatus, resetForm }) => this.handleSubmit(handleContactForm, values, setSubmitting, setStatus, resetForm)}
-              render={InnerContactForm}
-            />
-          )}
-        </Mutation>
-      </div>
-    )
-  }
+  render = () => (
+    <div>
+      <h2>Contact Us</h2>
+      <Mutation mutation={mutations.HANDLE_CONTACT_FORM}>
+        {(handleContactForm) => (
+          <Formik
+            initialValues={{
+              name: '',
+              email: '',
+              message: '',
+              recaptcha: '',
+            }}
+            validationSchema={validationSchema}
+            onSubmit={(values, { setSubmitting, setStatus, resetForm }) => this.handleSubmit(handleContactForm, values, setSubmitting, setStatus, resetForm)}
+            render={InnerContactForm}
+          />
+        )}
+      </Mutation>
+    </div>
+  )
 }
 
 export default GeneralContact;
