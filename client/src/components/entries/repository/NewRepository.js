@@ -9,7 +9,6 @@ import { repositoryValidationSchema } from '../../../validationSchemas';
 const NewRepository = () => (
   <NewEntry
     title="New Repository"
-    variablesList={Object.keys(repositoryValidationSchema.fields)}
     gqlMutation={CREATE_REPOSITORY}
     yupSchema={repositoryValidationSchema}
     FormComponent={RepositoryForm}

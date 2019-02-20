@@ -9,7 +9,6 @@ import { productionCompanyValidationSchema } from '../../../validationSchemas';
 const NewProductionCompany = () => (
   <NewEntry
     title="New Production Company"
-    variablesList={Object.keys(productionCompanyValidationSchema.fields)}
     gqlMutation={CREATE_PRODUCTION_COMPANY}
     yupSchema={productionCompanyValidationSchema}
     FormComponent={ProductionCompanyForm}

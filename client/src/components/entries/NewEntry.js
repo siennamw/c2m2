@@ -3,9 +3,9 @@ import { Mutation } from 'react-apollo';
 
 import { isEmpty } from 'lodash';
 
-const NewEntry = ({
-  title, variablesList, gqlMutation, yupSchema, FormComponent,
-}) => {
+const NewEntry = ({ title, gqlMutation, yupSchema, FormComponent }) => {
+  const variablesList = Object.keys(yupSchema.fields);
+
   const handleSubmit = async (mutation, values, setSubmitting, setStatus, resetForm) => {
     try {
       const variables = variablesList.reduce((acc, item) => {

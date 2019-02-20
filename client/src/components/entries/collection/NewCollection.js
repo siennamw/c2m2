@@ -9,7 +9,6 @@ import { collectionValidationSchema } from '../../../validationSchemas';
 const NewCollection = () => (
   <NewEntry
     title="New Collection"
-    variablesList={Object.keys(collectionValidationSchema.fields)}
     gqlMutation={CREATE_COLLECTION}
     yupSchema={collectionValidationSchema}
     FormComponent={CollectionForm}

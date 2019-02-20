@@ -9,7 +9,6 @@ import { countryValidationSchema } from '../../../validationSchemas';
 const NewCountry = () => (
   <NewEntry
     title="New Country"
-    variablesList={Object.keys(countryValidationSchema.fields)}
     gqlMutation={CREATE_COUNTRY}
     yupSchema={countryValidationSchema}
     FormComponent={CountryForm}

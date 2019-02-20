@@ -9,7 +9,6 @@ import { composerValidationSchema } from '../../../validationSchemas';
 const NewComposer = () => (
   <NewEntry
     title="New Composer"
-    variablesList={Object.keys(composerValidationSchema.fields)}
     gqlMutation={CREATE_COMPOSER}
     yupSchema={composerValidationSchema}
     FormComponent={ComposerForm}

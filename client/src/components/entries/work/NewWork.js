@@ -9,7 +9,6 @@ import { workValidationSchema } from '../../../validationSchemas';
 const NewWork = () => (
   <NewEntry
     title="New Work"
-    variablesList={Object.keys(workValidationSchema.fields)}
     gqlMutation={CREATE_WORK}
     yupSchema={workValidationSchema}
     FormComponent={WorkForm}

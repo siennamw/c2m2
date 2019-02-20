@@ -9,7 +9,6 @@ import { catalogerValidationSchema } from '../../../validationSchemas';
 const NewCataloger = () => (
   <NewEntry
     title="New Cataloger"
-    variablesList={Object.keys(catalogerValidationSchema.fields)}
     gqlMutation={CREATE_CATALOGER}
     yupSchema={catalogerValidationSchema}
     FormComponent={CatalogerForm}

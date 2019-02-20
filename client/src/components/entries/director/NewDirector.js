@@ -9,7 +9,6 @@ import { directorValidationSchema } from '../../../validationSchemas';
 const NewDirector = () => (
   <NewEntry
     title="New Director"
-    variablesList={Object.keys(directorValidationSchema.fields)}
     gqlMutation={CREATE_DIRECTOR}
     yupSchema={directorValidationSchema}
     FormComponent={DirectorForm}

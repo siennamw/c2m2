@@ -9,7 +9,6 @@ import { mediaTypeValidationSchema } from '../../../validationSchemas';
 const NewMediaType = () => (
   <NewEntry
     title="New Media Type"
-    variablesList={Object.keys(mediaTypeValidationSchema.fields)}
     gqlMutation={CREATE_MEDIA_TYPE}
     yupSchema={mediaTypeValidationSchema}
     FormComponent={MediaTypeForm}

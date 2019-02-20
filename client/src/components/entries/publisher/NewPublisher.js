@@ -9,7 +9,6 @@ import { publisherValidationSchema } from '../../../validationSchemas';
 const NewPublisher = () => (
   <NewEntry
     title="New Publisher"
-    variablesList={Object.keys(publisherValidationSchema.fields)}
     gqlMutation={CREATE_PUBLISHER}
     yupSchema={publisherValidationSchema}
     FormComponent={PublisherForm}

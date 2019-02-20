@@ -9,7 +9,6 @@ import { materialFormatValidationSchema } from '../../../validationSchemas';
 const NewMaterialFormat = () => (
   <NewEntry
     title="New Material Format"
-    variablesList={Object.keys(materialFormatValidationSchema.fields)}
     gqlMutation={CREATE_MATERIAL_FORMAT}
     yupSchema={materialFormatValidationSchema}
     FormComponent={MaterialFormatForm}
