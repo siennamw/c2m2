@@ -5,5 +5,7 @@ Types::ComposerType = GraphQL::ObjectType.define do
   field :name, !types.String
   field :imdb_link, types.String
 
+  field :cataloger, (-> { Types::CatalogerType })
+
   field :works, ( -> { !types[Types::WorkType] })
 end

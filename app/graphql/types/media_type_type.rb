@@ -5,5 +5,7 @@ Types::MediaTypeType = GraphQL::ObjectType.define do
   field :name, !types.String
   field :description, types.String
 
+  field :cataloger, (-> { Types::CatalogerType })
+
   field :works, ( -> { !types[Types::WorkType] })
 end
