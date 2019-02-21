@@ -11,12 +11,12 @@ import NewCollection from '../collection/NewCollection';
 import NewComposer from '../composer/NewComposer';
 import NewCountry from '../country/NewCountry';
 import NewDirector from '../director/NewDirector';
-import NewMaterialFormat from "../materialFormat/NewMaterialFormat";
-import NewMediaType from "../mediaType/NewMediaType";
-import NewProductionCompany from "../productionCompany/NewProductionCompany";
-import NewPublisher from "../publisher/NewPublisher";
+import NewMaterialFormat from '../materialFormat/NewMaterialFormat';
+import NewMediaType from '../mediaType/NewMediaType';
+import NewProductionCompany from '../productionCompany/NewProductionCompany';
+import NewPublisher from '../publisher/NewPublisher';
 
-const InnerWorkForm = ({
+export const InnerWorkForm = ({
   handleSubmit, isSubmitting, status, setFieldValue,
 }) => {
   const selectOnChange = (evt, name) => {
@@ -214,17 +214,20 @@ const InnerWorkForm = ({
   );
 };
 
-const WorkForm = ({ mutation, handleSubmit, validationSchema }) => {
-  const initialValues = Object.keys(workValidationSchema.fields).reduce((acc, item) => {
-    acc[item] = item.includes('ids') ? [] : '';
-    return acc;
-  }, {});
+const WorkForm = ({ handleSubmit, mutation, validationSchema, initialValues }) => {
+  const vals = initialValues
+    || Object.keys(workValidationSchema.fields).reduce((acc, item) => {
+      acc[item] = item.includes('ids') ? [] : '';
+      return acc;
+    }, {});
 
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={vals}
       validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting, setStatus, resetForm }) => handleSubmit(mutation, values, setSubmitting, setStatus, resetForm)}
+      onSubmit={(values, { setSubmitting, setStatus, resetForm }) => (
+        handleSubmit(mutation, values, setSubmitting, setStatus, resetForm)
+      )}
       render={InnerWorkForm}
     />
   );
