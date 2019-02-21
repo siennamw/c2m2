@@ -3,7 +3,7 @@ import { Mutation } from 'react-apollo';
 
 import { isEmpty } from 'lodash';
 
-const NewEntry = ({ title, gqlMutation, yupSchema, FormComponent }) => {
+const NewEntry = ({ title, gqlMutation, yupSchema, FormComponent, initialValues }) => {
   const variablesList = Object.keys(yupSchema.fields);
 
   const handleSubmit = async (mutation, values, setSubmitting, setStatus, resetForm) => {
@@ -12,6 +12,11 @@ const NewEntry = ({ title, gqlMutation, yupSchema, FormComponent }) => {
         acc[item] = values[item] ? values[item] : null;
         return acc;
       }, {});
+
+      // ID to number if present (for editing existing entries)
+      if (variables.id) {
+        variables.id = Number(variables.id);
+      }
 
       const payload = { variables };
       const { data } = await mutation(payload);
@@ -47,6 +52,7 @@ const NewEntry = ({ title, gqlMutation, yupSchema, FormComponent }) => {
             mutation={mutation}
             handleSubmit={handleSubmit}
             validationSchema={yupSchema}
+            initialValues={initialValues}
           />
         )}
       </Mutation>
