@@ -17,38 +17,56 @@ import NewPublisher from '../entries/publisher/NewPublisher';
 import NewRepository from '../entries/repository/NewRepository';
 import NewWork from '../entries/work/NewWork';
 
+import EditWork from '../entries/work/EditWork';
+
 const CatalogerDashboard = ({ match }) => (
   <div>
     <h2>Cataloger Dashboard</h2>
     <Nav>
       <NavLink to={`${match.path}/home`}>Home</NavLink>
-      <NavLink to={`${match.path}/cataloger`}>New Cataloger</NavLink>
-      <NavLink to={`${match.path}/collection`}>New Collection</NavLink>
-      <NavLink to={`${match.path}/composer`}>New Composer</NavLink>
-      <NavLink to={`${match.path}/country`}>New Country</NavLink>
-      <NavLink to={`${match.path}/director`}>New Director</NavLink>
-      <NavLink to={`${match.path}/material-format`}>New Material Format</NavLink>
-      <NavLink to={`${match.path}/media-type`}>New Media Type</NavLink>
-      <NavLink to={`${match.path}/production-company`}>New Production Company</NavLink>
-      <NavLink to={`${match.path}/publisher`}>New Publisher</NavLink>
-      <NavLink to={`${match.path}/repository`}>New Repository</NavLink>
-      <NavLink to={`${match.path}/work`}>New Work</NavLink>
+
+      <NavLink to={`${match.path}/new/cataloger`}>New Cataloger</NavLink>
+      <NavLink to={`${match.path}/new/collection`}>New Collection</NavLink>
+      <NavLink to={`${match.path}/new/composer`}>New Composer</NavLink>
+      <NavLink to={`${match.path}/new/country`}>New Country</NavLink>
+      <NavLink to={`${match.path}/new/director`}>New Director</NavLink>
+      <NavLink to={`${match.path}/new/material-format`}>New Material Format</NavLink>
+      <NavLink to={`${match.path}/new/media-type`}>New Media Type</NavLink>
+      <NavLink to={`${match.path}/new/production-company`}>New Production Company</NavLink>
+      <NavLink to={`${match.path}/new/publisher`}>New Publisher</NavLink>
+      <NavLink to={`${match.path}/new/repository`}>New Repository</NavLink>
+      <NavLink to={`${match.path}/new/work`}>New Work</NavLink>
+
       <NavLink to="/sign-out">Sign Out</NavLink>
     </Nav>
     <div className="tabs">
       <Switch>
         <Route exact path={`${match.path}/home`} component={CatalogerHome} />
-        <Route exact path={`${match.path}/cataloger`} component={NewCataloger} />
-        <Route exact path={`${match.path}/collection`} component={NewCollection} />
-        <Route exact path={`${match.path}/composer`} component={NewComposer} />
-        <Route exact path={`${match.path}/country`} component={NewCountry} />
-        <Route exact path={`${match.path}/director`} component={NewDirector} />
-        <Route exact path={`${match.path}/material-format`} component={NewMaterialFormat} />
-        <Route exact path={`${match.path}/media-type`} component={NewMediaType} />
-        <Route exact path={`${match.path}/production-company`} component={NewProductionCompany} />
-        <Route exact path={`${match.path}/publisher`} component={NewPublisher} />
-        <Route exact path={`${match.path}/repository`} component={NewRepository} />
-        <Route exact path={`${match.path}/work`} component={NewWork} />
+
+        <Route exact path={`${match.path}/new/cataloger`} component={NewCataloger} />
+        <Route exact path={`${match.path}/new/collection`} component={NewCollection} />
+        <Route exact path={`${match.path}/new/composer`} component={NewComposer} />
+        <Route exact path={`${match.path}/new/country`} component={NewCountry} />
+        <Route exact path={`${match.path}/new/director`} component={NewDirector} />
+        <Route exact path={`${match.path}/new/material-format`} component={NewMaterialFormat} />
+        <Route exact path={`${match.path}/new/media-type`} component={NewMediaType} />
+        <Route exact path={`${match.path}/new/production-company`} component={NewProductionCompany} />
+        <Route exact path={`${match.path}/new/publisher`} component={NewPublisher} />
+        <Route exact path={`${match.path}/new/repository`} component={NewRepository} />
+        <Route exact path={`${match.path}/new/work`} component={NewWork} />
+
+        {/*<Route exact path={`${match.path}/edit/cataloger/:id`} component={EditCataloger} />*/}
+        {/*<Route exact path={`${match.path}/edit/collection/:id`} component={EditCollection} />*/}
+        {/*<Route exact path={`${match.path}/edit/composer/:id`} component={EditComposer} />*/}
+        {/*<Route exact path={`${match.path}/edit/country/:id`} component={EditCountry} />*/}
+        {/*<Route exact path={`${match.path}/edit/director/:id`} component={EditDirector} />*/}
+        {/*<Route exact path={`${match.path}/edit/material-format/:id`} component={EditMaterialFormat} />*/}
+        {/*<Route exact path={`${match.path}/edit/media-type/:id`} component={EditMediaType} />*/}
+        {/*<Route exact path={`${match.path}/edit/production-company/:id`} component={EditProductionCompany} />*/}
+        {/*<Route exact path={`${match.path}/edit/publisher/:id`} component={EditPublisher} />*/}
+        {/*<Route exact path={`${match.path}/edit/repository/:id`} component={EditRepository} />*/}
+        <Route exact path={`${match.path}/edit/work/:id`} component={EditWork} />
+
         <Route component={CatalogerHome} />
       </Switch>
     </div>
