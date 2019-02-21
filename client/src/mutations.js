@@ -20,7 +20,7 @@ export const CREATE_CATALOGER = gql`
 `;
 
 export const CREATE_COLLECTION = gql`
-  mutation CreateCollection($name: String!, $description: String, $repository_id: Int!){
+  mutation CreateCollection($name: String!, $description: String, $repository_id: ID!){
     createCollection(name: $name, description: $description, repository_id: $repository_id) {
       id
       name
@@ -124,9 +124,9 @@ export const CREATE_WORK = gql`
     $rights_holder: String,
     $citation_source: String,
     $cataloging_notes: String,
-    $country_id: Int,
-    $media_type_id: Int!,
-    $material_format_id: Int!,
+    $country_id: ID,
+    $media_type_id: ID!,
+    $material_format_id: ID!,
     $collection_ids: [ID],
     $composer_ids: [ID],
     $director_ids: [ID],
@@ -164,42 +164,113 @@ export const CREATE_WORK = gql`
       cataloging_notes
       country {
         id
-        name
       }
       media_type {
         id
-        name
       }
       material_format {
         id
-        name
       }
       collections {
         id
-        name
       }
       composers {
         id
-        name
       }
       directors {
         id
-        name
       }
       production_companies {
         id
-        name
       }
       publishers {
         id
-        name
+      }
+    }
+  }
+`;
+
+export const UPDATE_WORK = gql`
+  mutation UpdateWork(
+    $id: ID!,
+    $title: String!,
+    $secondary_title: String,
+    $alias_alternates: String,
+    $year: Int!,
+    $digital_copy_link: String,
+    $finding_aid_link: String,
+    $rights_holder: String,
+    $citation_source: String,
+    $cataloging_notes: String,
+    $country_id: ID,
+    $media_type_id: ID!,
+    $material_format_id: ID!,
+    $collection_ids: [ID],
+    $composer_ids: [ID],
+    $director_ids: [ID],
+    $production_company_ids: [ID],
+    $publisher_ids: [ID],
+  ){
+    updateWork(
+      id: $id,
+      title: $title,
+      secondary_title: $secondary_title,
+      alias_alternates: $alias_alternates,
+      year: $year,
+      digital_copy_link: $digital_copy_link,
+      finding_aid_link: $finding_aid_link,
+      rights_holder: $rights_holder,
+      citation_source: $citation_source,
+      cataloging_notes: $cataloging_notes,
+      country_id: $country_id,
+      media_type_id: $media_type_id,
+      material_format_id: $material_format_id,
+      collection_ids: $collection_ids,
+      composer_ids: $composer_ids,
+      director_ids: $director_ids,
+      production_company_ids: $production_company_ids,
+      publisher_ids: $publisher_ids,
+    ) {
+      id
+      title
+      secondary_title
+      alias_alternates
+      year
+      digital_copy_link
+      finding_aid_link
+      rights_holder
+      citation_source
+      cataloging_notes
+      country {
+        id
+      }
+      media_type {
+        id
+      }
+      material_format {
+        id
+      }
+      collections {
+        id
+      }
+      composers {
+        id
+      }
+      directors {
+        id
+      }
+      production_companies {
+        id
+      }
+      publishers {
+        id
       }
     }
   }
 `;
 
 export const HANDLE_SUGGESTION_FORM = gql`
-    mutation handleSuggestionForm(
+  mutation handleSuggestionForm(
     $name: String!,
     $email: String!,
     $composers: String,
@@ -207,34 +278,34 @@ export const HANDLE_SUGGESTION_FORM = gql`
     $link: String,
     $location: String,
     $comments: String,
-    ){
-        handleSuggestionForm(
-            name: $name,
-            email: $email,
-            composers: $composers,
-            works: $works,
-            link: $link,
-            location: $location,
-            comments: $comments
-        )
-    }
+  ){
+    handleSuggestionForm(
+      name: $name,
+      email: $email,
+      composers: $composers,
+      works: $works,
+      link: $link,
+      location: $location,
+      comments: $comments
+    )
+  }
 `;
 
 export const HANDLE_CONTACT_FORM = gql`
-    mutation handleContactForm($name: String!, $email: String!, $message: String!){
-        handleContactForm(name: $name, email: $email, message: $message)
-    }
+  mutation handleContactForm($name: String!, $email: String!, $message: String!){
+    handleContactForm(name: $name, email: $email, message: $message)
+  }
 `;
 
 export const SIGN_IN = gql`
-    mutation SignInCataloger($email: String!, $password: String!){
-        signInCataloger(email: { email: $email, password: $password }) {
-            token
-            cataloger {
-                id
-                name
-                email
-            }
-        }
+  mutation SignInCataloger($email: String!, $password: String!){
+    signInCataloger(email: { email: $email, password: $password }) {
+      token
+      cataloger {
+        id
+        name
+        email
+      }
     }
+  }
 `;
