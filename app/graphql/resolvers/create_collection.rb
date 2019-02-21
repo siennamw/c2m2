@@ -2,7 +2,7 @@ class Resolvers::CreateCollection < GraphQL::Function
   # arguments passed as "args"
   argument :name, !types.String
   argument :description, types.String
-  argument :repository_id, !types.Int
+  argument :repository_id, !types.ID
 
   # return type from the mutation
   type Types::CollectionType

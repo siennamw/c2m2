@@ -11,9 +11,9 @@ class Resolvers::CreateWork < GraphQL::Function
   argument :alias_alternates, types.String
   argument :cataloging_notes, types.String
 
-  argument :country_id, types.Int
-  argument :media_type_id, !types.Int
-  argument :material_format_id, !types.Int
+  argument :country_id, types.ID
+  argument :media_type_id, !types.ID
+  argument :material_format_id, !types.ID
 
   argument :collection_ids, types[types.ID]
   argument :composer_ids, types[types.ID]
