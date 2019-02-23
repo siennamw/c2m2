@@ -145,10 +145,15 @@ export const COLLECTION_BY_ID = gql`
     collection(id: $id){
       id
       name
+      description
       repository {
         id
+        name
       }
-      description
+      works {
+        id
+        title
+      }
       cataloger {
         id
         name
