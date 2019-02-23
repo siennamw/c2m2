@@ -16,7 +16,6 @@ const DetailedEntry = ({ DisplayComponent, gqlQuery, id, queryName }) => (
         );
       } else if (data && data[queryName]) {
         const values = data[queryName];
-        console.log(values);
 
         content = (
           <div className="detailed-entry">
