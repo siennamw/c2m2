@@ -190,6 +190,17 @@ export const CREATE_WORK = gql`
   }
 `;
 
+export const UPDATE_REPOSITORY = gql`
+  mutation UpdateRepository($id: ID!, $name: String!, $location: String!, $website: String){
+    updateRepository(id: $id, name: $name, location: $location, website: $website) {
+      id
+      name
+      location
+      website
+    }
+  }
+`;
+
 export const UPDATE_WORK = gql`
   mutation UpdateWork(
     $id: ID!,

@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik';
-import { repositoryValidationSchema } from '../../../validationSchemas';
+import { repositoryValidationSchema, workValidationSchema } from '../../../validationSchemas';
 
 const InnerRepositoryForm = ({ handleSubmit, isSubmitting, status }) => (
   <Form>
@@ -49,15 +49,16 @@ const InnerRepositoryForm = ({ handleSubmit, isSubmitting, status }) => (
   </Form>
 );
 
-const RepositoryForm = ({ mutation, handleSubmit, validationSchema }) => {
-  const initialValues = Object.keys(repositoryValidationSchema.fields).reduce((acc, item) => {
-    acc[item] = '';
-    return acc;
-  }, {});
+const RepositoryForm = ({ handleSubmit, initialValues, mutation, validationSchema }) => {
+  const vals = initialValues
+    || Object.keys(workValidationSchema.fields).reduce((acc, item) => {
+      acc[item] = item.includes('ids') ? [] : '';
+      return acc;
+    }, {});
 
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={vals}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting, setStatus, resetForm }) => handleSubmit(mutation, values, setSubmitting, setStatus, resetForm)}
       render={InnerRepositoryForm}
