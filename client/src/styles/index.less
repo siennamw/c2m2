@@ -56,27 +56,9 @@ form {
     font-weight: normal;
   }
 
-  .form-message {
-    font-weight: bold;
+  .status-message.form-message {
     float: right;
-
-    &.error {
-      color: @error;
-    }
-
-    &.warn {
-      color: @warn;
-    }
-
-    &.success {
-      color: @success;
-    }
-
-    &.api-message {
-      float: none;
-      margin-bottom: 1rem;
-      text-align: center;
-    }
+    margin-bottom: 0;
   }
 
   .select-with-query {
@@ -93,6 +75,24 @@ form {
 
   .g-recaptcha > div > div {
     margin: 1rem auto 4rem auto;
+  }
+}
+
+.status-message {
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-align: center;
+
+  &.error {
+    color: @error;
+  }
+
+  &.warn {
+    color: @warn;
+  }
+
+  &.success {
+    color: @success;
   }
 }
 

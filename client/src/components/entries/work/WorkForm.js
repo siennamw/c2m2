@@ -47,7 +47,7 @@ export const InnerWorkForm = ({
     <Form>
       <label htmlFor="title">
        Title
-        <ErrorMessage name="title" component="div" className="form-message error" />
+        <ErrorMessage name="title" component="div" className="status-message form-message error" />
         <Field
           type="text"
           name="title"
@@ -56,7 +56,7 @@ export const InnerWorkForm = ({
       </label>
       <label htmlFor="secondary_title">
         Secondary Title
-        <ErrorMessage name="secondary_title" component="div" className="form-message error" />
+        <ErrorMessage name="secondary_title" component="div" className="status-message form-message error" />
         <Field
           type="text"
           name="secondary_title"
@@ -65,7 +65,7 @@ export const InnerWorkForm = ({
       </label>
       <label htmlFor="alias_alternates">
         Alias or Alternate Title(s)
-        <ErrorMessage name="alias_alternates" component="div" className="form-message error" />
+        <ErrorMessage name="alias_alternates" component="div" className="status-message form-message error" />
         <Field
           type="text"
           name="alias_alternates"
@@ -74,7 +74,7 @@ export const InnerWorkForm = ({
       </label>
       <label htmlFor="year">
         Year
-        <ErrorMessage name="year" component="div" className="form-message error" />
+        <ErrorMessage name="year" component="div" className="status-message form-message error" />
         <Field
           type="number"
           min="1900"
@@ -84,7 +84,7 @@ export const InnerWorkForm = ({
       </label>
       <label htmlFor="finding_aid_link">
         Finding Aid Link
-        <ErrorMessage name="finding_aid_link" component="div" className="form-message error" />
+        <ErrorMessage name="finding_aid_link" component="div" className="status-message form-message error" />
         <Field
           type="url"
           name="finding_aid_link"
@@ -93,7 +93,7 @@ export const InnerWorkForm = ({
       </label>
       <label htmlFor="digital_copy_link">
         Digital Copy Link
-        <ErrorMessage name="digital_copy_link" component="div" className="form-message error" />
+        <ErrorMessage name="digital_copy_link" component="div" className="status-message form-message error" />
         <Field
           type="url"
           name="digital_copy_link"
@@ -102,7 +102,7 @@ export const InnerWorkForm = ({
       </label>
       <label htmlFor="rights_holder">
         Rights Holder
-        <ErrorMessage name="rights_holder" component="div" className="form-message error" />
+        <ErrorMessage name="rights_holder" component="div" className="status-message form-message error" />
         <Field
           type="text"
           name="rights_holder"
@@ -111,7 +111,7 @@ export const InnerWorkForm = ({
       </label>
       <label htmlFor="citation_source">
         Citation Source
-        <ErrorMessage name="citation_source" component="div" className="form-message error" />
+        <ErrorMessage name="citation_source" component="div" className="status-message form-message error" />
         <Field
           type="text"
           name="citation_source"
@@ -189,7 +189,7 @@ export const InnerWorkForm = ({
       />
       <label htmlFor="cataloging_notes">
         Cataloging Notes
-        <ErrorMessage name="cataloging_notes" component="div" className="form-message error" />
+        <ErrorMessage name="cataloging_notes" component="div" className="status-message form-message error" />
         <Field
           type="text"
           name="cataloging_notes"
@@ -207,7 +207,7 @@ export const InnerWorkForm = ({
       </button>
       {
         status
-          ? <div className={`form-message api-message ${status.type}`}>{status.message}</div>
+          ? <div className={`status-message ${status.type}`}>{status.message}</div>
           : undefined
       }
     </Form>

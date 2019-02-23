@@ -24,14 +24,22 @@ const CatalogerSignInForm = ({ handleSubmit, isSubmitting, status }) => {
   return (
     <Form>
       <label htmlFor='email'>
-        Email <ErrorMessage name='email' component='div' className='form-message error'/>
+        Email
+        <ErrorMessage name='email'
+                      component='div'
+                      className='status-message form-message error'
+        />
       </label>
       <Field type='email'
              name='email'
              autoComplete='email'
              className='u-full-width'/>
       <label htmlFor='password'>
-        Password <ErrorMessage name='password' component='div' className='form-message error'/>
+        Password
+        <ErrorMessage name='password'
+                      component='div'
+                      className='status-message form-message error'
+        />
       </label>
       <Field type='password'
              name='password'
@@ -45,7 +53,7 @@ const CatalogerSignInForm = ({ handleSubmit, isSubmitting, status }) => {
       </button>
       {
         status
-        ? <div className={`form-message api-message ${status.type}`}>{status.message}</div>
+        ? <div className={`status-message ${status.type}`}>{status.message}</div>
         : undefined
       }
     </Form>

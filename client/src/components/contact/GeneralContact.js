@@ -22,20 +22,20 @@ const InnerContactForm = ({ handleSubmit, isSubmitting, setFieldValue, status })
   <Form>
     <label htmlFor='name'>
       Name
-      <ErrorMessage name='name' component='div' className='form-message error'/>
+      <ErrorMessage name='name' component='div' className='status-message form-message error'/>
       <Field type='text' name='name' className='u-full-width'/>
     </label>
     <label htmlFor='email'>
       Email
-      <ErrorMessage name='email' component='div' className='form-message error'/>
+      <ErrorMessage name='email' component='div' className='status-message form-message error'/>
       <Field type='email' name='email' className='u-full-width'/>
     </label>
     <label htmlFor='message'>
       Message
-      <ErrorMessage name='message' component='div' className='form-message error'/>
+      <ErrorMessage name='message' component='div' className='status-message form-message error'/>
       <Field type='text' name='message' className='u-full-width' component='textarea'/>
     </label>
-    <ErrorMessage name='recaptcha' component='div' className='form-message error'/>
+    <ErrorMessage name='recaptcha' component='div' className='status-message form-message error'/>
     <ReCAPTCHA
       sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
       className="g-recaptcha"
@@ -52,7 +52,7 @@ const InnerContactForm = ({ handleSubmit, isSubmitting, setFieldValue, status })
     </button>
     {
       status
-      ? <div className={`form-message api-message ${status.type}`}>{status.message}</div>
+      ? <div className={`status-message ${status.type}`}>{status.message}</div>
       : undefined
     }
   </Form>

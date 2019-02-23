@@ -12,15 +12,21 @@ const InnerBasicSearchForm = ({ handleSubmit, isSubmitting }) => {
   return (
     <Form>
       <label htmlFor='title'>
-        Title <ErrorMessage name='title' component='div' className='form-message error'/>
+        Title
+        <ErrorMessage name='title'
+                      component='div'
+                      className='status-message form-message error'
+        />
       </label>
       <Field type='text'
              name='title'
-             className='u-full-width'/>
+             className='u-full-width'
+      />
       <button type='submit'
               className='button-primary u-full-width'
               disabled={isSubmitting}
-              onClick={handleSubmit}>
+              onClick={handleSubmit}
+      >
         Submit
       </button>
     </Form>
@@ -61,7 +67,8 @@ class BasicSearch extends React.Component {
           onSubmit={(values, { setSubmitting }) => this.handleSubmit(values.title, setSubmitting)}
           render={InnerBasicSearchForm}
         />
-        {this.state.showResults ? <WorksList filter={this.state.filter} resetButton={true} /> : undefined}
+        {this.state.showResults ? <WorksList filter={this.state.filter}
+                                             resetButton={true}/> : undefined}
       </div>
     )
   }

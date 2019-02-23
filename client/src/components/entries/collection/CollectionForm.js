@@ -27,7 +27,7 @@ const InnerCollectionForm = ({
     <Form>
       <label htmlFor="name">
         Name
-        <ErrorMessage name="name" component="div" className="form-message error" />
+        <ErrorMessage name="name" component="div" className="status-message form-message error" />
         <Field
           type="text"
           name="name"
@@ -44,7 +44,7 @@ const InnerCollectionForm = ({
       />
       <label htmlFor="description">
         Description
-        <ErrorMessage name="description" component="div" className="form-message error" />
+        <ErrorMessage name="description" component="div" className="status-message form-message error" />
         <Field
           type="text"
           name="description"
@@ -62,7 +62,7 @@ const InnerCollectionForm = ({
       </button>
       {
         status
-          ? <div className={`form-message api-message ${status.type}`}>{status.message}</div>
+          ? <div className={`status-message ${status.type}`}>{status.message}</div>
           : undefined
       }
     </Form>

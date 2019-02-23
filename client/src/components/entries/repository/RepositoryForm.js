@@ -8,7 +8,7 @@ const InnerRepositoryForm = ({ handleSubmit, isSubmitting, status }) => (
   <Form>
     <label htmlFor="name">
       Name
-      <ErrorMessage name="name" component="div" className="form-message error" />
+      <ErrorMessage name="name" component="div" className="status-message form-message error" />
       <Field
         type="text"
         name="name"
@@ -17,7 +17,7 @@ const InnerRepositoryForm = ({ handleSubmit, isSubmitting, status }) => (
     </label>
     <label htmlFor="location">
       Location
-      <ErrorMessage name="location" component="div" className="form-message error" />
+      <ErrorMessage name="location" component="div" className="status-message form-message error" />
       <Field
         type="text"
         name="location"
@@ -26,7 +26,7 @@ const InnerRepositoryForm = ({ handleSubmit, isSubmitting, status }) => (
     </label>
     <label htmlFor="website">
       Website
-      <ErrorMessage name="website" component="div" className="form-message error" />
+      <ErrorMessage name="website" component="div" className="status-message form-message error" />
       <Field
         type="url"
         name="website"
@@ -43,7 +43,7 @@ const InnerRepositoryForm = ({ handleSubmit, isSubmitting, status }) => (
     </button>
     {
       status
-        ? <div className={`form-message api-message ${status.type}`}>{status.message}</div>
+        ? <div className={`status-message ${status.type}`}>{status.message}</div>
         : undefined
     }
   </Form>

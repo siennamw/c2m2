@@ -8,7 +8,7 @@ const InnerDirectorForm = ({ handleSubmit, isSubmitting, status }) => (
   <Form>
     <label htmlFor="name">
       Name
-      <ErrorMessage name="name" component="div" className="form-message error" />
+      <ErrorMessage name="name" component="div" className="status-message form-message error" />
       <Field
         type="text"
         name="name"
@@ -17,7 +17,7 @@ const InnerDirectorForm = ({ handleSubmit, isSubmitting, status }) => (
     </label>
     <label htmlFor="imdb_link">
       IMDB Link
-      <ErrorMessage name="imdb_link" component="div" className="form-message error" />
+      <ErrorMessage name="imdb_link" component="div" className="status-message form-message error" />
       <Field
         type="url"
         name="imdb_link"
@@ -34,7 +34,7 @@ const InnerDirectorForm = ({ handleSubmit, isSubmitting, status }) => (
     </button>
     {
       status
-        ? <div className={`form-message api-message ${status.type}`}>{status.message}</div>
+        ? <div className={`status-message ${status.type}`}>{status.message}</div>
         : undefined
     }
   </Form>

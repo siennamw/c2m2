@@ -10,12 +10,12 @@ const EditEntry = ({
   <Query query={gqlQuery} variables={{ id }}>
     {({ error, data }) => {
       let content = (
-        <div className="form-message api-message warn">Fetching...</div>
+        <div className="status-message warn">Fetching...</div>
       );
 
       if (error) {
         content = (
-          <div className="form-message api-message error">
+          <div className="status-message error">
             Sorry! There was an error fetching data.
           </div>
         );

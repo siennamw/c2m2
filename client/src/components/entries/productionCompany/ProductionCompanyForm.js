@@ -8,7 +8,7 @@ const InnerProductionCompanyForm = ({ handleSubmit, isSubmitting, status }) => (
   <Form>
     <label htmlFor="name">
       Name
-      <ErrorMessage name="name" component="div" className="form-message error" />
+      <ErrorMessage name="name" component="div" className="status-message form-message error" />
       <Field
         type="text"
         name="name"
@@ -20,7 +20,7 @@ const InnerProductionCompanyForm = ({ handleSubmit, isSubmitting, status }) => (
       <ErrorMessage
         name="description"
         component="div"
-        className="form-message error"
+        className="status-message form-message error"
       />
       <Field
         type="text"
@@ -39,7 +39,7 @@ const InnerProductionCompanyForm = ({ handleSubmit, isSubmitting, status }) => (
     </button>
     {
       status
-        ? <div className={`form-message api-message ${status.type}`}>{status.message}</div>
+        ? <div className={`status-message ${status.type}`}>{status.message}</div>
         : undefined
     }
   </Form>
