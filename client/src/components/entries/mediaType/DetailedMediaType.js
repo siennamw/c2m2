@@ -6,6 +6,7 @@ import { wrapWithLink } from '../../../utils';
 
 const DisplayMediaType = ({ values }) => (
   <div>
+    <div className="entry-type">Media Type:</div>
     <h3>
       {values.name}
     </h3>

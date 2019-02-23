@@ -5,6 +5,8 @@
 @secondary: lighten(@primary, 20%);
 @link-color: @primary;
 
+@lighter-gray: lighten(@gray, 20%);
+
 @error: red;
 @warn: goldenrod;
 @success: forestgreen;
@@ -130,6 +132,16 @@ footer {
 
 .load-more {
   margin-top: 6rem;
+}
+
+.entry-type {
+  .uppercase();
+  color: @lighter-gray;
+  font-size: 1.5rem;
+
+  ~ h3 {
+    margin-top: 0;
+  }
 }
 
 // Modal

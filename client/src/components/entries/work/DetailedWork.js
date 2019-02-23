@@ -6,6 +6,7 @@ import { wrapWithLink } from '../../../utils';
 
 const DisplayWork = ({ values }) => (
   <div>
+    <div className="entry-type">Work:</div>
     <h3>
       {values.title}
       {values.secondary_title ? `: ${values.secondary_title}` : ''}

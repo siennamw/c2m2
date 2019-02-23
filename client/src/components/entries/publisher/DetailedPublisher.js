@@ -6,6 +6,7 @@ import { wrapWithLink } from '../../../utils';
 
 const DisplayPublisher = ({ values }) => (
   <div>
+    <div className="entry-type">Publisher:</div>
     <h3>
       {values.name}
     </h3>

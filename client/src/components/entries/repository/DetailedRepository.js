@@ -6,6 +6,7 @@ import { wrapWithLink } from '../../../utils';
 
 const DisplayRepository = ({ values }) => (
   <div>
+    <div className="entry-type">Repository:</div>
     <h3>
       {values.name}
     </h3>
