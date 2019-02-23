@@ -104,6 +104,10 @@ export const CATALOGER_BY_ID = gql`
         id
         name
       }
+      created_by {
+        id
+        name
+      }
       directors {
         id
         name
@@ -145,6 +149,10 @@ export const COLLECTION_BY_ID = gql`
         id
       }
       description
+      cataloger {
+        id
+        name
+      }
     }
   }
 `;
@@ -155,6 +163,10 @@ export const COMPOSER_BY_ID = gql`
       id
       name
       imdb_link
+      cataloger {
+        id
+        name
+      }
     }
   }
 `;
@@ -165,6 +177,10 @@ export const COUNTRY_BY_ID = gql`
       id
       name
       description
+      cataloger {
+        id
+        name
+      }
     }
   }
 `;
@@ -175,6 +191,10 @@ export const DIRECTOR_BY_ID = gql`
       id
       name
       imdb_link
+      cataloger {
+        id
+        name
+      }
     }
   }
 `;
@@ -185,6 +205,10 @@ export const MATERIAL_FORMAT_BY_ID = gql`
       id
       name
       description
+      cataloger {
+        id
+        name
+      }
     }
   }
 `;
@@ -195,6 +219,10 @@ export const MEDIA_TYPE_BY_ID = gql`
       id
       name
       description
+      cataloger {
+        id
+        name
+      }
     }
   }
 `;
@@ -205,6 +233,10 @@ export const PRODUCTION_COMPANY_BY_ID = gql`
       id
       name
       description
+      cataloger {
+        id
+        name
+      }
     }
   }
 `;
@@ -215,6 +247,10 @@ export const PUBLISHER_BY_ID = gql`
       id
       name
       description
+      cataloger {
+        id
+        name
+      }
     }
   }
 `;
@@ -225,6 +261,10 @@ export const REPOSITORY_BY_ID = gql`
       id
       name
       description
+      cataloger {
+        id
+        name
+      }
     }
   }
 `;
@@ -242,6 +282,10 @@ export const WORK_BY_ID = gql`
       rights_holder
       citation_source
       cataloging_notes
+      cataloger {
+        id
+        name
+      }
       country {
         id
         name
