@@ -17,6 +17,8 @@ import SimpleSearch from './Search';
 import Vision from './Vision';
 import Browse from './Browse';
 
+import DetailedWork from './entries/work/DetailedWork';
+
 import PrivateRoute from './PrivateRoute';
 
 import UnknownRoute from './UnknownRoute';
@@ -42,6 +44,8 @@ class App extends React.Component {
               <Route exact path="/suggest" component={ResourceSuggestion} />
               <Route exact path="/vision" component={Vision} />
               <Route exact path="/works" component={Browse} />
+
+              <Route exact path="/work/:id" component={DetailedWork} />
 
               <PrivateRoute path="/dashboard" component={CatalogerDashboard} />
 
