@@ -17,6 +17,7 @@ import SimpleSearch from './Search';
 import Vision from './Vision';
 import Browse from './Browse';
 
+import DetailedMediaType from './entries/mediaType/DetailedMediaType';
 import DetailedProductionCompany from './entries/productionCompany/DetailedProductionCompany';
 import DetailedPublisher from './entries/publisher/DetailedPublisher';
 import DetailedRepository from './entries/repository/DetailedRepository';
@@ -48,6 +49,7 @@ class App extends React.Component {
               <Route exact path="/vision" component={Vision} />
               <Route exact path="/works" component={Browse} />
 
+              <Route exact path="/media_type/:id" component={DetailedMediaType} />
               <Route exact path="/production_company/:id" component={DetailedProductionCompany} />
               <Route exact path="/publisher/:id" component={DetailedPublisher} />
               <Route exact path="/repository/:id" component={DetailedRepository} />

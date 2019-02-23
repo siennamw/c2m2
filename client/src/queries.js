@@ -219,6 +219,10 @@ export const MEDIA_TYPE_BY_ID = gql`
       id
       name
       description
+      works {
+        id
+        title
+      }
       cataloger {
         id
         name
