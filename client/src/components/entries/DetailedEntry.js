@@ -5,13 +5,20 @@ const DetailedEntry = ({ DisplayComponent, gqlQuery, id, queryName }) => (
   <Query query={gqlQuery} variables={{ id }}>
     {({ error, data }) => {
       let content = (
-        <div className="form-message api-message warn">Fetching...</div>
+        <div className="status-message warn">Fetching...</div>
       );
 
       if (error) {
+        const notFound = error.networkError
+          ? error.networkError.statusCode === 404
+          : false;
+        const message = notFound
+          ? 'Sorry! No matching record was found.'
+          : 'Sorry! There was an error fetching data.';
+
         content = (
-          <div className="form-message api-message error">
-            Sorry! There was an error fetching data.
+          <div className="status-message error">
+            {message}
           </div>
         );
       } else if (data && data[queryName]) {
