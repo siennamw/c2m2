@@ -4,7 +4,7 @@ import { Query } from 'react-apollo';
 import { isEqual } from 'lodash';
 
 import * as queries from '../queries';
-
+import { wrapWithLink } from '../utils';
 
 class WorksList extends React.Component {
   constructor(props) {
@@ -96,16 +96,20 @@ class WorksList extends React.Component {
 }
 
 const WorksListTable = ({ works, loadMore, moreResults, loadingResults }) => {
-  const wrapWithLink = (item) => (
-    // TODO: make this link functional
-    <span key={item.id}><a href={item.id}>{item.name}</a></span>
+  const wrap = (item, itemType) => (
+    <div key={item.id}>{wrapWithLink(item.name, item.id, itemType)}</div>
   );
 
   const items = works.map(work => (
       <tbody key={work.id}>
       <tr>
         <td colSpan="4">
-          <h4>{work.title}{work.secondary_title ? `: ${work.secondary_title}` : ''}</h4>
+          <h4>
+            <a href={`/work/${work.id}`}>
+              {work.title}
+              {work.secondary_title ? `: ${work.secondary_title}` : ''}
+            </a>
+          </h4>
         </td>
       </tr>
       <tr>
@@ -116,9 +120,9 @@ const WorksListTable = ({ works, loadMore, moreResults, loadingResults }) => {
       </tr>
       <tr>
         <td>{work.year}</td>
-        <td>{work.composers.map(composer => wrapWithLink(composer))}</td>
-        <td>{work.directors.map(director => wrapWithLink(director))}</td>
-        <td>{work.country ? wrapWithLink(work.country) : null}</td>
+        <td>{work.composers.map(composer => wrap(composer, 'composer'))}</td>
+        <td>{work.directors.map(director => wrap(director, 'director'))}</td>
+        <td>{work.country ? wrap(work.country, 'country') : null}</td>
       </tr>
       </tbody>
     )
