@@ -17,6 +17,7 @@ import SimpleSearch from './Search';
 import Vision from './Vision';
 import Browse from './Browse';
 
+import DetailedRepository from './entries/repository/DetailedRepository';
 import DetailedWork from './entries/work/DetailedWork';
 
 import PrivateRoute from './PrivateRoute';
@@ -45,6 +46,7 @@ class App extends React.Component {
               <Route exact path="/vision" component={Vision} />
               <Route exact path="/works" component={Browse} />
 
+              <Route exact path="/repository/:id" component={DetailedRepository} />
               <Route exact path="/work/:id" component={DetailedWork} />
 
               <PrivateRoute path="/dashboard" component={CatalogerDashboard} />

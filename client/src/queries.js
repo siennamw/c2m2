@@ -260,7 +260,12 @@ export const REPOSITORY_BY_ID = gql`
     repository(id: $id){
       id
       name
-      description
+      location
+      website
+      collections {
+        id
+        name
+      }
       cataloger {
         id
         name
