@@ -1,3 +1,4 @@
+import React from 'react';
 import * as constants from './constants';
 
 export const isAuthenticated = () => !!localStorage.getItem(constants.LOCAL_STORAGE_KEY);
@@ -11,3 +12,7 @@ export const getAuthorizationToken = () => {
 export const signOut = () => {
   localStorage.removeItem(constants.LOCAL_STORAGE_KEY);
 };
+
+export const wrapWithLink = (itemName, itemID, itemType) => (
+  <a href={`/${itemType}/${itemID}`}>{itemName}</a>
+);
