@@ -134,7 +134,7 @@ export const CATALOGER_BY_ID = gql`
       }
       works {
         id
-        name
+        title
       }
     }
   }
