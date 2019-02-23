@@ -205,6 +205,10 @@ export const MATERIAL_FORMAT_BY_ID = gql`
       id
       name
       description
+      works {
+        id
+        title
+      }
       cataloger {
         id
         name
