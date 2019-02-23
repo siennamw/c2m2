@@ -246,7 +246,11 @@ export const PUBLISHER_BY_ID = gql`
     publisher(id: $id){
       id
       name
-      description
+      contact_info
+      works {
+        id
+        title
+      }
       cataloger {
         id
         name
