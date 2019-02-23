@@ -17,6 +17,7 @@ import SimpleSearch from './Search';
 import Vision from './Vision';
 import Browse from './Browse';
 
+import DetailedDirector from './entries/director/DetailedDirector';
 import DetailedMaterialFormat from './entries/materialFormat/DetailedMaterialFormat';
 import DetailedMediaType from './entries/mediaType/DetailedMediaType';
 import DetailedProductionCompany from './entries/productionCompany/DetailedProductionCompany';
@@ -50,6 +51,7 @@ class App extends React.Component {
               <Route exact path="/vision" component={Vision} />
               <Route exact path="/works" component={Browse} />
 
+              <Route exact path="/director/:id" component={DetailedDirector} />
               <Route exact path="/material_format/:id" component={DetailedMaterialFormat} />
               <Route exact path="/media_type/:id" component={DetailedMediaType} />
               <Route exact path="/production_company/:id" component={DetailedProductionCompany} />
