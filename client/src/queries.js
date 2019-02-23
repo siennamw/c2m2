@@ -232,7 +232,11 @@ export const PRODUCTION_COMPANY_BY_ID = gql`
     production_company(id: $id){
       id
       name
-      description
+      contact_info
+      works {
+        id
+        title
+      }
       cataloger {
         id
         name
