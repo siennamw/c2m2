@@ -163,6 +163,10 @@ export const COMPOSER_BY_ID = gql`
       id
       name
       imdb_link
+      works {
+        id
+        title
+      }
       cataloger {
         id
         name

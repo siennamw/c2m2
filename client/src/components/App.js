@@ -17,6 +17,7 @@ import SimpleSearch from './Search';
 import Vision from './Vision';
 import Browse from './Browse';
 
+import DetailedComposer from './entries/composer/DetailedComposer';
 import DetailedCountry from './entries/country/DetailedCountry';
 import DetailedDirector from './entries/director/DetailedDirector';
 import DetailedMaterialFormat from './entries/materialFormat/DetailedMaterialFormat';
@@ -52,6 +53,7 @@ class App extends React.Component {
               <Route exact path="/vision" component={Vision} />
               <Route exact path="/works" component={Browse} />
 
+              <Route exact path="/composer/:id" component={DetailedComposer} />
               <Route exact path="/country/:id" component={DetailedCountry} />
               <Route exact path="/director/:id" component={DetailedDirector} />
               <Route exact path="/material_format/:id" component={DetailedMaterialFormat} />
