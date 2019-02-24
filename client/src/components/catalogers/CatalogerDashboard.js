@@ -17,6 +17,12 @@ import NewPublisher from '../entries/publisher/NewPublisher';
 import NewRepository from '../entries/repository/NewRepository';
 import NewWork from '../entries/work/NewWork';
 
+// import EditCataloger from '../entries/cataloger/EditCataloger';
+// import EditCollection from '../entries/collection/EditCollection';
+// import EditComposer from '../entries/composer/EditComposer';
+// import EditCountry from '../entries/country/EditCountry';
+// import EditDirector from '../entries/director/EditDirector';
+import EditMaterialFormat from '../entries/materialFormat/EditMaterialFormat';
 import EditMediaType from '../entries/mediaType/EditMediaType';
 import EditProductionCompany from '../entries/productionCompany/EditProductionCompany';
 import EditPublisher from '../entries/publisher/EditPublisher';
@@ -64,7 +70,7 @@ const CatalogerDashboard = ({ match }) => (
         {/*<Route exact path={`${match.path}/edit/composer/:id`} component={EditComposer} />*/}
         {/*<Route exact path={`${match.path}/edit/country/:id`} component={EditCountry} />*/}
         {/*<Route exact path={`${match.path}/edit/director/:id`} component={EditDirector} />*/}
-        {/*<Route exact path={`${match.path}/edit/material_format/:id`} component={EditMaterialFormat} />*/}
+        <Route exact path={`${match.path}/edit/material_format/:id`} component={EditMaterialFormat} />
         <Route exact path={`${match.path}/edit/media_type/:id`} component={EditMediaType} />
         <Route exact path={`${match.path}/edit/production_company/:id`} component={EditProductionCompany} />
         <Route exact path={`${match.path}/edit/publisher/:id`} component={EditPublisher} />

@@ -38,7 +38,7 @@ const MaterialFormatForm = ({ handleSubmit, isSubmitting, status }) => (
     </button>
     {
       status
-        ? <div className={`status-mnessage ${status.type}`}>{status.message}</div>
+        ? <div className={`status-message ${status.type}`}>{status.message}</div>
         : undefined
     }
   </Form>
