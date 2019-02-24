@@ -1,5 +1,7 @@
 import gql from 'graphql-tag';
 
+// create entry
+
 export const CREATE_CATALOGER = gql`
   mutation CreateCataloger(
     $name: String!, 
@@ -186,6 +188,124 @@ export const CREATE_WORK = gql`
       publishers {
         id
       }
+    }
+  }
+`;
+
+
+// update entry
+
+// TODO: password management for catalogers
+// export const UPDATE_CATALOGER = gql`
+//   mutation UpdateCataloger(
+//     $id: ID!,
+//     $name: String!,
+//     $email: String!,
+//     $password: String!,
+//     $description: String
+//   ){
+//     updateCataloger(
+//       id: $id,
+//       name: $name,
+//       authProvider: { email: { email: $email, password: $password } },
+//       description: $description
+//     ) {
+//       id
+//       name
+//       email
+//     }
+//   }
+// `;
+
+export const UPDATE_COLLECTION = gql`
+  mutation UpdateCollection(
+    $id: ID!,
+    $name: String!,
+    $description: String,
+    $repository_id: ID!
+  ){
+    updateCollection(
+      id: $id,
+      name: $name,
+      description: $description,
+      repository_id: $repository_id
+    ) {
+      id
+      name
+      description
+      repository {
+        id
+      }
+    }
+  }
+`;
+
+export const UPDATE_COMPOSER = gql`
+  mutation UpdateComposer($id: ID!, $name: String!, $imdb_link: String){
+    updateComposer(id: $id, name: $name, imdb_link: $imdb_link) {
+      id
+      name
+      imdb_link
+    }
+  }
+`;
+
+export const UPDATE_COUNTRY = gql`
+  mutation UpdateCountry($id: ID!, $name: String!, $description: String){
+    updateCountry(id: $id, name: $name, description: $description) {
+      id
+      name
+      description
+    }
+  }
+`;
+
+export const UPDATE_DIRECTOR = gql`
+  mutation UpdateDirector($id: ID!, $name: String!, $imdb_link: String){
+    updateDirector(id: $id, name: $name, imdb_link: $imdb_link) {
+      id
+      name
+      imdb_link
+    }
+  }
+`;
+
+export const UPDATE_MATERIAL_FORMAT = gql`
+  mutation UpdateMaterialFormat($id: ID!, $name: String!, $description: String){
+    updateMaterialFormat(id: $id, name: $name, description: $description) {
+      id
+      name
+      description
+    }
+  }
+`;
+
+export const UPDATE_MEDIA_TYPE = gql`
+  mutation UpdateMediaType($id: ID!, $name: String!, $description: String){
+    updateMediaType(id: $id, name: $name, description: $description) {
+      id
+      name
+      description
+    }
+  }
+`;
+
+export const UPDATE_PRODUCTION_COMPANY = gql`
+  mutation UpdateProductionCompany($id: ID!, $name: String!, $contact_info: String){
+    updateProductionCompany(id: $id, name: $name, contact_info: $contact_info) {
+      id
+      name
+      contact_info
+    }
+  }
+`;
+
+export const UPDATE_PUBLISHER = gql`
+  mutation UpdatePublisher($id: ID!, $name: String!, $contact_info: String){
+    updatePublisher(id: $id, name: $name, contact_info: $contact_info) {
+      id
+      name
+      contact_info
     }
   }
 `;

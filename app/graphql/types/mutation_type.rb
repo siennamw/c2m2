@@ -13,6 +13,15 @@ Types::MutationType = GraphQL::ObjectType.define do
   field :createRepository, function: Resolvers::CreateRepository.new
   field :createWork, function: Resolvers::CreateWork.new
 
+  # field :updateCataloger, function: Resolvers::UpdateCataloger.new
+  field :updateCollection, function: Resolvers::UpdateCollection.new
+  field :updateComposer, function: Resolvers::UpdateComposer.new
+  field :updateCountry, function: Resolvers::UpdateCountry.new
+  field :updateDirector, function: Resolvers::UpdateDirector.new
+  field :updateMaterialFormat, function: Resolvers::UpdateMaterialFormat.new
+  field :updateMediaType, function: Resolvers::UpdateMediaType.new
+  field :updateProductionCompany, function: Resolvers::UpdateProductionCompany.new
+  field :updatePublisher, function: Resolvers::UpdatePublisher.new
   field :updateRepository, function: Resolvers::UpdateRepository.new
   field :updateWork, function: Resolvers::UpdateWork.new
 
