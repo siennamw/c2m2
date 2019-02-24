@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
+import { Link } from 'react-router-dom';
+import { isAuthenticated } from '../../utils';
 
 const DetailedEntry = ({ DisplayComponent, gqlQuery, id, queryName }) => (
   <Query query={gqlQuery} variables={{ id }}>
@@ -28,6 +30,18 @@ const DetailedEntry = ({ DisplayComponent, gqlQuery, id, queryName }) => (
         content = (
           <div className="detailed-entry">
             <DisplayComponent values={values} />
+            {
+              isAuthenticated()
+                ? (
+                  <Link
+                    to={`/dashboard/edit/${queryName}/${id}`}
+                    className="edit-entry-link"
+                  >
+                    Edit This Entry
+                  </Link>
+                )
+                : undefined
+            }
           </div>
         );
       }
