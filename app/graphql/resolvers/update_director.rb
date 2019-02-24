@@ -14,7 +14,7 @@ class Resolvers::UpdateDirector < GraphQL::Function
       raise GraphQL::ExecutionError.new("Authentication required")
     end
 
-    Director.create!(
+    Director.update(
       args[:id],
       name: args[:name],
       imdb_link: args[:imdb_link],
