@@ -21,9 +21,9 @@ const CatalogerEditEntryParent = ({ match }) => (
     <Route exact path={`${match.path}/composer/:id`} component={EditComposer} />
     <Route exact path={`${match.path}/country/:id`} component={EditCountry} />
     <Route exact path={`${match.path}/director/:id`} component={EditDirector} />
-    <Route exact path={`${match.path}/material-format/:id`} component={EditMaterialFormat} />
-    <Route exact path={`${match.path}/media-type/:id`} component={EditMediaType} />
-    <Route exact path={`${match.path}/production-company/:id`} component={EditProductionCompany} />
+    <Route exact path={`${match.path}/material_format/:id`} component={EditMaterialFormat} />
+    <Route exact path={`${match.path}/media_type/:id`} component={EditMediaType} />
+    <Route exact path={`${match.path}/production_company/:id`} component={EditProductionCompany} />
     <Route exact path={`${match.path}/publisher/:id`} component={EditPublisher} />
     <Route exact path={`${match.path}/repository/:id`} component={EditRepository} />
     <Route exact path={`${match.path}/work/:id`} component={EditWork} />
