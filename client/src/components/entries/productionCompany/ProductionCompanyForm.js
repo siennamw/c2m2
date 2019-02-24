@@ -1,10 +1,9 @@
 import React from 'react';
 import {
-  Formik, Form, Field, ErrorMessage,
+  Form, Field, ErrorMessage,
 } from 'formik';
-import { productionCompanyValidationSchema } from '../../../validationSchemas';
 
-const InnerProductionCompanyForm = ({ handleSubmit, isSubmitting, status }) => (
+const ProductionCompanyForm = ({ handleSubmit, isSubmitting, status }) => (
   <Form>
     <label htmlFor="name">
       Name
@@ -44,24 +43,5 @@ const InnerProductionCompanyForm = ({ handleSubmit, isSubmitting, status }) => (
     }
   </Form>
 );
-
-const ProductionCompanyForm = ({ handleSubmit, initialValues, mutation, validationSchema }) => {
-  const vals = initialValues
-    || Object.keys(productionCompanyValidationSchema.fields).reduce((acc, item) => {
-      acc[item] = '';
-      return acc;
-    }, {});
-
-  return (
-    <Formik
-      initialValues={vals}
-      validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting, setStatus, resetForm }) => (
-        handleSubmit(mutation, values, setSubmitting, setStatus, resetForm)
-      )}
-      render={InnerProductionCompanyForm}
-    />
-  );
-};
 
 export default ProductionCompanyForm;

@@ -1,10 +1,9 @@
 import React from 'react';
 import {
-  Formik, Form, Field, ErrorMessage,
+  Form, Field, ErrorMessage,
 } from 'formik';
-import { countryValidationSchema } from '../../../validationSchemas';
 
-const InnerCountryForm = ({ handleSubmit, isSubmitting, status }) => (
+const CountryForm = ({ handleSubmit, isSubmitting, status }) => (
   <Form>
     <label htmlFor="name">
       Name
@@ -44,21 +43,5 @@ const InnerCountryForm = ({ handleSubmit, isSubmitting, status }) => (
     }
   </Form>
 );
-
-const CountryForm = ({ mutation, handleSubmit, validationSchema }) => {
-  const initialValues = Object.keys(countryValidationSchema.fields).reduce((acc, item) => {
-    acc[item] = '';
-    return acc;
-  }, {});
-
-  return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting, setStatus, resetForm }) => handleSubmit(mutation, values, setSubmitting, setStatus, resetForm)}
-      render={InnerCountryForm}
-    />
-  );
-};
 
 export default CountryForm;

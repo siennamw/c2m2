@@ -1,10 +1,9 @@
 import React from 'react';
 import {
-  Formik, Form, Field, ErrorMessage,
+  Form, Field, ErrorMessage,
 } from 'formik';
-import { catalogerValidationSchema } from '../../../validationSchemas';
 
-const InnerCatalogerForm = ({ handleSubmit, isSubmitting, status }) => (
+const CatalogerForm = ({ handleSubmit, isSubmitting, status }) => (
   <Form>
     <label htmlFor="name">
       Name
@@ -59,21 +58,5 @@ const InnerCatalogerForm = ({ handleSubmit, isSubmitting, status }) => (
     }
   </Form>
 );
-
-const CatalogerForm = ({ mutation, handleSubmit, validationSchema }) => {
-  const initialValues = Object.keys(catalogerValidationSchema.fields).reduce((acc, item) => {
-    acc[item] = '';
-    return acc;
-  }, {});
-
-  return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting, setStatus, resetForm }) => handleSubmit(mutation, values, setSubmitting, setStatus, resetForm)}
-      render={InnerCatalogerForm}
-    />
-  );
-};
 
 export default CatalogerForm;

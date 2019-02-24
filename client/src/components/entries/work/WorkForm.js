@@ -1,9 +1,8 @@
 import React from 'react';
 import {
-  Formik, Form, Field, ErrorMessage,
+  Form, Field, ErrorMessage,
 } from 'formik';
 
-import { workValidationSchema } from '../../../validationSchemas';
 import SelectFieldWithQuery from '../SelectFieldWithQuery';
 import * as queries from '../../../queries';
 
@@ -16,7 +15,7 @@ import NewMediaType from '../mediaType/NewMediaType';
 import NewProductionCompany from '../productionCompany/NewProductionCompany';
 import NewPublisher from '../publisher/NewPublisher';
 
-export const InnerWorkForm = ({
+export const WorkForm = ({
   handleSubmit, isSubmitting, status, setFieldValue,
 }) => {
   const selectOnChange = (evt, name) => {
@@ -211,25 +210,6 @@ export const InnerWorkForm = ({
           : undefined
       }
     </Form>
-  );
-};
-
-const WorkForm = ({ handleSubmit, mutation, validationSchema, initialValues }) => {
-  const vals = initialValues
-    || Object.keys(workValidationSchema.fields).reduce((acc, item) => {
-      acc[item] = item.includes('ids') ? [] : '';
-      return acc;
-    }, {});
-
-  return (
-    <Formik
-      initialValues={vals}
-      validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting, setStatus, resetForm }) => (
-        handleSubmit(mutation, values, setSubmitting, setStatus, resetForm)
-      )}
-      render={InnerWorkForm}
-    />
   );
 };
 

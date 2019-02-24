@@ -1,10 +1,9 @@
 import React from 'react';
 import {
-  Formik, Form, Field, ErrorMessage,
+  Form, Field, ErrorMessage,
 } from 'formik';
-import { directorValidationSchema } from '../../../validationSchemas';
 
-const InnerDirectorForm = ({ handleSubmit, isSubmitting, status }) => (
+const DirectorForm = ({ handleSubmit, isSubmitting, status }) => (
   <Form>
     <label htmlFor="name">
       Name
@@ -39,21 +38,5 @@ const InnerDirectorForm = ({ handleSubmit, isSubmitting, status }) => (
     }
   </Form>
 );
-
-const DirectorForm = ({ mutation, handleSubmit, validationSchema }) => {
-  const initialValues = Object.keys(directorValidationSchema.fields).reduce((acc, item) => {
-    acc[item] = '';
-    return acc;
-  }, {});
-
-  return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting, setStatus, resetForm }) => handleSubmit(mutation, values, setSubmitting, setStatus, resetForm)}
-      render={InnerDirectorForm}
-    />
-  );
-};
 
 export default DirectorForm;

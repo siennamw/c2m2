@@ -1,10 +1,9 @@
 import React from 'react';
 import {
-  Formik, Form, Field, ErrorMessage,
+  Form, Field, ErrorMessage,
 } from 'formik';
-import { composerValidationSchema } from '../../../validationSchemas';
 
-const InnerComposerForm = ({ handleSubmit, isSubmitting, status }) => (
+const ComposerForm = ({ handleSubmit, isSubmitting, status }) => (
   <Form>
     <label htmlFor="name">
       Name
@@ -39,21 +38,5 @@ const InnerComposerForm = ({ handleSubmit, isSubmitting, status }) => (
     }
   </Form>
 );
-
-const ComposerForm = ({ mutation, handleSubmit, validationSchema }) => {
-  const initialValues = Object.keys(composerValidationSchema.fields).reduce((acc, item) => {
-    acc[item] = '';
-    return acc;
-  }, {});
-
-  return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting, setStatus, resetForm }) => handleSubmit(mutation, values, setSubmitting, setStatus, resetForm)}
-      render={InnerComposerForm}
-    />
-  );
-};
 
 export default ComposerForm;

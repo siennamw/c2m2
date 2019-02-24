@@ -2,6 +2,7 @@ import React from 'react';
 import { Mutation } from 'react-apollo';
 
 import { isEmpty } from 'lodash';
+import EntryFormWrapper from './EntryFormWrapper';
 
 const NewEntry = ({ title, gqlMutation, yupSchema, FormComponent, initialValues }) => {
   const variablesList = Object.keys(yupSchema.fields);
@@ -48,11 +49,12 @@ const NewEntry = ({ title, gqlMutation, yupSchema, FormComponent, initialValues 
       <h3>{title}</h3>
       <Mutation mutation={gqlMutation}>
         {mutation => (
-          <FormComponent
-            mutation={mutation}
+          <EntryFormWrapper
+            FormComponent={FormComponent}
             handleSubmit={handleSubmit}
-            validationSchema={yupSchema}
             initialValues={initialValues}
+            mutation={mutation}
+            validationSchema={yupSchema}
           />
         )}
       </Mutation>
