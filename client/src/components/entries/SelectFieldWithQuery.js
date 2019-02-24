@@ -19,7 +19,7 @@ const SelectFieldWithQuery = ({
     <Query query={query}>
       {({ error, data, refetch }) => {
         let content = (
-          <div className="status-message warn">Fetching...</div>
+          <div className="status-message">Fetching...</div>
         );
 
         if (error) {

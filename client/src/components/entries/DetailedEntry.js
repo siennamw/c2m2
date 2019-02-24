@@ -8,7 +8,7 @@ const DetailedEntry = ({ DisplayComponent, gqlQuery, id, queryName }) => (
   <Query query={gqlQuery} variables={{ id }}>
     {({ error, data }) => {
       let content = (
-        <div className="status-message warn">Fetching...</div>
+        <div className="status-message">Fetching...</div>
       );
 
       if (error) {

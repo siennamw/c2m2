@@ -66,7 +66,7 @@ class WorksList extends React.Component {
   render() {
     const content = (loading, error, data, fetchMore) => {
       if (loading) {
-        return <div className="status-message warn">Fetching...</div>;
+        return <div className="status-message">Fetching...</div>;
       }
       if (error) {
         return (
