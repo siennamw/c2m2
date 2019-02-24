@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Query } from 'react-apollo';
 import { isEqual } from 'lodash';
@@ -16,7 +17,8 @@ class WorksList extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!isEqual(this.props.filter, prevProps.filter)) {
+    const { filter } = this.props;
+    if (!isEqual(filter, prevProps.filter)) {
       // make sure button is enabled for a new search
       this.setState({
         moreResults: true,
@@ -30,13 +32,13 @@ class WorksList extends React.Component {
 
     fetchMore({
       variables: {
-        skip: data.allWorks.length
+        skip: data.allWorks.length,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
         let result;
-        const noMore = !fetchMoreResult ||
-          !fetchMoreResult.allWorks ||
-          fetchMoreResult.allWorks.length === 0;
+        const noMore = !fetchMoreResult
+          || !fetchMoreResult.allWorks
+          || fetchMoreResult.allWorks.length === 0;
 
         if (noMore) {
           result = prev;
@@ -48,8 +50,8 @@ class WorksList extends React.Component {
           result = {
             ...prev,
             ...{
-              allWorks: [...prev.allWorks, ...fetchMoreResult.allWorks]
-            }
+              allWorks: [...prev.allWorks, ...fetchMoreResult.allWorks],
+            },
           };
           this.setState({
             moreResults: true,
@@ -57,51 +59,79 @@ class WorksList extends React.Component {
           });
         }
         return result;
-      }
+      },
     });
   };
 
   render() {
     const content = (loading, error, data, fetchMore) => {
-      if (loading) return <div>Fetching...</div>;
-      if (error) return <div>Sorry! There was an error fetching results.</div>;
+      if (loading) {
+        return <div className="status-message warn">Fetching...</div>;
+      }
+      if (error) {
+        return (
+          <div className="status-message error">Sorry! There was an error fetching results.</div>
+        );
+      }
 
       const haveData = data && data.allWorks && data.allWorks.length > 0;
 
       if (haveData) {
-        return <WorksListTable works={data.allWorks}
-                               loadMore={() => this.loadMore(data, fetchMore)}
-                               moreResults={this.state.moreResults}
-                               loadingResults={this.state.loadingResults}
-        />
+        const { moreResults, loadingResults } = this.state;
+        return (
+          <WorksListTable
+            works={data.allWorks}
+            loadMore={() => this.loadMore(data, fetchMore)}
+            moreResults={moreResults}
+            loadingResults={loadingResults}
+          />
+        );
       }
 
-      return <div>Sorry! No results were found.</div>;
+      return <div className="status-message error">Sorry! No results were found.</div>;
     };
 
+    const { filter } = this.props;
+    const first = 5;
+    const skip = 0;
+
     return (
-      <Query query={queries.WORKS_SEARCH}
-             variables={{
-               filter: this.props.filter || {},
-               first: 5,
-               skip: 0
-             }}
-      >
-        {({ loading, error, data, fetchMore }) => {
-          return content(loading, error, data, fetchMore);
+      <Query
+        query={queries.WORKS_SEARCH}
+        variables={{
+          filter,
+          first,
+          skip,
         }}
+      >
+        {({ loading, error, data, fetchMore }) => (
+          content(loading, error, data, fetchMore)
+        )}
       </Query>
     );
   }
 }
 
-const WorksListTable = ({ works, loadMore, moreResults, loadingResults }) => {
+WorksList.defaultProps = {
+  filter: {},
+};
+
+WorksList.propTypes = {
+  filter: PropTypes.object,
+};
+
+const WorksListTable = ({
+  loadMore,
+  loadingResults,
+  moreResults,
+  works,
+}) => {
   const wrap = (item, itemType) => (
     <div key={item.id}>{wrapWithLink(item.name, item.id, itemType)}</div>
   );
 
   const items = works.map(work => (
-      <tbody key={work.id}>
+    <tbody key={work.id}>
       <tr>
         <td colSpan="4">
           <h4>
@@ -124,28 +154,45 @@ const WorksListTable = ({ works, loadMore, moreResults, loadingResults }) => {
         <td>{work.directors.map(director => wrap(director, 'director'))}</td>
         <td>{work.country ? wrap(work.country, 'country') : null}</td>
       </tr>
-      </tbody>
-    )
-  );
+    </tbody>
+  ));
 
   let buttonText = 'Load More Results';
 
-  if(loadingResults){
+  if (loadingResults) {
     buttonText = 'Loading...';
-  } else if(!moreResults){
+  } else if (!moreResults) {
     buttonText = 'No More Results';
   }
 
   return (
     <div>
-      <table id='works-list-table' className="u-full-width">
+      <table id="works-list-table" className="u-full-width">
         {items}
       </table>
-      <button className='center load-more' onClick={loadMore} disabled={!moreResults || loadingResults}>
+      <button
+        type="button"
+        className="center load-more"
+        onClick={loadMore}
+        disabled={!moreResults || loadingResults}
+      >
         {buttonText}
       </button>
     </div>
-  )
+  );
+};
+
+WorksListTable.defaultProps = {
+  loadingResults: false,
+  moreResults: true,
+  works: [],
+};
+
+WorksListTable.propTypes = {
+  loadMore: PropTypes.func.isRequired,
+  loadingResults: PropTypes.bool,
+  moreResults: PropTypes.bool,
+  works: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default WorksList;
