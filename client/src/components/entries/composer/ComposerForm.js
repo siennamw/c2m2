@@ -3,7 +3,7 @@ import {
   Form, Field, ErrorMessage,
 } from 'formik';
 
-const ComposerForm = ({ handleSubmit, isSubmitting, status }) => (
+const ComposerForm = ({ handleSubmit, isSubmitting, isValid, status }) => (
   <Form>
     <label htmlFor="name">
       Name
@@ -26,7 +26,7 @@ const ComposerForm = ({ handleSubmit, isSubmitting, status }) => (
     <button
       type="submit"
       className="button-primary u-full-width"
-      disabled={isSubmitting}
+      disabled={isSubmitting || !isValid}
       onClick={handleSubmit}
     >
       Submit

@@ -18,7 +18,7 @@ const validationSchema = Yup.object().shape({
     .required('ReCaptcha is required'),
 });
 
-const InnerContactForm = ({ handleSubmit, isSubmitting, setFieldValue, status }) => (
+const InnerContactForm = ({ handleSubmit, isSubmitting, isValid, setFieldValue, status }) => (
   <Form>
     <label htmlFor='name'>
       Name
@@ -46,7 +46,7 @@ const InnerContactForm = ({ handleSubmit, isSubmitting, setFieldValue, status })
     <button
       type='submit'
       className='button-primary u-full-width'
-      disabled={isSubmitting}
+      disabled={isSubmitting || !isValid}
       onClick={handleSubmit}>
       Submit
     </button>
@@ -106,7 +106,7 @@ class GeneralContact extends React.Component {
             }}
             validationSchema={validationSchema}
             onSubmit={(values, { setSubmitting, setStatus, resetForm }) => this.handleSubmit(handleContactForm, values, setSubmitting, setStatus, resetForm)}
-            render={InnerContactForm}
+            render={props => <InnerContactForm {...props} />}
           />
         )}
       </Mutation>

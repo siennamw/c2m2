@@ -3,7 +3,7 @@ import {
   Form, Field, ErrorMessage,
 } from 'formik';
 
-const MediaTypeForm = ({ handleSubmit, isSubmitting, status }) => (
+const MediaTypeForm = ({ handleSubmit, isSubmitting, isValid, status }) => (
   <Form>
     <label htmlFor="name">
       Name
@@ -31,7 +31,7 @@ const MediaTypeForm = ({ handleSubmit, isSubmitting, status }) => (
     <button
       type="submit"
       className="button-primary u-full-width"
-      disabled={isSubmitting}
+      disabled={isSubmitting || !isValid}
       onClick={handleSubmit}
     >
       Submit

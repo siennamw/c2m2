@@ -16,7 +16,7 @@ import NewProductionCompany from '../productionCompany/NewProductionCompany';
 import NewPublisher from '../publisher/NewPublisher';
 
 export const WorkForm = ({
-  handleSubmit, isSubmitting, status, setFieldValue,
+  handleSubmit, isSubmitting, isValid, status, setFieldValue,
 }) => {
   const selectOnChange = (evt, name) => {
     // when selecting from a dropdown to set an ID,
@@ -199,7 +199,7 @@ export const WorkForm = ({
       <button
         type="submit"
         className="button-primary u-full-width"
-        disabled={isSubmitting}
+        disabled={isSubmitting || !isValid}
         onClick={handleSubmit}
       >
         Submit

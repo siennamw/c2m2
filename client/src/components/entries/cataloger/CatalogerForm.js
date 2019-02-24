@@ -3,7 +3,7 @@ import {
   Form, Field, ErrorMessage,
 } from 'formik';
 
-const CatalogerForm = ({ handleSubmit, isSubmitting, status }) => (
+const CatalogerForm = ({ handleSubmit, isSubmitting, isValid, status }) => (
   <Form>
     <label htmlFor="name">
       Name
@@ -46,7 +46,7 @@ const CatalogerForm = ({ handleSubmit, isSubmitting, status }) => (
     <button
       type="submit"
       className="button-primary u-full-width"
-      disabled={isSubmitting}
+      disabled={isSubmitting || !isValid}
       onClick={handleSubmit}
     >
       Submit

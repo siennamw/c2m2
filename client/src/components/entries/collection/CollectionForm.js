@@ -9,7 +9,7 @@ import SelectFieldWithQuery from '../SelectFieldWithQuery';
 import NewRepository from '../repository/NewRepository';
 
 const CollectionForm = ({
-  handleSubmit, isSubmitting, status, setFieldValue
+  handleSubmit, isSubmitting, isValid, status, setFieldValue
 }) => {
   const selectOnChange = (evt, name) => {
     // when selecting from a dropdown to set an ID,
@@ -54,7 +54,7 @@ const CollectionForm = ({
       <button
         type="submit"
         className="button-primary u-full-width"
-        disabled={isSubmitting}
+        disabled={isSubmitting || !isValid}
         onClick={handleSubmit}
       >
         Submit

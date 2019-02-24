@@ -22,7 +22,7 @@ const validationSchema = Yup.object().shape({
     .required('ReCaptcha is required'),
 });
 
-const InnerSuggestionForm = ({ handleSubmit, isSubmitting, setFieldValue, status }) => (
+const InnerSuggestionForm = ({ handleSubmit, isSubmitting, isValid, setFieldValue, status }) => (
   <Form>
     <label htmlFor='name'>
       Name
@@ -70,7 +70,7 @@ const InnerSuggestionForm = ({ handleSubmit, isSubmitting, setFieldValue, status
     <button
       type='submit'
       className='button-primary u-full-width'
-      disabled={isSubmitting}
+      disabled={isSubmitting || !isValid}
       onClick={handleSubmit}
     >
       Submit
@@ -141,7 +141,7 @@ class ResourceSuggestion extends React.Component {
             onSubmit={(values, { setSubmitting, setStatus, resetForm }) => (
               this.handleSubmit(handleSuggestionForm, values, setSubmitting, setStatus, resetForm)
             )}
-            render={InnerSuggestionForm}
+            render={props => <InnerSuggestionForm {...props} />}
           />
         )}
       </Mutation>

@@ -3,7 +3,7 @@ import {
   Form, Field, ErrorMessage,
 } from 'formik';
 
-const PublisherForm = ({ handleSubmit, isSubmitting, status }) => (
+const PublisherForm = ({ handleSubmit, isSubmitting, isValid, status }) => (
   <Form>
     <label htmlFor="name">
       Name
@@ -31,7 +31,7 @@ const PublisherForm = ({ handleSubmit, isSubmitting, status }) => (
     <button
       type="submit"
       className="button-primary u-full-width"
-      disabled={isSubmitting}
+      disabled={isSubmitting || !isValid}
       onClick={handleSubmit}
     >
       Submit
