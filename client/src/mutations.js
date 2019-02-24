@@ -195,27 +195,26 @@ export const CREATE_WORK = gql`
 
 // update entry
 
-// TODO: password management for catalogers
-// export const UPDATE_CATALOGER = gql`
-//   mutation UpdateCataloger(
-//     $id: ID!,
-//     $name: String!,
-//     $email: String!,
-//     $password: String!,
-//     $description: String
-//   ){
-//     updateCataloger(
-//       id: $id,
-//       name: $name,
-//       authProvider: { email: { email: $email, password: $password } },
-//       description: $description
-//     ) {
-//       id
-//       name
-//       email
-//     }
-//   }
-// `;
+export const UPDATE_CATALOGER = gql`
+  mutation UpdateCataloger(
+    $id: ID!,
+    $name: String!,
+    $email: String!,
+    $password: String!,
+    $description: String
+  ){
+    updateCataloger(
+      id: $id,
+      name: $name,
+      authProvider: { email: { email: $email, password: $password } },
+      description: $description
+    ) {
+      id
+      name
+      email
+    }
+  }
+`;
 
 export const UPDATE_COLLECTION = gql`
   mutation UpdateCollection(

@@ -17,7 +17,7 @@ import NewPublisher from '../entries/publisher/NewPublisher';
 import NewRepository from '../entries/repository/NewRepository';
 import NewWork from '../entries/work/NewWork';
 
-// import EditCataloger from '../entries/cataloger/EditCataloger';
+import EditCataloger from '../entries/cataloger/EditCataloger';
 import EditCollection from '../entries/collection/EditCollection';
 import EditComposer from '../entries/composer/EditComposer';
 import EditCountry from '../entries/country/EditCountry';
@@ -65,7 +65,7 @@ const CatalogerDashboard = ({ match }) => (
         <Route exact path={`${match.path}/new/repository`} component={NewRepository} />
         <Route exact path={`${match.path}/new/work`} component={NewWork} />
 
-        {/*<Route exact path={`${match.path}/edit/cataloger/:id`} component={EditCataloger} />*/}
+        <Route exact path={`${match.path}/edit/cataloger/:id`} component={EditCataloger} />
         <Route exact path={`${match.path}/edit/collection/:id`} component={EditCollection} />
         <Route exact path={`${match.path}/edit/composer/:id`} component={EditComposer} />
         <Route exact path={`${match.path}/edit/country/:id`} component={EditCountry} />

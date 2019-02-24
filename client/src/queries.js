@@ -140,6 +140,17 @@ export const CATALOGER_BY_ID = gql`
   }
 `;
 
+export const CATALOGER_BY_ID_LEAN = gql`
+  query cataloger_lean($id: ID!){
+    cataloger(id: $id){
+      id
+      name
+      email
+      description
+    }
+  }
+`;
+
 export const COLLECTION_BY_ID = gql`
   query collection($id: ID!){
     collection(id: $id){
