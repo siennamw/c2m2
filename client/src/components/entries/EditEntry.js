@@ -73,4 +73,17 @@ const EditEntry = ({
   </Query>
 );
 
+EditEntry.propTypes = {
+  FormComponent: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.element,
+  ]).isRequired,
+  gqlMutation: PropTypes.object.isRequired,
+  gqlQuery: PropTypes.object.isRequired,
+  id: PropTypes.number.isRequired,
+  queryName: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  yupSchema: PropTypes.object.isRequired,
+};
+
 export default EditEntry;

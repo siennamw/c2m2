@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 
 const DetailedEntry = ({ DisplayComponent, gqlQuery, id, queryName }) => (
@@ -35,5 +36,15 @@ const DetailedEntry = ({ DisplayComponent, gqlQuery, id, queryName }) => (
     }}
   </Query>
 );
+
+DetailedEntry.propTypes = {
+  DisplayComponent: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.element,
+  ]).isRequired,
+  gqlQuery: PropTypes.object.isRequired,
+  id: PropTypes.number.isRequired,
+  queryName: PropTypes.string.isRequired,
+};
 
 export default DetailedEntry;

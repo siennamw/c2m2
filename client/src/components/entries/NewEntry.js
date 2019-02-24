@@ -71,4 +71,29 @@ const NewEntry = ({
   );
 };
 
+NewEntry.defaultProps = {
+  refetch: null,
+};
+
+NewEntry.propTypes = {
+  FormComponent: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.element,
+  ]).isRequired,
+  gqlMutation: PropTypes.object.isRequired,
+  initialValues: (props, propName, componentName) => {
+    props.yupSchema
+      .isValid(props[propName])
+      .then((valid) => {
+        if (!valid) {
+          return new Error(`Invalid prop ${propName} supplied to ${componentName}.`);
+        }
+        return true;
+      });
+  },
+  refetch: PropTypes.func,
+  title: PropTypes.string.isRequired,
+  yupSchema: PropTypes.object.isRequired,
+};
+
 export default NewEntry;

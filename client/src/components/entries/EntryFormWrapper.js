@@ -1,6 +1,6 @@
 import React from 'react';
-import { Formik } from 'formik';
 import PropTypes from 'prop-types';
+import { Formik } from 'formik';
 
 const EntryFormWrapper = ({
   FormComponent,
@@ -32,7 +32,10 @@ EntryFormWrapper.defaultProps = {
 };
 
 EntryFormWrapper.propTypes = {
-  FormComponent: PropTypes.func.isRequired,
+  FormComponent: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.element,
+  ]).isRequired,
   handleSubmit: PropTypes.func.isRequired,
   initialValues: (props, propName, componentName) => {
     props.validationSchema

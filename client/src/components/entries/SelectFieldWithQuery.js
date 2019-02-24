@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Field, ErrorMessage } from 'formik';
 import { Query } from 'react-apollo';
 import Modal from 'react-modal';
@@ -6,7 +7,13 @@ import Modal from 'react-modal';
 import { ModalConsumer } from '../modal/ModalContext';
 
 const SelectFieldWithQuery = ({
-  fieldName, displayName, isMulti, onChangeCallback, query, queryName, componentForModal
+  fieldName,
+  componentForModal,
+  displayName,
+  isMulti,
+  onChangeCallback,
+  query,
+  queryName,
 }) => {
   return (
     <Query query={query}>
@@ -116,7 +123,24 @@ const SelectFieldWithQuery = ({
         );
       }}
     </Query>
-  )
+  );
+};
+
+SelectFieldWithQuery.defaultProps = {
+  isMulti: false,
+};
+
+SelectFieldWithQuery.propTypes = {
+  fieldName: PropTypes.string.isRequired,
+  componentForModal: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.element,
+  ]).isRequired,
+  displayName: PropTypes.string.isRequired,
+  isMulti: PropTypes.bool,
+  onChangeCallback: PropTypes.func.isRequired,
+  query: PropTypes.object.isRequired,
+  queryName: PropTypes.string.isRequired,
 };
 
 export default SelectFieldWithQuery;
