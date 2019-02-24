@@ -17,6 +17,7 @@ import NewPublisher from '../entries/publisher/NewPublisher';
 import NewRepository from '../entries/repository/NewRepository';
 import NewWork from '../entries/work/NewWork';
 
+import EditPublisher from '../entries/publisher/EditPublisher';
 import EditRepository from '../entries/repository/EditRepository';
 import EditWork from '../entries/work/EditWork';
 
@@ -64,7 +65,7 @@ const CatalogerDashboard = ({ match }) => (
         {/*<Route exact path={`${match.path}/edit/material-format/:id`} component={EditMaterialFormat} />*/}
         {/*<Route exact path={`${match.path}/edit/media-type/:id`} component={EditMediaType} />*/}
         {/*<Route exact path={`${match.path}/edit/production-company/:id`} component={EditProductionCompany} />*/}
-        {/*<Route exact path={`${match.path}/edit/publisher/:id`} component={EditPublisher} />*/}
+        <Route exact path={`${match.path}/edit/publisher/:id`} component={EditPublisher} />
         <Route exact path={`${match.path}/edit/repository/:id`} component={EditRepository} />
         <Route exact path={`${match.path}/edit/work/:id`} component={EditWork} />
 

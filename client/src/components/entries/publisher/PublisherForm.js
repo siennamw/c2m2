@@ -15,16 +15,16 @@ const InnerPublisherForm = ({ handleSubmit, isSubmitting, status }) => (
         className="u-full-width"
       />
     </label>
-    <label htmlFor="description">
+    <label htmlFor="contact_info">
       Contact Information
       <ErrorMessage
-        name="description"
+        name="contact_info"
         component="div"
         className="status-message form-message error"
       />
       <Field
         type="text"
-        name="description"
+        name="contact_info"
         className="u-full-width"
         component="textarea"
       />
@@ -45,17 +45,20 @@ const InnerPublisherForm = ({ handleSubmit, isSubmitting, status }) => (
   </Form>
 );
 
-const PublisherForm = ({ mutation, handleSubmit, validationSchema }) => {
-  const initialValues = Object.keys(publisherValidationSchema.fields).reduce((acc, item) => {
-    acc[item] = '';
-    return acc;
-  }, {});
+const PublisherForm = ({ handleSubmit, initialValues, mutation, validationSchema }) => {
+  const vals = initialValues
+    || Object.keys(publisherValidationSchema.fields).reduce((acc, item) => {
+      acc[item] = item.includes('ids') ? [] : '';
+      return acc;
+    }, {});
 
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={vals}
       validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting, setStatus, resetForm }) => handleSubmit(mutation, values, setSubmitting, setStatus, resetForm)}
+      onSubmit={(values, { setSubmitting, setStatus, resetForm }) => (
+        handleSubmit(mutation, values, setSubmitting, setStatus, resetForm)
+      )}
       render={InnerPublisherForm}
     />
   );
