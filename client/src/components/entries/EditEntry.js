@@ -1,14 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 
 import { FIELD_TO_PLURAL } from '../../constants';
 import NewEntry from './NewEntry';
 
 const EditEntry = ({
-  FormComponent, gqlMutation, gqlQuery, id, queryName, title, yupSchema
+  FormComponent,
+  gqlMutation,
+  gqlQuery,
+  id,
+  queryName,
+  title,
+  yupSchema,
 }) => (
   <Query query={gqlQuery} variables={{ id }}>
-    {({ error, data }) => {
+    {({ error, data, refetch }) => {
       let content = (
         <div className="status-message warn">Fetching...</div>
       );
@@ -41,17 +48,22 @@ const EditEntry = ({
             acc[key] = data[queryName][k] && data[queryName][k].id
               ? Number(data[queryName][k].id)
               : undefined;
+          } else {
+            // allows field to be controlled without populating it
+            // with a value from the DB (ex. password)
+            acc[key] = '';
           }
           return acc;
         }, {});
 
         content = (
           <NewEntry
-            title={title}
+            FormComponent={FormComponent}
             gqlMutation={gqlMutation}
             initialValues={initialValues}
+            refetch={refetch}
+            title={title}
             yupSchema={yupSchema}
-            FormComponent={FormComponent}
           />
         );
       }

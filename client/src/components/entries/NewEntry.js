@@ -1,10 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
 
 import { isEmpty } from 'lodash';
 import EntryFormWrapper from './EntryFormWrapper';
 
-const NewEntry = ({ title, gqlMutation, yupSchema, FormComponent, initialValues }) => {
+const NewEntry = ({
+  FormComponent,
+  gqlMutation,
+  initialValues,
+  refetch,
+  title,
+  yupSchema,
+}) => {
   const variablesList = Object.keys(yupSchema.fields);
 
   const handleSubmit = async (mutation, values, setSubmitting, setStatus, resetForm) => {
@@ -23,6 +31,7 @@ const NewEntry = ({ title, gqlMutation, yupSchema, FormComponent, initialValues 
       const { data } = await mutation(payload);
 
       if (data && !isEmpty(data)) {
+        if (refetch) await refetch();
         resetForm();
         setStatus({
           type: 'success',
