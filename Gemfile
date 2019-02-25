@@ -13,8 +13,6 @@ gem 'rails', '~> 5.1.6'
 gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 # Use JSON web tokens for authentication
@@ -23,9 +21,6 @@ gem "json_web_token", "~> 0.3.5"
 gem "rack-cors", require: "rack/cors"
 # For JS uglification
 gem 'uglifier'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

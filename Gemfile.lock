@@ -148,9 +148,6 @@ GEM
       sprockets (>= 3.0.0)
     thor (0.19.4)
     thread_safe (0.3.6)
-    turbolinks (5.2.0)
-      turbolinks-source (~> 5.2)
-    turbolinks-source (5.2.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     uglifier (4.1.10)
@@ -188,10 +185,12 @@ DEPENDENCIES
   selenium-webdriver
   spring
   spring-watcher-listen (~> 2.0.0)
-  turbolinks (~> 5)
   tzinfo-data
   uglifier
   web-console (>= 3.3.0)
+
+RUBY VERSION
+   ruby 2.4.1p111
 
 BUNDLED WITH
    1.16.1
