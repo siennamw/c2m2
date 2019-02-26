@@ -1,5 +1,4 @@
-import React from 'react';
-import { Form } from 'formik';
+import React, { Fragment } from 'react';
 import InputField from '../InputField';
 
 import { LIST_ALL_REPOSITORIES } from '../../../queries';
@@ -7,9 +6,7 @@ import { LIST_ALL_REPOSITORIES } from '../../../queries';
 import SelectFieldWithQuery from '../SelectFieldWithQuery';
 import NewRepository from '../repository/NewRepository';
 
-const CollectionForm = ({
-  handleSubmit, isSubmitting, isValid, status, setFieldValue
-}) => {
+const CollectionForm = ({ setFieldValue }) => {
   const selectOnChange = (evt, name) => {
     // when selecting from a dropdown to set an ID,
     // coerce value to number on change
@@ -22,7 +19,7 @@ const CollectionForm = ({
   };
 
   return (
-    <Form>
+    <Fragment>
       <InputField displayName="Name" fieldName="name" />
       <SelectFieldWithQuery
         displayName="Repository"
@@ -33,20 +30,7 @@ const CollectionForm = ({
         componentForModal={<NewRepository />}
       />
       <InputField displayName="Description" fieldName="description" />
-      <button
-        type="submit"
-        className="button-primary u-full-width"
-        disabled={isSubmitting || !isValid}
-        onClick={handleSubmit}
-      >
-        Submit
-      </button>
-      {
-        status
-          ? <div className={`status-message ${status.type}`}>{status.message}</div>
-          : undefined
-      }
-    </Form>
+    </Fragment>
   );
 };
 

@@ -1,5 +1,4 @@
-import React from 'react';
-import { Form } from 'formik';
+import React, { Fragment } from 'react';
 
 import SelectFieldWithQuery from '../SelectFieldWithQuery';
 import InputField from '../InputField';
@@ -15,9 +14,7 @@ import NewMediaType from '../mediaType/NewMediaType';
 import NewProductionCompany from '../productionCompany/NewProductionCompany';
 import NewPublisher from '../publisher/NewPublisher';
 
-export const WorkForm = ({
-  handleSubmit, isSubmitting, isValid, status, setFieldValue
-}) => {
+export const WorkForm = ({ setFieldValue }) => {
   const selectOnChange = (evt, name) => {
     if (name.includes('_ids')) {
       // when selecting from a multiselect to set an array of IDs,
@@ -40,7 +37,7 @@ export const WorkForm = ({
   };
 
   return (
-    <Form>
+    <Fragment>
       <InputField displayName="Title" fieldName="title" />
       <InputField displayName="Secondary Title" fieldName="secondary_title" />
       <InputField displayName="Alias or Alternate Title(s)" fieldName="alias_alternates" />
@@ -119,20 +116,7 @@ export const WorkForm = ({
         componentForModal={<NewPublisher />}
       />
       <InputField displayName="Cataloging Notes" fieldName="cataloging_notes" />
-      <button
-        type="submit"
-        className="button-primary u-full-width"
-        disabled={isSubmitting || !isValid}
-        onClick={handleSubmit}
-      >
-        Submit
-      </button>
-      {
-        status
-          ? <div className={`status-message ${status.type}`}>{status.message}</div>
-          : undefined
-      }
-    </Form>
+    </Fragment>
   );
 };
 
