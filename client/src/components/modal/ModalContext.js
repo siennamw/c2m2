@@ -1,5 +1,7 @@
-import React from 'react';
-import { createContext } from 'react';
+// based on Bogdan Soare, "How to use React’s new Context API to easily manage modals"
+// https://medium.com/@BogdanSoare/how-to-use-reacts-new-context-api-to-easily-manage-modals-2ae45c7def81
+
+import React, { createContext } from 'react';
 
 export const ModalContext = createContext({
   component: null,
@@ -18,16 +20,18 @@ export class ModalProvider extends React.Component {
     });
   };
 
-  hideModal = () => this.setState({
-    component: null,
-    props: {},
-  });
+  hideModal = () => {
+    this.setState({
+      component: null,
+      props: {},
+    });
+  };
 
   state = {
     component: null,
     props: {},
     showModal: this.showModal,
-    hideModal: this.hideModal
+    hideModal: this.hideModal,
   };
 
   render() {
