@@ -1,7 +1,6 @@
 import React from 'react';
-import {
-  Form, Field, ErrorMessage,
-} from 'formik';
+import { Form } from 'formik';
+import InputField from '../InputField';
 
 import { LIST_ALL_REPOSITORIES } from '../../../queries';
 
@@ -24,15 +23,7 @@ const CollectionForm = ({
 
   return (
     <Form>
-      <label htmlFor="name">
-        Name
-        <ErrorMessage name="name" component="div" className="status-message form-message error" />
-        <Field
-          type="text"
-          name="name"
-          className="u-full-width"
-        />
-      </label>
+      <InputField displayName="Name" fieldName="name" />
       <SelectFieldWithQuery
         displayName="Repository"
         fieldName="repository_id"
@@ -41,16 +32,7 @@ const CollectionForm = ({
         queryName="allRepositories"
         componentForModal={<NewRepository />}
       />
-      <label htmlFor="description">
-        Description
-        <ErrorMessage name="description" component="div" className="status-message form-message error" />
-        <Field
-          type="text"
-          name="description"
-          className="u-full-width"
-          component="textarea"
-        />
-      </label>
+      <InputField displayName="Description" fieldName="description" />
       <button
         type="submit"
         className="button-primary u-full-width"

@@ -1,48 +1,13 @@
 import React from 'react';
-import {
-  Form, Field, ErrorMessage,
-} from 'formik';
+import { Form } from 'formik';
+import InputField from '../InputField';
 
 const CatalogerForm = ({ handleSubmit, isSubmitting, isValid, status }) => (
   <Form>
-    <label htmlFor="name">
-      Name
-      <ErrorMessage name="name" component="div" className="status-message form-message error" />
-      <Field
-        type="text"
-        name="name"
-        className="u-full-width"
-      />
-    </label>
-    <label htmlFor="email">
-      Email
-      <ErrorMessage name="email" component="div" className="status-message form-message error" />
-      <Field
-        type="email"
-        name="email"
-        className="u-full-width"
-      />
-    </label>
-    <label htmlFor="description">
-      Description
-      <ErrorMessage name="description" component="div" className="status-message form-message error" />
-      <Field
-        type="text"
-        name="description"
-        className="u-full-width"
-        component="textarea"
-      />
-    </label>
-    <label htmlFor="password">
-      Password
-      <ErrorMessage name="password" component="div" className="status-message form-message error" />
-      <Field
-        type="password"
-        name="password"
-        autoComplete="new-password"
-        className="u-full-width"
-      />
-    </label>
+    <InputField displayName="Name" fieldName="name" />
+    <InputField displayName="Email" fieldName="email" fieldType="email" />
+    <InputField displayName="Description" fieldName="description" />
+    <InputField displayName="Password" fieldName="password" fieldType="password" />
     <button
       type="submit"
       className="button-primary u-full-width"

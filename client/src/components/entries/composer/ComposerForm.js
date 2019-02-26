@@ -1,28 +1,11 @@
 import React from 'react';
-import {
-  Form, Field, ErrorMessage,
-} from 'formik';
+import { Form } from 'formik';
+import InputField from '../InputField';
 
 const ComposerForm = ({ handleSubmit, isSubmitting, isValid, status }) => (
   <Form>
-    <label htmlFor="name">
-      Name
-      <ErrorMessage name="name" component="div" className="status-message form-message error" />
-      <Field
-        type="text"
-        name="name"
-        className="u-full-width"
-      />
-    </label>
-    <label htmlFor="imdb_link">
-      IMDB Link
-      <ErrorMessage name="imdb_link" component="div" className="status-message form-message error" />
-      <Field
-        type="url"
-        name="imdb_link"
-        className="u-full-width"
-      />
-    </label>
+    <InputField displayName="Name" fieldName="name" />
+    <InputField displayName="IMDB Link" fieldName="imdb_link" fieldType="url" />
     <button
       type="submit"
       className="button-primary u-full-width"

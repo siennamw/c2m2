@@ -1,9 +1,9 @@
 import React from 'react';
-import {
-  Form, Field, ErrorMessage,
-} from 'formik';
+import { Form } from 'formik';
 
 import SelectFieldWithQuery from '../SelectFieldWithQuery';
+import InputField from '../InputField';
+
 import * as queries from '../../../queries';
 
 import NewCollection from '../collection/NewCollection';
@@ -16,7 +16,7 @@ import NewProductionCompany from '../productionCompany/NewProductionCompany';
 import NewPublisher from '../publisher/NewPublisher';
 
 export const WorkForm = ({
-  handleSubmit, isSubmitting, isValid, status, setFieldValue,
+  handleSubmit, isSubmitting, isValid, status, setFieldValue
 }) => {
   const selectOnChange = (evt, name) => {
     if (name.includes('_ids')) {
@@ -41,79 +41,14 @@ export const WorkForm = ({
 
   return (
     <Form>
-      <label htmlFor="title">
-       Title
-        <ErrorMessage name="title" component="div" className="status-message form-message error" />
-        <Field
-          type="text"
-          name="title"
-          className="u-full-width"
-        />
-      </label>
-      <label htmlFor="secondary_title">
-        Secondary Title
-        <ErrorMessage name="secondary_title" component="div" className="status-message form-message error" />
-        <Field
-          type="text"
-          name="secondary_title"
-          className="u-full-width"
-        />
-      </label>
-      <label htmlFor="alias_alternates">
-        Alias or Alternate Title(s)
-        <ErrorMessage name="alias_alternates" component="div" className="status-message form-message error" />
-        <Field
-          type="text"
-          name="alias_alternates"
-          className="u-full-width"
-        />
-      </label>
-      <label htmlFor="year">
-        Year
-        <ErrorMessage name="year" component="div" className="status-message form-message error" />
-        <Field
-          type="number"
-          min="1900"
-          name="year"
-          className="u-full-width"
-        />
-      </label>
-      <label htmlFor="finding_aid_link">
-        Finding Aid Link
-        <ErrorMessage name="finding_aid_link" component="div" className="status-message form-message error" />
-        <Field
-          type="url"
-          name="finding_aid_link"
-          className="u-full-width"
-        />
-      </label>
-      <label htmlFor="digital_copy_link">
-        Digital Copy Link
-        <ErrorMessage name="digital_copy_link" component="div" className="status-message form-message error" />
-        <Field
-          type="url"
-          name="digital_copy_link"
-          className="u-full-width"
-        />
-      </label>
-      <label htmlFor="rights_holder">
-        Rights Holder
-        <ErrorMessage name="rights_holder" component="div" className="status-message form-message error" />
-        <Field
-          type="text"
-          name="rights_holder"
-          className="u-full-width"
-        />
-      </label>
-      <label htmlFor="citation_source">
-        Citation Source
-        <ErrorMessage name="citation_source" component="div" className="status-message form-message error" />
-        <Field
-          type="text"
-          name="citation_source"
-          className="u-full-width"
-        />
-      </label>
+      <InputField displayName="Title" fieldName="title" />
+      <InputField displayName="Secondary Title" fieldName="secondary_title" />
+      <InputField displayName="Alias or Alternate Title(s)" fieldName="alias_alternates" />
+      <InputField displayName="Year" fieldName="year" fieldType="number" />
+      <InputField displayName="Finding Aid Link" fieldName="finding_aid_link" fieldType="url" />
+      <InputField displayName="Digital Copy Link" fieldName="digital_copy_link" fieldType="url" />
+      <InputField displayName="Rights Holder" fieldName="rights_holder" />
+      <InputField displayName="Citation Source" fieldName="citation_source" />
       <SelectFieldWithQuery
         displayName="Country"
         fieldName="country_id"
@@ -183,16 +118,7 @@ export const WorkForm = ({
         queryName="allPublishers"
         componentForModal={<NewPublisher />}
       />
-      <label htmlFor="cataloging_notes">
-        Cataloging Notes
-        <ErrorMessage name="cataloging_notes" component="div" className="status-message form-message error" />
-        <Field
-          type="text"
-          name="cataloging_notes"
-          className="u-full-width"
-          component="textarea"
-        />
-      </label>
+      <InputField displayName="Cataloging Notes" fieldName="cataloging_notes" />
       <button
         type="submit"
         className="button-primary u-full-width"
