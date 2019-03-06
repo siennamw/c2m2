@@ -4,7 +4,7 @@ import { Query } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import { isAuthenticated } from '../../utils';
 
-const DetailedEntry = ({ DisplayComponent, gqlQuery, id, queryName }) => (
+const DetailedEntry = ({ DisplayComponent, entryTypeForDisplay, gqlQuery, id, queryName }) => (
   <Query query={gqlQuery} variables={{ id }}>
     {({ error, data }) => {
       let content = (
@@ -26,22 +26,37 @@ const DetailedEntry = ({ DisplayComponent, gqlQuery, id, queryName }) => (
         );
       } else if (data && data[queryName]) {
         const values = data[queryName];
+        const heading = values.title
+          ? (
+            <h3>
+              {values.title}
+              {values.secondary_title ? `: ${values.secondary_title}` : ''}
+            </h3>
+          )
+          : <h3>{values.name}</h3>;
 
         content = (
           <div className="detailed-entry">
-            <DisplayComponent values={values} />
-            {
-              isAuthenticated()
-                ? (
-                  <Link
-                    to={`/dashboard/edit/${queryName}/${id}`}
-                    className="edit-entry-link"
-                  >
-                    Edit This Entry
-                  </Link>
-                )
-                : undefined
-            }
+            <div>
+              <div className="entry-type">{entryTypeForDisplay}:</div>
+              {heading}
+              <table className="u-full-width">
+                <DisplayComponent values={values} />
+              </table>
+              {
+                isAuthenticated()
+                  ? (
+                    <div className="edit-entry-link">
+                      <Link
+                        to={`/dashboard/edit/${queryName}/${id}`}
+                      >
+                        Edit this {entryTypeForDisplay} &rarr;
+                      </Link>
+                    </div>
+                  )
+                  : undefined
+              }
+            </div>
           </div>
         );
       }
@@ -51,11 +66,16 @@ const DetailedEntry = ({ DisplayComponent, gqlQuery, id, queryName }) => (
   </Query>
 );
 
+DetailedEntry.defaultProps = {
+  entryTypeForDisplay: 'entry',
+};
+
 DetailedEntry.propTypes = {
   DisplayComponent: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.element,
   ]).isRequired,
+  entryTypeForDisplay: PropTypes.string,
   gqlQuery: PropTypes.object.isRequired,
   id: PropTypes.number.isRequired,
   queryName: PropTypes.string.isRequired,

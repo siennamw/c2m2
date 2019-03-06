@@ -5,40 +5,32 @@ import { MEDIA_TYPE_BY_ID } from '../../../queries';
 import { wrapWithLink } from '../../../utils';
 
 const DisplayMediaType = ({ values }) => (
-  <div>
-    <div className="entry-type">Media Type:</div>
-    <h3>
-      {values.name}
-    </h3>
-    <table className="u-full-width">
-      <tbody>
-        <tr>
-          <th>Description</th>
-          <td>{values.description}</td>
-        </tr>
-        <tr>
-          <th>Works(s)</th>
-          <td>
-            {
-              values.works.map(c => (
-                <div key={c.id}>{wrapWithLink(c.title, c.id, 'work')}</div>
-              ))
-            }
-          </td>
-        </tr>
-        <tr>
-          <th>Cataloger</th>
-          <td>
-            {
-              values.cataloger
-                ? wrapWithLink(values.cataloger.name, values.cataloger.id, 'cataloger')
-                : null
-            }
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <tbody>
+    <tr>
+      <th>Description</th>
+      <td>{values.description}</td>
+    </tr>
+    <tr>
+      <th>Works(s)</th>
+      <td>
+        {
+          values.works.map(c => (
+            <div key={c.id}>{wrapWithLink(c.title, c.id, 'work')}</div>
+          ))
+        }
+      </td>
+    </tr>
+    <tr>
+      <th>Cataloger</th>
+      <td>
+        {
+          values.cataloger
+            ? wrapWithLink(values.cataloger.name, values.cataloger.id, 'cataloger')
+            : null
+        }
+      </td>
+    </tr>
+  </tbody>
 );
 
 const DetailedMediaType = ({ match }) => {
@@ -47,6 +39,7 @@ const DetailedMediaType = ({ match }) => {
   return (
     <DetailedEntry
       DisplayComponent={DisplayMediaType}
+      entryTypeForDisplay="media type"
       gqlQuery={MEDIA_TYPE_BY_ID}
       id={id}
       queryName="media_type"
