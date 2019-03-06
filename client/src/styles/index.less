@@ -69,8 +69,12 @@ table {
 }
 
 form {
-  label * {
-    font-weight: normal;
+  label {
+    position: relative; // for tooltip alignment
+
+    * {
+      font-weight: normal;
+    }
   }
 
   .status-message.form-message {
@@ -206,17 +210,16 @@ footer {
 
 // Citations
 .field-info-tooltip {
-  position: relative;
-  cursor: help;
-  margin: 0 .5rem;
-  font-style: normal;
+  display: inline-block;
 
-  .anchor {
+  .tooltip-anchor {
     border-radius: 50%;
     background-color: @border-color;
     color: @white;
+    cursor: help;
     width: 1em;
     height: 1em;
+    margin: 0.1rem 0.5rem;
     font-size: 1em;
     line-height: 1em;
     display: inline-block;
@@ -224,53 +227,40 @@ footer {
     vertical-align: text-bottom;
   }
 
-  .content {
+  .tooltip-content {
     .shadow();
+    cursor: help;
     color: @gray;
     background-color: @white;
     border: solid 1px @border-color;
     font-size: 80%;
+    text-align: left;
     display: block;
     position: absolute;
-    top: -.5em;
+    top: 1em;
+    right: 1em;
     left: 1em;
     padding: 1rem;
     border-radius: 4px;
-    width: 30rem;
+    z-index: 2;
 
-    p, div.p {
+    p {
       .uppercase();
       text-align: center;
       color: inherit;
       margin: 0 0 1rem 0;
     }
 
+    ul.tooltip-rules {
+      margin-bottom: 0;
+    }
+
     a {
       word-break: break-word;
     }
 
-    table {
-      margin: 0;
-      width: 100%;
-
-      th, td {
-        vertical-align: top;
-      }
-
-      th {
-        padding: .2rem 1rem .2rem .2rem;
-      }
-
-      td {
-        padding: .2rem .2rem .2rem 1rem;
-        min-width: 70%;
-      }
-
-      tr:last-child {
-        th, td {
-          border-bottom: none;
-        }
-      }
+    hr {
+      margin: 1rem 0;
     }
   }
 }

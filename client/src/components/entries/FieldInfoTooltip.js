@@ -27,9 +27,24 @@ export default class FieldInfoTooltip extends React.Component {
 
   render() {
     const { field } = this.props;
+    const tooltip = TOOLTIP_BY_FIELD(field);
+
+    const rules = tooltip && tooltip.rules && tooltip.rules.length > 0
+      ? tooltip.rules.map((r, i) => <li key={i}>{r}</li>)
+      : undefined;
+
+    const description = tooltip && tooltip.description
+      ? tooltip.description
+      : 'No description available for this field.';
+
     const display = (
-      <div className="content">
-        {TOOLTIP_BY_FIELD(field) || 'No help text available for this field.'}
+      <div className="tooltip-content">
+        <div className="tooltip-description">
+          { description }
+        </div>
+        <hr />
+        {rules ? <p>Rules</p> : undefined}
+        {rules || <div>No rules available for this field</div>}
       </div>
     );
 
@@ -44,7 +59,7 @@ export default class FieldInfoTooltip extends React.Component {
         onBlur={this.hideDisplay}
         onTouchStart={this.handleTouch}
       >
-        <div className="anchor">&#8505;</div>
+        <div className="tooltip-anchor">&#8505;</div>
         {show ? display : ''}
       </span>
     );
