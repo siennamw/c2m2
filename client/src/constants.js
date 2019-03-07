@@ -12,56 +12,76 @@ export const FIELD_TO_PLURAL = {
 export const TOOLTIP_BY_FIELD = (fieldName) => {
   const tooltip = {
     alias_alternates: {
-      description: (
-        <Fragment>
-          Alternate title or translation of title.
-          Follow the <a
-            href="https://www.chicagomanualofstyle.org/book/ed17/part2/ch08/toc.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >capitalization rules in the Chicago Manual of Style</a>.
-        </Fragment>
-      ),
+      description: 'Aliases used by creators and alternate forms of title.',
       rules: [
-        'an example rule',
-        'another example rule',
+        'Free field for any alternate forms of the title of the work or alias used by composer of musical work.',
+        'Can also be used to provide English translation of foreign tiles.',
       ],
     },
     cataloging_notes: {
-      description: 'cataloging_notes',
+      description: 'Any other information pertinent to entry.',
+      rules: [
+        'Free field in which cataloger can place any other notes, unanswered questions, or relevant information regarding the entry.',
+      ],
     },
     citation_source: {
-      description: 'citation_source',
+      description: 'How information was found.',
+      rules: [
+        'Reference source (include citation for book following CMS16), or',
+        'Article/book citation (include citation for article following CMS16), or',
+        'Submission via C2M2 website (include name of submitter if they desire credit), or',
+        'Coordinating project (include name and website of project), or',
+        'C2M2 project research (include name of project member)',
+      ],
     },
     collection: {
-      description: 'Select all associated collections. Hold ctrl/cmd to select more than one.',
+      description: 'Official name(s) of collection(s) in which the record is held.',
+      rules: [
+        'Enter year alone, entered in Arabic numerals.',
+        'The year should be year of release of accompanied work score is associated with, or publication in the case of collection or published score.',
+      ],
     },
     composer: {
-      description: 'Select all associated composers. Hold ctrl/cmd to select more than one.',
+      description: 'Name(s) of composer(s) of musical work.',
+      rules: [
+        'Use LC authority version of name if available.',
+        'Include birth and death dates.',
+        'Do not use aliases in this field.',
+      ],
     },
     contact_info: {
-      description: 'May be a public website, mailing address, or email address.'
-        + ' Do not use individuals\' names or private contact information.',
+      description: 'Public website, mailing address, or email address.',
+      rules: [
+        'Do not use individuals\' names or private contact information.',
+      ],
     },
     country: {
-      description: 'country',
+      description: 'Official name of country of production.',
+      rules: [
+        'Primary country where production company, or primary commercial market for film, is located.',
+        'Use Getty Thesaurus of Geographic Names for authority version of country.',
+      ],
     },
     description: {
-      description: 'description',
+      description: 'Free field for further description.',
     },
     digital_copy_link: {
-      description: 'Full URL. Use a reliable link as close to the resource as possible.',
+      description: 'Full, stable URL or permalink to a digital copy of the resource or as close to the resource as possible.',
     },
     director: {
-      description: 'Select all associated directors. Hold ctrl/cmd to select'
-        + ' more than one.',
+      description: 'Director(s) of accompanied work.',
+      rules: [
+        'Use LC authority version of name if available.',
+        'Include birth and death dates.',
+        'Do not use aliases in this field.',
+      ],
     },
     email: {
       description: 'The email address at which project administrators and other contributors may'
         + ' contact you.',
     },
     finding_aid_link: {
-      description: 'Full URL. Use a reliable link as close to the resource as possible.',
+      description: 'Full, stable URL or permalink to a finding aid.',
     },
     imdb_link: {
       description: (
@@ -70,76 +90,93 @@ export const TOOLTIP_BY_FIELD = (fieldName) => {
             href="https://www.imdb.com/search/name"
             target="_blank"
             rel="noopener noreferrer"
-          >Search IMDB</a> for an entry associated with this person, then copy and paste the full
+          >Search IMDB</a> for the entry associated with this person, then copy and paste the full
           URL here.
         </Fragment>
       ),
     },
     location: {
-      description: 'City and country.  If in the USA, city and state is adequate. '
+      description: 'City and country.  If in the USA, city and state is adequate.'
         + 'Abbreviations for states are acceptable.',
     },
     material_format: {
-      description: 'Select the material format that most closely matches this resource.',
+      description: 'Physical format of material in collection.',
     },
     media_type: {
-      description: 'Select the media type that most closely matches this resource.',
+      description: 'Primary media type of the accompanied work that musical work is associated with.',
+      rules: [
+        'Films and Series released/produced via streaming services (i.e. Netflix, Hulu, Amazon) or in a web-first format (i.e. YouTube, Vimeo, or self-published on a personal site) are to be categorized under whatever film or series format that best fits the work.',
+        '"Serial Series" is any series that comes out at periodic intervals, and has multiple episodes that constitute a whole. This can include on-going or mini-series.',
+      ],
     },
     name: {
-      description: (
-        <Fragment>
-          Follow the <a
-          href="https://www.chicagomanualofstyle.org/book/ed17/part2/ch08/toc.html"
-          target="_blank"
-          rel="noopener noreferrer"
-        >capitalization rules in the Chicago Manual of Style</a>.
-        </Fragment>
-      ),
+      description: 'Full name.',
+      rules: [
+        'Use LC authority version of name if available.',
+        'For people, include birth and death dates.',
+        'Do not use aliases in this field.',
+      ],
     },
     production_company: {
-      description: 'Select all associated production companies. Hold ctrl/cmd to select'
-        + ' more than one.',
+      description: 'Corporate body that produced or financed the accompanied work.',
+      rules: [
+        'Use LC authority version of name if available.',
+        'If corporation has changed names or merged since time of production, list name of company as it appeared during production and list current name in additional entry.',
+        'If multiple companies responsible for production, list all known entities and observe above rule regarding any alternate or new names.',
+      ],
     },
     publisher: {
-      description: 'Select all associated publishers. Hold ctrl/cmd to select'
-        + ' more than one.',
+      description: 'Corporate body that published the musical work.',
+      rules: [
+        'Use LC authority version of name if available.',
+        'If corporation has changed names or merged since time of production, list name of company as it appeared during production and list current name in additional entry.',
+        'If multiple companies responsible for production, list all known entities and observe above rule regarding any alternate or new names.',
+        'If publisher is unknown, then enter [unknown], include brackets.',
+      ],
     },
     repository: {
-      description: 'Select all associated repositories. Hold ctrl/cmd to select'
-        + ' more than one.',
+      description: 'Name of repository that contains the resource.',
+      rules: [
+        'Headline-style capitalization (CMS16 8.157).',
+        'Use LC authority version of institution name if available.',
+        'Do not use nicknames of institutions in this field.',
+      ],
     },
     rights_holder: {
-      description: 'rights_holder',
+      description: 'Copyright statement.',
+      rules: [
+        'Free field which details who the current rights holder is: most likely will be the estate or family (if composer is dead), composer (if living), production company/studio, or repository.',
+        'Use LC authority version of name/repository/company if available.',
+        'If the status of the copyright cannot be determined, enter [Copyright status unknown, inquire with holding institution], include brackets.',
+      ],
     },
     secondary_title: {
-      description: (
-        <Fragment>
-          Secondary title or subtitle.
-          Follow the <a
-          href="https://www.chicagomanualofstyle.org/book/ed17/part2/ch08/toc.html"
-          target="_blank"
-          rel="noopener noreferrer"
-        >capitalization rules in the Chicago Manual of Style</a>.
-        </Fragment>
-      ),
+      description: 'Secondary title or subtitle.',
+      rules: [
+        'Headline-style capitalization (CMS16 8.157).',
+        'Use either an authoritative list of episodes or cue sheet for proper format if available.',
+      ],
     },
     title: {
-      description: (
-        <Fragment>
-          Follow the <a
-          href="https://www.chicagomanualofstyle.org/book/ed17/part2/ch08/toc.html"
-          target="_blank"
-          rel="noopener noreferrer"
-        >capitalization rules in the Chicago Manual of Style</a>.
-        </Fragment>
-      ),
+      description: 'Title of overall work (i.e. film, series, or collection).',
+      rules: [
+        'Headline-style capitalization (CMS16 8.157).',
+        'Use LC authority version of title if available, though omit "(Motion picture)" when it is used.',
+        'Do not use bold, underline, italics, or quotation marks.',
+      ],
     },
     website: {
-      description: 'Full URL. Instead of the home page of the site, select the page most relevant'
-        + ' to this entry.',
+      description: 'Full, stable URL or permalink.',
+      rules: [
+        'Select the specific page most relevant to this entry.',
+      ],
     },
     year: {
-      description: 'year',
+      description: 'Copyright, release, or air date of the accompanied work.',
+      rules: [
+        'Enter year alone, in Arabic numerals.',
+        'The year should be year of release of accompanied work that the score is associated with, or publication in the case of collection or published score.',
+      ],
     },
   };
 
