@@ -1,5 +1,5 @@
-import React from 'react';
-import propTypes from 'prop-types';
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 import { TOOLTIP_BY_FIELD } from '../../constants';
 
@@ -26,7 +26,7 @@ export default class FieldInfoTooltip extends React.Component {
   };
 
   render() {
-    const { field } = this.props;
+    const { field, forMultiSelect, hideRules } = this.props;
     const tooltip = TOOLTIP_BY_FIELD(field);
 
     const rules = tooltip && tooltip.rules && tooltip.rules.length > 0
@@ -39,12 +39,23 @@ export default class FieldInfoTooltip extends React.Component {
 
     const display = (
       <div className="tooltip-content">
-        <div className="tooltip-description">
-          { description }
-        </div>
-        <hr />
-        {rules ? <p>Rules</p> : undefined}
-        {rules || <div>No rules available for this field</div>}
+        {
+          forMultiSelect
+            ? <div className="multi-select-tooltip">Hold ctrl/cmd to select more than one.</div>
+            : undefined
+        }
+        <div className="tooltip-description">{description}</div>
+        {
+          rules && !hideRules
+            ? (
+              <Fragment>
+                <hr />
+                <p>Rules</p>
+                <ul className="tooltip-rules">{rules}</ul>
+              </Fragment>
+            )
+            : undefined
+        }
       </div>
     );
 
@@ -66,6 +77,13 @@ export default class FieldInfoTooltip extends React.Component {
   }
 }
 
+FieldInfoTooltip.defaultProps = {
+  forMultiSelect: false,
+  hideRules: false,
+};
+
 FieldInfoTooltip.propTypes = {
-  field: propTypes.string.isRequired,
+  field: PropTypes.string.isRequired,
+  forMultiSelect: PropTypes.bool,
+  hideRules: PropTypes.bool,
 };

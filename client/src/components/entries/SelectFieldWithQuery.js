@@ -100,7 +100,7 @@ const SelectFieldWithQuery = ({
         <div className="select-with-query">
           <label htmlFor={fieldName}>
             {displayName}
-            <FieldInfoTooltip field={fieldName} />
+            <FieldInfoTooltip field={fieldName} forMultiSelect={isMulti} hideRules />
             <ErrorMessage
               name={fieldName}
               component="div"

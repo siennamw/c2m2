@@ -244,11 +244,26 @@ footer {
     border-radius: 4px;
     z-index: 2;
 
+    &:after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+
     p {
       .uppercase();
       text-align: center;
       color: inherit;
       margin: 0 0 1rem 0;
+    }
+
+    .multi-select-tooltip {
+      color: @warn;
+      display: inline-block;
+      float: right;
+      margin-left: 1em;
+      margin-bottom: 0.2em;
+      font-size: 90%;
     }
 
     ul.tooltip-rules {
