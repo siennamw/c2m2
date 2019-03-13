@@ -32,8 +32,19 @@ class Resolvers::UpdateWork < GraphQL::Function
       raise GraphQL::ExecutionError.new("Authentication required")
     end
 
-    Work.update(
-      args[:id],
+    work = Work.find_by(id: args[:id])
+
+    # TODO: temporary until admin role is implemented
+    user_is_admin = false
+
+    # only admin can set to 'approved'
+    if !user_is_admin && args[:publication_status] == 'approved'
+      new_status = 'provisional'
+    else
+      new_status = args[:publication_status]
+    end
+
+    work.update(
       title: args[:title],
       secondary_title: args[:secondary_title],
       year: args[:year],
@@ -44,6 +55,7 @@ class Resolvers::UpdateWork < GraphQL::Function
       citation_source: args[:citation_source],
       alias_alternates: args[:alias_alternates],
       cataloging_notes: args[:cataloging_notes],
+      publication_status: new_status,
 
       country_id: args[:country_id],
       media_type_id: args[:media_type_id],

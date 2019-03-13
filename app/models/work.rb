@@ -13,4 +13,8 @@ class Work < ApplicationRecord
 
   validates_presence_of :title
   validates_presence_of :year
+  validates :publication_status, presence: true, inclusion: {
+    in: %w(draft provisional approved),
+    message: "%{value} is not a valid publication status"
+  }
 end

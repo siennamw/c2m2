@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190129144407) do
+ActiveRecord::Schema.define(version: 20190308150525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -167,10 +167,12 @@ ActiveRecord::Schema.define(version: 20190129144407) do
     t.bigint "cataloger_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "publication_status", default: "draft", null: false
     t.index ["cataloger_id"], name: "index_works_on_cataloger_id"
     t.index ["country_id"], name: "index_works_on_country_id"
     t.index ["material_format_id"], name: "index_works_on_material_format_id"
     t.index ["media_type_id"], name: "index_works_on_media_type_id"
+    t.index ["publication_status"], name: "index_works_on_publication_status"
   end
 
   add_foreign_key "catalogers", "catalogers", column: "created_by_id"

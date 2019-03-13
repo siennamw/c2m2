@@ -11,6 +11,7 @@ Types::WorkType = GraphQL::ObjectType.define do
   field :citation_source, types.String
   field :alias_alternates, types.String
   field :cataloging_notes, types.String
+  field :publication_status, types.String
 
   field :country, (-> { Types::CountryType })
   field :media_type, (-> { Types::MediaTypeType })

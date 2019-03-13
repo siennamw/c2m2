@@ -41,6 +41,7 @@ class Resolvers::CreateWork < GraphQL::Function
       citation_source: args[:citation_source],
       alias_alternates: args[:alias_alternates],
       cataloging_notes: args[:cataloging_notes],
+      publication_status: 'draft',
 
       country_id: args[:country_id],
       media_type_id: args[:media_type_id],
