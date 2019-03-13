@@ -70,6 +70,8 @@ class Resolvers::UpdateWork < GraphQL::Function
       publisher_ids: args[:publisher_ids]
     )
 
+    # return work
+    work
   rescue ActiveRecord::RecordInvalid => e
     # this would catch all validation errors and translate them to GraphQL::ExecutionError
     GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")
