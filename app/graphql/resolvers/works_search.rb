@@ -18,6 +18,7 @@ class Resolvers::WorksSearch
     argument :title_contains, types.String
     argument :secondary_title_contains, types.String
     argument :alias_alternates_contains, types.String
+    argument :include_drafts, types.Boolean
   end
 
   # when "filter" is passed "apply_filter" would be called to narrow the scope
@@ -43,6 +44,11 @@ class Resolvers::WorksSearch
   def normalize_filters(value, branches = [])
     # add like SQL conditions
     scope = Work.all
+
+    # filter out drafts by default
+    scope = scope.where('publication_status NOT ILIKE ?', 'draft') unless value['include_drafts']
+
+    # title matching
     scope = scope.where('title ILIKE ?', "%#{value['title_contains']}%") if value['title_contains']
     scope = scope.where('secondary_title ILIKE ?', "%#{value['secondary_title_contains']}%") if value['secondary_title_contains']
     scope = scope.where('alias_alternates ILIKE ?', "%#{value['alias_alternates_contains']}%") if value['alias_alternates_contains']
