@@ -14,6 +14,8 @@ class Resolvers::WorksSearch
   WorkFilter = GraphQL::InputObjectType.define do
     name 'WorkFilter'
 
+    argument :include_drafts, types.Boolean
+
     argument :OR, -> { types[WorkFilter] }
     argument :title_contains, types.String
     argument :secondary_title_contains, types.String
