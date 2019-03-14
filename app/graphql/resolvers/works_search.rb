@@ -14,6 +14,7 @@ class Resolvers::WorksSearch
   WorkFilter = GraphQL::InputObjectType.define do
     name 'WorkFilter'
 
+    # given at top level, cascades into all WorkFilters nested in ORs
     argument :include_drafts, types.Boolean
 
     argument :OR, -> { types[WorkFilter] }
