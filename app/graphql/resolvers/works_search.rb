@@ -18,7 +18,6 @@ class Resolvers::WorksSearch
     argument :title_contains, types.String
     argument :secondary_title_contains, types.String
     argument :alias_alternates_contains, types.String
-    argument :include_drafts, types.Boolean
   end
 
   # when "filter" is passed "apply_filter" would be called to narrow the scope
@@ -37,18 +36,20 @@ class Resolvers::WorksSearch
   # apply_filter recursively loops through "OR" branches
   def apply_filter(scope, value)
     # normalize filters from nested OR structure, to flat scope list
-    branches = normalize_filters(value).reduce { |a, b| a.or(b) }
+    branches = normalize_filters(value, value['include_drafts']).reduce { |a, b| a.or(b) }
     scope.merge branches
   end
 
-  def normalize_filters(value, branches = [])
+  def normalize_filters(value, include_drafts, branches = [])
     # add like SQL conditions
-    scope = Work.all
 
-    # filter out drafts by default
-    scope = scope.where('publication_status NOT ILIKE ?', 'draft') unless value['include_drafts']
+    # exclude drafts by default
+    if include_drafts
+      scope = Work.all
+    else
+      scope = Work.where.not(publication_status: 'draft')
+    end
 
-    # title matching
     scope = scope.where('title ILIKE ?', "%#{value['title_contains']}%") if value['title_contains']
     scope = scope.where('secondary_title ILIKE ?', "%#{value['secondary_title_contains']}%") if value['secondary_title_contains']
     scope = scope.where('alias_alternates ILIKE ?', "%#{value['alias_alternates_contains']}%") if value['alias_alternates_contains']
@@ -56,7 +57,7 @@ class Resolvers::WorksSearch
     branches << scope
 
     # continue to normalize down
-    value['OR'].reduce(branches) { |s, v| normalize_filters(v, s) } if value['OR'].present?
+    value['OR'].reduce(branches) { |s, v| normalize_filters(v, include_drafts, s) } if value['OR'].present?
 
     branches
   end
