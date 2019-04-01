@@ -1,37 +1,40 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import WorksList from "./WorksList";
+
+import { isAuthenticated } from '../utils';
+import WorksList from './WorksList';
 
 const validationSchema = Yup.object().shape({
   title: Yup.string()
     .required('Title is required'),
 });
 
-const InnerBasicSearchForm = ({ handleSubmit, isSubmitting }) => {
-  return (
-    <Form>
-      <label htmlFor='title'>
-        Title
-        <ErrorMessage name='title'
-                      component='div'
-                      className='status-message form-message error'
-        />
-      </label>
-      <Field type='text'
-             name='title'
-             className='u-full-width'
+const InnerBasicSearchForm = ({ handleSubmit, isSubmitting }) => (
+  <Form>
+    <label htmlFor="title">
+      Title
+      <ErrorMessage
+        name="title"
+        component="div"
+        className="status-message form-message error"
       />
-      <button type='submit'
-              className='button-primary u-full-width'
-              disabled={isSubmitting}
-              onClick={handleSubmit}
-      >
-        Submit
-      </button>
-    </Form>
-  )
-};
+    </label>
+    <Field
+      type="text"
+      name="title"
+      className="u-full-width"
+    />
+    <button
+      type="submit"
+      className="button-primary u-full-width"
+      disabled={isSubmitting}
+      onClick={handleSubmit}
+    >
+      Submit
+    </button>
+  </Form>
+);
 
 class BasicSearch extends React.Component {
   constructor(props) {
@@ -47,15 +50,18 @@ class BasicSearch extends React.Component {
       title_contains: title,
       OR: {
         secondary_title_contains: title,
-        OR: { alias_alternates_contains: title }
+        OR: { alias_alternates_contains: title },
       },
-
     };
-    this.setState({ showResults: true, filter: filter });
+
+    if (isAuthenticated()) filter.include_drafts = true;
+
+    this.setState({ showResults: true, filter });
     setSubmitting(false);
   };
 
   render() {
+    const { showResults, filter } = this.state;
     return (
       <div>
         <h2>Basic Search</h2>
@@ -67,10 +73,13 @@ class BasicSearch extends React.Component {
           onSubmit={(values, { setSubmitting }) => this.handleSubmit(values.title, setSubmitting)}
           render={InnerBasicSearchForm}
         />
-        {this.state.showResults ? <WorksList filter={this.state.filter}
-                                             resetButton={true}/> : undefined}
+        {
+          showResults
+            ? <WorksList filter={filter} resetButton />
+            : undefined
+        }
       </div>
-    )
+    );
   }
 }
 
