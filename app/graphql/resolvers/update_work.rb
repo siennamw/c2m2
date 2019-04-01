@@ -34,11 +34,8 @@ class Resolvers::UpdateWork < GraphQL::Function
 
     work = Work.find_by(id: args[:id])
 
-    # TODO: temporary until admin role is implemented
-    user_is_admin = false
-
     # only admin can set to 'approved'
-    if !user_is_admin && args[:publication_status] == 'approved'
+    if !ctx[:current_user].admin && args[:publication_status] == 'approved'
       new_status = 'provisional'
     else
       new_status = args[:publication_status]

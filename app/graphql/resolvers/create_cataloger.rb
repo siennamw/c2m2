@@ -9,6 +9,7 @@ class Resolvers::CreateCataloger < GraphQL::Function
   argument :name, !types.String
   argument :authProvider, !auth_provider_input
   argument :description, types.String
+  argument :admin, types.Boolean
 
   # return type from the mutation
   type Types::CatalogerType
@@ -22,11 +23,17 @@ class Resolvers::CreateCataloger < GraphQL::Function
       raise GraphQL::ExecutionError.new("Authentication required")
     end
 
+    # only admins can create other catalogers
+    unless ctx[:current_user].admin
+      raise GraphQL::ExecutionError.new("Only administrators can create catalogers")
+    end
+
     cataloger = Cataloger.create!(
       name: args[:name],
       email: args[:authProvider][:email][:email],
       password: args[:authProvider][:email][:password],
       description: args[:description],
+      admin: !!args[:admin],
       created_by: ctx[:current_user],
     )
 
