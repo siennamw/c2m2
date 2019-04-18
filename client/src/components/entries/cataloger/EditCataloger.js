@@ -6,7 +6,7 @@ import { UPDATE_CATALOGER } from '../../../mutations';
 import { CATALOGER_BY_ID_LEAN } from '../../../queries';
 import { addIdToSchema, catalogerValidationSchema } from '../../../validationSchemas';
 
-import CatalogerForm from '../cataloger/CatalogerForm';
+import CatalogerForm from './CatalogerForm';
 
 const EditCataloger = ({ match }) => {
   const id = Number(match.params.id);
