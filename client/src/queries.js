@@ -331,6 +331,7 @@ export const WORK_BY_ID = gql`
       rights_holder
       citation_source
       cataloging_notes
+      publication_status
       cataloger {
         id
         name
@@ -378,6 +379,7 @@ export const WORKS_SEARCH = gql`
       year
       title
       secondary_title
+      publication_status
       composers {
         id
         name

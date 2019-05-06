@@ -35,10 +35,37 @@ const DetailedEntry = ({ DisplayComponent, entryTypeForDisplay, gqlQuery, id, qu
           )
           : <h3>{values.name}</h3>;
 
+        let pubStatus = (status) => {
+          if (status === 'approved') {
+            return;
+          }
+
+          let description = '';
+          let statusText = '';
+
+          if (status === 'provisional') {
+            statusText = status;
+            description = 'This entry has not yet been reviewed by a project administrator.';
+          } else {
+            statusText = 'draft';
+            description = 'This entry is a draft and can only be viewed by catalogers.';
+          }
+
+          return (
+            <div className={`publication-status bar ${statusText}`}>
+              <h3>{statusText}:</h3>
+              <span>{description}</span>
+            </div>
+          );
+        };
+
         content = (
           <div className="detailed-entry">
             <div>
-              <div className="entry-type">{entryTypeForDisplay}:</div>
+              {pubStatus(values.publication_status)}
+              <div className="entry-type">
+                {entryTypeForDisplay}:
+              </div>
               {heading}
               <table className="u-full-width">
                 <DisplayComponent values={values} />

@@ -163,6 +163,51 @@ footer {
   }
 }
 
+.publication-status {
+  &.bar { // for detailed work view
+    padding: 10px 20px;
+    margin-bottom: 15px;
+    text-align: center;
+
+    h3 {
+      .uppercase();
+      font-size: 1.5rem;
+      margin: 0 10px 0 0;
+      display: inline-block;
+    }
+
+    span {
+      display: inline-block;
+    }
+  }
+
+  &.tag { // for works search
+    .uppercase();
+    display: inline-block;
+    padding: .15em 10px;
+    border-radius: 5px;
+    float: right;
+    font-size: .7em;
+    margin-left: 15px;
+
+    &::after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+  }
+
+  &.draft {
+    color: @white;
+    background-color: @lighter-gray;
+  }
+
+  &.provisional {
+    color: @white;
+    background-color: @warn;
+  }
+}
+
 // Modal
 .custom-modal-overlay {
   position: fixed;

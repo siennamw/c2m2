@@ -130,11 +130,36 @@ const WorksListTable = ({
     <div key={item.id}>{wrapWithLink(item.name, item.id, itemType)}</div>
   );
 
+  let pubStatus = (status) => {
+    if (status === 'approved') {
+      return;
+    }
+
+    let description = '';
+    let statusText = '';
+
+    if (status === 'provisional') {
+      statusText = status;
+      description = 'This entry has not yet been reviewed by a project administrator.';
+    } else {
+      statusText = 'draft';
+      description = 'This entry is a draft and can only be viewed by catalogers.';
+    }
+
+    return (
+      <div className={`publication-status tag ${statusText}`}>
+        {statusText}
+      </div>
+    );
+  };
+
+
   const items = works.map(work => (
     <tbody key={work.id}>
       <tr>
         <td colSpan="4">
           <h4>
+            {pubStatus(work.publication_status)}
             <a href={`/work/${work.id}`}>
               {work.title}
               {work.secondary_title ? `: ${work.secondary_title}` : ''}
