@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 
 import SelectFieldWithQuery from '../SelectFieldWithQuery';
 import InputField from '../InputField';
+import FieldInfoTooltip from '../FieldInfoTooltip';
 
 import * as queries from '../../../queries';
 
@@ -13,6 +14,7 @@ import NewMaterialFormat from '../materialFormat/NewMaterialFormat';
 import NewMediaType from '../mediaType/NewMediaType';
 import NewProductionCompany from '../productionCompany/NewProductionCompany';
 import NewPublisher from '../publisher/NewPublisher';
+import { ErrorMessage, Field } from 'formik';
 
 export const WorkForm = ({ setFieldValue }) => {
   const selectOnChange = (evt, name) => {
@@ -116,6 +118,25 @@ export const WorkForm = ({ setFieldValue }) => {
         componentForModal={<NewPublisher />}
       />
       <InputField displayName="Cataloging Notes" fieldName="cataloging_notes" />
+      <label htmlFor="publication_status">
+        Publication Status
+        <FieldInfoTooltip field="publication_status" />
+        <ErrorMessage
+          name="publication_status"
+          component="div"
+          className="status-message form-message error"
+        />
+        <Field
+          name="publication_status"
+          className="u-full-width"
+          component="select"
+          onChange={evt => selectOnChange(evt, 'publication_status')}
+        >
+          <option key="draft" value="draft">Draft</option>
+          <option key="provisional" value="provisional">Provisional</option>
+          <option key="approved" value="approved">Approved</option>
+        </Field>
+      </label>
     </Fragment>
   );
 };

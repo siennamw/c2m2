@@ -113,6 +113,9 @@ export const workValidationSchema = Yup.object().shape({
     .of(Yup.number().integer().positive()),
   publisher_ids: Yup.array()
     .of(Yup.number().integer().positive()),
+  publication_status: Yup.string()
+    .oneOf(['draft', 'provisional', 'approved'])
+    .required('Publication status is required'),
 });
 
 export const addIdToSchema = baseSchema => (
