@@ -332,6 +332,7 @@ export const UPDATE_WORK = gql`
     $rights_holder: String,
     $citation_source: String,
     $cataloging_notes: String,
+    $publication_status: String,
     $country_id: ID,
     $media_type_id: ID!,
     $material_format_id: ID!,
@@ -352,6 +353,7 @@ export const UPDATE_WORK = gql`
       rights_holder: $rights_holder,
       citation_source: $citation_source,
       cataloging_notes: $cataloging_notes,
+      publication_status: $publication_status,
       country_id: $country_id,
       media_type_id: $media_type_id,
       material_format_id: $material_format_id,
@@ -371,6 +373,7 @@ export const UPDATE_WORK = gql`
       rights_holder
       citation_source
       cataloging_notes
+      publication_status
       country {
         id
       }

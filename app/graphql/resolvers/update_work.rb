@@ -13,6 +13,8 @@ class Resolvers::UpdateWork < GraphQL::Function
   argument :alias_alternates, types.String
   argument :cataloging_notes, types.String
 
+  argument :publication_status, !types.String
+
   argument :country_id, types.ID
   argument :media_type_id, !types.ID
   argument :material_format_id, !types.ID
@@ -34,7 +36,7 @@ class Resolvers::UpdateWork < GraphQL::Function
 
     work = Work.find_by(id: args[:id])
 
-    # only admin can set to 'approved'
+    # only admin can set to 'approved', fall back to 'provisional'
     if !ctx[:current_user].admin && args[:publication_status] == 'approved'
       new_status = 'provisional'
     else
@@ -52,6 +54,7 @@ class Resolvers::UpdateWork < GraphQL::Function
       citation_source: args[:citation_source],
       alias_alternates: args[:alias_alternates],
       cataloging_notes: args[:cataloging_notes],
+
       publication_status: new_status,
 
       country_id: args[:country_id],
