@@ -332,7 +332,7 @@ export const UPDATE_WORK = gql`
     $rights_holder: String,
     $citation_source: String,
     $cataloging_notes: String,
-    $publication_status: String,
+    $publication_status: String!,
     $country_id: ID,
     $media_type_id: ID!,
     $material_format_id: ID!,
