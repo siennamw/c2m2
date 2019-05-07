@@ -135,15 +135,12 @@ const WorksListTable = ({
       return;
     }
 
-    let description = '';
     let statusText = '';
 
     if (status === 'provisional') {
       statusText = status;
-      description = 'This entry has not yet been reviewed by a project administrator.';
     } else {
       statusText = 'draft';
-      description = 'This entry is a draft and can only be viewed by catalogers.';
     }
 
     return (
