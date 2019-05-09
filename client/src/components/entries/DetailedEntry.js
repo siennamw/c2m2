@@ -4,7 +4,13 @@ import { Query } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import { isAuthenticated } from '../../utils';
 
-const DetailedEntry = ({ DisplayComponent, entryTypeForDisplay, gqlQuery, id, queryName }) => (
+const DetailedEntry = ({
+  DisplayComponent,
+  entryTypeForDisplay,
+  gqlQuery,
+  id,
+  queryName,
+}) => (
   <Query query={gqlQuery} variables={{ id }}>
     {({ error, data }) => {
       let content = (
@@ -35,7 +41,7 @@ const DetailedEntry = ({ DisplayComponent, entryTypeForDisplay, gqlQuery, id, qu
           )
           : <h3>{values.name}</h3>;
 
-        let pubStatus = (status) => {
+        const pubStatus = (status) => {
           if (status === 'approved') {
             return;
           }
