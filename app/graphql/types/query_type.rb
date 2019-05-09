@@ -11,7 +11,7 @@ Types::QueryType = GraphQL::ObjectType.define do
     type Types::CatalogerType
     description "Cataloger by ID"
     argument :id, !types.ID
-    resolve -> (obj, args, ctx) { Cataloger.find(args[:id]) }
+    resolve ->(obj, args, ctx) { Cataloger.find(args[:id]) }
   end
 
   field :allCollections do
@@ -24,7 +24,7 @@ Types::QueryType = GraphQL::ObjectType.define do
     type Types::CollectionType
     description "Collection by ID"
     argument :id, !types.ID
-    resolve -> (obj, args, ctx) { Collection.find(args[:id]) }
+    resolve ->(obj, args, ctx) { Collection.find(args[:id]) }
   end
 
   field :allComposers do
@@ -37,7 +37,7 @@ Types::QueryType = GraphQL::ObjectType.define do
     type Types::ComposerType
     description "Composer by ID"
     argument :id, !types.ID
-    resolve -> (obj, args, ctx) { Composer.find(args[:id]) }
+    resolve ->(obj, args, ctx) { Composer.find(args[:id]) }
   end
 
   field :allCountries do
@@ -50,7 +50,7 @@ Types::QueryType = GraphQL::ObjectType.define do
     type Types::CountryType
     description "Country by ID"
     argument :id, !types.ID
-    resolve -> (obj, args, ctx) { Country.find(args[:id]) }
+    resolve ->(obj, args, ctx) { Country.find(args[:id]) }
   end
 
   field :allDirectors do
@@ -63,7 +63,7 @@ Types::QueryType = GraphQL::ObjectType.define do
     type Types::DirectorType
     description "Director by ID"
     argument :id, !types.ID
-    resolve -> (obj, args, ctx) { Director.find(args[:id]) }
+    resolve ->(obj, args, ctx) { Director.find(args[:id]) }
   end
 
   field :allMaterialFormats do
@@ -76,7 +76,7 @@ Types::QueryType = GraphQL::ObjectType.define do
     type Types::MaterialFormatType
     description "Material format by ID"
     argument :id, !types.ID
-    resolve -> (obj, args, ctx) { MaterialFormat.find(args[:id]) }
+    resolve ->(obj, args, ctx) { MaterialFormat.find(args[:id]) }
   end
 
   field :allMediaTypes do
@@ -89,7 +89,7 @@ Types::QueryType = GraphQL::ObjectType.define do
     type Types::MediaTypeType
     description "Media type by ID"
     argument :id, !types.ID
-    resolve -> (obj, args, ctx) { MediaType.find(args[:id]) }
+    resolve ->(obj, args, ctx) { MediaType.find(args[:id]) }
   end
 
   field :allProductionCompanies do
@@ -102,7 +102,7 @@ Types::QueryType = GraphQL::ObjectType.define do
     type Types::ProductionCompanyType
     description "Production company by ID"
     argument :id, !types.ID
-    resolve -> (obj, args, ctx) { ProductionCompany.find(args[:id]) }
+    resolve ->(obj, args, ctx) { ProductionCompany.find(args[:id]) }
   end
 
   field :allPublishers do
@@ -115,7 +115,7 @@ Types::QueryType = GraphQL::ObjectType.define do
     type Types::PublisherType
     description "Publisher by ID"
     argument :id, !types.ID
-    resolve -> (obj, args, ctx) { Publisher.find(args[:id]) }
+    resolve ->(obj, args, ctx) { Publisher.find(args[:id]) }
   end
 
   field :allRepositories do
@@ -128,7 +128,7 @@ Types::QueryType = GraphQL::ObjectType.define do
     type Types::RepositoryType
     description "Repository by ID"
     argument :id, !types.ID
-    resolve -> (obj, args, ctx) { Repository.find(args[:id]) }
+    resolve ->(obj, args, ctx) { Repository.find(args[:id]) }
   end
 
   field :allWorks, function: Resolvers::WorksSearch
@@ -137,6 +137,15 @@ Types::QueryType = GraphQL::ObjectType.define do
     type Types::WorkType
     description "Work by ID"
     argument :id, !types.ID
-    resolve -> (obj, args, ctx) { Work.find(args[:id]) }
+    resolve ->(obj, args, ctx) {
+      work = Work.find(args[:id])
+
+      # filter out draft entries if user not authenticated
+      if work.publication_status === 'draft' && !ctx[:current_user]
+        raise ActiveRecord::RecordNotFound
+      end
+
+      work
+    }
   end
 end
