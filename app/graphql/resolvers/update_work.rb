@@ -41,7 +41,7 @@ class Resolvers::UpdateWork < GraphQL::Function
       new_status = 'provisional'
     else
       # fall back to 'draft' if argument is missing
-      new_status = args[:publication_status] ? args[:publication_status] : 'draft'
+      new_status = args[:publication_status] || 'draft'
     end
 
     work.update(

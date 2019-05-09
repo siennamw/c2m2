@@ -33,7 +33,6 @@ class Resolvers::CreateWorkTest < ActiveSupport::TestCase
     title = 'Casa Blanca'
     year = 1942
 
-
     work = perform(
       title: title,
       year: year,
@@ -44,6 +43,7 @@ class Resolvers::CreateWorkTest < ActiveSupport::TestCase
     assert work.persisted?
     assert_equal work.title, title
     assert_equal work.year, year
+    assert_equal work.publication_status, 'draft'
     assert_equal work.media_type, @media_type
     assert_equal work.material_format, @material_format
   end
@@ -59,6 +59,7 @@ class Resolvers::CreateWorkTest < ActiveSupport::TestCase
     citation_source = 'citation_source'
     alias_alternates = 'alias_alternates'
     cataloging_notes = 'cataloging_notes'
+    publication_status = 'provisional'
 
     work = perform(
       title: title,
@@ -71,6 +72,7 @@ class Resolvers::CreateWorkTest < ActiveSupport::TestCase
       citation_source: citation_source,
       alias_alternates: alias_alternates,
       cataloging_notes: cataloging_notes,
+      publication_status: publication_status,
 
       country_id: @country.id,
       media_type_id: @media_type.id,
@@ -94,6 +96,7 @@ class Resolvers::CreateWorkTest < ActiveSupport::TestCase
     assert_equal work.citation_source, citation_source
     assert_equal work.alias_alternates, alias_alternates
     assert_equal work.cataloging_notes, cataloging_notes
+    assert_equal work.publication_status, publication_status
 
     assert_equal work.country, @country
     assert_equal work.media_type, @media_type

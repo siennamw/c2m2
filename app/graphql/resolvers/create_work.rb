@@ -11,6 +11,8 @@ class Resolvers::CreateWork < GraphQL::Function
   argument :alias_alternates, types.String
   argument :cataloging_notes, types.String
 
+  argument :publication_status, types.String
+
   argument :country_id, types.ID
   argument :media_type_id, !types.ID
   argument :material_format_id, !types.ID
@@ -30,6 +32,8 @@ class Resolvers::CreateWork < GraphQL::Function
       raise GraphQL::ExecutionError.new("Authentication required")
     end
 
+    publication_status = args[:publication_status] || 'draft'
+
     Work.create!(
       title: args[:title],
       secondary_title: args[:secondary_title],
@@ -41,7 +45,7 @@ class Resolvers::CreateWork < GraphQL::Function
       citation_source: args[:citation_source],
       alias_alternates: args[:alias_alternates],
       cataloging_notes: args[:cataloging_notes],
-      publication_status: 'draft',
+      publication_status: publication_status,
 
       country_id: args[:country_id],
       media_type_id: args[:media_type_id],
