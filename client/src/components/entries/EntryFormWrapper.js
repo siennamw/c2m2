@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
 
 const EntryFormWrapper = ({
+  entryIsSelf,
   FormComponent,
   handleSubmit,
   initialValues,
   mutation,
+  selfIsAdmin,
   validationSchema,
 }) => {
   const vals = initialValues
@@ -24,7 +26,11 @@ const EntryFormWrapper = ({
       )}
       render={props => (
         <Form>
-          <FormComponent {...props} />
+          <FormComponent
+            entryIsSelf={entryIsSelf}
+            selfIsAdmin={selfIsAdmin}
+            {...props}
+          />
           <button
             type="submit"
             className="button-primary u-full-width"
@@ -45,10 +51,13 @@ const EntryFormWrapper = ({
 };
 
 EntryFormWrapper.defaultProps = {
+  entryIsSelf: false,
   initialValues: null,
+  selfIsAdmin: false,
 };
 
 EntryFormWrapper.propTypes = {
+  entryIsSelf: PropTypes.bool,
   FormComponent: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.element,
@@ -65,6 +74,7 @@ EntryFormWrapper.propTypes = {
       });
   },
   mutation: PropTypes.func.isRequired,
+  selfIsAdmin: PropTypes.bool,
   validationSchema: PropTypes.object.isRequired,
 };
 

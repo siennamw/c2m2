@@ -27,6 +27,13 @@ const EditEntry = ({
           </div>
         );
       } else if (data && data[queryName]) {
+        // metadata
+        const selfIsAdmin = data.selfIsAdmin ? data.selfIsAdmin : false;
+        const entryIsSelf = data[queryName].is_self
+          ? data[queryName].is_self
+          : false;
+
+        // extract values to populate form fields
         let k;
 
         const initialValues = Object.keys(yupSchema.fields).reduce((acc, key) => {
@@ -59,9 +66,11 @@ const EditEntry = ({
         content = (
           <NewEntry
             FormComponent={FormComponent}
+            entryIsSelf={entryIsSelf}
             gqlMutation={gqlMutation}
             initialValues={initialValues}
             refetch={refetch}
+            selfIsAdmin={selfIsAdmin}
             title={title}
             yupSchema={yupSchema}
           />

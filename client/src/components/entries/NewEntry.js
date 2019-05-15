@@ -6,10 +6,12 @@ import { isEmpty } from 'lodash';
 import EntryFormWrapper from './EntryFormWrapper';
 
 const NewEntry = ({
+  entryIsSelf,
   FormComponent,
   gqlMutation,
   initialValues,
   refetch,
+  selfIsAdmin,
   title,
   yupSchema,
 }) => {
@@ -59,10 +61,12 @@ const NewEntry = ({
       <Mutation mutation={gqlMutation}>
         {mutation => (
           <EntryFormWrapper
+            entryIsSelf={entryIsSelf}
             FormComponent={FormComponent}
             handleSubmit={handleSubmit}
             initialValues={initialValues}
             mutation={mutation}
+            selfIsAdmin={selfIsAdmin}
             validationSchema={yupSchema}
           />
         )}
@@ -72,10 +76,13 @@ const NewEntry = ({
 };
 
 NewEntry.defaultProps = {
+  entryIsSelf: false,
   refetch: null,
+  selfIsAdmin: false,
 };
 
 NewEntry.propTypes = {
+  entryIsSelf: PropTypes.bool,
   FormComponent: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.element,
@@ -92,6 +99,7 @@ NewEntry.propTypes = {
       });
   },
   refetch: PropTypes.func,
+  selfIsAdmin: PropTypes.bool,
   title: PropTypes.string.isRequired,
   yupSchema: PropTypes.object.isRequired,
 };
