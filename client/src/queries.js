@@ -142,6 +142,7 @@ export const CATALOGER_BY_ID = gql`
 
 export const CATALOGER_BY_ID_LEAN = gql`
   query cataloger_lean($id: ID!){
+    selfIsAdmin
     cataloger(id: $id){
       id
       name
@@ -321,6 +322,7 @@ export const REPOSITORY_BY_ID = gql`
 
 export const WORK_BY_ID = gql`
   query work($id: ID!){
+    selfIsAdmin
     work(id: $id){
       id
       title
