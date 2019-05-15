@@ -147,6 +147,7 @@ export const CATALOGER_BY_ID_LEAN = gql`
       name
       email
       description
+      is_self
     }
   }
 `;

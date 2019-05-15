@@ -20,4 +20,10 @@ Types::CatalogerType = GraphQL::ObjectType.define do
   field :publishers, ( -> { !types[Types::PublisherType] })
   field :repositories, ( -> { !types[Types::RepositoryType] })
   field :works, ( -> { !types[Types::WorkType] })
+
+  field :is_self, types.Boolean do
+    resolve ->(obj, args, ctx) {
+      obj.id == ctx[:current_user].id
+    }
+  end
 end
