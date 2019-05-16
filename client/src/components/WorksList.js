@@ -131,21 +131,13 @@ const WorksListTable = ({
   );
 
   let pubStatus = (status) => {
-    if (status === 'approved') {
+    if (!['draft', 'provisional', 'approved'].includes(status)) {
       return;
     }
 
-    let statusText = '';
-
-    if (status === 'provisional') {
-      statusText = status;
-    } else {
-      statusText = 'draft';
-    }
-
     return (
-      <div className={`publication-status tag ${statusText}`}>
-        {statusText}
+      <div className={`publication-status tag ${status}`}>
+        {status}
       </div>
     );
   };

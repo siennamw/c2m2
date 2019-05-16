@@ -42,24 +42,28 @@ const DetailedEntry = ({
           : <h3>{values.name}</h3>;
 
         const pubStatus = (status) => {
-          if (status === 'approved') {
+          if (!['draft', 'provisional', 'approved'].includes(status)) {
             return;
           }
 
           let description = '';
-          let statusText = '';
 
-          if (status === 'provisional') {
-            statusText = status;
-            description = 'This entry has not yet been reviewed by a project administrator.';
-          } else {
-            statusText = 'draft';
-            description = 'This entry is a draft and can only be viewed by catalogers.';
+          switch (status) {
+            case 'approved':
+              description = 'This entry has been reviewed and approved by a project administrator.';
+              break;
+            case 'provisional':
+              description = 'This entry has not yet been reviewed by a project administrator.';
+              break;
+            case 'draft':
+            default:
+              description = 'This entry is a draft and can only be viewed by catalogers.';
+              break;
           }
 
           return (
-            <div className={`publication-status bar ${statusText}`}>
-              <h3>{statusText}:</h3>
+            <div className={`publication-status bar ${status}`}>
+              <h3>{status}:</h3>
               <span>{description}</span>
             </div>
           );

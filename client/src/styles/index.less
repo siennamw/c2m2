@@ -17,7 +17,6 @@
   font-size: inherit;
   text-decoration: none;
   letter-spacing: .1rem;
-  color: inherit;
 }
 
 .button-symbol() {
@@ -164,6 +163,17 @@ footer {
 }
 
 .publication-status {
+  color: white;
+  background-color: @lighter-gray;
+
+  &.approved {
+    background-color: @success;
+  }
+
+  &.provisional {
+    background-color: @warn;
+  }
+
   &.bar { // for detailed work view
     padding: 10px 20px;
     margin-bottom: 15px;
@@ -195,16 +205,6 @@ footer {
       display: block;
       clear: both;
     }
-  }
-
-  &.draft {
-    color: @white;
-    background-color: @lighter-gray;
-  }
-
-  &.provisional {
-    color: @white;
-    background-color: @warn;
   }
 }
 
