@@ -104,9 +104,11 @@ class WorksList extends React.Component {
           skip,
         }}
       >
-        {({ loading, error, data, fetchMore }) => (
-          content(loading, error, data, fetchMore)
-        )}
+        {
+          ({ loading, error, data, fetchMore }) => (
+            content(loading, error, data, fetchMore)
+          )
+        }
       </Query>
     );
   }
@@ -130,7 +132,7 @@ const WorksListTable = ({
     <div key={item.id}>{wrapWithLink(item.name, item.id, itemType)}</div>
   );
 
-  let pubStatus = (status) => {
+  const pubStatus = (status) => {
     if (!['draft', 'provisional', 'approved'].includes(status)) {
       return;
     }
