@@ -39,7 +39,7 @@ const CatalogerNewEntryParent = ({ match }) => (
           <p>Select the type of entry you would like to create from the list below.</p>
           <div className="row">
             <div className="six columns">
-              <ul>
+              <ul className="no-margin">
                 <li><Link to={`${match.path}/cataloger`}>Cataloger</Link></li>
                 <li><Link to={`${match.path}/collection`}>Collection</Link></li>
                 <li><Link to={`${match.path}/composer`}>Composer</Link></li>
