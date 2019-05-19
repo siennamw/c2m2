@@ -6,6 +6,7 @@ import FieldInfoTooltip from './FieldInfoTooltip';
 
 const SelectField = ({
   fieldName,
+  disabled,
   displayName,
   isMulti,
   onChangeCallback,
@@ -18,7 +19,7 @@ const SelectField = ({
     .map((i) => {
       const coercedID = isNaN(Number(i.id)) ? i.id : Number(i.id);
       return (
-        <option key={i.id} value={coercedID}>{i.name}</option>
+        <option key={coercedID} value={coercedID}>{i.name}</option>
       );
     });
 
@@ -29,6 +30,7 @@ const SelectField = ({
         name={fieldName}
         className="u-full-width"
         component="select"
+        disabled={disabled}
         multiple
         onChange={evt => onChangeCallback(evt, fieldName)}
       >
@@ -41,6 +43,7 @@ const SelectField = ({
         name={fieldName}
         className="u-full-width"
         component="select"
+        disabled={disabled}
         onChange={evt => onChangeCallback(evt, fieldName)}
       >
         {items}
@@ -63,10 +66,12 @@ const SelectField = ({
 
 SelectField.defaultProps = {
   isMulti: false,
+  disabled: false,
 };
 
 SelectField.propTypes = {
   fieldName: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
   displayName: PropTypes.string.isRequired,
   isMulti: PropTypes.bool,
   onChangeCallback: PropTypes.func.isRequired,
