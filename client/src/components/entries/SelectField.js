@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Field, ErrorMessage } from 'formik';
 
 import FieldInfoTooltip from './FieldInfoTooltip';
 
-const SelectField = ({
+export const SelectFieldNoLabel = ({
   fieldName,
   disabled,
   displayName,
@@ -14,14 +14,13 @@ const SelectField = ({
 }) => {
   let content;
 
-  // map results to <option> elements
+  // sort and map options to <option> elements
   const items = options
-    .map((i) => {
-      const coercedID = isNaN(Number(i.id)) ? i.id : Number(i.id);
-      return (
-        <option key={coercedID} value={coercedID}>{i.name}</option>
-      );
-    });
+    .sort((a, b) => (
+      a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+    )).map(i => (
+      <option key={i.id} value={i.id}>{i.name}</option>
+    ));
 
   // multi vs. single (dropdown) select
   if (isMulti) {
@@ -52,7 +51,7 @@ const SelectField = ({
   }
 
   return (
-    <label htmlFor={fieldName}>
+    <Fragment>
       {displayName}
       <FieldInfoTooltip field={fieldName} forMultiSelect={isMulti} hideRules />
       <ErrorMessage
@@ -61,8 +60,51 @@ const SelectField = ({
         className="status-message form-message error"
       />
       {content}
-    </label>);
+    </Fragment>
+  );
 };
+
+SelectFieldNoLabel.defaultProps = {
+  isMulti: false,
+  disabled: false,
+};
+
+SelectFieldNoLabel.propTypes = {
+  fieldName: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
+  displayName: PropTypes.string.isRequired,
+  isMulti: PropTypes.bool,
+  onChangeCallback: PropTypes.func.isRequired,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+      ]).isRequired,
+      name: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};
+
+const SelectField = ({
+  fieldName,
+  disabled,
+  displayName,
+  isMulti,
+  onChangeCallback,
+  options,
+}) => (
+  <label htmlFor={fieldName}>
+    <SelectFieldNoLabel
+      fieldName={fieldName}
+      disabled={disabled}
+      displayName={displayName}
+      isMulti={isMulti}
+      onChangeCallback={onChangeCallback}
+      options={options}
+    />
+  </label>
+);
 
 SelectField.defaultProps = {
   isMulti: false,
@@ -82,7 +124,8 @@ SelectField.propTypes = {
         PropTypes.number,
       ]).isRequired,
       name: PropTypes.string.isRequired,
-    })).isRequired,
+    })
+  ).isRequired,
 };
 
 export default SelectField;

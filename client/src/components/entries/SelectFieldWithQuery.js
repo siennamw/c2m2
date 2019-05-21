@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Field, ErrorMessage } from 'formik';
 import { Query } from 'react-apollo';
 import Modal from 'react-modal';
 
 import { ModalConsumer } from '../modal/ModalContext';
-import FieldInfoTooltip from './FieldInfoTooltip';
+import { SelectFieldNoLabel } from './SelectField';
 
 const SelectFieldWithQuery = ({
   fieldName,
   componentForModal,
+  disabled,
   displayName,
   isMulti,
   onChangeCallback,
@@ -29,39 +29,17 @@ const SelectFieldWithQuery = ({
           </div>
         );
       } else if (data && data[queryName]) {
-        // sort alphabetically and map results to <option> elements
-        const items = data[queryName].sort((a, b) => (
-          a.name.toLowerCase().localeCompare(b.name.toLowerCase())
-        )).map(i => (
-          <option key={i.id} value={Number(i.id)}>{i.name}</option>
-        ));
 
-        // multi vs. single (dropdown) select
-        if (isMulti) {
-          content = (
-            <Field
-              name={fieldName}
-              className="u-full-width"
-              component="select"
-              multiple
-              onChange={evt => onChangeCallback(evt, fieldName)}
-            >
-              {items}
-            </Field>
-          );
-        } else {
-          content = (
-            <Field
-              name={fieldName}
-              className="u-full-width"
-              component="select"
-              onChange={evt => onChangeCallback(evt, fieldName)}
-            >
-              <option key="none" value="">Select</option>
-              {items}
-            </Field>
-          );
-        }
+        content = (
+          <SelectFieldNoLabel
+            fieldName={fieldName}
+            disabled={disabled}
+            displayName={displayName}
+            isMulti={isMulti}
+            onChangeCallback={onChangeCallback}
+            options={data[queryName]}
+          />
+        );
       }
 
       const updateOnCloseModal = (onClose) => {
@@ -99,13 +77,6 @@ const SelectFieldWithQuery = ({
       return (
         <div className="select-with-query">
           <label htmlFor={fieldName}>
-            {displayName}
-            <FieldInfoTooltip field={fieldName} forMultiSelect={isMulti} hideRules />
-            <ErrorMessage
-              name={fieldName}
-              component="div"
-              className="status-message form-message error"
-            />
             {content}
             <ModalConsumer>
               {({ showModal }) => (
@@ -127,6 +98,7 @@ const SelectFieldWithQuery = ({
 );
 
 SelectFieldWithQuery.defaultProps = {
+  disabled: false,
   isMulti: false,
 };
 
@@ -136,6 +108,7 @@ SelectFieldWithQuery.propTypes = {
     PropTypes.func,
     PropTypes.element,
   ]).isRequired,
+  disabled: PropTypes.bool,
   displayName: PropTypes.string.isRequired,
   isMulti: PropTypes.bool,
   onChangeCallback: PropTypes.func.isRequired,
