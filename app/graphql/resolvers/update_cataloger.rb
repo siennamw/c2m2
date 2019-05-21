@@ -10,6 +10,7 @@ class Resolvers::UpdateCataloger < GraphQL::Function
 
   argument :name, !types.String
   argument :authProvider, !auth_provider_input
+  argument :admin, types.Boolean
   argument :description, types.String
 
   # return type from the mutation

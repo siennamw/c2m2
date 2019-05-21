@@ -7,16 +7,20 @@ export const CREATE_CATALOGER = gql`
     $name: String!, 
     $email: String!,
     $password: String!,
+    $admin: Boolean,
     $description: String
   ){
     createCataloger(
       name: $name, 
       authProvider: { email: { email: $email, password: $password } },
+      admin: $admin,
       description: $description
     ) {
       id
       name
       email
+      admin
+      description
     }
   }
 `;
@@ -201,17 +205,21 @@ export const UPDATE_CATALOGER = gql`
     $name: String!,
     $email: String!,
     $password: String!,
+    $admin: Boolean,
     $description: String
   ){
     updateCataloger(
       id: $id,
       name: $name,
       authProvider: { email: { email: $email, password: $password } },
+      admin: $admin,
       description: $description
     ) {
       id
       name
       email
+      admin
+      description
     }
   }
 `;
