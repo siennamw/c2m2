@@ -36,25 +36,29 @@ const EditEntry = ({
         // extract values to populate form fields
         let k;
 
+        // prepare data for form
+        // (coerce values to strings, extract ids from objects)
         const initialValues = Object.keys(yupSchema.fields).reduce((acc, key) => {
-          // extract values and ids from data
-          if (data[queryName][key]) {
-            acc[key] = data[queryName][key];
+          if (typeof data[queryName][key] === 'boolean') {
+            // if boolean, coerce to string
+            acc[key] = `${data[queryName][key]}`;
           } else if (key.includes('_ids')) {
             // extract array of ids from array of objects
             k = key.split('_ids')[0];
             k = FIELD_TO_PLURAL[k] ? FIELD_TO_PLURAL[k] : `${k}s`;
 
             acc[key] = data[queryName][k].reduce((a, i) => {
-              a.push(Number(i.id));
+              a.push(i.id);
               return a;
             }, []);
           } else if (key.includes('_id')) {
             // extract id from object
             k = key.split('_id')[0];
             acc[key] = data[queryName][k] && data[queryName][k].id
-              ? Number(data[queryName][k].id)
+              ? data[queryName][k].id
               : undefined;
+          } else if (data[queryName][key]) {
+            acc[key] = data[queryName][key];
           } else {
             // allows field to be controlled without populating it
             // with a value from the DB (ex. password)

@@ -19,23 +19,15 @@ export const WorkForm = ({ setFieldValue }) => {
   const selectOnChange = (evt, name) => {
     if (name.includes('_ids')) {
       // when selecting from a multiselect to set an array of IDs,
-      // build array manually & coerce values to numbers on change
+      // build array manually
       setFieldValue(
         name,
         // turn array-like object into a real array
         [].slice
           .call(evt.target.selectedOptions)
-          .map(option => Number(option.value)),
-      );
-    } else if (name.includes('_id')) {
-      // when selecting from a dropdown to set an ID,
-      // coerce value to number on change
-      setFieldValue(
-        name,
-        Number(evt.target.value),
+          .map(option => option.value),
       );
     } else {
-      // when setting a value directly (ex. a string), no coercion needed
       setFieldValue(
         name,
         evt.target.value,
