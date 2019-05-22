@@ -118,6 +118,7 @@ export const WorkForm = ({ setFieldValue }) => {
       <SelectField
         onChangeCallback={selectOnChange}
         fieldName="publication_status"
+        disablePlaceholder
         displayName="Publication Status"
         options={[
           { id: 'draft', name: 'draft' },
