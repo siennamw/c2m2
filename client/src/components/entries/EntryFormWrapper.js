@@ -11,11 +11,7 @@ const EntryFormWrapper = ({
   selfIsAdmin,
   validationSchema,
 }) => {
-  const vals = initialValues
-    || Object.keys(validationSchema.fields).reduce((acc, item) => {
-      acc[item] = item.includes('ids') ? [] : '';
-      return acc;
-    }, {});
+  const vals = validationSchema.cast(initialValues || {});
 
   return (
     <Formik

@@ -28,21 +28,13 @@ const EditEntry = ({
         );
       } else if (data && data[queryName]) {
         // metadata
-        const selfIsAdmin = data.selfIsAdmin ? data.selfIsAdmin : false;
-        const entryIsSelf = data[queryName].is_self
-          ? data[queryName].is_self
-          : false;
+        const { selfIsAdmin } = data;
+        const entryIsSelf = data[queryName].is_self;
 
-        // extract values to populate form fields
+        // extract ids from objects to populate form fields
         let k;
-
-        // prepare data for form
-        // (coerce values to strings, extract ids from objects)
-        const initialValues = Object.keys(yupSchema.fields).reduce((acc, key) => {
-          if (typeof data[queryName][key] === 'boolean') {
-            // if boolean, coerce to string
-            acc[key] = `${data[queryName][key]}`;
-          } else if (key.includes('_ids')) {
+        const groomedData = Object.keys(yupSchema.fields).reduce((acc, key) => {
+          if (key.includes('_ids')) {
             // extract array of ids from array of objects
             k = key.split('_ids')[0];
             k = FIELD_TO_PLURAL[k] ? FIELD_TO_PLURAL[k] : `${k}s`;
@@ -57,15 +49,13 @@ const EditEntry = ({
             acc[key] = data[queryName][k] && data[queryName][k].id
               ? data[queryName][k].id
               : undefined;
-          } else if (data[queryName][key]) {
-            acc[key] = data[queryName][key];
           } else {
-            // allows field to be controlled without populating it
-            // with a value from the DB (ex. password)
-            acc[key] = '';
+            acc[key] = data[queryName][key] || '';
           }
           return acc;
         }, {});
+
+        const initialValues = yupSchema.cast(groomedData);
 
         content = (
           <NewEntry

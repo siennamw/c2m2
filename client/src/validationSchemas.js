@@ -115,6 +115,7 @@ export const workValidationSchema = Yup.object().shape({
     .of(Yup.number().integer().positive()),
   publication_status: Yup.string()
     .oneOf(['draft', 'provisional', 'approved'])
+    .default('draft')
     .required('Publication status is required'),
 });
 

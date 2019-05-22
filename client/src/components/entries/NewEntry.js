@@ -15,31 +15,9 @@ const NewEntry = ({
   title,
   yupSchema,
 }) => {
-  const variablesList = Object.keys(yupSchema.fields);
-
   const handleSubmit = async (mutation, values, setSubmitting, setStatus, resetForm) => {
     try {
-      // prepare data for submission to server
-      // (coerce strings to required data types)
-      const variables = variablesList.reduce((acc, item) => {
-        if (Array.isArray(values[item])) {
-          // coerce array of strings to array of numbers
-          acc[item] = values[item].map(i => Number(i));
-        } else if (['true', 'false'].includes(values[item])) {
-          // coerce to boolean
-          acc[item] = values[item] === 'true';
-        } else if (typeof values[item] === 'string' && values[item].match(/^\d+$/)) {
-          // coerce digit string to number
-          acc[item] = Number(values[item]);
-        } else if (values[item]) {
-          // assign value without coercion
-          acc[item] = values[item];
-        } else {
-          acc[item] = null;
-        }
-
-        return acc;
-      }, {});
+      const variables = yupSchema.cast(values);
 
       const payload = { variables };
       const { data } = await mutation(payload);
