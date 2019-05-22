@@ -7,6 +7,7 @@ import FieldInfoTooltip from './FieldInfoTooltip';
 export const SelectFieldNoLabel = ({
   fieldName,
   disabled,
+  disablePlaceholder,
   displayName,
   isMulti,
   onChangeCallback,
@@ -45,6 +46,11 @@ export const SelectFieldNoLabel = ({
         disabled={disabled}
         onChange={evt => onChangeCallback(evt, fieldName)}
       >
+        {
+          disablePlaceholder
+            ? undefined
+            : <option key="placeholder" value="">Select</option>
+        }
         {items}
       </Field>
     );
@@ -67,11 +73,13 @@ export const SelectFieldNoLabel = ({
 SelectFieldNoLabel.defaultProps = {
   isMulti: false,
   disabled: false,
+  disablePlaceholder: false,
 };
 
 SelectFieldNoLabel.propTypes = {
   fieldName: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
+  disablePlaceholder: PropTypes.bool,
   displayName: PropTypes.string.isRequired,
   isMulti: PropTypes.bool,
   onChangeCallback: PropTypes.func.isRequired,
@@ -89,6 +97,7 @@ SelectFieldNoLabel.propTypes = {
 const SelectField = ({
   fieldName,
   disabled,
+  disablePlaceholder,
   displayName,
   isMulti,
   onChangeCallback,
@@ -98,6 +107,7 @@ const SelectField = ({
     <SelectFieldNoLabel
       fieldName={fieldName}
       disabled={disabled}
+      disablePlaceholder={disablePlaceholder}
       displayName={displayName}
       isMulti={isMulti}
       onChangeCallback={onChangeCallback}
@@ -109,11 +119,13 @@ const SelectField = ({
 SelectField.defaultProps = {
   isMulti: false,
   disabled: false,
+  disablePlaceholder: false,
 };
 
 SelectField.propTypes = {
   fieldName: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
+  disablePlaceholder: PropTypes.bool,
   displayName: PropTypes.string.isRequired,
   isMulti: PropTypes.bool,
   onChangeCallback: PropTypes.func.isRequired,
