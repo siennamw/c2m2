@@ -1,4 +1,7 @@
 import * as Yup from 'yup';
+import { FIELD_TO_PLURAL } from './constants';
+
+const stringOfDigitsRegex = /^\d+$/;
 
 export const getNormalizedSubmissionValuesForSchema = (schema, values) => {
   // strip empty strings
@@ -15,13 +18,36 @@ export const getInitialFormValuesForSchema = (schema, values) => {
   // for new entry, get default values from validation schema
   const vals = values || schema.cast({});
 
-  // if any field is undefined,
-  // put in empty string to initialize controlled field
-  Object.keys(schema.fields).forEach((key) => {
-    if (!vals[key]) vals[key] = '';
-  });
+  let k;
 
-  return vals;
+  return Object.keys(schema.fields).reduce((result, key) => {
+    if (key.includes('_ids')) {
+      // extract array of ids from array of objects
+      [k] = key.split('_ids');
+      k = FIELD_TO_PLURAL[k] ? FIELD_TO_PLURAL[k] : `${k}s`;
+
+      result[key] = vals[k]
+        ? vals[k].reduce((a, i) => {
+          a.push(i.id);
+          return a;
+        }, [])
+        : [];
+    } else if (key.includes('_id')) {
+      // extract single id from object
+      [k] = key.split('_id');
+      result[key] = vals[k] && vals[k].id
+        ? values[k].id
+        : undefined;
+    } else if (typeof vals[key] === 'boolean') {
+      // preserve boolean values
+      result[key] = vals[key];
+    } else {
+      // fall back to '' for undefined/null to initialize
+      // controlled form fields
+      result[key] = vals[key] ? vals[key] : '';
+    }
+    return result;
+  }, {});
 };
 
 export const catalogerValidationSchema = Yup.object().shape({
@@ -40,9 +66,8 @@ export const collectionValidationSchema = Yup.object().shape({
   name: Yup.string()
     .required('Name is required'),
   description: Yup.string(),
-  repository_id: Yup.number()
-    .integer('Repository is invalid')
-    .positive('Repository is invalid')
+  repository_id: Yup.string()
+    .matches(stringOfDigitsRegex)
     .required('Repository is required'),
 });
 
@@ -116,32 +141,29 @@ export const workValidationSchema = Yup.object().shape({
   rights_holder: Yup.string(),
   citation_source: Yup.string(),
   cataloging_notes: Yup.string(),
-  country_id: Yup.number()
-    .integer()
-    .positive(),
-  media_type_id: Yup.number()
-    .integer()
-    .positive()
+  country_id: Yup.string()
+    .matches(stringOfDigitsRegex),
+  media_type_id: Yup.string()
+    .matches(stringOfDigitsRegex)
     .required('Media type is required'),
-  material_format_id: Yup.number()
-    .integer()
-    .positive()
+  material_format_id: Yup.string()
+    .matches(stringOfDigitsRegex)
     .required('Material format is required'),
   collection_ids: Yup.array()
     .default([])
-    .of(Yup.number().integer().positive()),
+    .of(Yup.string().matches(stringOfDigitsRegex)),
   composer_ids: Yup.array()
     .default([])
-    .of(Yup.number().integer().positive()),
+    .of(Yup.string().matches(stringOfDigitsRegex)),
   director_ids: Yup.array()
     .default([])
-    .of(Yup.number().integer().positive()),
+    .of(Yup.string().matches(stringOfDigitsRegex)),
   production_company_ids: Yup.array()
     .default([])
-    .of(Yup.number().integer().positive()),
+    .of(Yup.string().matches(stringOfDigitsRegex)),
   publisher_ids: Yup.array()
     .default([])
-    .of(Yup.number().integer().positive()),
+    .of(Yup.string().matches(stringOfDigitsRegex)),
   publication_status: Yup.string()
     .oneOf(['draft', 'provisional', 'approved'])
     .default('draft')
