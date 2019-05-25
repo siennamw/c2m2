@@ -10,7 +10,6 @@ const NewEntry = ({
   FormComponent,
   gqlMutation,
   initialValues,
-  refetch,
   selfIsAdmin,
   title,
   yupSchema,
@@ -23,8 +22,7 @@ const NewEntry = ({
       const { data } = await mutation(payload);
 
       if (data && !isEmpty(data)) {
-        if (refetch) await refetch();
-        resetForm();
+        resetForm(yupSchema.cast({}));
         setStatus({
           type: 'success',
           message: 'Success!',
@@ -67,7 +65,6 @@ const NewEntry = ({
 
 NewEntry.defaultProps = {
   entryIsSelf: false,
-  refetch: null,
   selfIsAdmin: false,
 };
 
@@ -88,7 +85,6 @@ NewEntry.propTypes = {
         return true;
       });
   },
-  refetch: PropTypes.func,
   selfIsAdmin: PropTypes.bool,
   title: PropTypes.string.isRequired,
   yupSchema: PropTypes.object.isRequired,
