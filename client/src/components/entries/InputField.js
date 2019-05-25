@@ -4,7 +4,7 @@ import { Field, ErrorMessage } from 'formik';
 
 import FieldInfoTooltip from './FieldInfoTooltip';
 
-const InputField = ({ displayName, fieldName, fieldType }) => {
+const InputField = ({ disabled, displayName, fieldName, fieldType }) => {
   const autoComplete = {
     password: 'new-password',
     email: 'email',
@@ -20,6 +20,7 @@ const InputField = ({ displayName, fieldName, fieldType }) => {
         className="status-message form-message error"
       />
       <Field
+        disabled={disabled}
         id={fieldName}
         type={fieldType}
         name={fieldName}
@@ -31,10 +32,12 @@ const InputField = ({ displayName, fieldName, fieldType }) => {
 };
 
 InputField.defaultProps = {
+  disabled: false,
   fieldType: 'text',
 };
 
 InputField.propTypes = {
+  disabled: PropTypes.bool,
   displayName: PropTypes.string.isRequired,
   fieldName: PropTypes.string.isRequired,
   fieldType: PropTypes.oneOf(['text', 'url', 'password', 'email', 'number']),
