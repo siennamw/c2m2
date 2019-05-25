@@ -57,6 +57,9 @@ export const catalogerValidationSchema = Yup.object().shape({
     .email('E-mail is not valid')
     .required('E-mail is required'),
   description: Yup.string(),
+  admin: Yup.boolean()
+    .default(false)
+    .required('Admin yes/no is required'),
   password: Yup.string()
     .min(6, 'Password must be longer than 6 characters')
     .required('Password is required'),
