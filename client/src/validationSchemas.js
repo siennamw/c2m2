@@ -52,11 +52,14 @@ export const getInitialFormValuesForSchema = (schema, values) => {
 
 export const catalogerValidationSchema = Yup.object().shape({
   name: Yup.string()
+    .trim()
     .required('Name is required'),
   email: Yup.string()
+    .trim()
     .email('E-mail is not valid')
     .required('E-mail is required'),
-  description: Yup.string(),
+  description: Yup.string()
+    .trim(),
   admin: Yup.boolean()
     .default(false)
     .required('Admin yes/no is required'),
@@ -67,8 +70,10 @@ export const catalogerValidationSchema = Yup.object().shape({
 
 export const collectionValidationSchema = Yup.object().shape({
   name: Yup.string()
+    .trim()
     .required('Name is required'),
-  description: Yup.string(),
+  description: Yup.string()
+    .trim(),
   repository_id: Yup.string()
     .matches(stringOfDigitsRegex)
     .required('Repository is required'),
@@ -76,6 +81,7 @@ export const collectionValidationSchema = Yup.object().shape({
 
 export const composerValidationSchema = Yup.object().shape({
   name: Yup.string()
+    .trim()
     .required('Name is required'),
   imdb_link: Yup.string()
     .url('Website is not a valid URL'),
@@ -83,12 +89,15 @@ export const composerValidationSchema = Yup.object().shape({
 
 export const countryValidationSchema = Yup.object().shape({
   name: Yup.string()
+    .trim()
     .required('Name is required'),
-  description: Yup.string(),
+  description: Yup.string()
+    .trim(),
 });
 
 export const directorValidationSchema = Yup.object().shape({
   name: Yup.string()
+    .trim()
     .required('Name is required'),
   imdb_link: Yup.string()
     .url('Website is not a valid URL'),
@@ -96,32 +105,42 @@ export const directorValidationSchema = Yup.object().shape({
 
 export const materialFormatValidationSchema = Yup.object().shape({
   name: Yup.string()
+    .trim()
     .required('Name is required'),
-  description: Yup.string(),
+  description: Yup.string()
+    .trim(),
 });
 
 export const mediaTypeValidationSchema = Yup.object().shape({
   name: Yup.string()
+    .trim()
     .required('Name is required'),
-  description: Yup.string(),
+  description: Yup.string()
+    .trim(),
 });
 
 export const productionCompanyValidationSchema = Yup.object().shape({
   name: Yup.string()
+    .trim()
     .required('Name is required'),
-  contact_info: Yup.string(),
+  contact_info: Yup.string()
+    .trim(),
 });
 
 export const publisherValidationSchema = Yup.object().shape({
   name: Yup.string()
+    .trim()
     .required('Name is required'),
-  contact_info: Yup.string(),
+  contact_info: Yup.string()
+    .trim(),
 });
 
 export const repositoryValidationSchema = Yup.object().shape({
   name: Yup.string()
+    .trim()
     .required('Name is required'),
   location: Yup.string()
+    .trim()
     .required('Location is required'),
   website: Yup.string()
     .url('Website is not a valid URL'),
@@ -129,9 +148,12 @@ export const repositoryValidationSchema = Yup.object().shape({
 
 export const workValidationSchema = Yup.object().shape({
   title: Yup.string()
+    .trim()
     .required('Title is required'),
-  secondary_title: Yup.string(),
-  alias_alternates: Yup.string(),
+  secondary_title: Yup.string()
+    .trim(),
+  alias_alternates: Yup.string()
+    .trim(),
   year: Yup.number()
     .integer('Year must be an integer')
     .positive('Year must be a positive number')
@@ -141,9 +163,12 @@ export const workValidationSchema = Yup.object().shape({
     .url('Digital copy link is not a valid URL'),
   finding_aid_link: Yup.string()
     .url('Finding aid link is not a valid URL'),
-  rights_holder: Yup.string(),
-  citation_source: Yup.string(),
-  cataloging_notes: Yup.string(),
+  rights_holder: Yup.string()
+    .trim(),
+  citation_source: Yup.string()
+    .trim(),
+  cataloging_notes: Yup.string()
+    .trim(),
   country_id: Yup.string()
     .matches(stringOfDigitsRegex),
   media_type_id: Yup.string()
