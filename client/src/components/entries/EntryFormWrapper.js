@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
+import { getInitialFormValuesForSchema } from '../../validationSchemas';
 
 const EntryFormWrapper = ({
   entryIsSelf,
@@ -10,41 +11,38 @@ const EntryFormWrapper = ({
   mutation,
   selfIsAdmin,
   validationSchema,
-}) => {
-  const vals = validationSchema.cast(initialValues || {});
-
-  return (
-    <Formik
-      initialValues={vals}
-      validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting, setStatus, resetForm }) => (
-        handleSubmit(mutation, values, setSubmitting, setStatus, resetForm)
-      )}
-      render={props => (
-        <Form>
-          <FormComponent
-            entryIsSelf={entryIsSelf}
-            selfIsAdmin={selfIsAdmin}
-            {...props}
-          />
-          <button
-            type="submit"
-            className="button-primary u-full-width"
-            disabled={props.isSubmitting || !props.isValid}
-            onClick={props.handleSubmit}
-          >
-            Submit
-          </button>
-          {
-            props.status
-              ? <div className={`status-message ${props.status.type}`}>{props.status.message}</div>
-              : undefined
-          }
-        </Form>
-      )}
-    />
-  );
-};
+}) => (
+  <Formik
+    initialValues={getInitialFormValuesForSchema(validationSchema, initialValues)}
+    validationSchema={validationSchema}
+    onSubmit={(values, { setSubmitting, setStatus, resetForm }) => (
+      handleSubmit(mutation, values, setSubmitting, setStatus, resetForm)
+    )}
+    render={props => (
+      <Form>
+        <FormComponent
+          entryIsSelf={entryIsSelf}
+          selfIsAdmin={selfIsAdmin}
+          {...props}
+        />
+        <button
+          type="submit"
+          className="button-primary u-full-width"
+          disabled={props.isSubmitting || !props.isValid}
+          onClick={props.handleSubmit}
+        >
+          Submit
+        </button>
+        {
+          props.status
+            ? <div
+              className={`status-message ${props.status.type}`}>{props.status.message}</div>
+            : undefined
+        }
+      </Form>
+    )}
+  />
+);
 
 EntryFormWrapper.defaultProps = {
   entryIsSelf: false,

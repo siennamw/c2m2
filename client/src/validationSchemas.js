@@ -1,5 +1,29 @@
 import * as Yup from 'yup';
 
+export const getNormalizedSubmissionValuesForSchema = (schema, values) => {
+  // strip empty strings
+  const normalizedValues = Object.keys(values).reduce((result, key) => {
+    if (values[key] === '') return result;
+    result[key] = values[key];
+    return result;
+  }, {});
+
+  return schema.cast(normalizedValues);
+};
+
+export const getInitialFormValuesForSchema = (schema, values) => {
+  // for new entry, get default values from validation schema
+  const vals = values || schema.cast({});
+
+  // if any field is undefined,
+  // put in empty string to initialize controlled field
+  Object.keys(schema.fields).forEach((key) => {
+    if (!vals[key]) vals[key] = '';
+  });
+
+  return vals;
+};
+
 export const catalogerValidationSchema = Yup.object().shape({
   name: Yup.string()
     .required('Name is required'),
@@ -17,9 +41,9 @@ export const collectionValidationSchema = Yup.object().shape({
     .required('Name is required'),
   description: Yup.string(),
   repository_id: Yup.number()
-    .integer('Number must be an integer')
-    .positive('Number must be positive')
-    .moreThan(0, 'Number must be greater than 0'),
+    .integer('Repository is invalid')
+    .positive('Repository is invalid')
+    .required('Repository is required'),
 });
 
 export const composerValidationSchema = Yup.object().shape({
@@ -104,14 +128,19 @@ export const workValidationSchema = Yup.object().shape({
     .positive()
     .required('Material format is required'),
   collection_ids: Yup.array()
+    .default([])
     .of(Yup.number().integer().positive()),
   composer_ids: Yup.array()
+    .default([])
     .of(Yup.number().integer().positive()),
   director_ids: Yup.array()
+    .default([])
     .of(Yup.number().integer().positive()),
   production_company_ids: Yup.array()
+    .default([])
     .of(Yup.number().integer().positive()),
   publisher_ids: Yup.array()
+    .default([])
     .of(Yup.number().integer().positive()),
   publication_status: Yup.string()
     .oneOf(['draft', 'provisional', 'approved'])
@@ -122,8 +151,8 @@ export const workValidationSchema = Yup.object().shape({
 export const addIdToSchema = baseSchema => (
   baseSchema.shape({
     id: Yup.number()
-      .integer()
-      .positive()
-      .required(),
+      .integer('ID is invalid')
+      .positive('ID is invalid')
+      .required('ID is required'),
   })
 );

@@ -1,9 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
-
 import { isEmpty } from 'lodash';
+
 import EntryFormWrapper from './EntryFormWrapper';
+import {
+  getInitialFormValuesForSchema,
+  getNormalizedSubmissionValuesForSchema,
+} from '../../validationSchemas';
 
 const NewEntry = ({
   entryIsSelf,
@@ -16,13 +20,12 @@ const NewEntry = ({
 }) => {
   const handleSubmit = async (mutation, values, setSubmitting, setStatus, resetForm) => {
     try {
-      const variables = yupSchema.cast(values);
-
+      const variables = getNormalizedSubmissionValuesForSchema(yupSchema, values);
       const payload = { variables };
       const { data } = await mutation(payload);
 
       if (data && !isEmpty(data)) {
-        resetForm(yupSchema.cast({}));
+        resetForm(getInitialFormValuesForSchema(yupSchema));
         setStatus({
           type: 'success',
           message: 'Success!',
@@ -65,6 +68,7 @@ const NewEntry = ({
 
 NewEntry.defaultProps = {
   entryIsSelf: false,
+  initialValues: null,
   selfIsAdmin: false,
 };
 
