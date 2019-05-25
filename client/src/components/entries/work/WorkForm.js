@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 import SelectFieldWithQuery from '../SelectFieldWithQuery';
 import InputField from '../InputField';
@@ -15,7 +16,7 @@ import NewProductionCompany from '../productionCompany/NewProductionCompany';
 import NewPublisher from '../publisher/NewPublisher';
 import SelectField from '../SelectField';
 
-const WorkForm = ({ setFieldValue }) => {
+const WorkForm = ({ selfIsAdmin, setFieldValue }) => {
   const selectOnChange = (evt, name) => {
     if (name.includes('_ids')) {
       // when selecting from a multiselect to set an array of IDs,
@@ -34,6 +35,13 @@ const WorkForm = ({ setFieldValue }) => {
       );
     }
   };
+
+  const pubStatusOptions = [
+    { id: 'draft', name: 'draft' },
+    { id: 'provisional', name: 'provisional' },
+  ];
+
+  if (selfIsAdmin) pubStatusOptions.push({ id: 'approved', name: 'approved' });
 
   return (
     <Fragment>
@@ -120,14 +128,18 @@ const WorkForm = ({ setFieldValue }) => {
         fieldName="publication_status"
         disablePlaceholder
         displayName="Publication Status"
-        options={[
-          { id: 'draft', name: 'draft' },
-          { id: 'provisional', name: 'provisional' },
-          { id: 'approved', name: 'approved' },
-        ]}
+        options={pubStatusOptions}
       />
     </Fragment>
   );
+};
+
+WorkForm.defaultProps = {
+  selfIsAdmin: false,
+};
+
+WorkForm.propTypes = {
+  selfIsAdmin: PropTypes.bool,
 };
 
 export default WorkForm;
