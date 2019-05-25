@@ -15,7 +15,7 @@ import NewProductionCompany from '../productionCompany/NewProductionCompany';
 import NewPublisher from '../publisher/NewPublisher';
 import SelectField from '../SelectField';
 
-export const WorkForm = ({ setFieldValue }) => {
+const WorkForm = ({ setFieldValue }) => {
   const selectOnChange = (evt, name) => {
     if (name.includes('_ids')) {
       // when selecting from a multiselect to set an array of IDs,
