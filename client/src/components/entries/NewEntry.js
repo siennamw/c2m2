@@ -10,6 +10,7 @@ import {
 } from '../../validationSchemas';
 
 const NewEntry = ({
+  clearAfterSubmit,
   entryIsSelf,
   FormComponent,
   gqlMutation,
@@ -25,7 +26,9 @@ const NewEntry = ({
       const { data } = await mutation(payload);
 
       if (data && !isEmpty(data)) {
-        resetForm(getInitialFormValuesForSchema(yupSchema));
+        if (clearAfterSubmit) {
+          resetForm(getInitialFormValuesForSchema(yupSchema));
+        }
         setStatus({
           type: 'success',
           message: 'Success!',
@@ -67,12 +70,14 @@ const NewEntry = ({
 };
 
 NewEntry.defaultProps = {
+  clearAfterSubmit: false,
   entryIsSelf: false,
   initialValues: null,
   selfIsAdmin: false,
 };
 
 NewEntry.propTypes = {
+  clearAfterSubmit: PropTypes.bool,
   entryIsSelf: PropTypes.bool,
   FormComponent: PropTypes.oneOfType([
     PropTypes.func,
