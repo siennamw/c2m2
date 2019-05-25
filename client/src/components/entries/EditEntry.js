@@ -15,7 +15,7 @@ const EditEntry = ({
   yupSchema,
 }) => (
   <Query query={gqlQuery} variables={{ id }}>
-    {({ error, data, refetch }) => {
+    {({ error, data }) => {
       let content = (
         <div className="status-message">Fetching...</div>
       );
@@ -63,7 +63,6 @@ const EditEntry = ({
             entryIsSelf={entryIsSelf}
             gqlMutation={gqlMutation}
             initialValues={initialValues}
-            refetch={refetch}
             selfIsAdmin={selfIsAdmin}
             title={title}
             yupSchema={yupSchema}
