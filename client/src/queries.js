@@ -1,5 +1,11 @@
 import gql from 'graphql-tag';
 
+export const SELF_IS_ADMIN = gql`
+  query selfIsAdmin {
+    selfIsAdmin
+  }
+`;
+
 export const LIST_ALL_COLLECTIONS = gql`
   query allCollections {
     allCollections {
