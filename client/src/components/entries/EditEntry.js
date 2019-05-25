@@ -9,6 +9,7 @@ const EditEntry = ({
   gqlMutation,
   gqlQuery,
   id,
+  mutationName,
   queryName,
   title,
   yupSchema,
@@ -36,6 +37,7 @@ const EditEntry = ({
             entryIsSelf={entryIsSelf}
             gqlMutation={gqlMutation}
             initialValues={data[queryName]}
+            mutationName={mutationName}
             selfIsAdmin={selfIsAdmin}
             title={title}
             yupSchema={yupSchema}

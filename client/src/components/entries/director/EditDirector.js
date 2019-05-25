@@ -18,6 +18,7 @@ const EditDirector = ({ match }) => {
       gqlQuery={DIRECTOR_BY_ID}
       gqlMutation={UPDATE_DIRECTOR}
       id={id}
+      mutationName="updateDirector"
       queryName="director"
       title="Edit Director"
       yupSchema={schema}

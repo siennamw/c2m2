@@ -18,6 +18,7 @@ const EditMediaType = ({ match }) => {
       gqlQuery={MEDIA_TYPE_BY_ID}
       gqlMutation={UPDATE_MEDIA_TYPE}
       id={id}
+      mutationName="updateMediaType"
       queryName="media_type"
       title="Edit Media Type"
       yupSchema={schema}

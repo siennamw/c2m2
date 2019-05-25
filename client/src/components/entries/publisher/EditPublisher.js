@@ -18,6 +18,7 @@ const EditPublisher = ({ match }) => {
       gqlQuery={PUBLISHER_BY_ID}
       gqlMutation={UPDATE_PUBLISHER}
       id={id}
+      mutationName="updatePublisher"
       queryName="publisher"
       title="Edit Publisher"
       yupSchema={schema}

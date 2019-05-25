@@ -18,6 +18,7 @@ const EditWork = ({ match }) => {
       gqlQuery={WORK_BY_ID}
       gqlMutation={UPDATE_WORK}
       id={id}
+      mutationName="updateWork"
       queryName="work"
       title="Edit Work"
       yupSchema={schema}

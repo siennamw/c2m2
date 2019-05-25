@@ -18,6 +18,7 @@ const EditCollection = ({ match }) => {
       gqlQuery={COLLECTION_BY_ID}
       gqlMutation={UPDATE_COLLECTION}
       id={id}
+      mutationName="updateCollection"
       queryName="collection"
       title="Edit Collection"
       yupSchema={schema}

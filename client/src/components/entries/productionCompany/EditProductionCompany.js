@@ -18,6 +18,7 @@ const EditProductionCompany = ({ match }) => {
       gqlQuery={PRODUCTION_COMPANY_BY_ID}
       gqlMutation={UPDATE_PRODUCTION_COMPANY}
       id={id}
+      mutationName="updateProductionCompany"
       queryName="production_company"
       title="Edit Production Company"
       yupSchema={schema}

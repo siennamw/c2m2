@@ -15,6 +15,7 @@ const NewEntry = ({
   FormComponent,
   gqlMutation,
   initialValues,
+  mutationName,
   selfIsAdmin,
   title,
   yupSchema,
@@ -28,7 +29,10 @@ const NewEntry = ({
       if (data && !isEmpty(data)) {
         if (clearAfterSubmit) {
           resetForm(getInitialFormValuesForSchema(yupSchema));
+        } else if (data[mutationName]) {
+          resetForm(getInitialFormValuesForSchema(yupSchema, data[mutationName]));
         }
+
         setStatus({
           type: 'success',
           message: 'Success!',
@@ -73,6 +77,7 @@ NewEntry.defaultProps = {
   clearAfterSubmit: false,
   entryIsSelf: false,
   initialValues: null,
+  mutationName: null,
   selfIsAdmin: false,
 };
 
@@ -93,6 +98,15 @@ NewEntry.propTypes = {
         }
         return true;
       });
+  },
+  mutationName: (props, propName) => {
+    if (
+      !props.clearAfterSubmit
+      && (!props[propName] || typeof props[propName] !== 'string')
+    ) {
+      return new Error('mutationName is required if clearAfterSubmit is false');
+    }
+    return null;
   },
   selfIsAdmin: PropTypes.bool,
   title: PropTypes.string.isRequired,

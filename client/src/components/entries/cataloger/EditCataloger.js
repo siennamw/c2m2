@@ -18,6 +18,7 @@ const EditCataloger = ({ match }) => {
       gqlQuery={CATALOGER_BY_ID_LEAN}
       gqlMutation={UPDATE_CATALOGER}
       id={id}
+      mutationName="updateCataloger"
       queryName="cataloger"
       title="Edit Cataloger"
       yupSchema={schema}

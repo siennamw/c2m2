@@ -18,6 +18,7 @@ const EditMaterialFormat = ({ match }) => {
       gqlQuery={MATERIAL_FORMAT_BY_ID}
       gqlMutation={UPDATE_MATERIAL_FORMAT}
       id={id}
+      mutationName="updateMaterialFormat"
       queryName="material_format"
       title="Edit Material Format"
       yupSchema={schema}

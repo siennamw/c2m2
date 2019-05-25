@@ -18,6 +18,7 @@ const EditCountry = ({ match }) => {
       gqlQuery={COUNTRY_BY_ID}
       gqlMutation={UPDATE_COUNTRY}
       id={id}
+      mutationName="updateCountry"
       queryName="country"
       title="Edit Country"
       yupSchema={schema}

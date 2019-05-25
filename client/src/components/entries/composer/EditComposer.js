@@ -18,6 +18,7 @@ const EditComposer = ({ match }) => {
       gqlQuery={COMPOSER_BY_ID}
       gqlMutation={UPDATE_COMPOSER}
       id={id}
+      mutationName="updateComposer"
       queryName="composer"
       title="Edit Composer"
       yupSchema={schema}
