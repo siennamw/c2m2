@@ -88,6 +88,7 @@ SelectFieldNoLabel.propTypes = {
       id: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number,
+        PropTypes.bool,
       ]).isRequired,
       name: PropTypes.string.isRequired,
     })
@@ -134,6 +135,7 @@ SelectField.propTypes = {
       id: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number,
+        PropTypes.bool,
       ]).isRequired,
       name: PropTypes.string.isRequired,
     })
