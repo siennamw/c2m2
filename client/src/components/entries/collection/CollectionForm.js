@@ -8,12 +8,11 @@ import NewRepository from '../repository/NewRepository';
 
 const CollectionForm = ({ setFieldValue }) => {
   const selectOnChange = (evt, name) => {
-    // when selecting from a dropdown to set an ID,
-    // coerce value to number on change
+    // when selecting from a dropdown to set an ID
     if (name.includes('_id')) {
       setFieldValue(
         name,
-        Number(evt.target.value),
+        evt.target.value,
       );
     }
   };
