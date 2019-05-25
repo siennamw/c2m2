@@ -8,10 +8,11 @@ import { productionCompanyValidationSchema } from '../../../validationSchemas';
 
 const NewProductionCompany = () => (
   <NewEntry
-    title="New Production Company"
-    gqlMutation={CREATE_PRODUCTION_COMPANY}
-    yupSchema={productionCompanyValidationSchema}
+    clearAfterSubmit
     FormComponent={ProductionCompanyForm}
+    gqlMutation={CREATE_PRODUCTION_COMPANY}
+    title="New Production Company"
+    yupSchema={productionCompanyValidationSchema}
   />
 );
 

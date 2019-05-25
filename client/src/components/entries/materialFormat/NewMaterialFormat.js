@@ -8,10 +8,11 @@ import { materialFormatValidationSchema } from '../../../validationSchemas';
 
 const NewMaterialFormat = () => (
   <NewEntry
-    title="New Material Format"
-    gqlMutation={CREATE_MATERIAL_FORMAT}
-    yupSchema={materialFormatValidationSchema}
+    clearAfterSubmit
     FormComponent={MaterialFormatForm}
+    gqlMutation={CREATE_MATERIAL_FORMAT}
+    title="New Material Format"
+    yupSchema={materialFormatValidationSchema}
   />
 );
 

@@ -8,10 +8,11 @@ import { countryValidationSchema } from '../../../validationSchemas';
 
 const NewCountry = () => (
   <NewEntry
-    title="New Country"
-    gqlMutation={CREATE_COUNTRY}
-    yupSchema={countryValidationSchema}
+    clearAfterSubmit
     FormComponent={CountryForm}
+    gqlMutation={CREATE_COUNTRY}
+    title="New Country"
+    yupSchema={countryValidationSchema}
   />
 );
 

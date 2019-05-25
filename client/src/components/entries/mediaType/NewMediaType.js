@@ -8,10 +8,11 @@ import { mediaTypeValidationSchema } from '../../../validationSchemas';
 
 const NewMediaType = () => (
   <NewEntry
-    title="New Media Type"
-    gqlMutation={CREATE_MEDIA_TYPE}
-    yupSchema={mediaTypeValidationSchema}
+    clearAfterSubmit
     FormComponent={MediaTypeForm}
+    gqlMutation={CREATE_MEDIA_TYPE}
+    title="New Media Type"
+    yupSchema={mediaTypeValidationSchema}
   />
 );
 

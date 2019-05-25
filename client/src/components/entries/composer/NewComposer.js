@@ -8,10 +8,11 @@ import { composerValidationSchema } from '../../../validationSchemas';
 
 const NewComposer = () => (
   <NewEntry
-    title="New Composer"
-    gqlMutation={CREATE_COMPOSER}
-    yupSchema={composerValidationSchema}
+    clearAfterSubmit
     FormComponent={ComposerForm}
+    gqlMutation={CREATE_COMPOSER}
+    title="New Composer"
+    yupSchema={composerValidationSchema}
   />
 );
 

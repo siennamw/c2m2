@@ -8,10 +8,11 @@ import { collectionValidationSchema } from '../../../validationSchemas';
 
 const NewCollection = () => (
   <NewEntry
-    title="New Collection"
-    gqlMutation={CREATE_COLLECTION}
-    yupSchema={collectionValidationSchema}
+    clearAfterSubmit
     FormComponent={CollectionForm}
+    gqlMutation={CREATE_COLLECTION}
+    title="New Collection"
+    yupSchema={collectionValidationSchema}
   />
 );
 

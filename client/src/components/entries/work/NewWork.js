@@ -9,7 +9,8 @@ import { workValidationSchema } from '../../../validationSchemas';
 
 const NewWork = ({ initialValues, title }) => (
   <NewEntry
-    title={title}
+    clearAfterSubmit
+    title="New Work"
     gqlMutation={CREATE_WORK}
     initialValues={initialValues}
     yupSchema={workValidationSchema}

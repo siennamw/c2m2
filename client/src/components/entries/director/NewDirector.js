@@ -8,10 +8,11 @@ import { directorValidationSchema } from '../../../validationSchemas';
 
 const NewDirector = () => (
   <NewEntry
-    title="New Director"
-    gqlMutation={CREATE_DIRECTOR}
-    yupSchema={directorValidationSchema}
+    clearAfterSubmit
     FormComponent={DirectorForm}
+    gqlMutation={CREATE_DIRECTOR}
+    title="New Director"
+    yupSchema={directorValidationSchema}
   />
 );
 

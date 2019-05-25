@@ -8,10 +8,11 @@ import { repositoryValidationSchema } from '../../../validationSchemas';
 
 const NewRepository = () => (
   <NewEntry
-    title="New Repository"
-    gqlMutation={CREATE_REPOSITORY}
-    yupSchema={repositoryValidationSchema}
+    clearAfterSubmit
     FormComponent={RepositoryForm}
+    gqlMutation={CREATE_REPOSITORY}
+    title="New Repository"
+    yupSchema={repositoryValidationSchema}
   />
 );
 

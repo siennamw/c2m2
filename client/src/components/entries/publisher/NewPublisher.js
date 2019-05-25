@@ -8,10 +8,11 @@ import { publisherValidationSchema } from '../../../validationSchemas';
 
 const NewPublisher = () => (
   <NewEntry
-    title="New Publisher"
-    gqlMutation={CREATE_PUBLISHER}
-    yupSchema={publisherValidationSchema}
+    clearAfterSubmit
     FormComponent={PublisherForm}
+    gqlMutation={CREATE_PUBLISHER}
+    title="New Publisher"
+    yupSchema={publisherValidationSchema}
   />
 );
 

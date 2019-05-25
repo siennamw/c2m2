@@ -2,9 +2,9 @@ import React from 'react';
 import { Query } from 'react-apollo';
 
 import NewEntry from '../NewEntry';
-import { SELF_IS_ADMIN } from '../../../queries';
 
 import CatalogerForm from './CatalogerForm';
+import { SELF_IS_ADMIN } from '../../../queries';
 import { CREATE_CATALOGER } from '../../../mutations';
 import { catalogerValidationSchema } from '../../../validationSchemas';
 
@@ -24,6 +24,7 @@ const NewCataloger = () => (
       } else if (data && data.selfIsAdmin) {
         content = (
           <NewEntry
+            clearAfterSubmit
             FormComponent={CatalogerForm}
             gqlMutation={CREATE_CATALOGER}
             selfIsAdmin={data.selfIsAdmin}
