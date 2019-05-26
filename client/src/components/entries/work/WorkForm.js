@@ -96,6 +96,15 @@ const WorkForm = ({ selfIsAdmin, setFieldValue }) => {
         componentForModal={<NewComposer />}
       />
       <SelectFieldWithQuery
+        displayName="Orchestrator(s)"
+        fieldName="orchestrator_ids"
+        isMulti
+        onChangeCallback={selectOnChange}
+        query={queries.LIST_ALL_COMPOSERS}
+        queryName="allComposers"
+        componentForModal={<NewComposer />}
+      />
+      <SelectFieldWithQuery
         displayName="Director(s)"
         fieldName="director_ids"
         isMulti

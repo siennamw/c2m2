@@ -136,6 +136,7 @@ export const CREATE_WORK = gql`
     $collection_ids: [ID],
     $composer_ids: [ID],
     $director_ids: [ID],
+    $orchestrator_ids: [ID],
     $production_company_ids: [ID],
     $publisher_ids: [ID],
   ){
@@ -155,6 +156,7 @@ export const CREATE_WORK = gql`
       collection_ids: $collection_ids,
       composer_ids: $composer_ids,
       director_ids: $director_ids,
+      orchestrator_ids: $orchestrator_ids,
       production_company_ids: $production_company_ids,
       publisher_ids: $publisher_ids,
     ) {
@@ -184,6 +186,9 @@ export const CREATE_WORK = gql`
         id
       }
       directors {
+        id
+      }
+      orchestrators {
         id
       }
       production_companies {
@@ -347,6 +352,7 @@ export const UPDATE_WORK = gql`
     $collection_ids: [ID],
     $composer_ids: [ID],
     $director_ids: [ID],
+    $orchestrator_ids: [ID],
     $production_company_ids: [ID],
     $publisher_ids: [ID],
   ){
@@ -368,6 +374,7 @@ export const UPDATE_WORK = gql`
       collection_ids: $collection_ids,
       composer_ids: $composer_ids,
       director_ids: $director_ids,
+      orchestrator_ids: $orchestrator_ids,
       production_company_ids: $production_company_ids,
       publisher_ids: $publisher_ids,
     ) {
@@ -398,6 +405,9 @@ export const UPDATE_WORK = gql`
         id
       }
       directors {
+        id
+      }
+      orchestrators {
         id
       }
       production_companies {

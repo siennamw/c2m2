@@ -370,6 +370,10 @@ export const WORK_BY_ID = gql`
         id
         name
       }
+      orchestrators {
+        id
+        name
+      }
       production_companies {
         id
         name

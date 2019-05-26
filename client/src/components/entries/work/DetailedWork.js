@@ -17,6 +17,16 @@ const DisplayWork = ({ values }) => (
       </td>
     </tr>
     <tr>
+      <th>Orchestrator(s)</th>
+      <td>
+        {
+          values.orchestrators.map(c => (
+            <div key={c.id}>{wrapWithLink(c.name, c.id, 'composer')}</div>
+          ))
+        }
+      </td>
+    </tr>
+    <tr>
       <th>Director(s)</th>
       <td>
         {

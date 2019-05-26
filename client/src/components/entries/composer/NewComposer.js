@@ -11,7 +11,7 @@ const NewComposer = () => (
     clearAfterSubmit
     FormComponent={ComposerForm}
     gqlMutation={CREATE_COMPOSER}
-    title="New Composer"
+    title="New Composer or Orchestrator"
     yupSchema={composerValidationSchema}
   />
 );

@@ -186,6 +186,9 @@ export const workValidationSchema = Yup.object().shape({
   director_ids: Yup.array()
     .default([])
     .of(Yup.string().matches(stringOfDigitsRegex)),
+  orchestrator_ids: Yup.array()
+    .default([])
+    .of(Yup.string().matches(stringOfDigitsRegex)),
   production_company_ids: Yup.array()
     .default([])
     .of(Yup.string().matches(stringOfDigitsRegex)),
