@@ -6,6 +6,10 @@ import Modal from 'react-modal';
 import { ModalConsumer } from '../modal/ModalContext';
 import { SelectFieldNoLabel } from './SelectField';
 
+// for accessibility,
+// https://github.com/reactjs/react-modal/tree/master/docs/accessibility
+Modal.setAppElement('#root');
+
 const SelectFieldWithQuery = ({
   fieldName,
   componentForModal,
