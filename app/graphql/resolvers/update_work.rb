@@ -22,6 +22,7 @@ class Resolvers::UpdateWork < GraphQL::Function
   argument :collection_ids, types[types.ID]
   argument :composer_ids, types[types.ID]
   argument :director_ids, types[types.ID]
+  argument :orchestrator_ids, types[types.ID]
   argument :production_company_ids, types[types.ID]
   argument :publisher_ids, types[types.ID]
 
@@ -67,6 +68,7 @@ class Resolvers::UpdateWork < GraphQL::Function
       collection_ids: args[:collection_ids],
       composer_ids: args[:composer_ids],
       director_ids: args[:director_ids],
+      orchestrator_ids: args[:orchestrator_ids],
       production_company_ids: args[:production_company_ids],
       publisher_ids: args[:publisher_ids]
     )

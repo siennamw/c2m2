@@ -17,6 +17,7 @@ class Resolvers::CreateWorkTest < ActiveSupport::TestCase
     @collection_ids = []
     @composer_ids = []
     @director_ids = []
+    @orchestrator_ids = []
     @production_company_ids = []
     @publisher_ids = []
 
@@ -24,6 +25,7 @@ class Resolvers::CreateWorkTest < ActiveSupport::TestCase
       @collection_ids << Collection.create!(name: "collection #{n}", repository: @repository, cataloger: @cataloger).id
       @composer_ids << Composer.create!(name: "composer #{n}", cataloger: @cataloger).id
       @director_ids << Director.create!(name: "director #{n}", cataloger: @cataloger).id
+      @orchestrator_ids << Composer.create!(name: "orchestrator #{n}", cataloger: @cataloger).id
       @production_company_ids << ProductionCompany.create!(name: "production company #{n}", cataloger: @cataloger).id
       @publisher_ids << Publisher.create!(name: "publisher #{n}", cataloger: @cataloger).id
     end
@@ -81,6 +83,7 @@ class Resolvers::CreateWorkTest < ActiveSupport::TestCase
       collection_ids: @collection_ids,
       composer_ids: @composer_ids,
       director_ids: @director_ids,
+      orchestrator_ids: @orchestrator_ids,
       production_company_ids: @production_company_ids,
       publisher_ids: @publisher_ids,
     )
@@ -107,6 +110,7 @@ class Resolvers::CreateWorkTest < ActiveSupport::TestCase
     assert_equal work.collections.map { |obj| obj.id }, @collection_ids
     assert_equal work.composers.map { |obj| obj.id }, @composer_ids
     assert_equal work.directors.map { |obj| obj.id }, @director_ids
+    assert_equal work.orchestrators.map { |obj| obj.id }, @orchestrator_ids
     assert_equal work.production_companies.map { |obj| obj.id }, @production_company_ids
     assert_equal work.publishers.map { |obj| obj.id }, @publisher_ids
   end

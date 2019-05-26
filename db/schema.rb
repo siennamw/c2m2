@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190314134202) do
+ActiveRecord::Schema.define(version: 20190526032700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,6 +109,13 @@ ActiveRecord::Schema.define(version: 20190314134202) do
     t.bigint "cataloger_id"
     t.index ["cataloger_id"], name: "index_media_types_on_cataloger_id"
     t.index ["name"], name: "index_media_types_on_name", unique: true
+  end
+
+  create_table "orchestrators_works", id: false, force: :cascade do |t|
+    t.bigint "composer_id", null: false
+    t.bigint "work_id", null: false
+    t.index ["composer_id", "work_id"], name: "index_orch_works_on_orch_id_and_work_id"
+    t.index ["work_id", "composer_id"], name: "index_orch_works_on_work_id_and_orch_id"
   end
 
   create_table "production_companies", force: :cascade do |t|

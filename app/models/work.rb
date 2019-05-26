@@ -7,6 +7,11 @@ class Work < ApplicationRecord
   has_and_belongs_to_many :collections
   has_many :repositories, through: :collections
   has_and_belongs_to_many :composers
+  has_and_belongs_to_many :orchestrators,
+    class_name: 'Composer',
+    join_table: 'orchestrators_works',
+    :foreign_key => 'composer_id',
+    :association_foreign_key => 'work_id'
   has_and_belongs_to_many :directors
   has_and_belongs_to_many :production_companies
   has_and_belongs_to_many :publishers

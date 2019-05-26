@@ -8,4 +8,5 @@ Types::ComposerType = GraphQL::ObjectType.define do
   field :cataloger, (-> { Types::CatalogerType })
 
   field :works, ( -> { !types[Types::WorkType] })
+  field :works_as_orchestrator, ( -> { !types[Types::WorkType] })
 end

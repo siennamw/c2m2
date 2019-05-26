@@ -34,6 +34,7 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
     @collection_ids = []
     @composer_ids = []
     @director_ids = []
+    @orchestrator_ids = []
     @production_company_ids = []
     @publisher_ids = []
 
@@ -49,6 +50,10 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
       ).id
       @director_ids << Director.create!(
         name: "director #{n}",
+        cataloger: @cataloger
+      ).id
+      @orchestrator_ids << Composer.create!(
+        name: "orchestrator #{n}",
         cataloger: @cataloger
       ).id
       @production_company_ids << ProductionCompany.create!(
@@ -157,6 +162,7 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
         collection_ids: @collection_ids,
         composer_ids: @composer_ids,
         director_ids: @director_ids,
+        orchestrator_ids: @orchestrator_ids,
         production_company_ids: @production_company_ids,
         publisher_ids: @publisher_ids,
       },
@@ -187,11 +193,12 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
     assert_equal updated_work.collections.map { |obj| obj.id }, @collection_ids
     assert_equal updated_work.composers.map { |obj| obj.id }, @composer_ids
     assert_equal updated_work.directors.map { |obj| obj.id }, @director_ids
+    assert_equal updated_work.orchestrators.map { |obj| obj.id }, @orchestrator_ids
     assert_equal updated_work.production_companies.map { |obj| obj.id }, @production_company_ids
     assert_equal updated_work.publishers.map { |obj| obj.id }, @publisher_ids
   end
 
-  test 'non-admin attempting to update a work to approved publication_status' do
+  test 'non-admin attempting to update a work to approved publication_status falls back to provisional' do
     title = 'Casa Blanca'
     year = 1942
 
@@ -223,7 +230,7 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
     assert_nil updated_work.country
   end
 
-  test 'admin updating a work to approved publication_status' do
+  test 'admin updating a work to approved publication_status is successful' do
     title = 'Casa Blanca'
     year = 1942
     publication_status = 'approved'

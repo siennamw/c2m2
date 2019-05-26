@@ -21,6 +21,7 @@ Types::WorkType = GraphQL::ObjectType.define do
   field :collections, ( -> { !types[Types::CollectionType] })
   field :composers, ( -> { !types[Types::ComposerType] })
   field :directors, ( -> { !types[Types::DirectorType] })
+  field :orchestrators, ( -> { !types[Types::ComposerType] })
   field :production_companies, ( -> { !types[Types::ProductionCompanyType] })
   field :publishers, ( -> { !types[Types::PublisherType] })
 end
