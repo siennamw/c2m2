@@ -192,6 +192,10 @@ export const COMPOSER_BY_ID = gql`
         id
         title
       }
+      works_as_orchestrator {
+        id
+        title
+      }
       cataloger {
         id
         name

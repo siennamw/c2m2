@@ -19,10 +19,20 @@ const DisplayComposer = ({ values }) => (
       </td>
     </tr>
     <tr>
-      <th>Works(s)</th>
+      <th>Composer for Works(s)</th>
       <td>
         {
           values.works.map(c => (
+            <div key={c.id}>{wrapWithLink(c.title, c.id, 'work')}</div>
+          ))
+        }
+      </td>
+    </tr>
+    <tr>
+      <th>Orchestrator for Works(s)</th>
+      <td>
+        {
+          values.works_as_orchestrator.map(c => (
             <div key={c.id}>{wrapWithLink(c.title, c.id, 'work')}</div>
           ))
         }
