@@ -7,7 +7,6 @@ Types::WorkType = GraphQL::ObjectType.define do
   field :year, !types.Int
   field :finding_aid_link, types.String
   field :digital_copy_link, types.String
-  field :rights_holder, types.String
   field :citation_source, types.String
   field :alias_alternates, types.String
   field :cataloging_notes, types.String

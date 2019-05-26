@@ -6,7 +6,6 @@ class Resolvers::CreateWork < GraphQL::Function
 
   argument :finding_aid_link, types.String
   argument :digital_copy_link, types.String
-  argument :rights_holder, types.String
   argument :citation_source, types.String
   argument :alias_alternates, types.String
   argument :cataloging_notes, types.String
@@ -42,7 +41,6 @@ class Resolvers::CreateWork < GraphQL::Function
 
       finding_aid_link: args[:finding_aid_link],
       digital_copy_link: args[:digital_copy_link],
-      rights_holder: args[:rights_holder],
       citation_source: args[:citation_source],
       alias_alternates: args[:alias_alternates],
       cataloging_notes: args[:cataloging_notes],

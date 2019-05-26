@@ -57,7 +57,6 @@ class Resolvers::CreateWorkTest < ActiveSupport::TestCase
 
     finding_aid_link = ''
     digital_copy_link = 'digital_copy_link'
-    rights_holder = 'rights_holder'
     citation_source = 'citation_source'
     alias_alternates = 'alias_alternates'
     cataloging_notes = 'cataloging_notes'
@@ -70,7 +69,6 @@ class Resolvers::CreateWorkTest < ActiveSupport::TestCase
 
       finding_aid_link: finding_aid_link,
       digital_copy_link: digital_copy_link,
-      rights_holder: rights_holder,
       citation_source: citation_source,
       alias_alternates: alias_alternates,
       cataloging_notes: cataloging_notes,
@@ -95,7 +93,6 @@ class Resolvers::CreateWorkTest < ActiveSupport::TestCase
 
     assert_equal work.finding_aid_link, finding_aid_link
     assert_equal work.digital_copy_link, digital_copy_link
-    assert_equal work.rights_holder, rights_holder
     assert_equal work.citation_source, citation_source
     assert_equal work.alias_alternates, alias_alternates
     assert_equal work.cataloging_notes, cataloging_notes

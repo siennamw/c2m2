@@ -127,7 +127,6 @@ export const CREATE_WORK = gql`
     $year: Int!,
     $digital_copy_link: String,
     $finding_aid_link: String,
-    $rights_holder: String,
     $citation_source: String,
     $cataloging_notes: String,
     $country_id: ID,
@@ -147,7 +146,6 @@ export const CREATE_WORK = gql`
       year: $year,
       digital_copy_link: $digital_copy_link,
       finding_aid_link: $finding_aid_link,
-      rights_holder: $rights_holder,
       citation_source: $citation_source,
       cataloging_notes: $cataloging_notes,
       country_id: $country_id,
@@ -167,7 +165,6 @@ export const CREATE_WORK = gql`
       year
       digital_copy_link
       finding_aid_link
-      rights_holder
       citation_source
       cataloging_notes
       country {
@@ -342,7 +339,6 @@ export const UPDATE_WORK = gql`
     $year: Int!,
     $digital_copy_link: String,
     $finding_aid_link: String,
-    $rights_holder: String,
     $citation_source: String,
     $cataloging_notes: String,
     $publication_status: String,
@@ -364,7 +360,6 @@ export const UPDATE_WORK = gql`
       year: $year,
       digital_copy_link: $digital_copy_link,
       finding_aid_link: $finding_aid_link,
-      rights_holder: $rights_holder,
       citation_source: $citation_source,
       cataloging_notes: $cataloging_notes,
       publication_status: $publication_status,
@@ -385,7 +380,6 @@ export const UPDATE_WORK = gql`
       year
       digital_copy_link
       finding_aid_link
-      rights_holder
       citation_source
       cataloging_notes
       publication_status

@@ -51,7 +51,6 @@ const WorkForm = ({ selfIsAdmin, setFieldValue }) => {
       <InputField displayName="Year" fieldName="year" fieldType="number" />
       <InputField displayName="Finding Aid Link" fieldName="finding_aid_link" fieldType="url" />
       <InputField displayName="Digital Copy Link" fieldName="digital_copy_link" fieldType="url" />
-      <InputField displayName="Rights Holder" fieldName="rights_holder" />
       <InputField displayName="Citation Source" fieldName="citation_source" />
       <SelectFieldWithQuery
         displayName="Country"

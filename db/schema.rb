@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190526032700) do
+ActiveRecord::Schema.define(version: 20190526214704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -166,7 +166,6 @@ ActiveRecord::Schema.define(version: 20190526032700) do
     t.integer "year", null: false
     t.string "finding_aid_link"
     t.string "digital_copy_link"
-    t.string "rights_holder"
     t.text "citation_source"
     t.text "alias_alternates"
     t.text "cataloging_notes"

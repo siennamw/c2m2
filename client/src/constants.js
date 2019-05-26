@@ -142,14 +142,6 @@ export const TOOLTIP_BY_FIELD = (fieldName) => {
         'Do not use nicknames of institutions in this field.',
       ],
     },
-    rights_holder: {
-      description: 'Copyright statement.',
-      rules: [
-        'Free field which details who the current rights holder is: most likely will be the estate or family (if composer is dead), composer (if living), production company/studio, or repository.',
-        'Use LC authority version of name/repository/company if available.',
-        'If the status of the copyright cannot be determined, enter [Copyright status unknown, inquire with holding institution], include brackets.',
-      ],
-    },
     secondary_title: {
       description: 'Secondary title or subtitle.',
       rules: [

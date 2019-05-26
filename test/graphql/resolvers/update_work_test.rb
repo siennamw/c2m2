@@ -133,7 +133,6 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
 
     finding_aid_link = ''
     digital_copy_link = 'digital_copy_link'
-    rights_holder = 'rights_holder'
     citation_source = 'citation_source'
     alias_alternates = 'alias_alternates'
     cataloging_notes = 'cataloging_notes'
@@ -148,7 +147,6 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
 
         finding_aid_link: finding_aid_link,
         digital_copy_link: digital_copy_link,
-        rights_holder: rights_holder,
         citation_source: citation_source,
         alias_alternates: alias_alternates,
         cataloging_notes: cataloging_notes,
@@ -179,7 +177,6 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
 
     assert_equal updated_work.finding_aid_link, finding_aid_link
     assert_equal updated_work.digital_copy_link, digital_copy_link
-    assert_equal updated_work.rights_holder, rights_holder
     assert_equal updated_work.citation_source, citation_source
     assert_equal updated_work.alias_alternates, alias_alternates
     assert_equal updated_work.cataloging_notes, cataloging_notes

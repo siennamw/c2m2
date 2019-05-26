@@ -342,7 +342,6 @@ export const WORK_BY_ID = gql`
       year
       digital_copy_link
       finding_aid_link
-      rights_holder
       citation_source
       cataloging_notes
       publication_status

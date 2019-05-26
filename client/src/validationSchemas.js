@@ -163,8 +163,6 @@ export const workValidationSchema = Yup.object().shape({
     .url('Digital copy link is not a valid URL'),
   finding_aid_link: Yup.string()
     .url('Finding aid link is not a valid URL'),
-  rights_holder: Yup.string()
-    .trim(),
   citation_source: Yup.string()
     .trim(),
   cataloging_notes: Yup.string()

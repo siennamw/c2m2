@@ -105,10 +105,6 @@ const DisplayWork = ({ values }) => (
       </td>
     </tr>
     <tr>
-      <th>Rights Holder</th>
-      <td>{values.rights_holder}</td>
-    </tr>
-    <tr>
       <th>Material Format</th>
       <td>
         {
