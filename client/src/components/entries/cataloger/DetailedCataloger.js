@@ -11,20 +11,10 @@ const DisplayCataloger = ({ values }) => (
       <td>{values.description}</td>
     </tr>
     <tr>
-      <th>Created By</th>
-      <td>
-        {
-          values.created_by
-            ? wrapWithLink(values.created_by.name, values.created_by.id, 'cataloger')
-            : null
-        }
-      </td>
-    </tr>
-    <tr>
       <th>Catalogers</th>
       <td>
         {
-          values.catalogers.map(c => (
+          [...values.catalogers, ...values.catalogers_as_updater].map(c => (
             <div key={c.id}>{wrapWithLink(c.name, c.id, 'cataloger')}</div>
           ))
         }
@@ -34,7 +24,7 @@ const DisplayCataloger = ({ values }) => (
       <th>Collections</th>
       <td>
         {
-          values.collections.map(c => (
+          [...values.collections, ...values.collections_as_updater].map(c => (
             <div key={c.id}>{wrapWithLink(c.name, c.id, 'collection')}</div>
           ))
         }
@@ -44,7 +34,7 @@ const DisplayCataloger = ({ values }) => (
       <th>Composers</th>
       <td>
         {
-          values.composers.map(c => (
+          [...values.composers, ...values.composers_as_updater].map(c => (
             <div key={c.id}>{wrapWithLink(c.name, c.id, 'composer')}</div>
           ))
         }
@@ -54,7 +44,7 @@ const DisplayCataloger = ({ values }) => (
       <th>Countries</th>
       <td>
         {
-          values.countries.map(c => (
+          [...values.countries, ...values.countries_as_updater].map(c => (
             <div key={c.id}>{wrapWithLink(c.name, c.id, 'country')}</div>
           ))
         }
@@ -64,7 +54,7 @@ const DisplayCataloger = ({ values }) => (
       <th>Directors</th>
       <td>
         {
-          values.directors.map(c => (
+          [...values.directors, ...values.directors_as_updater].map(c => (
             <div key={c.id}>{wrapWithLink(c.name, c.id, 'director')}</div>
           ))
         }
@@ -74,7 +64,7 @@ const DisplayCataloger = ({ values }) => (
       <th>Material Formats</th>
       <td>
         {
-          values.material_formats.map(c => (
+          [...values.material_formats, ...values.material_formats_as_updater].map(c => (
             <div key={c.id}>{wrapWithLink(c.name, c.id, 'material_format')}</div>
           ))
         }
@@ -84,7 +74,7 @@ const DisplayCataloger = ({ values }) => (
       <th>Media Types</th>
       <td>
         {
-          values.media_types.map(c => (
+          [...values.media_types, ...values.media_types_as_updater].map(c => (
             <div key={c.id}>{wrapWithLink(c.name, c.id, 'media_type')}</div>
           ))
         }
@@ -94,7 +84,7 @@ const DisplayCataloger = ({ values }) => (
       <th>Production Companies</th>
       <td>
         {
-          values.production_companies.map(c => (
+          [...values.production_companies, ...values.production_companies_as_updater].map(c => (
             <div key={c.id}>{wrapWithLink(c.name, c.id, 'production_company')}</div>
           ))
         }
@@ -104,7 +94,7 @@ const DisplayCataloger = ({ values }) => (
       <th>Publishers</th>
       <td>
         {
-          values.publishers.map(c => (
+          [...values.publishers, ...values.publishers_as_updater].map(c => (
             <div key={c.id}>{wrapWithLink(c.name, c.id, 'publisher')}</div>
           ))
         }
@@ -114,7 +104,7 @@ const DisplayCataloger = ({ values }) => (
       <th>Repositories</th>
       <td>
         {
-          values.repositories.map(c => (
+          [...values.repositories, ...values.repositories_as_updater].map(c => (
             <div key={c.id}>{wrapWithLink(c.name, c.id, 'repository')}</div>
           ))
         }
@@ -124,7 +114,7 @@ const DisplayCataloger = ({ values }) => (
       <th>Works</th>
       <td>
         {
-          values.works.map(c => (
+          [...values.works, ...values.works_as_updater].map(c => (
             <div key={c.id}>{wrapWithLink(c.title, c.id, 'work')}</div>
           ))
         }
