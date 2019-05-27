@@ -110,10 +110,6 @@ export const CATALOGER_BY_ID = gql`
         id
         name
       }
-      created_by {
-        id
-        name
-      }
       directors {
         id
         name
@@ -142,6 +138,60 @@ export const CATALOGER_BY_ID = gql`
         id
         title
       }
+      catalogers_as_updater {
+        id
+        name
+      }
+      collections_as_updater {
+        id
+        name
+      }
+      composers_as_updater {
+        id
+        name
+      }
+      countries_as_updater {
+        id
+        name
+      }
+      directors_as_updater {
+        id
+        name
+      }
+      material_formats_as_updater {
+        id
+        name
+      }
+      media_types_as_updater {
+        id
+        name
+      }
+      production_companies_as_updater {
+        id
+        name
+      }
+      publishers_as_updater {
+        id
+        name
+      }
+      repositories_as_updater {
+        id
+        name
+      }
+      works_as_updater {
+        id
+        title
+      }
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
+        id
+        name
+      }
     }
   }
 `;
@@ -156,6 +206,16 @@ export const CATALOGER_BY_ID_LEAN = gql`
       description
       admin
       is_self
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
+        id
+        name
+      }
     }
   }
 `;
@@ -174,7 +234,13 @@ export const COLLECTION_BY_ID = gql`
         id
         title
       }
-      cataloger {
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
         id
         name
       }
@@ -196,7 +262,13 @@ export const COMPOSER_BY_ID = gql`
         id
         title
       }
-      cataloger {
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
         id
         name
       }
@@ -214,7 +286,13 @@ export const COUNTRY_BY_ID = gql`
         id
         title
       }
-      cataloger {
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
         id
         name
       }
@@ -232,7 +310,13 @@ export const DIRECTOR_BY_ID = gql`
         id
         title
       }
-      cataloger {
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
         id
         name
       }
@@ -250,7 +334,13 @@ export const MATERIAL_FORMAT_BY_ID = gql`
         id
         title
       }
-      cataloger {
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
         id
         name
       }
@@ -268,7 +358,13 @@ export const MEDIA_TYPE_BY_ID = gql`
         id
         title
       }
-      cataloger {
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
         id
         name
       }
@@ -286,7 +382,13 @@ export const PRODUCTION_COMPANY_BY_ID = gql`
         id
         title
       }
-      cataloger {
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
         id
         name
       }
@@ -304,7 +406,13 @@ export const PUBLISHER_BY_ID = gql`
         id
         title
       }
-      cataloger {
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
         id
         name
       }
@@ -323,7 +431,13 @@ export const REPOSITORY_BY_ID = gql`
         id
         name
       }
-      cataloger {
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
         id
         name
       }
@@ -345,10 +459,6 @@ export const WORK_BY_ID = gql`
       citation_source
       cataloging_notes
       publication_status
-      cataloger {
-        id
-        name
-      }
       country {
         id
         name
@@ -382,6 +492,16 @@ export const WORK_BY_ID = gql`
         name
       }
       publishers {
+        id
+        name
+      }
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
         id
         name
       }

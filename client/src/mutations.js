@@ -222,6 +222,16 @@ export const UPDATE_CATALOGER = gql`
       email
       admin
       description
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
+        id
+        name
+      }
     }
   }
 `;
@@ -245,6 +255,16 @@ export const UPDATE_COLLECTION = gql`
       repository {
         id
       }
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
+        id
+        name
+      }
     }
   }
 `;
@@ -255,6 +275,16 @@ export const UPDATE_COMPOSER = gql`
       id
       name
       imdb_link
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
+        id
+        name
+      }
     }
   }
 `;
@@ -265,6 +295,16 @@ export const UPDATE_COUNTRY = gql`
       id
       name
       description
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
+        id
+        name
+      }
     }
   }
 `;
@@ -275,6 +315,16 @@ export const UPDATE_DIRECTOR = gql`
       id
       name
       imdb_link
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
+        id
+        name
+      }
     }
   }
 `;
@@ -285,6 +335,16 @@ export const UPDATE_MATERIAL_FORMAT = gql`
       id
       name
       description
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
+        id
+        name
+      }
     }
   }
 `;
@@ -295,6 +355,16 @@ export const UPDATE_MEDIA_TYPE = gql`
       id
       name
       description
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
+        id
+        name
+      }
     }
   }
 `;
@@ -305,6 +375,16 @@ export const UPDATE_PRODUCTION_COMPANY = gql`
       id
       name
       contact_info
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
+        id
+        name
+      }
     }
   }
 `;
@@ -315,6 +395,16 @@ export const UPDATE_PUBLISHER = gql`
       id
       name
       contact_info
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
+        id
+        name
+      }
     }
   }
 `;
@@ -326,6 +416,16 @@ export const UPDATE_REPOSITORY = gql`
       name
       location
       website
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
+        id
+        name
+      }
     }
   }
 `;
@@ -409,6 +509,16 @@ export const UPDATE_WORK = gql`
       }
       publishers {
         id
+      }
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
+        id
+        name
       }
     }
   }
