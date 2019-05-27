@@ -39,16 +39,34 @@ const EditEntry = ({
 
         const createdInfo = createdAt && createdBy
           ? (
-            <p className="center-text">
-              Created {moment(createdAt, 'YYYY-MM-DD hh:mm:ss').utc().format('YYYY-MM-DD hh:mm')} by {createdBy.name}
-            </p>
+            <div className="row">
+              <dl>
+                <div className="six columns">
+                  <dt>Created at</dt>
+                  <dd>{moment.utc(createdAt, 'YYYY-MM-DD hh:mm:ss').local().format('YYYY-MM-DD LT')}</dd>
+                </div>
+                <div className="six columns">
+                  <dt>Created by</dt>
+                  <dd>{createdBy.name}</dd>
+                </div>
+              </dl>
+            </div>
           )
           : undefined;
         const lastUpdatedInfo = updatedAt && updatedBy
           ? (
-            <p className="center-text">
-              Last updated {moment(updatedAt, 'YYYY-MM-DD hh:mm:ss').utc().format('YYYY-MM-DD hh:mm')} by {updatedBy.name}
-            </p>
+            <div className="row">
+              <dl>
+                <div className="six columns">
+                  <dt>Last updated at</dt>
+                  <dd>{moment.utc(updatedAt, 'YYYY-MM-DD hh:mm:ss').local().format('YYYY-MM-DD LT')}</dd>
+                </div>
+                <div className="six columns">
+                  <dt>Last updated by</dt>
+                  <dd>{updatedBy.name}</dd>
+                </div>
+              </dl>
+            </div>
           )
           : undefined;
 
@@ -64,8 +82,8 @@ const EditEntry = ({
               title={title}
               yupSchema={yupSchema}
             />
-            { createdInfo }
-            { lastUpdatedInfo }
+            {createdInfo}
+            {lastUpdatedInfo}
           </Fragment>
         );
       }
@@ -75,6 +93,10 @@ const EditEntry = ({
   </Query>
 );
 
+EditEntry.defaultProps = {
+  mutationName: null,
+};
+
 EditEntry.propTypes = {
   FormComponent: PropTypes.oneOfType([
     PropTypes.func,
@@ -83,6 +105,7 @@ EditEntry.propTypes = {
   gqlMutation: PropTypes.object.isRequired,
   gqlQuery: PropTypes.object.isRequired,
   id: PropTypes.number.isRequired,
+  mutationName: PropTypes.string,
   queryName: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   yupSchema: PropTypes.object.isRequired,
