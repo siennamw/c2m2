@@ -132,16 +132,6 @@ const DisplayWork = ({ values }) => (
       <th>Cataloging Notes</th>
       <td>{values.cataloging_notes}</td>
     </tr>
-    <tr>
-      <th>Cataloger</th>
-      <td>
-        {
-          values.cataloger
-            ? wrapWithLink(values.cataloger.name, values.cataloger.id, 'cataloger')
-            : null
-        }
-      </td>
-    </tr>
   </tbody>
 );
 
