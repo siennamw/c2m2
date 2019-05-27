@@ -21,6 +21,6 @@ class Resolvers::CreateProductionCompanyTest < ActiveSupport::TestCase
     assert production_co.persisted?
     assert_equal production_co.name, name
     assert_equal production_co.contact_info, contact_info
-    assert_equal production_co.cataloger, @cataloger
+    assert_equal production_co.created_by, @cataloger
   end
 end

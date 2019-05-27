@@ -15,7 +15,7 @@ class Resolvers::CreateComposer < GraphQL::Function
     Composer.create!(
       name: args[:name],
       imdb_link: args[:imdb_link],
-      cataloger: ctx[:current_user],
+      created_by: ctx[:current_user],
     )
 
   rescue ActiveRecord::RecordInvalid => e

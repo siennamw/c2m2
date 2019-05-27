@@ -21,6 +21,6 @@ class Resolvers::CreateMediaTypeTest < ActiveSupport::TestCase
     assert media_type.persisted?
     assert_equal media_type.name, name
     assert_equal media_type.description, description
-    assert_equal media_type.cataloger, @cataloger
+    assert_equal media_type.created_by, @cataloger
   end
 end

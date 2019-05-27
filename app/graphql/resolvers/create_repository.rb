@@ -17,7 +17,7 @@ class Resolvers::CreateRepository < GraphQL::Function
       name: args[:name],
       location: args[:location],
       website: args[:website],
-      cataloger: ctx[:current_user],
+      created_by: ctx[:current_user],
     )
 
   rescue ActiveRecord::RecordInvalid => e

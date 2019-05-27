@@ -15,7 +15,7 @@ class Resolvers::CreatePublisher < GraphQL::Function
     Publisher.create!(
       name: args[:name],
       contact_info: args[:contact_info],
-      cataloger: ctx[:current_user],
+      created_by: ctx[:current_user],
     )
 
   rescue ActiveRecord::RecordInvalid => e

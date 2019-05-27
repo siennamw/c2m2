@@ -18,7 +18,7 @@ class Resolvers::UpdatePublisher < GraphQL::Function
       args[:id],
       name: args[:name],
       contact_info: args[:contact_info],
-      cataloger: ctx[:current_user],
+      updated_by: ctx[:current_user],
     )
 
   rescue ActiveRecord::RecordInvalid => e

@@ -14,7 +14,7 @@ class Resolvers::UpdateMaterialFormatTest < ActiveSupport::TestCase
     @material_format = MaterialFormat.create!(
       name: 'old material format',
       description: 'pretty cool material format',
-      cataloger: @cataloger
+      created_by: @cataloger
     )
     @new_cataloger = Cataloger.create!(
       name: 'test2',
@@ -37,6 +37,7 @@ class Resolvers::UpdateMaterialFormatTest < ActiveSupport::TestCase
     assert_equal updated_material_format.id, @material_format.id
     assert_equal updated_material_format.name, name
     assert_equal updated_material_format.description, description
-    assert_equal updated_material_format.cataloger, @new_cataloger
+    assert_equal updated_material_format.created_by, @cataloger
+    assert_equal updated_material_format.updated_by, @new_cataloger
   end
 end

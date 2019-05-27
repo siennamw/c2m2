@@ -18,7 +18,7 @@ class Resolvers::CreateCountry < GraphQL::Function
     Country.create!(
       name: args[:name],
       description: args[:description],
-      cataloger: ctx[:current_user],
+      created_by: ctx[:current_user],
     )
 
   rescue ActiveRecord::RecordInvalid => e

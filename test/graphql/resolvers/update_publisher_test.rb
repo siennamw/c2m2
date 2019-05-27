@@ -14,7 +14,7 @@ class Resolvers::UpdatePublisherTest < ActiveSupport::TestCase
     @publisher = Publisher.create!(
       name: 'a company',
       contact_info: 'company.com',
-      cataloger: @cataloger
+      created_by: @cataloger
     )
     @new_cataloger = Cataloger.create!(
       name: 'test2',
@@ -37,6 +37,7 @@ class Resolvers::UpdatePublisherTest < ActiveSupport::TestCase
     assert_equal updated_publisher.id, @publisher.id
     assert_equal updated_publisher.name, name
     assert_equal updated_publisher.contact_info, contact_info
-    assert_equal updated_publisher.cataloger, @new_cataloger
+    assert_equal updated_publisher.created_by, @cataloger
+    assert_equal updated_publisher.updated_by, @new_cataloger
   end
 end

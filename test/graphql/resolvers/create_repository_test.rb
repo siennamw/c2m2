@@ -24,6 +24,6 @@ class Resolvers::CreateRepositoryTest < ActiveSupport::TestCase
     assert_equal repository.name, name
     assert_equal repository.location, location
     assert_equal repository.website, website
-    assert_equal repository.cataloger, @cataloger
+    assert_equal repository.created_by, @cataloger
   end
 end

@@ -14,7 +14,7 @@ class Resolvers::UpdateMediaTypeTest < ActiveSupport::TestCase
     @media_type = MediaType.create!(
       name: 'old media type',
       description: 'pretty cool media type',
-      cataloger: @cataloger
+      created_by: @cataloger
     )
     @new_cataloger = Cataloger.create!(
       name: 'test2',
@@ -37,6 +37,7 @@ class Resolvers::UpdateMediaTypeTest < ActiveSupport::TestCase
     assert_equal updated_media_type.id, @media_type.id
     assert_equal updated_media_type.name, name
     assert_equal updated_media_type.description, description
-    assert_equal updated_media_type.cataloger, @new_cataloger
+    assert_equal updated_media_type.created_by, @cataloger
+    assert_equal updated_media_type.updated_by, @new_cataloger
   end
 end

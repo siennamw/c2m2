@@ -21,6 +21,6 @@ class Resolvers::CreateCountryTest < ActiveSupport::TestCase
     assert country.persisted?
     assert_equal country.name, name
     assert_equal country.description, description
-    assert_equal country.cataloger, @cataloger
+    assert_equal country.created_by, @cataloger
   end
 end

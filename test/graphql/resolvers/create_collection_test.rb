@@ -7,7 +7,7 @@ class Resolvers::CreateCollectionTest < ActiveSupport::TestCase
 
   setup do
     @cataloger = Cataloger.create!(name: 'test', email: 'test@email.com', password: 'test_test')
-    @repository = Repository.create!(name: 'Parent Repo', location: 'Boulder, CO', cataloger: @cataloger)
+    @repository = Repository.create!(name: 'Parent Repo', location: 'Boulder, CO', created_by: @cataloger)
   end
 
   test 'creating new collection' do
@@ -24,6 +24,6 @@ class Resolvers::CreateCollectionTest < ActiveSupport::TestCase
     assert_equal collection.name, name
     assert_equal collection.description, description
     assert_equal collection.repository, @repository
-    assert_equal collection.cataloger, @cataloger
+    assert_equal collection.created_by, @cataloger
   end
 end

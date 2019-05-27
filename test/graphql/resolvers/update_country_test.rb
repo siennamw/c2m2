@@ -14,7 +14,7 @@ class Resolvers::UpdateCountryTest < ActiveSupport::TestCase
     @country = Country.create!(
       name: 'Chile',
       description: 'lots of coast',
-      cataloger: @cataloger
+      created_by: @cataloger
     )
     @new_cataloger = Cataloger.create!(
       name: 'test2',
@@ -37,6 +37,7 @@ class Resolvers::UpdateCountryTest < ActiveSupport::TestCase
     assert_equal updated_country.id, @country.id
     assert_equal updated_country.name, name
     assert_equal updated_country.description, description
-    assert_equal updated_country.cataloger, @new_cataloger
+    assert_equal updated_country.created_by, @cataloger
+    assert_equal updated_country.updated_by, @new_cataloger
   end
 end

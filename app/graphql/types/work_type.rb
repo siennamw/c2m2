@@ -15,7 +15,6 @@ Types::WorkType = GraphQL::ObjectType.define do
   field :country, (-> { Types::CountryType })
   field :media_type, (-> { Types::MediaTypeType })
   field :material_format, (-> { Types::MaterialFormatType })
-  field :cataloger, (-> { Types::CatalogerType })
 
   field :collections, ( -> { !types[Types::CollectionType] })
   field :composers, ( -> { !types[Types::ComposerType] })
@@ -23,4 +22,7 @@ Types::WorkType = GraphQL::ObjectType.define do
   field :orchestrators, ( -> { !types[Types::ComposerType] })
   field :production_companies, ( -> { !types[Types::ProductionCompanyType] })
   field :publishers, ( -> { !types[Types::PublisherType] })
+
+  field :created_by, (-> { Types::CatalogerType })
+  field :updated_by, (-> { Types::CatalogerType })
 end

@@ -14,7 +14,7 @@ class Resolvers::UpdateDirectorTest < ActiveSupport::TestCase
     @director = Director.create!(
       name: 'Steven Spielberg',
       imdb_link: 'example.com/spielberg',
-      cataloger: @cataloger
+      created_by: @cataloger
     )
     @new_cataloger = Cataloger.create!(
       name: 'test2',
@@ -37,6 +37,7 @@ class Resolvers::UpdateDirectorTest < ActiveSupport::TestCase
     assert_equal updated_director.id, @director.id
     assert_equal updated_director.name, name
     assert_equal updated_director.imdb_link, imdb_link
-    assert_equal updated_director.cataloger, @new_cataloger
+    assert_equal updated_director.created_by, @cataloger
+    assert_equal updated_director.updated_by, @new_cataloger
   end
 end

@@ -21,7 +21,7 @@ class Resolvers::UpdateMediaType < GraphQL::Function
       args[:id],
       name: args[:name],
       description: args[:description],
-      cataloger: ctx[:current_user],
+      updated_by: ctx[:current_user],
     )
 
   rescue ActiveRecord::RecordInvalid => e

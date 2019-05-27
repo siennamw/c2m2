@@ -13,7 +13,6 @@ class Resolvers::CreateCatalogerTest < ActiveSupport::TestCase
       admin: true,
     )
 
-
     @non_admin = Cataloger.create!(
       name: 'non-admin',
       email: 'non-admin@email.com',

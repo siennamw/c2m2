@@ -20,7 +20,7 @@ class Resolvers::UpdateRepository < GraphQL::Function
       name: args[:name],
       location: args[:location],
       website: args[:website],
-      cataloger: ctx[:current_user],
+      updated_by: ctx[:current_user],
     )
 
   rescue ActiveRecord::RecordInvalid => e

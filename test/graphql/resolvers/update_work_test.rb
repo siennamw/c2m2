@@ -28,7 +28,7 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
     @repository = Repository.create!(
       name: 'a repository',
       location: 'Boulder, CO',
-      cataloger: @cataloger
+      created_by: @cataloger
     )
 
     @collection_ids = []
@@ -42,27 +42,27 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
       @collection_ids << Collection.create!(
         name: "collection #{n}",
         repository: @repository,
-        cataloger: @cataloger
+        created_by: @cataloger
       ).id
       @composer_ids << Composer.create!(
         name: "composer #{n}",
-        cataloger: @cataloger
+        created_by: @cataloger
       ).id
       @director_ids << Director.create!(
         name: "director #{n}",
-        cataloger: @cataloger
+        created_by: @cataloger
       ).id
       @orchestrator_ids << Composer.create!(
         name: "orchestrator #{n}",
-        cataloger: @cataloger
+        created_by: @cataloger
       ).id
       @production_company_ids << ProductionCompany.create!(
         name: "production company #{n}",
-        cataloger: @cataloger
+        created_by: @cataloger
       ).id
       @publisher_ids << Publisher.create!(
         name: "publisher #{n}",
-        cataloger: @cataloger
+        created_by: @cataloger
       ).id
     end
 
@@ -73,15 +73,15 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
     3.times do |n|
       @countries << Country.create(
         name: "country #{n}",
-        cataloger: @cataloger
+        created_by: @cataloger
       )
       @media_types << MediaType.create!(
         name: "media type #{n}",
-        cataloger: @cataloger
+        created_by: @cataloger
       )
       @material_formats << MaterialFormat.create!(
         name: "material format #{n}",
-        cataloger: @cataloger
+        created_by: @cataloger
       )
     end
 
@@ -91,7 +91,7 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
       country_id: @countries[0].id,
       media_type_id: @media_types[0].id,
       material_format_id: @material_formats[0].id,
-      cataloger: @cataloger
+      created_by: @cataloger
     )
   end
 
@@ -120,7 +120,8 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
 
     assert_equal updated_work.media_type, @media_types[1]
     assert_equal updated_work.material_format, @material_formats[1]
-    assert_equal updated_work.cataloger, @new_cataloger
+    assert_equal updated_work.created_by, @cataloger
+    assert_equal updated_work.updated_by, @new_cataloger
 
     # optional fields not passed are removed
     assert_nil updated_work.country
@@ -185,7 +186,8 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
     assert_equal updated_work.media_type, @media_types[2]
     assert_equal updated_work.material_format, @material_formats[2]
 
-    assert_equal updated_work.cataloger, @new_cataloger
+    assert_equal updated_work.created_by, @cataloger
+    assert_equal updated_work.updated_by, @new_cataloger
 
     assert_equal updated_work.collections.map { |obj| obj.id }, @collection_ids
     assert_equal updated_work.composers.map { |obj| obj.id }, @composer_ids
@@ -221,7 +223,9 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
 
     assert_equal updated_work.media_type, @media_types[1]
     assert_equal updated_work.material_format, @material_formats[1]
-    assert_equal updated_work.cataloger, @new_cataloger
+
+    assert_equal updated_work.created_by, @cataloger
+    assert_equal updated_work.updated_by, @new_cataloger
 
     # optional fields not passed are removed
     assert_nil updated_work.country
@@ -254,7 +258,9 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
 
     assert_equal updated_work.media_type, @media_types[1]
     assert_equal updated_work.material_format, @material_formats[1]
-    assert_equal updated_work.cataloger, @admin_cataloger
+
+    assert_equal updated_work.created_by, @cataloger
+    assert_equal updated_work.updated_by, @admin_cataloger
 
     # optional fields not passed are removed
     assert_nil updated_work.country

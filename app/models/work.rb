@@ -2,7 +2,6 @@ class Work < ApplicationRecord
   belongs_to :country, optional: true
   belongs_to :media_type
   belongs_to :material_format
-  belongs_to :cataloger
 
   has_and_belongs_to_many :collections
   has_many :repositories, through: :collections
@@ -15,6 +14,9 @@ class Work < ApplicationRecord
   has_and_belongs_to_many :directors
   has_and_belongs_to_many :production_companies
   has_and_belongs_to_many :publishers
+
+  belongs_to :created_by, class_name: 'Cataloger'
+  belongs_to :updated_by, class_name: 'Cataloger', optional: true
 
   validates_presence_of :title
   validates_presence_of :year

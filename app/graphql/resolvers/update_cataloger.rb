@@ -29,11 +29,11 @@ class Resolvers::UpdateCataloger < GraphQL::Function
       raise GraphQL::ExecutionError.new("You do not have permission to edit this cataloger")
     end
 
-    # only admins can make other catalogers admins
-    if !ctx[:current_user].admin && args[:admin] == true
-      is_admin = cataloger.admin
-    else
+    # only admins can change admin status of catalogers
+    if ctx[:current_user].admin
       is_admin = !!args[:admin]
+    else
+      is_admin = cataloger.admin
     end
 
     cataloger.update(
@@ -41,8 +41,8 @@ class Resolvers::UpdateCataloger < GraphQL::Function
       email: args[:authProvider][:email][:email],
       password: args[:authProvider][:email][:password],
       description: args[:description],
-      created_by: ctx[:current_user],
       admin: is_admin,
+      updated_by: ctx[:current_user],
     )
 
     # TODO: implement user info change email

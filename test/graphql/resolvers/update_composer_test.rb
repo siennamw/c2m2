@@ -14,7 +14,7 @@ class Resolvers::UpdateComposerTest < ActiveSupport::TestCase
     @composer = Composer.create!(
       name: 'a composer',
       imdb_link: 'example.com/composer',
-      cataloger: @cataloger
+      created_by: @cataloger
     )
     @new_cataloger = Cataloger.create!(
       name: 'test2',
@@ -37,6 +37,7 @@ class Resolvers::UpdateComposerTest < ActiveSupport::TestCase
     assert_equal composer.id, @composer.id
     assert_equal composer.name, name
     assert_equal composer.imdb_link, imdb_link
-    assert_equal composer.cataloger, @new_cataloger
+    assert_equal composer.created_by, @cataloger
+    assert_equal composer.updated_by, @new_cataloger
   end
 end

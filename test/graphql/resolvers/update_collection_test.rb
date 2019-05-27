@@ -18,12 +18,12 @@ class Resolvers::UpdateCollectionTest < ActiveSupport::TestCase
     @repository = Repository.create!(
       name: 'Parent Repo',
       location: 'Boulder, CO',
-      cataloger: @cataloger
+      created_by: @cataloger,
     )
     @collection = Collection.create!(
       name: 'Collection',
       repository_id: @repository.id,
-      cataloger: @cataloger
+      created_by: @cataloger,
     )
     @new_cataloger = Cataloger.create!(
       name: 'test2',
@@ -48,6 +48,7 @@ class Resolvers::UpdateCollectionTest < ActiveSupport::TestCase
     assert_equal updated_collection.name, name
     assert_equal updated_collection.description, description
     assert_equal updated_collection.repository, @repository
-    assert_equal updated_collection.cataloger, @new_cataloger
+    assert_equal updated_collection.created_by, @cataloger
+    assert_equal updated_collection.updated_by, @new_cataloger
   end
 end

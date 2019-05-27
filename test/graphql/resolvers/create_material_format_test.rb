@@ -14,13 +14,13 @@ class Resolvers::CreateMaterialFormatTest < ActiveSupport::TestCase
     description = 'awesome material format'
 
     material_format = perform(
-    name: name,
-    description: description,
+      name: name,
+      description: description,
     )
 
     assert material_format.persisted?
     assert_equal material_format.name, name
     assert_equal material_format.description, description
-    assert_equal material_format.cataloger, @cataloger
+    assert_equal material_format.created_by, @cataloger
   end
 end

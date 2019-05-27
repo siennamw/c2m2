@@ -15,36 +15,36 @@ sienna = Cataloger.create(
 )
 
 # Countries
-us = Country.create(name: 'United States', cataloger: michael)
-japan = Country.create(name: 'Japan', cataloger: michael)
-uk = Country.create(name: 'United Kingdom', cataloger: sienna)
+us = Country.create(name: 'United States', created_by: michael)
+japan = Country.create(name: 'Japan', created_by: michael)
+uk = Country.create(name: 'United Kingdom', created_by: sienna)
 
 # Media Types
-ff_narrative = MediaType.create(name: 'Feature Film - Narrative', cataloger: michael)
+ff_narrative = MediaType.create(name: 'Feature Film - Narrative', created_by: michael)
 MediaType.create([
-                 { name: 'Feature Film - Documentary/Other', cataloger: michael },
-                 { name: 'Short Film - Narrative', cataloger: michael },
-                 { name: 'Short Film - Documentary/Other', cataloger: michael },
-                 { name: 'Silent Film - Feature, Short, or Photoplay', cataloger: michael },
-                 { name: 'Serial Series - Narrative', cataloger: sienna },
-                 { name: 'Serial Series - Documentary/Other', cataloger: sienna },
-                 { name: 'Serial Series - Information/Education', cataloger: sienna },
-                 { name: 'Video Game', cataloger: sienna },
-                 { name: 'Radio or Podcast', cataloger: sienna },
+                 { name: 'Feature Film - Documentary/Other', created_by: michael },
+                 { name: 'Short Film - Narrative', created_by: michael },
+                 { name: 'Short Film - Documentary/Other', created_by: michael },
+                 { name: 'Silent Film - Feature, Short, or Photoplay', created_by: michael },
+                 { name: 'Serial Series - Narrative', created_by: sienna },
+                 { name: 'Serial Series - Documentary/Other', created_by: sienna },
+                 { name: 'Serial Series - Information/Education', created_by: sienna },
+                 { name: 'Video Game', created_by: sienna },
+                 { name: 'Radio or Podcast', created_by: sienna },
                  ])
 
 # Material Formats
-manuscript_score = MaterialFormat.create(name: 'Manuscript Scores', cataloger: michael)
-printed_score_parts = MaterialFormat.create(name: 'Printed Scores and Parts', cataloger: michael)
+manuscript_score = MaterialFormat.create(name: 'Manuscript Scores', created_by: michael)
+printed_score_parts = MaterialFormat.create(name: 'Printed Scores and Parts', created_by: michael)
 MaterialFormat.create([
-                        { name: 'Short Scores', cataloger: michael },
-                        { name: 'Sketches', cataloger: michael },
-                        { name: 'Published Scores or Collections', cataloger: michael },
-                        { name: 'Cue Sheets', cataloger: michael },
-                        { name: 'Working Notes', cataloger: sienna },
-                        { name: 'Recordings', cataloger: sienna },
-                        { name: 'Contracts', cataloger: sienna },
-                        { name: 'Personal Papers and Other Items', cataloger: sienna },
+                        { name: 'Short Scores', created_by: michael },
+                        { name: 'Sketches', created_by: michael },
+                        { name: 'Published Scores or Collections', created_by: michael },
+                        { name: 'Cue Sheets', created_by: michael },
+                        { name: 'Working Notes', created_by: sienna },
+                        { name: 'Recordings', created_by: sienna },
+                        { name: 'Contracts', created_by: sienna },
+                        { name: 'Personal Papers and Other Items', created_by: sienna },
                       ])
 
 # Repositories
@@ -52,227 +52,227 @@ harris = Repository.create(
   name: 'Michael W. Harris Family Archive and Arcade Fun Complex',
   location: 'Boulder, CO',
   website: 'http://www.michaelwharris.net/',
-  cataloger: michael,
+  created_by: michael,
 )
 amrc = Repository.create(
   name: 'American Music Research Center at CU Boulder',
   location: 'Boulder, CO',
   website: 'http://www.colorado.edu/amrc/',
-  cataloger: sienna,
+  created_by: sienna,
 )
 ahc = Repository.create(
   name: 'American Heritage Center at University of Wyoming',
   location: 'Laramie, WY',
   website: 'http://www.uwyo.edu/ahc/',
-  cataloger: michael,
+  created_by: michael,
 )
 amjm = Repository.create(
   name: 'Archives of Modern Japanese Music at Meiji Gakuin University',
   location: 'Tokyo, Japan',
   website: 'http://www.meijigakuin.ac.jp/library/amjm/en/',
-  cataloger: sienna,
+  created_by: sienna,
 )
 
 # Collections
 harris_collection = Collection.create(
   name: 'Michael W. Harris Collection',
   repository: harris,
-  cataloger: michael,
+  created_by: michael,
 )
 grusin_collection = Collection.create(
   name: 'Dave Grusin manuscripts',
   repository: amrc,
-  cataloger: sienna,
+  created_by: sienna,
 )
 jarre_collection = Collection.create(
   name: 'Maurice Jarre papers',
   repository: ahc,
-  cataloger: sienna,
+  created_by: sienna,
 )
 hayasaka_collection = Collection.create(
   name: 'Fumio Hayasaka Collection',
   repository: amjm,
-  cataloger: michael,
+  created_by: michael,
 )
 
 # Composers
 broughton = Composer.create(
   name: 'Broughton, Bruce, 1945-',
   imdb_link: 'http://www.imdb.com/name/nm0005976/',
-  cataloger: sienna
+  created_by: sienna
 )
 davis = Composer.create(
   name: 'Davis, Don, 1957-',
   imdb_link: 'http://www.imdb.com/name/nm0204485/',
-  cataloger: sienna
+  created_by: sienna
 )
 elfman = Composer.create(
   name: 'Elfman, Danny',
   imdb_link: 'http://www.imdb.com/name/nm0000384/',
-  cataloger: sienna
+  created_by: sienna
 )
 horner = Composer.create(
   name: 'Horner, James',
   imdb_link: 'http://www.imdb.com/name/nm0000035/',
-  cataloger: sienna
+  created_by: sienna
 )
 silvestri = Composer.create(
   name: 'Silvestri, Alan',
   imdb_link: 'http://www.imdb.com/name/nm0006293/',
-  cataloger: michael
+  created_by: michael
 )
 hayasaka = Composer.create(
   name: 'Hayasaka, Fumio, 1914-1955',
   imdb_link: 'http://www.imdb.com/name/nm0370593/',
-  cataloger: michael
+  created_by: michael
 )
 grusin = Composer.create(
   name: 'Grusin, Dave',
   imdb_link: 'http://www.imdb.com/name/nm0006115/',
-  cataloger: michael
+  created_by: michael
 )
 jarre = Composer.create(
   name: 'Jarre, Maurice',
   imdb_link: 'http://www.imdb.com/name/nm0003574/',
-  cataloger: michael
+  created_by: michael
 )
 
 # Directors
 kasdan = Director.create(
   name: 'Kasdan, Lawrence, 1949-',
   imdb_link: 'http://www.imdb.com/name/nm0001410/',
-  cataloger: michael
+  created_by: michael
 )
 wachowski_lilly = Director.create(
   name: 'Wachowski, Lilly, 1967-',
   imdb_link: 'http://www.imdb.com/name/nm0905152/',
-  cataloger: michael
+  created_by: michael
 )
 wachowski_lana = Director.create(
   name: 'Wachowski, Lana, 1965-',
   imdb_link: 'http://www.imdb.com/name/nm0905154/',
-  cataloger: michael
+  created_by: michael
 )
 burton = Director.create(
   name: 'Burton, Tim, 1958-',
   imdb_link: 'http://www.imdb.com/name/nm0000318/',
-  cataloger: michael
+  created_by: michael
 )
 howard = Director.create(
   name: 'Howard, Ron, 1954-',
   imdb_link: 'http://www.imdb.com/name/nm0000165/',
-  cataloger: michael
+  created_by: michael
 )
 zemeckis = Director.create(
   name: 'Zemeckis, Robert, 1952-',
   imdb_link: 'http://www.imdb.com/name/nm0000709/',
-  cataloger: sienna
+  created_by: sienna
 )
 kurosawa = Director.create(
   name: 'Kurosawa, Akira, 1910-1998',
   imdb_link: 'http://www.imdb.com/name/nm0000041/',
-  cataloger: sienna
+  created_by: sienna
 )
 donner = Director.create(
   name: 'Donner, Richard',
   imdb_link: 'http://www.imdb.com/name/nm0001149/',
-  cataloger: sienna
+  created_by: sienna
 )
 lean = Director.create(
   name: 'Lean, David, 1908-1991',
   imdb_link: 'http://www.imdb.com/name/nm0000180/',
-  cataloger: sienna
+  created_by: sienna
 )
 
 # Production Companies
 columbia = ProductionCompany.create(
   name: 'Columbia Pictures Corporation',
   contact_info: 'http://www.sonypictures.com/',
-  cataloger: michael
+  created_by: michael
 )
 warner_bros = ProductionCompany.create(
   name: 'Warner Bros. Pictures (1969- )',
   contact_info: 'http://www.warnerbros.com/',
-  cataloger: michael
+  created_by: michael
 )
 village_roadshow = ProductionCompany.create(
   name: 'Village Roadshow Pictures',
   contact_info: 'http://vreg.com/',
-  cataloger: michael
+  created_by: michael
 )
 fox = ProductionCompany.create(
   name: 'Twentieth Century Fox Film Corporation',
   contact_info: 'http://www.foxmovies.com/',
-  cataloger: michael
+  created_by: michael
 )
 mgm = ProductionCompany.create(
   name: 'Metro-Goldwyn-Mayer',
   contact_info: 'http://www.mgm.com/',
-  cataloger: michael
+  created_by: michael
 )
 lucasfilm = ProductionCompany.create(
   name: 'Lucasfilm, Ltd.',
   contact_info: 'http://lucasfilm.com/',
-  cataloger: michael
+  created_by: michael
 )
 imagine = ProductionCompany.create(
   name: 'Imagine Entertainment (Firm)',
   contact_info: 'http://www.imagine-entertainment.com/',
-  cataloger: michael
+  created_by: michael
 )
 universal = ProductionCompany.create(
   name: 'Universal Pictures Company',
   contact_info: 'https://www.universalpictures.com/',
-  cataloger: michael
+  created_by: michael
 )
 amblin = ProductionCompany.create(
   name: 'Amblin Entertainment (Firm)',
   contact_info: 'http://www.amblinpartners.com/',
-  cataloger: michael
+  created_by: michael
 )
 toho = ProductionCompany.create(
   name: 'Tōhō Kabushiki Kaisha',
   contact_info: 'http://www.tohoeiga.jp/eng/aisatu.html',
-  cataloger: michael
+  created_by: michael
 )
 udrive = ProductionCompany.create(
   name: 'U-Drive Productions',
-  cataloger: michael
+  created_by: michael
 )
 daiei = ProductionCompany.create(
   name: 'Daiei Kabushiki Kaisha (1945-1971)',
-  cataloger: michael
+  created_by: michael
 )
 horizon = ProductionCompany.create(
   name: 'Horizon Pictures (G.B.)',
-  cataloger: sienna
+  created_by: sienna
 )
 delphi = ProductionCompany.create(
   name: 'Columbia-Delphi IV Productions',
-  cataloger: sienna
+  created_by: sienna
 )
 groucho = ProductionCompany.create(
   name: 'Groucho II Film Partnership',
-  cataloger: sienna
+  created_by: sienna
 )
 silver = ProductionCompany.create(
   name: 'Silver Pictures',
-  cataloger: sienna
+  created_by: sienna
 )
 guber = ProductionCompany.create(
   name: 'Guber-Peters Company',
-  cataloger: sienna
+  created_by: sienna
 )
 polygram = ProductionCompany.create(
   name: 'PolyGram Filmed Entertainment (Firm)',
-  cataloger: sienna
+  created_by: sienna
 )
 
 # Publishers
 omni = Publisher.create(
   name: 'Omni Music Publishing',
   contact_info: 'http://www.omnimusicpublishing.com/',
-  cataloger: michael
+  created_by: michael
 )
 
 # Works
@@ -282,7 +282,7 @@ Work.create([
                 country: us,
                 media_type: ff_narrative,
                 material_format: printed_score_parts,
-                cataloger: michael,
+                created_by: michael,
                 citation_source: 'Copy Owned',
                 collections: [harris_collection],
                 composers: [broughton],
@@ -295,7 +295,7 @@ Work.create([
                 country: us,
                 media_type: ff_narrative,
                 material_format: printed_score_parts,
-                cataloger: michael,
+                created_by: michael,
                 citation_source: 'Copy Owned',
                 collections: [harris_collection],
                 composers: [davis],
@@ -308,7 +308,7 @@ Work.create([
                 country: us,
                 media_type: ff_narrative,
                 material_format: printed_score_parts,
-                cataloger: michael,
+                created_by: michael,
                 citation_source: 'Copy Owned',
                 collections: [harris_collection],
                 composers: [elfman],
@@ -321,7 +321,7 @@ Work.create([
                 country: us,
                 media_type: ff_narrative,
                 material_format: printed_score_parts,
-                cataloger: michael,
+                created_by: michael,
                 citation_source: 'Copy Owned',
                 collections: [harris_collection],
                 composers: [elfman],
@@ -334,7 +334,7 @@ Work.create([
                 country: us,
                 media_type: ff_narrative,
                 material_format: printed_score_parts,
-                cataloger: sienna,
+                created_by: sienna,
                 citation_source: 'Copy Owned',
                 collections: [harris_collection],
                 composers: [horner],
@@ -347,7 +347,7 @@ Work.create([
                 country: us,
                 media_type: ff_narrative,
                 material_format: printed_score_parts,
-                cataloger: sienna,
+                created_by: sienna,
                 citation_source: 'Copy Owned',
                 collections: [harris_collection],
                 composers: [silvestri],
@@ -360,7 +360,7 @@ Work.create([
                 country: japan,
                 media_type: ff_narrative,
                 material_format: manuscript_score,
-                cataloger: sienna,
+                created_by: sienna,
                 citation_source: 'Copy Owned',
                 collections: [hayasaka_collection],
                 composers: [hayasaka],
@@ -373,7 +373,7 @@ Work.create([
                 media_type: ff_narrative,
                 finding_aid_link: 'http://www.uwyo.edu/ahc/_files/pdffa/03261.pdf',
                 material_format: manuscript_score,
-                cataloger: sienna,
+                created_by: sienna,
                 citation_source: 'Institutional Website',
                 collections: [jarre_collection],
                 composers: [jarre],
@@ -386,7 +386,7 @@ Work.create([
                 media_type: ff_narrative,
                 finding_aid_link: 'http://www.colorado.edu/amrc/sites/default/files/attached-files/AMRC-Grusin.pdf',
                 material_format: manuscript_score,
-                cataloger: sienna,
+                created_by: sienna,
                 citation_source: 'Institutional Contact',
                 collections: [grusin_collection],
                 composers: [grusin],
@@ -399,7 +399,7 @@ Work.create([
                 country: japan,
                 media_type: ff_narrative,
                 material_format: manuscript_score,
-                cataloger: sienna,
+                created_by: sienna,
                 citation_source: 'Email with Repository',
                 collections: [hayasaka_collection],
                 composers: [hayasaka],

@@ -6,7 +6,8 @@ Types::CollectionType = GraphQL::ObjectType.define do
   field :description, types.String
 
   field :repository, (-> { Types::RepositoryType })
-  field :cataloger, (-> { Types::CatalogerType })
-
   field :works, ( -> { !types[Types::WorkType] })
+
+  field :created_by, (-> { Types::CatalogerType })
+  field :updated_by, (-> { Types::CatalogerType })
 end

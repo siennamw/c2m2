@@ -21,6 +21,6 @@ class Resolvers::CreateComposerTest < ActiveSupport::TestCase
     assert composer.persisted?
     assert_equal composer.name, name
     assert_equal composer.imdb_link, imdb_link
-    assert_equal composer.cataloger, @cataloger
+    assert_equal composer.created_by, @cataloger
   end
 end

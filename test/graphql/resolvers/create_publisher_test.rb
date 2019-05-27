@@ -21,6 +21,6 @@ class Resolvers::CreatePublisherTest < ActiveSupport::TestCase
     assert publisher.persisted?
     assert_equal publisher.name, name
     assert_equal publisher.contact_info, contact_info
-    assert_equal publisher.cataloger, @cataloger
+    assert_equal publisher.created_by, @cataloger
   end
 end

@@ -14,13 +14,13 @@ class Resolvers::CreateDirectorTest < ActiveSupport::TestCase
     imdb_link = 'example.com/hitchcock'
 
     director = perform(
-    name: name,
-    imdb_link: imdb_link,
+      name: name,
+      imdb_link: imdb_link,
     )
 
     assert director.persisted?
     assert_equal director.name, name
     assert_equal director.imdb_link, imdb_link
-    assert_equal director.cataloger, @cataloger
+    assert_equal director.created_by, @cataloger
   end
 end

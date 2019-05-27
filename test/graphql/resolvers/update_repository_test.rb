@@ -15,7 +15,7 @@ class Resolvers::UpdateRepositoryTest < ActiveSupport::TestCase
       name: 'a repository',
       location: 'Memphis, TN',
       website: 'repository.org',
-      cataloger: @cataloger
+      created_by: @cataloger
     )
     @new_cataloger = Cataloger.create!(
       name: 'test2',
@@ -41,6 +41,7 @@ class Resolvers::UpdateRepositoryTest < ActiveSupport::TestCase
     assert_equal updated_repository.name, name
     assert_equal updated_repository.location, location
     assert_equal updated_repository.website, website
-    assert_equal updated_repository.cataloger, @new_cataloger
+    assert_equal updated_repository.created_by, @cataloger
+    assert_equal updated_repository.updated_by, @new_cataloger
   end
 end

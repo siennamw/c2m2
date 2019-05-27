@@ -13,11 +13,11 @@ class Resolvers::WorksSearchTest < ActiveSupport::TestCase
     )
     @media_type = MediaType.create!(
       name: 'a media type',
-      cataloger: @cataloger
+      created_by: @cataloger
     )
     @material_format = MaterialFormat.create!(
       name: 'a material format',
-      cataloger: @cataloger
+      created_by: @cataloger
     )
   end
 
@@ -25,7 +25,7 @@ class Resolvers::WorksSearchTest < ActiveSupport::TestCase
     works = []
     4.times do |n|
       works << Work.create!(
-        cataloger: @cataloger,
+        created_by: @cataloger,
         title: "title#{n}",
         secondary_title: "secondary#{n}",
         alias_alternates: "alias#{n}",
@@ -56,7 +56,7 @@ class Resolvers::WorksSearchTest < ActiveSupport::TestCase
     works = []
     4.times do |n|
       works << Work.create!(
-        cataloger: @cataloger,
+        created_by: @cataloger,
         title: "TITLE#{n}",
         secondary_title: "Secondary#{n}",
         alias_alternates: "aLiAs#{n}",
@@ -87,7 +87,7 @@ class Resolvers::WorksSearchTest < ActiveSupport::TestCase
     works = []
     4.times do |n|
       works << Work.create!(
-        cataloger: @cataloger,
+        created_by: @cataloger,
         title: "TITLE#{n}",
         secondary_title: "Secondary#{n}",
         alias_alternates: "aLiAs#{n}",
@@ -99,7 +99,7 @@ class Resolvers::WorksSearchTest < ActiveSupport::TestCase
 
     2.times do |n|
       w = Work.create!(
-        cataloger: @cataloger,
+        created_by: @cataloger,
         title: "TITLE#{n}",
         secondary_title: "Secondary#{n}",
         alias_alternates: "aLiAs#{n}",
@@ -126,7 +126,7 @@ class Resolvers::WorksSearchTest < ActiveSupport::TestCase
     works = []
     2.times do |n|
       works << Work.create!(
-        cataloger: @cataloger,
+        created_by: @cataloger,
         title: "TITLE#{n}",
         secondary_title: "Secondary#{n}",
         alias_alternates: "aLiAs#{n}",
@@ -138,7 +138,7 @@ class Resolvers::WorksSearchTest < ActiveSupport::TestCase
 
     2.times do |n|
       w = Work.create!(
-        cataloger: @cataloger,
+        created_by: @cataloger,
         title: "TITLE#{n}",
         secondary_title: "Secondary#{n}",
         alias_alternates: "aLiAs#{n}",
@@ -167,7 +167,7 @@ class Resolvers::WorksSearchTest < ActiveSupport::TestCase
     works = []
     4.times do |n|
       works << Work.create!(
-        cataloger: @cataloger,
+        created_by: @cataloger,
         title: "TITLE#{n}",
         secondary_title: "Secondary#{n}",
         alias_alternates: "aLiAs#{n}",
@@ -179,7 +179,7 @@ class Resolvers::WorksSearchTest < ActiveSupport::TestCase
 
     2.times do |n|
       w = Work.create!(
-        cataloger: @cataloger,
+        created_by: @cataloger,
         title: "TITLE#{n}",
         secondary_title: "Secondary#{n}",
         alias_alternates: "aLiAs#{n}",

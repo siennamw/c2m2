@@ -50,7 +50,7 @@ class Resolvers::CreateWork < GraphQL::Function
       media_type_id: args[:media_type_id],
       material_format_id: args[:material_format_id],
 
-      cataloger: ctx[:current_user],
+      created_by: ctx[:current_user],
 
       collection_ids: args[:collection_ids],
       composer_ids: args[:composer_ids],

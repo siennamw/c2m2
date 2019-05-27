@@ -20,7 +20,7 @@ class Resolvers::CreateCollection < GraphQL::Function
       name: args[:name],
       description: args[:description],
       repository: repository,
-      cataloger: ctx[:current_user],
+      created_by: ctx[:current_user],
     )
 
   rescue ActiveRecord::RecordInvalid => e

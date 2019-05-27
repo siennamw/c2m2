@@ -5,7 +5,8 @@ Types::PublisherType = GraphQL::ObjectType.define do
   field :name, !types.String
   field :contact_info, types.String
 
-  field :cataloger, (-> { Types::CatalogerType })
-
   field :works, ( -> { !types[Types::WorkType] })
+
+  field :created_by, (-> { Types::CatalogerType })
+  field :updated_by, (-> { Types::CatalogerType })
 end
