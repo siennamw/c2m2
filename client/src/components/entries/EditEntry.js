@@ -1,4 +1,5 @@
-import React from 'react';
+import moment from 'moment';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 
@@ -31,17 +32,41 @@ const EditEntry = ({
         const { selfIsAdmin } = data;
         const entryIsSelf = data[queryName].is_self;
 
+        const createdAt = data[queryName].created_at;
+        const createdBy = data[queryName].created_by;
+        const updatedAt = data[queryName].updated_at;
+        const updatedBy = data[queryName].updated_by;
+
+        const createdInfo = createdAt && createdBy
+          ? (
+            <p className="center-text">
+              Created {moment(createdAt, 'YYYY-MM-DD hh:mm:ss').utc().format('YYYY-MM-DD hh:mm')} by {createdBy.name}
+            </p>
+          )
+          : undefined;
+        const lastUpdatedInfo = updatedAt && updatedBy
+          ? (
+            <p className="center-text">
+              Last updated {moment(updatedAt, 'YYYY-MM-DD hh:mm:ss').utc().format('YYYY-MM-DD hh:mm')} by {updatedBy.name}
+            </p>
+          )
+          : undefined;
+
         content = (
-          <NewEntry
-            FormComponent={FormComponent}
-            entryIsSelf={entryIsSelf}
-            gqlMutation={gqlMutation}
-            initialValues={data[queryName]}
-            mutationName={mutationName}
-            selfIsAdmin={selfIsAdmin}
-            title={title}
-            yupSchema={yupSchema}
-          />
+          <Fragment>
+            <NewEntry
+              FormComponent={FormComponent}
+              entryIsSelf={entryIsSelf}
+              gqlMutation={gqlMutation}
+              initialValues={data[queryName]}
+              mutationName={mutationName}
+              selfIsAdmin={selfIsAdmin}
+              title={title}
+              yupSchema={yupSchema}
+            />
+            { createdInfo }
+            { lastUpdatedInfo }
+          </Fragment>
         );
       }
 
