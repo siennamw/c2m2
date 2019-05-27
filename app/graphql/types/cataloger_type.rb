@@ -19,6 +19,18 @@ Types::CatalogerType = GraphQL::ObjectType.define do
   field :repositories, ( -> { !types[Types::RepositoryType] })
   field :works, ( -> { !types[Types::WorkType] })
 
+  field :catalogers_as_updater, ( -> { !types[Types::CatalogerType] })
+  field :collections_as_updater, ( -> { !types[Types::CollectionType] })
+  field :composers_as_updater, ( -> { !types[Types::ComposerType] })
+  field :countries_as_updater, ( -> { !types[Types::CountryType] })
+  field :directors_as_updater, ( -> { !types[Types::DirectorType] })
+  field :material_formats_as_updater, ( -> { !types[Types::MaterialFormatType] })
+  field :media_types_as_updater, ( -> { !types[Types::MediaTypeType] })
+  field :production_companies_as_updater, ( -> { !types[Types::ProductionCompanyType] })
+  field :publishers_as_updater, ( -> { !types[Types::PublisherType] })
+  field :repositories_as_updater, ( -> { !types[Types::RepositoryType] })
+  field :works_as_updater, ( -> { !types[Types::WorkType] })
+
   field :created_by, (-> { Types::CatalogerType })
   field :updated_by, (-> { Types::CatalogerType })
 
