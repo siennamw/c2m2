@@ -22,6 +22,9 @@ Types::CatalogerType = GraphQL::ObjectType.define do
   field :created_by, (-> { Types::CatalogerType })
   field :updated_by, (-> { Types::CatalogerType })
 
+  field :created_at, !types.String
+  field :updated_at, !types.String
+
   field :is_self, types.Boolean do
     resolve ->(obj, args, ctx) {
       obj.id == ctx[:current_user].id

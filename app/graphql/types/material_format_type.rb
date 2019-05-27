@@ -9,4 +9,7 @@ Types::MaterialFormatType = GraphQL::ObjectType.define do
 
   field :created_by, (-> { Types::CatalogerType })
   field :updated_by, (-> { Types::CatalogerType })
+
+  field :created_at, !types.String
+  field :updated_at, !types.String
 end
