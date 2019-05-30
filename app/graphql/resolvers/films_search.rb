@@ -1,0 +1,58 @@
+require 'search_object/plugin/graphql'
+
+class Resolvers::FilmsSearch
+  # include SearchObject for GraphQL
+  include SearchObject.module(:graphql)
+
+  # scope is starting point for search
+  scope { Film.all }
+
+  # return type
+  type !types[Types::FilmType]
+
+  # inline input type definition for the advance filter
+  FilmFilter = GraphQL::InputObjectType.define do
+    name 'FilmFilter'
+
+    argument :OR, -> { types[FilmFilter] }
+    argument :title_contains, types.String
+    argument :secondary_title_contains, types.String
+    argument :alias_alternates_contains, types.String
+  end
+
+  # when "filter" is passed "apply_filter" would be called to narrow the scope
+  option :filter, type: FilmFilter, with: :apply_filter
+  option :first, type: types.Int, with: :apply_first
+  option :skip, type: types.Int, with: :apply_skip
+
+  def apply_first(scope, value)
+    scope.limit(value)
+  end
+
+  def apply_skip(scope, value)
+    scope.offset(value)
+  end
+
+  # apply_filter recursively loops through "OR" branches
+  def apply_filter(scope, value)
+    # normalize filters from nested OR structure, to flat scope list
+    branches = normalize_filters(value).reduce { |a, b| a.or(b) }
+    scope.merge branches
+  end
+
+  def normalize_filters(value, branches = [])
+    # add like SQL conditions
+    scope = Film.all
+
+    scope = scope.where('title ILIKE ?', "%#{value['title_contains']}%") if value['title_contains']
+    scope = scope.where('secondary_title ILIKE ?', "%#{value['secondary_title_contains']}%") if value['secondary_title_contains']
+    scope = scope.where('alias_alternates ILIKE ?', "%#{value['alias_alternates_contains']}%") if value['alias_alternates_contains']
+
+    branches << scope
+
+    # continue to normalize down
+    value['OR'].reduce(branches) { |s, v| normalize_filters(v, s) } if value['OR'].present?
+
+    branches
+  end
+end

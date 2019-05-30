@@ -6,6 +6,7 @@ Types::MutationType = GraphQL::ObjectType.define do
   field :createComposer, function: Resolvers::CreateComposer.new
   field :createCountry, function: Resolvers::CreateCountry.new
   field :createDirector, function: Resolvers::CreateDirector.new
+  field :createFilm, function: Resolvers::CreateFilm.new
   field :createMaterialFormat, function: Resolvers::CreateMaterialFormat.new
   field :createMediaType, function: Resolvers::CreateMediaType.new
   field :createProductionCompany, function: Resolvers::CreateProductionCompany.new
@@ -18,6 +19,7 @@ Types::MutationType = GraphQL::ObjectType.define do
   field :updateComposer, function: Resolvers::UpdateComposer.new
   field :updateCountry, function: Resolvers::UpdateCountry.new
   field :updateDirector, function: Resolvers::UpdateDirector.new
+  field :updateFilm, function: Resolvers::UpdateFilm.new
   field :updateMaterialFormat, function: Resolvers::UpdateMaterialFormat.new
   field :updateMediaType, function: Resolvers::UpdateMediaType.new
   field :updateProductionCompany, function: Resolvers::UpdateProductionCompany.new

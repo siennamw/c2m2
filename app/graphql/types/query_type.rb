@@ -72,6 +72,15 @@ Types::QueryType = GraphQL::ObjectType.define do
     resolve ->(obj, args, ctx) { Director.find(args[:id]) }
   end
 
+  field :allFilms, function: Resolvers::FilmsSearch
+
+  field :film do
+    type Types::FilmType
+    description "Film by ID"
+    argument :id, !types.ID
+    resolve ->(obj, args, ctx) { Film.find(args[:id]) }
+  end
+
   field :allMaterialFormats do
     type types[Types::MaterialFormatType]
     description "A list of all material formats"
