@@ -22,6 +22,7 @@ import DetailedCollection from './entries/collection/DetailedCollection';
 import DetailedComposer from './entries/composer/DetailedComposer';
 import DetailedCountry from './entries/country/DetailedCountry';
 import DetailedDirector from './entries/director/DetailedDirector';
+import DetailedFilm from './entries/film/DetailedFilm';
 import DetailedMaterialFormat from './entries/materialFormat/DetailedMaterialFormat';
 import DetailedMediaType from './entries/mediaType/DetailedMediaType';
 import DetailedProductionCompany from './entries/productionCompany/DetailedProductionCompany';
@@ -53,13 +54,14 @@ class App extends React.Component {
               <Route exact path="/search" component={SimpleSearch} />
               <Route exact path="/suggest" component={ResourceSuggestion} />
               <Route exact path="/vision" component={Vision} />
-              <Route exact path="/works" component={Browse} />
+              <Route exact path="/films" component={Browse} />
 
               <Route exact path="/cataloger/:id" component={DetailedCataloger} />
               <Route exact path="/collection/:id" component={DetailedCollection} />
               <Route exact path="/composer/:id" component={DetailedComposer} />
               <Route exact path="/country/:id" component={DetailedCountry} />
               <Route exact path="/director/:id" component={DetailedDirector} />
+              <Route exact path="/film/:id" component={DetailedFilm} />
               <Route exact path="/material_format/:id" component={DetailedMaterialFormat} />
               <Route exact path="/media_type/:id" component={DetailedMediaType} />
               <Route exact path="/production_company/:id" component={DetailedProductionCompany} />

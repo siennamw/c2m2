@@ -68,6 +68,61 @@ export const CREATE_DIRECTOR = gql`
   }
 `;
 
+export const CREATE_FILM = gql`
+  mutation CreateFilm(
+    $title: String!,
+    $secondary_title: String,
+    $alias_alternates: String,
+    $imdb_link: String,
+    $year: Int!,
+    $country_id: ID,
+    $media_type_id: ID!,
+    $composer_ids: [ID],
+    $director_ids: [ID],
+    $orchestrator_ids: [ID],
+    $production_company_ids: [ID],
+  ){
+    createFilm(
+      title: $title,
+      secondary_title: $secondary_title,
+      alias_alternates: $alias_alternates,
+      imdb_link: $imdb_link,
+      year: $year,
+      country_id: $country_id,
+      media_type_id: $media_type_id,
+      composer_ids: $composer_ids,
+      director_ids: $director_ids,
+      orchestrator_ids: $orchestrator_ids,
+      production_company_ids: $production_company_ids,
+    ) {
+      id
+      title
+      secondary_title
+      alias_alternates
+      imdb_link
+      year
+      country {
+        id
+      }
+      media_type {
+        id
+      }
+      composers {
+        id
+      }
+      directors {
+        id
+      }
+      orchestrators {
+        id
+      }
+      production_companies {
+        id
+      }
+    }
+  }
+`;
+
 export const CREATE_MATERIAL_FORMAT = gql`
   mutation CreateMaterialFormat($name: String!, $description: String){
     createMaterialFormat(name: $name, description: $description) {
@@ -315,6 +370,73 @@ export const UPDATE_DIRECTOR = gql`
       id
       name
       imdb_link
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const UPDATE_FILM = gql`
+  mutation UpdateFilm(
+    $id: ID!,
+    $title: String!,
+    $secondary_title: String,
+    $alias_alternates: String,
+    $imdb_link: String,
+    $year: Int!,
+    $country_id: ID,
+    $media_type_id: ID!,
+    $composer_ids: [ID],
+    $director_ids: [ID],
+    $orchestrator_ids: [ID],
+    $production_company_ids: [ID],
+  ){
+    updateFilm(
+      id: $id,
+      title: $title,
+      secondary_title: $secondary_title,
+      alias_alternates: $alias_alternates,
+      imdb_link: $imdb_link,
+      year: $year,
+      country_id: $country_id,
+      media_type_id: $media_type_id,
+      composer_ids: $composer_ids,
+      director_ids: $director_ids,
+      orchestrator_ids: $orchestrator_ids,
+      production_company_ids: $production_company_ids,
+    ) {
+      id
+      title
+      secondary_title
+      alias_alternates
+      imdb_link
+      year
+      country {
+        id
+      }
+      media_type {
+        id
+      }
+      composers {
+        id
+      }
+      directors {
+        id
+      }
+      orchestrators {
+        id
+      }
+      production_companies {
+        id
+      }
       created_at
       created_by {
         id

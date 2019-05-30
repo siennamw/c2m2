@@ -1,18 +1,13 @@
 import React from 'react';
-import WorksList from './WorksList';
-import { isAuthenticated } from '../utils';
+import FilmsList from './FilmsList';
 
 const Browse = () => {
   const filter = {};
 
-  if (isAuthenticated()) {
-    filter.include_drafts = true;
-  }
-
   return (
     <div>
-      <h2>Browse Works</h2>
-      <WorksList filter={filter} />
+      <h2>Browse Films</h2>
+      <FilmsList filter={filter} />
     </div>
   );
 };

@@ -324,6 +324,77 @@ export const DIRECTOR_BY_ID = gql`
   }
 `;
 
+export const FILM_BY_ID = gql`
+  query film($id: ID!){
+    selfIsAdmin
+    film(id: $id){
+      id
+      title
+      secondary_title
+      alias_alternates
+      imdb_link
+      year
+      country {
+        id
+        name
+      }
+      media_type {
+        id
+        name
+      }
+      composers {
+        id
+        name
+      }
+      directors {
+        id
+        name
+      }
+      orchestrators {
+        id
+        name
+      }
+      production_companies {
+        id
+        name
+      }
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const FILMS_SEARCH = gql`
+  query searchFilms($filter: FilmFilter, $first: Int, $skip: Int){
+    allFilms(filter: $filter, first: $first, skip: $skip) {
+      id
+      title
+      secondary_title
+      year
+      composers {
+        id
+        name
+      }
+      directors {
+        id
+        name
+      }
+      country {
+        id
+        name
+      }
+    }
+  }
+`;
+
 export const MATERIAL_FORMAT_BY_ID = gql`
   query material_format($id: ID!){
     material_format(id: $id){

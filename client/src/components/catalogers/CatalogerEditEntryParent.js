@@ -6,6 +6,7 @@ import EditCollection from '../entries/collection/EditCollection';
 import EditComposer from '../entries/composer/EditComposer';
 import EditCountry from '../entries/country/EditCountry';
 import EditDirector from '../entries/director/EditDirector';
+import EditFilm from '../entries/film/EditFilm';
 import EditMaterialFormat from '../entries/materialFormat/EditMaterialFormat';
 import EditMediaType from '../entries/mediaType/EditMediaType';
 import EditProductionCompany from '../entries/productionCompany/EditProductionCompany';
@@ -21,6 +22,7 @@ const CatalogerEditEntryParent = ({ match }) => (
     <Route exact path={`${match.path}/composer/:id`} component={EditComposer} />
     <Route exact path={`${match.path}/country/:id`} component={EditCountry} />
     <Route exact path={`${match.path}/director/:id`} component={EditDirector} />
+    <Route exact path={`${match.path}/film/:id`} component={EditFilm} />
     <Route exact path={`${match.path}/material_format/:id`} component={EditMaterialFormat} />
     <Route exact path={`${match.path}/media_type/:id`} component={EditMediaType} />
     <Route exact path={`${match.path}/production_company/:id`} component={EditProductionCompany} />

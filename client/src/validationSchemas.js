@@ -103,6 +103,40 @@ export const directorValidationSchema = Yup.object().shape({
     .url('Website is not a valid URL'),
 });
 
+export const filmValidationSchema = Yup.object().shape({
+  title: Yup.string()
+    .trim()
+    .required('Title is required'),
+  secondary_title: Yup.string()
+    .trim(),
+  alias_alternates: Yup.string()
+    .trim(),
+  imdb_link: Yup.string()
+    .url('Website is not a valid URL'),
+  year: Yup.number()
+    .integer('Year must be an integer')
+    .positive('Year must be a positive number')
+    .min(1900, 'Year must be 1900 or after')
+    .required('Year is required'),
+  country_id: Yup.string()
+    .matches(stringOfDigitsRegex),
+  media_type_id: Yup.string()
+    .matches(stringOfDigitsRegex)
+    .required('Media type is required'),
+  composer_ids: Yup.array()
+    .default([])
+    .of(Yup.string().matches(stringOfDigitsRegex)),
+  director_ids: Yup.array()
+    .default([])
+    .of(Yup.string().matches(stringOfDigitsRegex)),
+  orchestrator_ids: Yup.array()
+    .default([])
+    .of(Yup.string().matches(stringOfDigitsRegex)),
+  production_company_ids: Yup.array()
+    .default([])
+    .of(Yup.string().matches(stringOfDigitsRegex)),
+});
+
 export const materialFormatValidationSchema = Yup.object().shape({
   name: Yup.string()
     .trim()

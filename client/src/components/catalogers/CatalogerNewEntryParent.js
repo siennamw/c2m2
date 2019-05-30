@@ -6,6 +6,7 @@ import NewCollection from '../entries/collection/NewCollection';
 import NewComposer from '../entries/composer/NewComposer';
 import NewCountry from '../entries/country/NewCountry';
 import NewDirector from '../entries/director/NewDirector';
+import NewFilm from '../entries/film/NewFilm';
 import NewMaterialFormat from '../entries/materialFormat/NewMaterialFormat';
 import NewMediaType from '../entries/mediaType/NewMediaType';
 import NewProductionCompany from '../entries/productionCompany/NewProductionCompany';
@@ -27,6 +28,7 @@ const CatalogerNewEntryParent = ({ match }) => (
       <Route exact path={`${match.path}/composer`} component={NewComposer} />
       <Route exact path={`${match.path}/country`} component={NewCountry} />
       <Route exact path={`${match.path}/director`} component={NewDirector} />
+      <Route exact path={`${match.path}/film`} component={NewFilm} />
       <Route exact path={`${match.path}/material_format`} component={NewMaterialFormat} />
       <Route exact path={`${match.path}/media_type`} component={NewMediaType} />
       <Route exact path={`${match.path}/production_company`} component={NewProductionCompany} />
@@ -45,11 +47,12 @@ const CatalogerNewEntryParent = ({ match }) => (
                 <li><Link to={`${match.path}/composer`}>Composer</Link></li>
                 <li><Link to={`${match.path}/country`}>Country</Link></li>
                 <li><Link to={`${match.path}/director`}>Director</Link></li>
-                <li><Link to={`${match.path}/material_format`}>Material Format</Link></li>
+                <li><Link to={`${match.path}/film`}>Film</Link></li>
               </ul>
             </div>
             <div className="six columns">
               <ul>
+                <li><Link to={`${match.path}/material_format`}>Material Format</Link></li>
                 <li><Link to={`${match.path}/media_type`}>Media Type</Link></li>
                 <li><Link to={`${match.path}/production_company`}>Production Company</Link></li>
                 <li><Link to={`${match.path}/publisher`}>Publisher</Link></li>
