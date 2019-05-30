@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  secondary_title: MyString
+  year: 1
+  alias_alternates: MyText
+  country: one
+  imdb_link: MyString
+  media_type: one
+  timestamps: MyString
+
+two:
+  title: MyString
+  secondary_title: MyString
+  year: 1
+  alias_alternates: MyText
+  country: two
+  imdb_link: MyString
+  media_type: two
+  timestamps: MyString
