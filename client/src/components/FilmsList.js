@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 import { isEqual } from 'lodash';
 
-import * as queries from '../queries';
+import { FILMS_SEARCH } from '../queries';
 import { wrapWithLink } from '../utils';
 
 class FilmsList extends React.Component {
@@ -97,7 +97,7 @@ class FilmsList extends React.Component {
 
     return (
       <Query
-        query={queries.FILMS_SEARCH}
+        query={FILMS_SEARCH}
         variables={{
           filter,
           first,
