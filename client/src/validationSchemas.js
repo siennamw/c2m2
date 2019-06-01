@@ -181,18 +181,6 @@ export const repositoryValidationSchema = Yup.object().shape({
 });
 
 export const workValidationSchema = Yup.object().shape({
-  title: Yup.string()
-    .trim()
-    .required('Title is required'),
-  secondary_title: Yup.string()
-    .trim(),
-  alias_alternates: Yup.string()
-    .trim(),
-  year: Yup.number()
-    .integer('Year must be an integer')
-    .positive('Year must be a positive number')
-    .min(1900, 'Year must be 1900 or after')
-    .required('Year is required'),
   digital_copy_link: Yup.string()
     .url('Digital copy link is not a valid URL'),
   finding_aid_link: Yup.string()
@@ -201,30 +189,13 @@ export const workValidationSchema = Yup.object().shape({
     .trim(),
   cataloging_notes: Yup.string()
     .trim(),
-  country_id: Yup.string()
-    .matches(stringOfDigitsRegex),
   film_id: Yup.string()
     .matches(stringOfDigitsRegex)
     .required('Film is required'),
-  media_type_id: Yup.string()
-    .matches(stringOfDigitsRegex)
-    .required('Media type is required'),
   material_format_id: Yup.string()
     .matches(stringOfDigitsRegex)
     .required('Material format is required'),
   collection_ids: Yup.array()
-    .default([])
-    .of(Yup.string().matches(stringOfDigitsRegex)),
-  composer_ids: Yup.array()
-    .default([])
-    .of(Yup.string().matches(stringOfDigitsRegex)),
-  director_ids: Yup.array()
-    .default([])
-    .of(Yup.string().matches(stringOfDigitsRegex)),
-  orchestrator_ids: Yup.array()
-    .default([])
-    .of(Yup.string().matches(stringOfDigitsRegex)),
-  production_company_ids: Yup.array()
     .default([])
     .of(Yup.string().matches(stringOfDigitsRegex)),
   publisher_ids: Yup.array()

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190601204929) do
+ActiveRecord::Schema.define(version: 20190601205618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,13 +68,6 @@ ActiveRecord::Schema.define(version: 20190601204929) do
     t.bigint "film_id", null: false
   end
 
-  create_table "composers_works", id: false, force: :cascade do |t|
-    t.bigint "work_id", null: false
-    t.bigint "composer_id", null: false
-    t.index ["composer_id", "work_id"], name: "index_composers_works_on_composer_id_and_work_id"
-    t.index ["work_id", "composer_id"], name: "index_composers_works_on_work_id_and_composer_id"
-  end
-
   create_table "countries", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
@@ -102,13 +95,6 @@ ActiveRecord::Schema.define(version: 20190601204929) do
   create_table "directors_films", id: false, force: :cascade do |t|
     t.bigint "director_id", null: false
     t.bigint "film_id", null: false
-  end
-
-  create_table "directors_works", id: false, force: :cascade do |t|
-    t.bigint "work_id", null: false
-    t.bigint "director_id", null: false
-    t.index ["director_id", "work_id"], name: "index_directors_works_on_director_id_and_work_id"
-    t.index ["work_id", "director_id"], name: "index_directors_works_on_work_id_and_director_id"
   end
 
   create_table "films", force: :cascade do |t|
@@ -165,13 +151,6 @@ ActiveRecord::Schema.define(version: 20190601204929) do
     t.index ["film_id", "composer_id"], name: "index_orch_films_on_film_id_and_orch_id"
   end
 
-  create_table "orchestrators_works", id: false, force: :cascade do |t|
-    t.bigint "composer_id", null: false
-    t.bigint "work_id", null: false
-    t.index ["composer_id", "work_id"], name: "index_orch_works_on_orch_id_and_work_id"
-    t.index ["work_id", "composer_id"], name: "index_orch_works_on_work_id_and_orch_id"
-  end
-
   create_table "production_companies", force: :cascade do |t|
     t.string "name", null: false
     t.text "contact_info"
@@ -181,13 +160,6 @@ ActiveRecord::Schema.define(version: 20190601204929) do
     t.bigint "updated_by_id"
     t.index ["created_by_id"], name: "index_production_companies_on_created_by_id"
     t.index ["updated_by_id"], name: "index_production_companies_on_updated_by_id"
-  end
-
-  create_table "production_companies_works", id: false, force: :cascade do |t|
-    t.bigint "work_id", null: false
-    t.bigint "production_company_id", null: false
-    t.index ["production_company_id", "work_id"], name: "index_pcs_works_on_pc_id_and_work_id"
-    t.index ["work_id", "production_company_id"], name: "index_pcs_works_on_work_id_and_pc_id"
   end
 
   create_table "publishers", force: :cascade do |t|
@@ -221,16 +193,10 @@ ActiveRecord::Schema.define(version: 20190601204929) do
   end
 
   create_table "works", force: :cascade do |t|
-    t.string "title", null: false
-    t.string "secondary_title"
-    t.integer "year", null: false
     t.string "finding_aid_link"
     t.string "digital_copy_link"
     t.text "citation_source"
-    t.text "alias_alternates"
     t.text "cataloging_notes"
-    t.bigint "country_id"
-    t.bigint "media_type_id", null: false
     t.bigint "material_format_id", null: false
     t.bigint "created_by_id"
     t.datetime "created_at", null: false
@@ -238,11 +204,9 @@ ActiveRecord::Schema.define(version: 20190601204929) do
     t.string "publication_status", default: "draft", null: false
     t.bigint "updated_by_id"
     t.bigint "film_id"
-    t.index ["country_id"], name: "index_works_on_country_id"
     t.index ["created_by_id"], name: "index_works_on_created_by_id"
     t.index ["film_id"], name: "index_works_on_film_id"
     t.index ["material_format_id"], name: "index_works_on_material_format_id"
-    t.index ["media_type_id"], name: "index_works_on_media_type_id"
     t.index ["publication_status"], name: "index_works_on_publication_status"
     t.index ["updated_by_id"], name: "index_works_on_updated_by_id"
   end

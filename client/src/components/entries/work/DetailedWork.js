@@ -7,46 +7,16 @@ import { wrapWithLink } from '../../../utils';
 const DisplayWork = ({ values }) => (
   <tbody>
     <tr>
-      <th>Composer(s)</th>
-      <td>
-        {
-          values.composers.map(c => (
-            <div key={c.id}>{wrapWithLink(c.name, c.id, 'composer')}</div>
-          ))
-        }
-      </td>
+      <th>Film</th>
+      <td>{wrapWithLink(values.film.title, values.film.id, 'film')}</td>
     </tr>
     <tr>
-      <th>Orchestrator(s)</th>
+      <th>Material Format</th>
       <td>
         {
-          values.orchestrators.map(c => (
-            <div key={c.id}>{wrapWithLink(c.name, c.id, 'composer')}</div>
-          ))
-        }
-      </td>
-    </tr>
-    <tr>
-      <th>Director(s)</th>
-      <td>
-        {
-          values.directors.map(c => (
-            <div key={c.id}>{wrapWithLink(c.name, c.id, 'director')}</div>
-          ))
-        }
-      </td>
-    </tr>
-    <tr>
-      <th>Year</th>
-      <td>{values.year}</td>
-    </tr>
-    <tr>
-      <th>Production Company or Companies</th>
-      <td>
-        {
-          values.production_companies.map(c => (
-            <div key={c.id}>{wrapWithLink(c.name, c.id, 'production_company')}</div>
-          ))
+          values.material_format
+            ? wrapWithLink(values.material_format.name, values.material_format.id, 'material_format')
+            : null
         }
       </td>
     </tr>
@@ -75,42 +45,12 @@ const DisplayWork = ({ values }) => (
       </td>
     </tr>
     <tr>
-      <th>Country</th>
-      <td>
-        {
-          values.country
-            ? wrapWithLink(values.country.name, values.country.id, 'country')
-            : null
-        }
-      </td>
-    </tr>
-    <tr>
-      <th>Media Type</th>
-      <td>
-        {
-          values.media_type
-            ? wrapWithLink(values.media_type.name, values.media_type.id, 'media_type')
-            : null
-        }
-      </td>
-    </tr>
-    <tr>
       <th>Collection(s)</th>
       <td>
         {
           values.collections.map(c => (
             <div key={c.id}>{wrapWithLink(c.name, c.id, 'collection')}</div>
           ))
-        }
-      </td>
-    </tr>
-    <tr>
-      <th>Material Format</th>
-      <td>
-        {
-          values.material_format
-            ? wrapWithLink(values.material_format.name, values.material_format.id, 'material_format')
-            : null
         }
       </td>
     </tr>

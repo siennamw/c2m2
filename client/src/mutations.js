@@ -176,79 +176,37 @@ export const CREATE_REPOSITORY = gql`
 
 export const CREATE_WORK = gql`
   mutation CreateWork(
-    $title: String!,
-    $secondary_title: String,
-    $alias_alternates: String,
-    $year: Int!,
     $digital_copy_link: String,
     $finding_aid_link: String,
     $citation_source: String,
     $cataloging_notes: String,
-    $country_id: ID,
     $film_id: ID!,
-    $media_type_id: ID!,
     $material_format_id: ID!,
     $collection_ids: [ID],
-    $composer_ids: [ID],
-    $director_ids: [ID],
-    $orchestrator_ids: [ID],
-    $production_company_ids: [ID],
     $publisher_ids: [ID],
   ){
     createWork(
-      title: $title,
-      secondary_title: $secondary_title,
-      alias_alternates: $alias_alternates,
-      year: $year,
       digital_copy_link: $digital_copy_link,
       finding_aid_link: $finding_aid_link,
       citation_source: $citation_source,
       cataloging_notes: $cataloging_notes,
-      country_id: $country_id,
       film_id: $film_id,
-      media_type_id: $media_type_id,
       material_format_id: $material_format_id,
       collection_ids: $collection_ids,
-      composer_ids: $composer_ids,
-      director_ids: $director_ids,
-      orchestrator_ids: $orchestrator_ids,
-      production_company_ids: $production_company_ids,
       publisher_ids: $publisher_ids,
     ) {
       id
-      title
-      secondary_title
-      alias_alternates
-      year
       digital_copy_link
       finding_aid_link
       citation_source
       cataloging_notes
-      country {
-        id
-      }
       film {
-        id
-      }
-      media_type {
         id
       }
       material_format {
         id
       }
       collections {
-        id
-      }
-      composers {
-        id
-      }
-      directors {
-        id
-      }
-      orchestrators {
-        id
-      }
-      production_companies {
         id
       }
       publishers {
@@ -560,83 +518,41 @@ export const UPDATE_REPOSITORY = gql`
 export const UPDATE_WORK = gql`
   mutation UpdateWork(
     $id: ID!,
-    $title: String!,
-    $secondary_title: String,
-    $alias_alternates: String,
-    $year: Int!,
     $digital_copy_link: String,
     $finding_aid_link: String,
     $citation_source: String,
     $cataloging_notes: String,
     $publication_status: String,
-    $country_id: ID,
     $film_id: ID!,
-    $media_type_id: ID!,
     $material_format_id: ID!,
     $collection_ids: [ID],
-    $composer_ids: [ID],
-    $director_ids: [ID],
-    $orchestrator_ids: [ID],
-    $production_company_ids: [ID],
     $publisher_ids: [ID],
   ){
     updateWork(
       id: $id,
-      title: $title,
-      secondary_title: $secondary_title,
-      alias_alternates: $alias_alternates,
-      year: $year,
       digital_copy_link: $digital_copy_link,
       finding_aid_link: $finding_aid_link,
       citation_source: $citation_source,
       cataloging_notes: $cataloging_notes,
       publication_status: $publication_status,
-      country_id: $country_id,
       film_id: $film_id,
-      media_type_id: $media_type_id,
       material_format_id: $material_format_id,
       collection_ids: $collection_ids,
-      composer_ids: $composer_ids,
-      director_ids: $director_ids,
-      orchestrator_ids: $orchestrator_ids,
-      production_company_ids: $production_company_ids,
       publisher_ids: $publisher_ids,
     ) {
       id
-      title
-      secondary_title
-      alias_alternates
-      year
       digital_copy_link
       finding_aid_link
       citation_source
       cataloging_notes
       publication_status
-      country {
-        id
-      }
       film {
-        id
-      }
-      media_type {
         id
       }
       material_format {
         id
       }
       collections {
-        id
-      }
-      composers {
-        id
-      }
-      directors {
-        id
-      }
-      orchestrators {
-        id
-      }
-      production_companies {
         id
       }
       publishers {

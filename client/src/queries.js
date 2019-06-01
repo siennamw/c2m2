@@ -536,19 +536,11 @@ export const WORK_BY_ID = gql`
     selfIsAdmin
     work(id: $id){
       id
-      title
-      secondary_title
-      alias_alternates
-      year
       digital_copy_link
       finding_aid_link
       citation_source
       cataloging_notes
       publication_status
-      country {
-        id
-        name
-      }
       film {
         id
         title
@@ -557,27 +549,7 @@ export const WORK_BY_ID = gql`
         id
         name
       }
-      media_type {
-        id
-        name
-      }
       collections {
-        id
-        name
-      }
-      composers {
-        id
-        name
-      }
-      directors {
-        id
-        name
-      }
-      orchestrators {
-        id
-        name
-      }
-      production_companies {
         id
         name
       }
@@ -592,30 +564,6 @@ export const WORK_BY_ID = gql`
       }
       updated_at
       updated_by {
-        id
-        name
-      }
-    }
-  }
-`;
-
-export const WORKS_SEARCH = gql`
-  query searchWorks($filter: WorkFilter, $first: Int, $skip: Int){
-    allWorks(filter: $filter, first: $first, skip: $skip) {
-      id
-      year
-      title
-      secondary_title
-      publication_status
-      composers {
-        id
-        name
-      }
-      directors {
-        id
-        name
-      }
-      country {
         id
         name
       }

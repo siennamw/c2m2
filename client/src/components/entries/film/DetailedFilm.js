@@ -86,6 +86,16 @@ const DisplayFilm = ({ values }) => (
         }
       </td>
     </tr>
+    <tr>
+      <th>Works</th>
+      <td>
+        {
+          values.works.map(w => (
+            <div key={w.id}>{wrapWithLink(w.material_format.name, w.id, 'work')}</div>
+          ))
+        }
+      </td>
+    </tr>
   </tbody>
 );
 
