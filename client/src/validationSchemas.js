@@ -203,6 +203,9 @@ export const workValidationSchema = Yup.object().shape({
     .trim(),
   country_id: Yup.string()
     .matches(stringOfDigitsRegex),
+  film_id: Yup.string()
+    .matches(stringOfDigitsRegex)
+    .required('Film is required'),
   media_type_id: Yup.string()
     .matches(stringOfDigitsRegex)
     .required('Media type is required'),

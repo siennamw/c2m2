@@ -1,5 +1,6 @@
 class Work < ApplicationRecord
   belongs_to :country, optional: true
+  belongs_to :film
   belongs_to :media_type
   belongs_to :material_format
 

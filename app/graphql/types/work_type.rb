@@ -12,8 +12,7 @@ Types::WorkType = GraphQL::ObjectType.define do
   field :cataloging_notes, types.String
   field :publication_status, types.String
 
-  field :country, (-> { Types::CountryType })
-  field :media_type, (-> { Types::MediaTypeType })
+  field :film, (-> { !Types::FilmType })
   field :material_format, (-> { Types::MaterialFormatType })
 
   field :collections, ( -> { !types[Types::CollectionType] })

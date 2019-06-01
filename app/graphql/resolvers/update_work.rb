@@ -15,6 +15,7 @@ class Resolvers::UpdateWork < GraphQL::Function
   argument :publication_status, types.String
 
   argument :country_id, types.ID
+  argument :film_id, !types.ID
   argument :media_type_id, !types.ID
   argument :material_format_id, !types.ID
 
@@ -58,17 +59,18 @@ class Resolvers::UpdateWork < GraphQL::Function
       publication_status: new_status,
 
       country_id: args[:country_id],
+      film_id: args[:film_id],
       media_type_id: args[:media_type_id],
       material_format_id: args[:material_format_id],
-
-      updated_by: ctx[:current_user],
 
       collection_ids: args[:collection_ids],
       composer_ids: args[:composer_ids],
       director_ids: args[:director_ids],
       orchestrator_ids: args[:orchestrator_ids],
       production_company_ids: args[:production_company_ids],
-      publisher_ids: args[:publisher_ids]
+      publisher_ids: args[:publisher_ids],
+
+      updated_by: ctx[:current_user],
     )
 
     # return work

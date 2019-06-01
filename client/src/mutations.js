@@ -185,6 +185,7 @@ export const CREATE_WORK = gql`
     $citation_source: String,
     $cataloging_notes: String,
     $country_id: ID,
+    $film_id: ID!,
     $media_type_id: ID!,
     $material_format_id: ID!,
     $collection_ids: [ID],
@@ -204,6 +205,7 @@ export const CREATE_WORK = gql`
       citation_source: $citation_source,
       cataloging_notes: $cataloging_notes,
       country_id: $country_id,
+      film_id: $film_id,
       media_type_id: $media_type_id,
       material_format_id: $material_format_id,
       collection_ids: $collection_ids,
@@ -223,6 +225,9 @@ export const CREATE_WORK = gql`
       citation_source
       cataloging_notes
       country {
+        id
+      }
+      film {
         id
       }
       media_type {
@@ -565,6 +570,7 @@ export const UPDATE_WORK = gql`
     $cataloging_notes: String,
     $publication_status: String,
     $country_id: ID,
+    $film_id: ID!,
     $media_type_id: ID!,
     $material_format_id: ID!,
     $collection_ids: [ID],
@@ -586,6 +592,7 @@ export const UPDATE_WORK = gql`
       cataloging_notes: $cataloging_notes,
       publication_status: $publication_status,
       country_id: $country_id,
+      film_id: $film_id,
       media_type_id: $media_type_id,
       material_format_id: $material_format_id,
       collection_ids: $collection_ids,
@@ -606,6 +613,9 @@ export const UPDATE_WORK = gql`
       cataloging_notes
       publication_status
       country {
+        id
+      }
+      film {
         id
       }
       media_type {

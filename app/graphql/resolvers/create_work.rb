@@ -13,6 +13,7 @@ class Resolvers::CreateWork < GraphQL::Function
   argument :publication_status, types.String
 
   argument :country_id, types.ID
+  argument :film_id, !types.ID
   argument :media_type_id, !types.ID
   argument :material_format_id, !types.ID
 
@@ -47,6 +48,7 @@ class Resolvers::CreateWork < GraphQL::Function
       publication_status: publication_status,
 
       country_id: args[:country_id],
+      film_id: args[:film_id],
       media_type_id: args[:media_type_id],
       material_format_id: args[:material_format_id],
 

@@ -10,6 +10,7 @@ import NewCollection from '../collection/NewCollection';
 import NewComposer from '../composer/NewComposer';
 import NewCountry from '../country/NewCountry';
 import NewDirector from '../director/NewDirector';
+import NewFilm from '../film/NewFilm';
 import NewMaterialFormat from '../materialFormat/NewMaterialFormat';
 import NewMediaType from '../mediaType/NewMediaType';
 import NewProductionCompany from '../productionCompany/NewProductionCompany';
@@ -45,6 +46,14 @@ const WorkForm = ({ selfIsAdmin, setFieldValue }) => {
 
   return (
     <Fragment>
+      <SelectFieldWithQuery
+        displayName="Film"
+        fieldName="film_id"
+        onChangeCallback={selectOnChange}
+        query={queries.LIST_ALL_FILMS}
+        queryName="allFilms"
+        componentForModal={<NewFilm />}
+      />
       <InputField displayName="Title" fieldName="title" />
       <InputField displayName="Secondary Title" fieldName="secondary_title" />
       <InputField displayName="Alias or Alternate Title(s)" fieldName="alias_alternates" />

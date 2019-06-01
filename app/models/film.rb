@@ -2,6 +2,8 @@ class Film < ApplicationRecord
   belongs_to :country, optional: true
   belongs_to :media_type
 
+  has_many :works
+
   has_and_belongs_to_many :composers
   has_and_belongs_to_many :orchestrators,
     class_name: 'Composer',

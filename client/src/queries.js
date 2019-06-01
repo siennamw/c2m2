@@ -42,6 +42,15 @@ export const LIST_ALL_DIRECTORS = gql`
   }
 `;
 
+export const LIST_ALL_FILMS = gql`
+  query allFilms {
+    allFilms {
+      id
+      title
+    }
+  }
+`;
+
 export const LIST_ALL_MATERIAL_FORMATS = gql`
   query allMaterialFormats {
     allMaterialFormats {
@@ -358,6 +367,12 @@ export const FILM_BY_ID = gql`
         id
         name
       }
+      works {
+        id
+        material_format {
+          name
+        }
+      }
       created_at
       created_by {
         id
@@ -533,6 +548,10 @@ export const WORK_BY_ID = gql`
       country {
         id
         name
+      }
+      film {
+        id
+        title
       }
       material_format {
         id

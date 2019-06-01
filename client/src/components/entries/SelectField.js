@@ -18,9 +18,11 @@ export const SelectFieldNoLabel = ({
   // sort and map options to <option> elements
   const items = options
     .sort((a, b) => (
-      a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+      (a.name || a.title).toLowerCase().localeCompare(
+        (b.name || b.title).toLowerCase()
+      )
     )).map(i => (
-      <option key={i.id} value={i.id}>{i.name}</option>
+      <option key={i.id} value={i.id}>{i.name || i.title}</option>
     ));
 
   // multi vs. single (dropdown) select

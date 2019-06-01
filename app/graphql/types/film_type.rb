@@ -16,6 +16,7 @@ Types::FilmType = GraphQL::ObjectType.define do
   field :directors, ( -> { !types[Types::DirectorType] })
   field :orchestrators, ( -> { !types[Types::ComposerType] })
   field :production_companies, ( -> { !types[Types::ProductionCompanyType] })
+  field :works, ( -> { !types[Types::WorkType] })
 
   field :created_by, (-> { Types::CatalogerType })
   field :updated_by, (-> { Types::CatalogerType })
