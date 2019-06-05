@@ -15,7 +15,7 @@ const DisplayMaterialFormat = ({ values }) => (
       <td>
         {
           values.works.map(c => (
-            <div key={c.id}>{wrapWithLink(c.title, c.id, 'work')}</div>
+            <div key={c.id}>{wrapWithLink(c.film.title, c.id, 'work')}</div>
           ))
         }
       </td>

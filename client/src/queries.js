@@ -123,6 +123,10 @@ export const CATALOGER_BY_ID = gql`
         id
         name
       }
+      films {
+        id
+        title
+      }
       material_formats {
         id
         name
@@ -145,7 +149,12 @@ export const CATALOGER_BY_ID = gql`
       }
       works {
         id
-        title
+        material_format {
+          name
+        }
+        film {
+          title
+        }
       }
       catalogers_as_updater {
         id
@@ -166,6 +175,10 @@ export const CATALOGER_BY_ID = gql`
       directors_as_updater {
         id
         name
+      }
+      films_as_updater {
+        id
+        title
       }
       material_formats_as_updater {
         id
@@ -189,7 +202,12 @@ export const CATALOGER_BY_ID = gql`
       }
       works_as_updater {
         id
-        title
+        material_format {
+          name
+        }
+        film {
+          title
+        }
       }
       created_at
       created_by {
@@ -241,7 +259,12 @@ export const COLLECTION_BY_ID = gql`
       }
       works {
         id
-        title
+        material_format {
+          name
+        }
+        film {
+          title
+        }
       }
       created_at
       created_by {
@@ -263,11 +286,11 @@ export const COMPOSER_BY_ID = gql`
       id
       name
       imdb_link
-      works {
+      films {
         id
         title
       }
-      works_as_orchestrator {
+      films_as_orchestrator {
         id
         title
       }
@@ -291,7 +314,7 @@ export const COUNTRY_BY_ID = gql`
       id
       name
       description
-      works {
+      films {
         id
         title
       }
@@ -315,7 +338,7 @@ export const DIRECTOR_BY_ID = gql`
       id
       name
       imdb_link
-      works {
+      films {
         id
         title
       }
@@ -418,7 +441,9 @@ export const MATERIAL_FORMAT_BY_ID = gql`
       description
       works {
         id
-        title
+        film {
+          title
+        }
       }
       created_at
       created_by {
@@ -440,7 +465,7 @@ export const MEDIA_TYPE_BY_ID = gql`
       id
       name
       description
-      works {
+      films {
         id
         title
       }
@@ -464,7 +489,7 @@ export const PRODUCTION_COMPANY_BY_ID = gql`
       id
       name
       contact_info
-      works {
+      films {
         id
         title
       }
@@ -490,7 +515,12 @@ export const PUBLISHER_BY_ID = gql`
       contact_info
       works {
         id
-        title
+        material_format {
+          name
+        }
+        film {
+          title
+        }
       }
       created_at
       created_by {

@@ -11,11 +11,11 @@ const DisplayMediaType = ({ values }) => (
       <td>{values.description}</td>
     </tr>
     <tr>
-      <th>Works(s)</th>
+      <th>Film(s)</th>
       <td>
         {
-          values.works.map(c => (
-            <div key={c.id}>{wrapWithLink(c.title, c.id, 'work')}</div>
+          values.films.map(c => (
+            <div key={c.id}>{wrapWithLink(c.title, c.id, 'film')}</div>
           ))
         }
       </td>

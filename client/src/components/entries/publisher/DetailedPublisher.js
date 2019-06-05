@@ -14,9 +14,12 @@ const DisplayPublisher = ({ values }) => (
       <th>Works(s)</th>
       <td>
         {
-          values.works.map(c => (
-            <div key={c.id}>{wrapWithLink(c.title, c.id, 'work')}</div>
-          ))
+          values.works.map(c => {
+            const text = `${c.film.title}: ${c.material_format.name}`;
+            return (
+              <div key={c.id}>{wrapWithLink(text, c.id, 'work')}</div>
+            )
+          })
         }
       </td>
     </tr>

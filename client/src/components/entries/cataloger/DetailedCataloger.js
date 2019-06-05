@@ -61,6 +61,16 @@ const DisplayCataloger = ({ values }) => (
       </td>
     </tr>
     <tr>
+      <th>Films</th>
+      <td>
+        {
+          [...values.films, ...values.films_as_updater].map(c => (
+            <div key={c.id}>{wrapWithLink(c.title, c.id, 'film')}</div>
+          ))
+        }
+      </td>
+    </tr>
+    <tr>
       <th>Material Formats</th>
       <td>
         {
@@ -114,9 +124,12 @@ const DisplayCataloger = ({ values }) => (
       <th>Works</th>
       <td>
         {
-          [...values.works, ...values.works_as_updater].map(c => (
-            <div key={c.id}>{wrapWithLink(c.title, c.id, 'work')}</div>
-          ))
+          [...values.works, ...values.works_as_updater].map((c) => {
+            const text = `${c.film.title}: ${c.material_format.name}`;
+            return (
+              <div key={c.id}>{wrapWithLink(text, c.id, 'work')}</div>
+            );
+          })
         }
       </td>
     </tr>
