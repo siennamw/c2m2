@@ -13,6 +13,8 @@ import NewMediaType from '../mediaType/NewMediaType';
 import NewProductionCompany from '../productionCompany/NewProductionCompany';
 
 const FilmForm = ({ selfIsAdmin, setFieldValue }) => {
+  const model = 'film';
+
   const selectOnChange = (evt, name) => {
     if (name.includes('_ids')) {
       // when selecting from a multiselect to set an array of IDs,
@@ -41,62 +43,90 @@ const FilmForm = ({ selfIsAdmin, setFieldValue }) => {
 
   return (
     <Fragment>
-      <InputField displayName="Title" fieldName="title" />
-      <InputField displayName="Secondary Title" fieldName="secondary_title" />
-      <InputField displayName="Alias or Alternate Title(s)" fieldName="alias_alternates" />
-      <InputField displayName="IMDB Link" fieldName="imdb_link" fieldType="url" />
-      <InputField displayName="Year" fieldName="year" fieldType="number" />
+      <InputField
+        displayName="Title"
+        fieldName="title"
+        modelName={model}
+      />
+      <InputField
+        displayName="Secondary Title"
+        fieldName="secondary_title"
+        modelName={model}
+      />
+      <InputField
+        displayName="Alias or Alternate Title(s)"
+        fieldName="alias_alternates"
+        modelName={model}
+      />
+      <InputField
+        displayName="IMDB Link"
+        fieldName="imdb_link"
+        fieldType="url"
+        modelName={model}
+      />
+      <InputField
+        displayName="Year"
+        fieldName="year"
+        fieldType="number"
+        modelName={model}
+      />
       <SelectFieldWithQuery
+        componentForModal={<NewCountry />}
         displayName="Country"
         fieldName="country_id"
+        modelName={model}
         onChangeCallback={selectOnChange}
         query={queries.LIST_ALL_COUNTRIES}
         queryName="allCountries"
-        componentForModal={<NewCountry />}
       />
       <SelectFieldWithQuery
+        componentForModal={<NewMediaType />}
         displayName="Media Type"
         fieldName="media_type_id"
+        modelName={model}
         onChangeCallback={selectOnChange}
         query={queries.LIST_ALL_MEDIA_TYPES}
         queryName="allMediaTypes"
-        componentForModal={<NewMediaType />}
       />
       <SelectFieldWithQuery
+        componentForModal={<NewComposer />}
         displayName="Composer(s)"
         fieldName="composer_ids"
         isMulti
+        modelName={model}
         onChangeCallback={selectOnChange}
         query={queries.LIST_ALL_COMPOSERS}
         queryName="allComposers"
-        componentForModal={<NewComposer />}
       />
       <SelectFieldWithQuery
+        componentForModal={<NewComposer />}
         displayName="Orchestrator(s)"
         fieldName="orchestrator_ids"
         isMulti
+        modelName={model}
         onChangeCallback={selectOnChange}
         query={queries.LIST_ALL_COMPOSERS}
         queryName="allComposers"
-        componentForModal={<NewComposer />}
       />
       <SelectFieldWithQuery
+        componentForModal={<NewDirector />}
         displayName="Director(s)"
         fieldName="director_ids"
         isMulti
+        modelName={model}
         onChangeCallback={selectOnChange}
         query={queries.LIST_ALL_DIRECTORS}
         queryName="allDirectors"
-        componentForModal={<NewDirector />}
       />
       <SelectFieldWithQuery
+        componentForModal={<NewProductionCompany />}
         displayName="Production Company or Companies"
         fieldName="production_company_ids"
         isMulti
+        modelName={model}
         onChangeCallback={selectOnChange}
         query={queries.LIST_ALL_PRODUCTION_COMPANIES}
         queryName="allProductionCompanies"
-        componentForModal={<NewProductionCompany />}
       />
     </Fragment>
   );

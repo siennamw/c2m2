@@ -5,6 +5,8 @@ import InputField from '../InputField';
 import SelectField from '../SelectField';
 
 const CatalogerForm = ({ entryIsSelf, selfIsAdmin, setFieldValue }) => {
+  const model = 'cataloger';
+
   const selectOnChange = (evt, name) => {
     setFieldValue(name, evt.target.value);
   };
@@ -17,18 +19,21 @@ const CatalogerForm = ({ entryIsSelf, selfIsAdmin, setFieldValue }) => {
         displayName="Name"
         fieldName="name"
         disabled={disabled}
+        modelName={model}
       />
       <InputField
         displayName="Description"
         fieldName="description"
         disabled={disabled}
+        modelName={model}
       />
       <SelectField
-        onChangeCallback={selectOnChange}
-        fieldName="admin"
         disabled={!selfIsAdmin}
         disablePlaceholder
         displayName="Admin?"
+        fieldName="admin"
+        modelName={model}
+        onChangeCallback={selectOnChange}
         options={[
           { id: true, name: 'Yes' },
           { id: false, name: 'No' },
@@ -39,12 +44,14 @@ const CatalogerForm = ({ entryIsSelf, selfIsAdmin, setFieldValue }) => {
         displayName="Email"
         fieldName="email"
         fieldType="email"
+        modelName={model}
       />
       <InputField
         disabled={disabled}
         displayName="Password"
         fieldName="password"
         fieldType="password"
+        modelName={model}
       />
     </Fragment>
   );

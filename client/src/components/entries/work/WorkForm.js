@@ -13,6 +13,7 @@ import NewPublisher from '../publisher/NewPublisher';
 import SelectField from '../SelectField';
 
 const WorkForm = ({ selfIsAdmin, setFieldValue }) => {
+  const model = 'work';
   const selectOnChange = (evt, name) => {
     if (name.includes('_ids')) {
       // when selecting from a multiselect to set an array of IDs,
@@ -42,48 +43,71 @@ const WorkForm = ({ selfIsAdmin, setFieldValue }) => {
   return (
     <Fragment>
       <SelectFieldWithQuery
+        componentForModal={<NewFilm />}
         displayName="Film"
         fieldName="film_id"
+        modelName={model}
         onChangeCallback={selectOnChange}
         query={queries.LIST_ALL_FILMS}
         queryName="allFilms"
-        componentForModal={<NewFilm />}
       />
-      <InputField displayName="Finding Aid Link" fieldName="finding_aid_link" fieldType="url" />
-      <InputField displayName="Digital Copy Link" fieldName="digital_copy_link" fieldType="url" />
-      <InputField displayName="Citation Source" fieldName="citation_source" />
+      <InputField
+        displayName="Finding Aid Link"
+        fieldName="finding_aid_link"
+        fieldType="url"
+        modelName={model}
+      />
+      <InputField
+        displayName="Digital Copy Link"
+        fieldName="digital_copy_link"
+        fieldType="url"
+        modelName={model}
+      />
+      <InputField
+        displayName="Citation Source"
+        fieldName="citation_source"
+        modelName={model}
+      />
       <SelectFieldWithQuery
+        componentForModal={<NewMaterialFormat />}
         displayName="Material Format"
         fieldName="material_format_id"
+        modelName={model}
         onChangeCallback={selectOnChange}
         query={queries.LIST_ALL_MATERIAL_FORMATS}
         queryName="allMaterialFormats"
-        componentForModal={<NewMaterialFormat />}
       />
       <SelectFieldWithQuery
+        componentForModal={<NewCollection />}
         displayName="Collection(s)"
         fieldName="collection_ids"
         isMulti
+        modelName={model}
         onChangeCallback={selectOnChange}
         query={queries.LIST_ALL_COLLECTIONS}
         queryName="allCollections"
-        componentForModal={<NewCollection />}
       />
       <SelectFieldWithQuery
+        componentForModal={<NewPublisher />}
         displayName="Publisher(s)"
         fieldName="publisher_ids"
         isMulti
+        modelName={model}
         onChangeCallback={selectOnChange}
         query={queries.LIST_ALL_PUBLISHERS}
         queryName="allPublishers"
-        componentForModal={<NewPublisher />}
       />
-      <InputField displayName="Cataloging Notes" fieldName="cataloging_notes" />
+      <InputField
+        displayName="Cataloging Notes"
+        fieldName="cataloging_notes"
+        modelName={model}
+      />
       <SelectField
-        onChangeCallback={selectOnChange}
-        fieldName="publication_status"
         disablePlaceholder
         displayName="Publication Status"
+        fieldName="publication_status"
+        modelName={model}
+        onChangeCallback={selectOnChange}
         options={pubStatusOptions}
       />
     </Fragment>

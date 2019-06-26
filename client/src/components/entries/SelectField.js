@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Field, ErrorMessage } from 'formik';
 
 import FieldInfoTooltip from './FieldInfoTooltip';
+import { MODEL_NAMES } from '../../constants';
 
 export const SelectFieldNoLabel = ({
   fieldName,
@@ -10,6 +11,7 @@ export const SelectFieldNoLabel = ({
   disablePlaceholder,
   displayName,
   isMulti,
+  modelName,
   onChangeCallback,
   options,
 }) => {
@@ -61,7 +63,12 @@ export const SelectFieldNoLabel = ({
   return (
     <Fragment>
       {displayName}
-      <FieldInfoTooltip field={fieldName} forMultiSelect={isMulti} hideRules />
+      <FieldInfoTooltip
+        field={fieldName}
+        forMultiSelect={isMulti}
+        hideRules
+        model={modelName}
+      />
       <ErrorMessage
         name={fieldName}
         component="div"
@@ -84,6 +91,7 @@ SelectFieldNoLabel.propTypes = {
   disablePlaceholder: PropTypes.bool,
   displayName: PropTypes.string.isRequired,
   isMulti: PropTypes.bool,
+  modelName: PropTypes.oneOf(MODEL_NAMES).isRequired,
   onChangeCallback: PropTypes.func.isRequired,
   options: PropTypes.arrayOf(
     PropTypes.shape({
@@ -93,7 +101,7 @@ SelectFieldNoLabel.propTypes = {
         PropTypes.bool,
       ]).isRequired,
       name: PropTypes.string.isRequired,
-    })
+    }),
   ).isRequired,
 };
 
@@ -103,6 +111,7 @@ const SelectField = ({
   disablePlaceholder,
   displayName,
   isMulti,
+  modelName,
   onChangeCallback,
   options,
 }) => (
@@ -113,6 +122,7 @@ const SelectField = ({
       disablePlaceholder={disablePlaceholder}
       displayName={displayName}
       isMulti={isMulti}
+      modelName={modelName}
       onChangeCallback={onChangeCallback}
       options={options}
     />
@@ -131,6 +141,7 @@ SelectField.propTypes = {
   disablePlaceholder: PropTypes.bool,
   displayName: PropTypes.string.isRequired,
   isMulti: PropTypes.bool,
+  modelName: PropTypes.oneOf(MODEL_NAMES).isRequired,
   onChangeCallback: PropTypes.func.isRequired,
   options: PropTypes.arrayOf(
     PropTypes.shape({
@@ -140,7 +151,7 @@ SelectField.propTypes = {
         PropTypes.bool,
       ]).isRequired,
       name: PropTypes.string.isRequired,
-    })
+    }),
   ).isRequired,
 };
 

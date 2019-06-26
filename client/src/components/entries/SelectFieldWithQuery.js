@@ -4,6 +4,7 @@ import { Query } from 'react-apollo';
 import Modal from 'react-modal';
 
 import { ModalConsumer } from '../modal/ModalContext';
+import { MODEL_NAMES } from '../../constants';
 import { SelectFieldNoLabel } from './SelectField';
 
 // for accessibility,
@@ -16,6 +17,7 @@ const SelectFieldWithQuery = ({
   disabled,
   displayName,
   isMulti,
+  modelName,
   onChangeCallback,
   query,
   queryName,
@@ -40,6 +42,7 @@ const SelectFieldWithQuery = ({
             disabled={disabled}
             displayName={displayName}
             isMulti={isMulti}
+            modelName={modelName}
             onChangeCallback={onChangeCallback}
             options={data[queryName]}
           />
@@ -115,6 +118,7 @@ SelectFieldWithQuery.propTypes = {
   disabled: PropTypes.bool,
   displayName: PropTypes.string.isRequired,
   isMulti: PropTypes.bool,
+  modelName: PropTypes.oneOf(MODEL_NAMES).isRequired,
   onChangeCallback: PropTypes.func.isRequired,
   query: PropTypes.object.isRequired,
   queryName: PropTypes.string.isRequired,

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import { TOOLTIP_BY_FIELD } from '../../constants';
+import { MODEL_NAMES, TOOLTIP_BY_MODEL_AND_FIELD } from '../../constants';
 
 export default class FieldInfoTooltip extends React.Component {
   state = {
@@ -26,8 +26,14 @@ export default class FieldInfoTooltip extends React.Component {
   };
 
   render() {
-    const { field, forMultiSelect, hideRules } = this.props;
-    const tooltip = TOOLTIP_BY_FIELD(field);
+    const {
+      field,
+      forMultiSelect,
+      hideRules,
+      model,
+    } = this.props;
+
+    const tooltip = TOOLTIP_BY_MODEL_AND_FIELD(model, field);
 
     const rules = tooltip && tooltip.rules && tooltip.rules.length > 0
       ? tooltip.rules.map((r, i) => <li key={i}>{r}</li>)
@@ -86,4 +92,5 @@ FieldInfoTooltip.propTypes = {
   field: PropTypes.string.isRequired,
   forMultiSelect: PropTypes.bool,
   hideRules: PropTypes.bool,
+  model: PropTypes.oneOf(MODEL_NAMES).isRequired,
 };

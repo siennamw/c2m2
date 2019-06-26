@@ -3,8 +3,15 @@ import PropTypes from 'prop-types';
 import { Field, ErrorMessage } from 'formik';
 
 import FieldInfoTooltip from './FieldInfoTooltip';
+import { MODEL_NAMES } from '../../constants';
 
-const InputField = ({ disabled, displayName, fieldName, fieldType }) => {
+const InputField = ({
+  disabled,
+  displayName,
+  fieldName,
+  fieldType,
+  modelName,
+}) => {
   const autoComplete = {
     password: 'new-password',
     email: 'email',
@@ -13,7 +20,7 @@ const InputField = ({ disabled, displayName, fieldName, fieldType }) => {
   return (
     <label htmlFor={fieldName}>
       {displayName}
-      <FieldInfoTooltip field={fieldName} />
+      <FieldInfoTooltip field={fieldName} model={modelName} />
       <ErrorMessage
         name={fieldName}
         component="div"
@@ -41,6 +48,7 @@ InputField.propTypes = {
   displayName: PropTypes.string.isRequired,
   fieldName: PropTypes.string.isRequired,
   fieldType: PropTypes.oneOf(['text', 'url', 'password', 'email', 'number']),
+  modelName: PropTypes.oneOf(MODEL_NAMES).isRequired,
 };
 
 export default InputField;

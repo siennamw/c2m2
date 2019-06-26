@@ -1,11 +1,22 @@
 import React, { Fragment } from 'react';
 import InputField from '../InputField';
 
-const MaterialFormatForm = () => (
-  <Fragment>
-    <InputField displayName="Name" fieldName="name" />
-    <InputField displayName="Description" fieldName="description" />
-  </Fragment>
-);
+const MaterialFormatForm = () => {
+  const model = 'material_format';
+  return (
+    <Fragment>
+      <InputField
+        displayName="Name"
+        fieldName="name"
+        modelName={model}
+      />
+      <InputField
+        displayName="Description"
+        fieldName="description"
+        modelName={model}
+      />
+    </Fragment>
+  );
+};
 
 export default MaterialFormatForm;

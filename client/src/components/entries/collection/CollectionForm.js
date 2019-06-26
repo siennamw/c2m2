@@ -7,6 +7,8 @@ import SelectFieldWithQuery from '../SelectFieldWithQuery';
 import NewRepository from '../repository/NewRepository';
 
 const CollectionForm = ({ setFieldValue }) => {
+  const model = 'collection';
+
   const selectOnChange = (evt, name) => {
     // when selecting from a dropdown to set an ID
     if (name.includes('_id')) {
@@ -19,16 +21,25 @@ const CollectionForm = ({ setFieldValue }) => {
 
   return (
     <Fragment>
-      <InputField displayName="Name" fieldName="name" />
+      <InputField
+        displayName="Name"
+        fieldName="name"
+        modelName={model}
+      />
       <SelectFieldWithQuery
+        componentForModal={<NewRepository />}
         displayName="Repository"
         fieldName="repository_id"
+        modelName={model}
         onChangeCallback={selectOnChange}
         query={LIST_ALL_REPOSITORIES}
         queryName="allRepositories"
-        componentForModal={<NewRepository />}
       />
-      <InputField displayName="Description" fieldName="description" />
+      <InputField
+        displayName="Description"
+        fieldName="description"
+        modelName={model}
+      />
     </Fragment>
   );
 };
