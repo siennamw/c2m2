@@ -120,19 +120,6 @@ Types::QueryType = GraphQL::ObjectType.define do
     resolve ->(obj, args, ctx) { ProductionCompany.find(args[:id]) }
   end
 
-  field :allPublishers do
-    type types[Types::PublisherType]
-    description "A list of all publishers"
-    resolve ->(obj, args, ctx) { Publisher.all }
-  end
-
-  field :publisher do
-    type Types::PublisherType
-    description "Publisher by ID"
-    argument :id, !types.ID
-    resolve ->(obj, args, ctx) { Publisher.find(args[:id]) }
-  end
-
   field :allRepositories do
     type types[Types::RepositoryType]
     description "A list of all repositories"

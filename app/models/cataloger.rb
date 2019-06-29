@@ -10,7 +10,6 @@ class Cataloger < ApplicationRecord
   has_many :material_formats, foreign_key: 'created_by_id', class_name: 'MaterialFormat'
   has_many :media_types, foreign_key: 'created_by_id', class_name: 'MediaType'
   has_many :production_companies, foreign_key: 'created_by_id', class_name: 'ProductionCompany'
-  has_many :publishers, foreign_key: 'created_by_id', class_name: 'Publisher'
   has_many :repositories, foreign_key: 'created_by_id', class_name: 'Repository'
   has_many :works, foreign_key: 'created_by_id', class_name: 'Work'
 
@@ -23,7 +22,6 @@ class Cataloger < ApplicationRecord
   has_many :material_formats_as_updater, foreign_key: 'updated_by_id', class_name: 'MaterialFormat'
   has_many :media_types_as_updater, foreign_key: 'updated_by_id', class_name: 'MediaType'
   has_many :production_companies_as_updater, foreign_key: 'updated_by_id', class_name: 'ProductionCompany'
-  has_many :publishers_as_updater, foreign_key: 'updated_by_id', class_name: 'Publisher'
   has_many :repositories_as_updater, foreign_key: 'updated_by_id', class_name: 'Repository'
   has_many :works_as_updater, foreign_key: 'updated_by_id', class_name: 'Work'
 

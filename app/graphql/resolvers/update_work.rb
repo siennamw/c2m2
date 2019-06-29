@@ -13,7 +13,6 @@ class Resolvers::UpdateWork < GraphQL::Function
   argument :material_format_id, !types.ID
 
   argument :collection_ids, types[types.ID]
-  argument :publisher_ids, types[types.ID]
 
   # return type from the mutation
   type Types::WorkType
@@ -46,7 +45,6 @@ class Resolvers::UpdateWork < GraphQL::Function
       material_format_id: args[:material_format_id],
 
       collection_ids: args[:collection_ids],
-      publisher_ids: args[:publisher_ids],
 
       updated_by: ctx[:current_user],
     )

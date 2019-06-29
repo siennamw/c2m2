@@ -37,16 +37,11 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
     )
 
     @collection_ids = []
-    @publisher_ids = []
 
     2.times do |n|
       @collection_ids << Collection.create!(
         name: "collection #{n}",
         repository: @repository,
-        created_by: @cataloger,
-      ).id
-      @publisher_ids << Publisher.create!(
-        name: "publisher #{n}",
         created_by: @cataloger,
       ).id
     end
@@ -119,7 +114,6 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
         material_format_id: @material_formats[2].id,
 
         collection_ids: @collection_ids,
-        publisher_ids: @publisher_ids,
       },
       @new_cataloger
     )
@@ -138,7 +132,6 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
     assert_equal updated_work.material_format, @material_formats[2]
 
     assert_equal updated_work.collections.map { |obj| obj.id }, @collection_ids
-    assert_equal updated_work.publishers.map { |obj| obj.id }, @publisher_ids
 
     assert_equal updated_work.created_by, @cataloger
     assert_equal updated_work.updated_by, @new_cataloger

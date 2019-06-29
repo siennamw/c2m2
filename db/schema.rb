@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190601205618) do
+ActiveRecord::Schema.define(version: 20190629211842) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -162,24 +162,6 @@ ActiveRecord::Schema.define(version: 20190601205618) do
     t.index ["updated_by_id"], name: "index_production_companies_on_updated_by_id"
   end
 
-  create_table "publishers", force: :cascade do |t|
-    t.string "name", null: false
-    t.text "contact_info"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "created_by_id"
-    t.bigint "updated_by_id"
-    t.index ["created_by_id"], name: "index_publishers_on_created_by_id"
-    t.index ["updated_by_id"], name: "index_publishers_on_updated_by_id"
-  end
-
-  create_table "publishers_works", id: false, force: :cascade do |t|
-    t.bigint "work_id", null: false
-    t.bigint "publisher_id", null: false
-    t.index ["publisher_id", "work_id"], name: "index_publishers_works_on_publisher_id_and_work_id"
-    t.index ["work_id", "publisher_id"], name: "index_publishers_works_on_work_id_and_publisher_id"
-  end
-
   create_table "repositories", force: :cascade do |t|
     t.string "name", null: false
     t.string "location", null: false
@@ -229,8 +211,6 @@ ActiveRecord::Schema.define(version: 20190601205618) do
   add_foreign_key "media_types", "catalogers", column: "updated_by_id"
   add_foreign_key "production_companies", "catalogers", column: "created_by_id"
   add_foreign_key "production_companies", "catalogers", column: "updated_by_id"
-  add_foreign_key "publishers", "catalogers", column: "created_by_id"
-  add_foreign_key "publishers", "catalogers", column: "updated_by_id"
   add_foreign_key "repositories", "catalogers", column: "created_by_id"
   add_foreign_key "repositories", "catalogers", column: "updated_by_id"
   add_foreign_key "works", "catalogers", column: "created_by_id"

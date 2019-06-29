@@ -16,7 +16,6 @@ Types::CatalogerType = GraphQL::ObjectType.define do
   field :material_formats, ( -> { !types[Types::MaterialFormatType] })
   field :media_types, ( -> { !types[Types::MediaTypeType] })
   field :production_companies, ( -> { !types[Types::ProductionCompanyType] })
-  field :publishers, ( -> { !types[Types::PublisherType] })
   field :repositories, ( -> { !types[Types::RepositoryType] })
   field :works, ( -> { !types[Types::WorkType] })
 
@@ -29,7 +28,6 @@ Types::CatalogerType = GraphQL::ObjectType.define do
   field :material_formats_as_updater, ( -> { !types[Types::MaterialFormatType] })
   field :media_types_as_updater, ( -> { !types[Types::MediaTypeType] })
   field :production_companies_as_updater, ( -> { !types[Types::ProductionCompanyType] })
-  field :publishers_as_updater, ( -> { !types[Types::PublisherType] })
   field :repositories_as_updater, ( -> { !types[Types::RepositoryType] })
   field :works_as_updater, ( -> { !types[Types::WorkType] })
 

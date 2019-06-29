@@ -55,16 +55,6 @@ const DisplayWork = ({ values }) => (
       </td>
     </tr>
     <tr>
-      <th>Publisher(s)</th>
-      <td>
-        {
-          values.publishers.map(c => (
-            <div key={c.id}>{wrapWithLink(c.name, c.id, 'publisher')}</div>
-          ))
-        }
-      </td>
-    </tr>
-    <tr>
       <th>Citation Source</th>
       <td>{values.citation_source}</td>
     </tr>

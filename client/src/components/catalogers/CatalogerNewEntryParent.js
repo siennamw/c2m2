@@ -8,7 +8,6 @@ import NewCountry from '../entries/country/NewCountry';
 import NewDirector from '../entries/director/NewDirector';
 import NewFilm from '../entries/film/NewFilm';
 import NewProductionCompany from '../entries/productionCompany/NewProductionCompany';
-import NewPublisher from '../entries/publisher/NewPublisher';
 import NewRepository from '../entries/repository/NewRepository';
 import NewWork from '../entries/work/NewWork';
 
@@ -28,7 +27,6 @@ const CatalogerNewEntryParent = ({ match }) => (
       <Route exact path={`${match.path}/director`} component={NewDirector} />
       <Route exact path={`${match.path}/film`} component={NewFilm} />
       <Route exact path={`${match.path}/production_company`} component={NewProductionCompany} />
-      <Route exact path={`${match.path}/publisher`} component={NewPublisher} />
       <Route exact path={`${match.path}/repository`} component={NewRepository} />
       <Route exact path={`${match.path}/work`} component={NewWork} />
       <Route render={() => (
@@ -49,7 +47,6 @@ const CatalogerNewEntryParent = ({ match }) => (
               <ul>
                 <li><Link to={`${match.path}/film`}>Film</Link></li>
                 <li><Link to={`${match.path}/production_company`}>Production Company</Link></li>
-                <li><Link to={`${match.path}/publisher`}>Publisher</Link></li>
                 <li><Link to={`${match.path}/repository`}>Repository</Link></li>
                 <li><Link to={`${match.path}/work`}>Work</Link></li>
               </ul>

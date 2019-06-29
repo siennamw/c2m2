@@ -78,15 +78,6 @@ export const LIST_ALL_PRODUCTION_COMPANIES = gql`
   }
 `;
 
-export const LIST_ALL_PUBLISHERS = gql`
-  query allPublishers {
-    allPublishers {
-      id
-      name
-    }
-  }
-`;
-
 export const LIST_ALL_REPOSITORIES = gql`
   query allRepositories {
     allRepositories {
@@ -139,10 +130,6 @@ export const CATALOGER_BY_ID = gql`
         id
         name
       }
-      publishers {
-        id
-        name
-      }
       repositories {
         id
         name
@@ -189,10 +176,6 @@ export const CATALOGER_BY_ID = gql`
         name
       }
       production_companies_as_updater {
-        id
-        name
-      }
-      publishers_as_updater {
         id
         name
       }
@@ -507,35 +490,6 @@ export const PRODUCTION_COMPANY_BY_ID = gql`
   }
 `;
 
-export const PUBLISHER_BY_ID = gql`
-  query publisher($id: ID!){
-    publisher(id: $id){
-      id
-      name
-      contact_info
-      works {
-        id
-        material_format {
-          name
-        }
-        film {
-          title
-        }
-      }
-      created_at
-      created_by {
-        id
-        name
-      }
-      updated_at
-      updated_by {
-        id
-        name
-      }
-    }
-  }
-`;
-
 export const REPOSITORY_BY_ID = gql`
   query repository($id: ID!){
     repository(id: $id){
@@ -580,10 +534,6 @@ export const WORK_BY_ID = gql`
         name
       }
       collections {
-        id
-        name
-      }
-      publishers {
         id
         name
       }

@@ -268,13 +268,6 @@ polygram = ProductionCompany.create(
   created_by: sienna
 )
 
-# Publishers
-omni = Publisher.create(
-  name: 'Omni Music Publishing',
-  contact_info: 'http://www.omnimusicpublishing.com/',
-  created_by: michael
-)
-
 # Films
 silverado = Film.create(
   title: 'Silverado (Motion picture)',
@@ -385,42 +378,36 @@ Work.create([
                 created_by: michael,
                 citation_source: 'Copy Owned',
                 collections: [harris_collection],
-                publishers: [omni],
               },
               { film: matrix,
                 material_format: printed_score_parts,
                 created_by: michael,
                 citation_source: 'Copy Owned',
                 collections: [harris_collection],
-                publishers: [omni],
               },
               { film: batman,
                 material_format: printed_score_parts,
                 created_by: michael,
                 citation_source: 'Copy Owned',
                 collections: [harris_collection],
-                publishers: [omni],
               },
               { film: scissorhands,
                 material_format: printed_score_parts,
                 created_by: michael,
                 citation_source: 'Copy Owned',
                 collections: [harris_collection],
-                publishers: [omni],
               },
               { film: willow,
                 material_format: printed_score_parts,
                 created_by: sienna,
                 citation_source: 'Copy Owned',
                 collections: [harris_collection],
-                publishers: [omni],
               },
               { film: back_to_the_future,
                 material_format: printed_score_parts,
                 created_by: sienna,
                 citation_source: 'Copy Owned',
                 collections: [harris_collection],
-                publishers: [omni],
               },
               { film: rashomon,
                 material_format: manuscript_score,

@@ -12,7 +12,6 @@ Types::WorkType = GraphQL::ObjectType.define do
   field :material_format, (-> { Types::MaterialFormatType })
 
   field :collections, ( -> { !types[Types::CollectionType] })
-  field :publishers, ( -> { !types[Types::PublisherType] })
 
   field :created_by, (-> { Types::CatalogerType })
   field :updated_by, (-> { Types::CatalogerType })

@@ -11,7 +11,6 @@ class Resolvers::CreateWork < GraphQL::Function
   argument :material_format_id, !types.ID
 
   argument :collection_ids, types[types.ID]
-  argument :publisher_ids, types[types.ID]
 
   # return type from the mutation
   type Types::WorkType
@@ -37,7 +36,6 @@ class Resolvers::CreateWork < GraphQL::Function
       created_by: ctx[:current_user],
 
       collection_ids: args[:collection_ids],
-      publisher_ids: args[:publisher_ids]
     )
 
   rescue ActiveRecord::RecordInvalid => e

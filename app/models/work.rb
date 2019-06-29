@@ -4,7 +4,6 @@ class Work < ApplicationRecord
 
   has_and_belongs_to_many :collections
   has_many :repositories, through: :collections
-  has_and_belongs_to_many :publishers
 
   belongs_to :created_by, class_name: 'Cataloger'
   belongs_to :updated_by, class_name: 'Cataloger', optional: true

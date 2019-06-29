@@ -16,11 +16,9 @@ class Resolvers::CreateWorkTest < ActiveSupport::TestCase
     @repository = Repository.create!(name: 'a repository', location: 'Boulder, CO', created_by: @cataloger)
 
     @collection_ids = []
-    @publisher_ids = []
 
     2.times do |n|
       @collection_ids << Collection.create!(name: "collection #{n}", repository: @repository, created_by: @cataloger).id
-      @publisher_ids << Publisher.create!(name: "publisher #{n}", created_by: @cataloger).id
     end
   end
 
@@ -56,7 +54,6 @@ class Resolvers::CreateWorkTest < ActiveSupport::TestCase
       material_format_id: @material_format.id,
 
       collection_ids: @collection_ids,
-      publisher_ids: @publisher_ids,
     )
 
     assert work.persisted?
@@ -71,7 +68,6 @@ class Resolvers::CreateWorkTest < ActiveSupport::TestCase
     assert_equal work.material_format, @material_format
 
     assert_equal work.collections.map { |obj| obj.id }, @collection_ids
-    assert_equal work.publishers.map { |obj| obj.id }, @publisher_ids
 
     assert_equal work.created_by, @cataloger
   end

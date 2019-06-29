@@ -26,7 +26,6 @@ import DetailedFilm from './entries/film/DetailedFilm';
 import DetailedMaterialFormat from './entries/materialFormat/DetailedMaterialFormat';
 import DetailedMediaType from './entries/mediaType/DetailedMediaType';
 import DetailedProductionCompany from './entries/productionCompany/DetailedProductionCompany';
-import DetailedPublisher from './entries/publisher/DetailedPublisher';
 import DetailedRepository from './entries/repository/DetailedRepository';
 import DetailedWork from './entries/work/DetailedWork';
 
@@ -65,7 +64,6 @@ class App extends React.Component {
               <Route exact path="/material_format/:id" component={DetailedMaterialFormat} />
               <Route exact path="/media_type/:id" component={DetailedMediaType} />
               <Route exact path="/production_company/:id" component={DetailedProductionCompany} />
-              <Route exact path="/publisher/:id" component={DetailedPublisher} />
               <Route exact path="/repository/:id" component={DetailedRepository} />
               <Route exact path="/work/:id" component={DetailedWork} />
 

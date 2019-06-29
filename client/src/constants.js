@@ -19,7 +19,6 @@ export const MODEL_NAMES = [
   'material_format',
   'media_type',
   'production_company',
-  'publisher',
   'repository',
   'work',
 ];
@@ -247,21 +246,6 @@ export const TOOLTIP_BY_MODEL_AND_FIELD = (model, fieldName) => {
         ],
       },
     },
-    publisher: {
-      contact_info: {
-        semantics: 'Public website, mailing address, or email address.',
-        rules: [
-          'Do not use individuals\' names or private contact information.',
-        ],
-      },
-      name: {
-        semantics: 'Full name.',
-        rules: [
-          lcAuthorityName,
-          doNotUseAliases,
-        ],
-      },
-    },
     repository: {
       location: {
         semantics: 'Sheltering institution, city, and state of institution.',
@@ -320,9 +304,6 @@ export const TOOLTIP_BY_MODEL_AND_FIELD = (model, fieldName) => {
       },
       material_format: {
         semantics: 'Physical format of material in collection.',
-      },
-      publisher: {
-        semantics: 'Corporate body that published the musical work.',
       },
     },
   };

@@ -8,8 +8,6 @@ import * as queries from '../../../queries';
 
 import NewCollection from '../collection/NewCollection';
 import NewFilm from '../film/NewFilm';
-import NewMaterialFormat from '../materialFormat/NewMaterialFormat';
-import NewPublisher from '../publisher/NewPublisher';
 import SelectField from '../SelectField';
 
 const WorkForm = ({ selfIsAdmin, setFieldValue }) => {
@@ -86,16 +84,6 @@ const WorkForm = ({ selfIsAdmin, setFieldValue }) => {
         onChangeCallback={selectOnChange}
         query={queries.LIST_ALL_COLLECTIONS}
         queryName="allCollections"
-      />
-      <SelectFieldWithQuery
-        componentForModal={<NewPublisher />}
-        displayName="Publisher(s)"
-        fieldName="publisher_ids"
-        isMulti
-        modelName={model}
-        onChangeCallback={selectOnChange}
-        query={queries.LIST_ALL_PUBLISHERS}
-        queryName="allPublishers"
       />
       <InputField
         displayName="Cataloging Notes"

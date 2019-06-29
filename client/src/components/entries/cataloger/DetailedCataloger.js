@@ -101,16 +101,6 @@ const DisplayCataloger = ({ values }) => (
       </td>
     </tr>
     <tr>
-      <th>Publishers</th>
-      <td>
-        {
-          [...values.publishers, ...values.publishers_as_updater].map(c => (
-            <div key={c.id}>{wrapWithLink(c.name, c.id, 'publisher')}</div>
-          ))
-        }
-      </td>
-    </tr>
-    <tr>
       <th>Repositories</th>
       <td>
         {

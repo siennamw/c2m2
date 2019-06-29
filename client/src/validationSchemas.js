@@ -161,14 +161,6 @@ export const productionCompanyValidationSchema = Yup.object().shape({
     .trim(),
 });
 
-export const publisherValidationSchema = Yup.object().shape({
-  name: Yup.string()
-    .trim()
-    .required('Name is required'),
-  contact_info: Yup.string()
-    .trim(),
-});
-
 export const repositoryValidationSchema = Yup.object().shape({
   name: Yup.string()
     .trim()
@@ -196,9 +188,6 @@ export const workValidationSchema = Yup.object().shape({
     .matches(stringOfDigitsRegex)
     .required('Material format is required'),
   collection_ids: Yup.array()
-    .default([])
-    .of(Yup.string().matches(stringOfDigitsRegex)),
-  publisher_ids: Yup.array()
     .default([])
     .of(Yup.string().matches(stringOfDigitsRegex)),
   publication_status: Yup.string()

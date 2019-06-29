@@ -153,16 +153,6 @@ export const CREATE_PRODUCTION_COMPANY = gql`
   }
 `;
 
-export const CREATE_PUBLISHER = gql`
-  mutation CreatePublisher($name: String!, $contact_info: String){
-    createPublisher(name: $name, contact_info: $contact_info) {
-      id
-      name
-      contact_info
-    }
-  }
-`;
-
 export const CREATE_REPOSITORY = gql`
   mutation CreateRepository($name: String!, $location: String!, $website: String){
     createRepository(name: $name, location: $location, website: $website) {
@@ -183,7 +173,6 @@ export const CREATE_WORK = gql`
     $film_id: ID!,
     $material_format_id: ID!,
     $collection_ids: [ID],
-    $publisher_ids: [ID],
   ){
     createWork(
       digital_copy_link: $digital_copy_link,
@@ -193,7 +182,6 @@ export const CREATE_WORK = gql`
       film_id: $film_id,
       material_format_id: $material_format_id,
       collection_ids: $collection_ids,
-      publisher_ids: $publisher_ids,
     ) {
       id
       digital_copy_link
@@ -207,9 +195,6 @@ export const CREATE_WORK = gql`
         id
       }
       collections {
-        id
-      }
-      publishers {
         id
       }
     }
@@ -474,26 +459,6 @@ export const UPDATE_PRODUCTION_COMPANY = gql`
   }
 `;
 
-export const UPDATE_PUBLISHER = gql`
-  mutation UpdatePublisher($id: ID!, $name: String!, $contact_info: String){
-    updatePublisher(id: $id, name: $name, contact_info: $contact_info) {
-      id
-      name
-      contact_info
-      created_at
-      created_by {
-        id
-        name
-      }
-      updated_at
-      updated_by {
-        id
-        name
-      }
-    }
-  }
-`;
-
 export const UPDATE_REPOSITORY = gql`
   mutation UpdateRepository($id: ID!, $name: String!, $location: String!, $website: String){
     updateRepository(id: $id, name: $name, location: $location, website: $website) {
@@ -526,7 +491,6 @@ export const UPDATE_WORK = gql`
     $film_id: ID!,
     $material_format_id: ID!,
     $collection_ids: [ID],
-    $publisher_ids: [ID],
   ){
     updateWork(
       id: $id,
@@ -538,7 +502,6 @@ export const UPDATE_WORK = gql`
       film_id: $film_id,
       material_format_id: $material_format_id,
       collection_ids: $collection_ids,
-      publisher_ids: $publisher_ids,
     ) {
       id
       digital_copy_link
@@ -553,9 +516,6 @@ export const UPDATE_WORK = gql`
         id
       }
       collections {
-        id
-      }
-      publishers {
         id
       }
       created_at
