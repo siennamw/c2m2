@@ -1,15 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
-import Modal from 'react-modal';
 
-import { ModalConsumer } from '../modal/ModalContext';
 import { MODEL_NAMES } from '../../constants';
 import { SelectFieldNoLabel } from './SelectField';
-
-// for accessibility,
-// https://github.com/reactjs/react-modal/tree/master/docs/accessibility
-Modal.setAppElement('#root');
+import ModalForComponent from './ModalForComponent';
 
 const SelectFieldWithQuery = ({
   fieldName,
@@ -54,49 +49,15 @@ const SelectFieldWithQuery = ({
         refetch();
       };
 
-      // modal for creating a new entry in this category
-      const modal = ({ onRequestClose, ...otherProps }) => (
-        <Modal
-          isOpen
-          onRequestClose={() => updateOnCloseModal(onRequestClose)}
-          className="custom-modal"
-          overlayClassName="custom-modal-overlay"
-          {...otherProps}
-        >
-          <button
-            type="button"
-            onClick={() => updateOnCloseModal(onRequestClose)}
-            className="custom-modal-x"
-          >
-            x
-          </button>
-          {componentForModal}
-          <button
-            type="button"
-            onClick={() => updateOnCloseModal(onRequestClose)}
-            className="u-full-width custom-modal-cancel-button"
-          >
-            Cancel
-          </button>
-        </Modal>
-      );
-
       return (
         <div className="select-with-query">
           <label htmlFor={fieldName}>
             {content}
-            <ModalConsumer>
-              {({ showModal }) => (
-                <button
-                  type="button"
-                  onClick={() => showModal(modal)}
-                  className="button-primary"
-                  title={`Add New ${displayName}`}
-                >
-                  +
-                </button>
-              )}
-            </ModalConsumer>
+            <ModalForComponent
+              component={componentForModal}
+              displayName={displayName}
+              onClose={updateOnCloseModal}
+            />
           </label>
         </div>
       );
