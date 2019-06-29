@@ -29,7 +29,6 @@ export default class FieldInfoTooltip extends React.Component {
     const {
       field,
       forMultiSelect,
-      hideRules,
       model,
     } = this.props;
 
@@ -39,8 +38,8 @@ export default class FieldInfoTooltip extends React.Component {
       ? tooltip.rules.map((r, i) => <li key={i}>{r}</li>)
       : undefined;
 
-    const description = tooltip && tooltip.description
-      ? tooltip.description
+    const semantics = tooltip && tooltip.semantics
+      ? tooltip.semantics
       : 'No description available for this field.';
 
     const display = (
@@ -50,9 +49,9 @@ export default class FieldInfoTooltip extends React.Component {
             ? <div className="multi-select-tooltip">Hold ctrl/cmd to select more than one.</div>
             : undefined
         }
-        <div className="tooltip-description">{description}</div>
+        <div className="tooltip-description">{semantics}</div>
         {
-          rules && !hideRules
+          rules
             ? (
               <Fragment>
                 <hr />
@@ -85,12 +84,10 @@ export default class FieldInfoTooltip extends React.Component {
 
 FieldInfoTooltip.defaultProps = {
   forMultiSelect: false,
-  hideRules: false,
 };
 
 FieldInfoTooltip.propTypes = {
   field: PropTypes.string.isRequired,
   forMultiSelect: PropTypes.bool,
-  hideRules: PropTypes.bool,
   model: PropTypes.oneOf(MODEL_NAMES).isRequired,
 };

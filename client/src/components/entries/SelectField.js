@@ -66,7 +66,6 @@ export const SelectFieldNoLabel = ({
       <FieldInfoTooltip
         field={fieldName}
         forMultiSelect={isMulti}
-        hideRules
         model={modelName}
       />
       <ErrorMessage
