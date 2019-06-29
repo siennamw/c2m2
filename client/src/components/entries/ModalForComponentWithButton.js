@@ -8,7 +8,7 @@ import { ModalConsumer } from '../modal/ModalContext';
 // https://github.com/reactjs/react-modal/tree/master/docs/accessibility
 Modal.setAppElement('#root');
 
-const ModalForComponent = ({
+const ModalForComponentWithButton = ({
   component,
   displayName,
   onClose,
@@ -48,11 +48,11 @@ const ModalForComponent = ({
   );
 };
 
-ModalForComponent.defaultProps = {
+ModalForComponentWithButton.defaultProps = {
   displayName: 'Entry',
 };
 
-ModalForComponent.propTypes = {
+ModalForComponentWithButton.propTypes = {
   component: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.element,
@@ -61,4 +61,4 @@ ModalForComponent.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default ModalForComponent;
+export default ModalForComponentWithButton;

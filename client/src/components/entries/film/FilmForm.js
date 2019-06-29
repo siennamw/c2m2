@@ -80,7 +80,7 @@ const FilmForm = ({ selfIsAdmin, setFieldValue }) => {
         queryName="allCountries"
       />
       <SelectFieldWithQuery
-        componentForModal={<NewMediaType />}
+        disableAddButton
         displayName="Media Type"
         fieldName="media_type_id"
         modelName={model}

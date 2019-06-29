@@ -4,11 +4,12 @@ import { Query } from 'react-apollo';
 
 import { MODEL_NAMES } from '../../constants';
 import { SelectFieldNoLabel } from './SelectField';
-import ModalForComponent from './ModalForComponent';
+import ModalForComponentWithButton from './ModalForComponentWithButton';
 
 const SelectFieldWithQuery = ({
   fieldName,
   componentForModal,
+  disableAddButton,
   disabled,
   displayName,
   isMulti,
@@ -49,15 +50,28 @@ const SelectFieldWithQuery = ({
         refetch();
       };
 
+      const showButton = componentForModal && !disableAddButton;
+
+      let classes = 'select-with-query';
+      if (showButton) {
+        classes = `${classes} has-button`;
+      }
+
       return (
-        <div className="select-with-query">
+        <div className={classes}>
           <label htmlFor={fieldName}>
             {content}
-            <ModalForComponent
-              component={componentForModal}
-              displayName={displayName}
-              onClose={updateOnCloseModal}
-            />
+            {
+              showButton
+                ? (
+                  <ModalForComponentWithButton
+                    component={componentForModal}
+                    displayName={displayName}
+                    onClose={updateOnCloseModal}
+                  />
+                )
+                : undefined
+            }
           </label>
         </div>
       );
@@ -66,6 +80,8 @@ const SelectFieldWithQuery = ({
 );
 
 SelectFieldWithQuery.defaultProps = {
+  componentForModal: null,
+  disableAddButton: false,
   disabled: false,
   isMulti: false,
 };
@@ -75,7 +91,8 @@ SelectFieldWithQuery.propTypes = {
   componentForModal: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.element,
-  ]).isRequired,
+  ]),
+  disableAddButton: PropTypes.bool,
   disabled: PropTypes.bool,
   displayName: PropTypes.string.isRequired,
   isMulti: PropTypes.bool,

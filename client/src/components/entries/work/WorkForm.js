@@ -69,7 +69,7 @@ const WorkForm = ({ selfIsAdmin, setFieldValue }) => {
         modelName={model}
       />
       <SelectFieldWithQuery
-        componentForModal={<NewMaterialFormat />}
+        disableAddButton
         displayName="Material Format"
         fieldName="material_format_id"
         modelName={model}
