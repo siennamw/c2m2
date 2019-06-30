@@ -93,14 +93,33 @@ SelectFieldNoLabel.propTypes = {
   modelName: PropTypes.oneOf(MODEL_NAMES).isRequired,
   onChangeCallback: PropTypes.func.isRequired,
   options: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-        PropTypes.bool,
-      ]).isRequired,
-      name: PropTypes.string.isRequired,
-    }),
+    (propValue, key, componentName, location, propFullName) => {
+      let idIsValid;
+      if (propValue[key].id) {
+        const idType = typeof propValue[key].id;
+        idIsValid = idType === 'string'
+          || idType === 'boolean'
+          || idType === 'number';
+      } else {
+        idIsValid = false;
+      }
+
+      let nameIsValid;
+      if (propValue[key].name || propValue[key].title) {
+        const nameType = typeof (propValue[key].name || propValue[key].title);
+        nameIsValid = nameType === 'string';
+      } else {
+        nameIsValid = false;
+      }
+
+      const valid = idIsValid && nameIsValid;
+      if (!valid) {
+        return new Error(
+          'Invalid prop `' + propFullName + '` supplied to' +
+          ' `' + componentName + '`. Validation failed.'
+        );
+      }
+    },
   ).isRequired,
 };
 
