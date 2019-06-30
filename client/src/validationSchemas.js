@@ -37,7 +37,7 @@ export const getInitialFormValuesForSchema = (schema, values) => {
       [k] = key.split('_id');
       result[key] = vals[k] && vals[k].id
         ? values[k].id
-        : undefined;
+        : '';
     } else if (typeof vals[key] === 'boolean') {
       // preserve boolean values
       result[key] = vals[key];
