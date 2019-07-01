@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190629211842) do
+ActiveRecord::Schema.define(version: 20190701010321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -197,6 +197,7 @@ ActiveRecord::Schema.define(version: 20190629211842) do
   add_foreign_key "catalogers", "catalogers", column: "updated_by_id"
   add_foreign_key "collections", "catalogers", column: "created_by_id"
   add_foreign_key "collections", "catalogers", column: "updated_by_id"
+  add_foreign_key "collections", "repositories"
   add_foreign_key "composers", "catalogers", column: "created_by_id"
   add_foreign_key "composers", "catalogers", column: "updated_by_id"
   add_foreign_key "countries", "catalogers", column: "created_by_id"
@@ -205,6 +206,8 @@ ActiveRecord::Schema.define(version: 20190629211842) do
   add_foreign_key "directors", "catalogers", column: "updated_by_id"
   add_foreign_key "films", "catalogers", column: "created_by_id"
   add_foreign_key "films", "catalogers", column: "updated_by_id"
+  add_foreign_key "films", "countries"
+  add_foreign_key "films", "media_types"
   add_foreign_key "material_formats", "catalogers", column: "created_by_id"
   add_foreign_key "material_formats", "catalogers", column: "updated_by_id"
   add_foreign_key "media_types", "catalogers", column: "created_by_id"
@@ -216,4 +219,5 @@ ActiveRecord::Schema.define(version: 20190629211842) do
   add_foreign_key "works", "catalogers", column: "created_by_id"
   add_foreign_key "works", "catalogers", column: "updated_by_id"
   add_foreign_key "works", "films"
+  add_foreign_key "works", "material_formats"
 end
