@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190701015557) do
+ActiveRecord::Schema.define(version: 20190701033538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,8 +47,8 @@ ActiveRecord::Schema.define(version: 20190701015557) do
   create_table "collections_works", id: false, force: :cascade do |t|
     t.bigint "work_id", null: false
     t.bigint "collection_id", null: false
-    t.index ["collection_id", "work_id"], name: "index_coll_works_on_coll_id_and_work_id"
-    t.index ["work_id", "collection_id"], name: "index_coll_works_on_work_id_and_coll_id"
+    t.index ["collection_id", "work_id"], name: "index_collections_works_on_collection_id_and_work_id", unique: true
+    t.index ["work_id", "collection_id"], name: "index_collections_works_on_work_id_and_collection_id", unique: true
   end
 
   create_table "composers", force: :cascade do |t|
@@ -66,6 +66,8 @@ ActiveRecord::Schema.define(version: 20190701015557) do
   create_table "composers_films", id: false, force: :cascade do |t|
     t.bigint "composer_id", null: false
     t.bigint "film_id", null: false
+    t.index ["composer_id", "film_id"], name: "index_composers_films_on_composer_id_and_film_id", unique: true
+    t.index ["film_id", "composer_id"], name: "index_composers_films_on_film_id_and_composer_id", unique: true
   end
 
   create_table "countries", force: :cascade do |t|
@@ -95,6 +97,8 @@ ActiveRecord::Schema.define(version: 20190701015557) do
   create_table "directors_films", id: false, force: :cascade do |t|
     t.bigint "director_id", null: false
     t.bigint "film_id", null: false
+    t.index ["director_id", "film_id"], name: "index_directors_films_on_director_id_and_film_id", unique: true
+    t.index ["film_id", "director_id"], name: "index_directors_films_on_film_id_and_director_id", unique: true
   end
 
   create_table "films", force: :cascade do |t|
@@ -118,6 +122,8 @@ ActiveRecord::Schema.define(version: 20190701015557) do
   create_table "films_production_companies", id: false, force: :cascade do |t|
     t.bigint "production_company_id", null: false
     t.bigint "film_id", null: false
+    t.index ["film_id", "production_company_id"], name: "index_pcs_films_on_film_id_and_pc_id", unique: true
+    t.index ["production_company_id", "film_id"], name: "index_pcs_films_on_pc_id_and_film_id", unique: true
   end
 
   create_table "material_formats", force: :cascade do |t|
@@ -147,8 +153,8 @@ ActiveRecord::Schema.define(version: 20190701015557) do
   create_table "orchestrators_films", id: false, force: :cascade do |t|
     t.bigint "composer_id", null: false
     t.bigint "film_id", null: false
-    t.index ["composer_id", "film_id"], name: "index_orch_films_on_orch_id_and_film_id"
-    t.index ["film_id", "composer_id"], name: "index_orch_films_on_film_id_and_orch_id"
+    t.index ["composer_id", "film_id"], name: "index_orch_films_on_orch_id_and_film_id", unique: true
+    t.index ["film_id", "composer_id"], name: "index_orch_films_on_film_id_and_orch_id", unique: true
   end
 
   create_table "production_companies", force: :cascade do |t|
