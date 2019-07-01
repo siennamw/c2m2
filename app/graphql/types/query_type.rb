@@ -3,8 +3,14 @@ Types::QueryType = GraphQL::ObjectType.define do
 
   field :selfIsAdmin do
     type types.Boolean
-    description "The user making the request is an admin"
-    resolve ->(obj, args, ctx){ ctx[:current_user].admin }
+    description "The user making the request is authenticated and is an admin"
+    resolve ->(obj, args, ctx) {
+      if ctx[:current_user]
+        return ctx[:current_user].admin
+      else
+        return false
+      end
+    }
   end
 
   field :allCatalogers do
