@@ -9,7 +9,6 @@ import * as queries from '../../../queries';
 import NewComposer from '../composer/NewComposer';
 import NewCountry from '../country/NewCountry';
 import NewDirector from '../director/NewDirector';
-import NewMediaType from '../mediaType/NewMediaType';
 import NewProductionCompany from '../productionCompany/NewProductionCompany';
 
 const FilmForm = ({ selfIsAdmin, setFieldValue }) => {
