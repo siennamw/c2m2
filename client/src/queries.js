@@ -378,6 +378,7 @@ export const FILM_BY_ID = gql`
         material_format {
           name
         }
+        publication_status
       }
       created_at
       created_by {

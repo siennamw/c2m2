@@ -4,6 +4,8 @@ import DetailedEntry from '../DetailedEntry';
 import { FILM_BY_ID } from '../../../queries';
 import { wrapWithLink } from '../../../utils';
 
+import { isAuthenticated } from '../../../utils';
+
 const DisplayFilm = ({ values }) => (
   <tbody>
     <tr>
@@ -90,9 +92,16 @@ const DisplayFilm = ({ values }) => (
       <th>Works</th>
       <td>
         {
-          values.works.map(w => (
-            <div key={w.id}>{wrapWithLink(w.material_format.name, w.id, 'work')}</div>
-          ))
+          values.works.reduce((result, w) => {
+            if (isAuthenticated() || w.publication_status !== 'draft') {
+              result.push(
+                <div key={w.id}>
+                  {wrapWithLink(w.material_format.name, w.id, 'work')}
+                </div>
+              );
+            }
+            return result;
+          }, [])
         }
       </td>
     </tr>
