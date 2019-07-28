@@ -28,7 +28,6 @@ export default class FieldInfoTooltip extends React.Component {
   render() {
     const {
       field,
-      forMultiSelect,
       model,
     } = this.props;
 
@@ -44,11 +43,6 @@ export default class FieldInfoTooltip extends React.Component {
 
     const display = (
       <div className="tooltip-content">
-        {
-          forMultiSelect
-            ? <div className="multi-select-tooltip">Hold ctrl/cmd to select more than one.</div>
-            : undefined
-        }
         <div className="tooltip-description">{semantics}</div>
         {
           rules
@@ -82,12 +76,7 @@ export default class FieldInfoTooltip extends React.Component {
   }
 }
 
-FieldInfoTooltip.defaultProps = {
-  forMultiSelect: false,
-};
-
 FieldInfoTooltip.propTypes = {
   field: PropTypes.string.isRequired,
-  forMultiSelect: PropTypes.bool,
   model: PropTypes.oneOf(MODEL_NAMES).isRequired,
 };

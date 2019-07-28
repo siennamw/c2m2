@@ -6,6 +6,7 @@ import FieldInfoTooltip from './FieldInfoTooltip';
 import { MODEL_NAMES } from '../../constants';
 
 export const SelectFieldNoLabel = ({
+  addNewItemText,
   fieldName,
   disabled,
   disablePlaceholder,
@@ -60,12 +61,19 @@ export const SelectFieldNoLabel = ({
     );
   }
 
+  const helpText = [];
+  if (addNewItemText) {
+    helpText.push('select from the list below or click + to create a new entry');
+  }
+  if (isMulti) {
+    helpText.push('hold ctrl/cmd to select more than one item');
+  }
+
   return (
     <Fragment>
       {displayName}
       <FieldInfoTooltip
         field={fieldName}
-        forMultiSelect={isMulti}
         model={modelName}
       />
       <ErrorMessage
@@ -73,18 +81,23 @@ export const SelectFieldNoLabel = ({
         component="div"
         className="status-message form-message error"
       />
+      <div className="help-text">
+        {helpText.map(text => <div>{text}</div>)}
+      </div>
       {content}
     </Fragment>
   );
 };
 
 SelectFieldNoLabel.defaultProps = {
+  addNewItemText: false,
   isMulti: false,
   disabled: false,
   disablePlaceholder: false,
 };
 
 SelectFieldNoLabel.propTypes = {
+  addNewItemText: PropTypes.bool,
   fieldName: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   disablePlaceholder: PropTypes.bool,

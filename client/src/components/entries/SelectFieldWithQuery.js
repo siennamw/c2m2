@@ -20,6 +20,8 @@ const SelectFieldWithQuery = ({
 }) => (
   <Query query={query}>
     {({ error, data, refetch }) => {
+      const showButton = componentForModal && !disableAddButton;
+
       let content = (
         <div className="status-message">Fetching...</div>
       );
@@ -34,6 +36,7 @@ const SelectFieldWithQuery = ({
 
         content = (
           <SelectFieldNoLabel
+            addNewItemText={showButton}
             fieldName={fieldName}
             disabled={disabled}
             displayName={displayName}
@@ -49,8 +52,6 @@ const SelectFieldWithQuery = ({
         onClose();
         refetch();
       };
-
-      const showButton = componentForModal && !disableAddButton;
 
       let classes = 'select-with-query';
       if (showButton) {
