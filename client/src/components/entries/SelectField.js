@@ -82,7 +82,7 @@ export const SelectFieldNoLabel = ({
         className="status-message form-message error"
       />
       <div className="help-text">
-        {helpText.map(text => <div>{text}</div>)}
+        {helpText.map((text, index) => <div key={index}>{text}</div>)}
       </div>
       {content}
     </Fragment>
