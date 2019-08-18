@@ -89,7 +89,7 @@ const DisplayFilm = ({ values }) => (
       </td>
     </tr>
     <tr>
-      <th>Works</th>
+      <th>Resources</th>
       <td>
         {
           values.resources.reduce((result, r) => {
