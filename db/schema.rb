@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190701033538) do
+ActiveRecord::Schema.define(version: 20190816025328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,11 +44,11 @@ ActiveRecord::Schema.define(version: 20190701033538) do
     t.index ["updated_by_id"], name: "index_collections_on_updated_by_id"
   end
 
-  create_table "collections_works", id: false, force: :cascade do |t|
-    t.bigint "work_id", null: false
+  create_table "collections_resources", id: false, force: :cascade do |t|
+    t.bigint "resource_id", null: false
     t.bigint "collection_id", null: false
-    t.index ["collection_id", "work_id"], name: "index_collections_works_on_collection_id_and_work_id", unique: true
-    t.index ["work_id", "collection_id"], name: "index_collections_works_on_work_id_and_collection_id", unique: true
+    t.index ["collection_id", "resource_id"], name: "index_collections_resources_on_collection_id_and_resource_id", unique: true
+    t.index ["resource_id", "collection_id"], name: "index_collections_resources_on_resource_id_and_collection_id", unique: true
   end
 
   create_table "composers", force: :cascade do |t|
@@ -180,7 +180,7 @@ ActiveRecord::Schema.define(version: 20190701033538) do
     t.index ["updated_by_id"], name: "index_repositories_on_updated_by_id"
   end
 
-  create_table "works", force: :cascade do |t|
+  create_table "resources", force: :cascade do |t|
     t.string "finding_aid_link"
     t.string "digital_copy_link"
     t.text "citation_source"
@@ -192,11 +192,11 @@ ActiveRecord::Schema.define(version: 20190701033538) do
     t.string "publication_status", default: "draft", null: false
     t.bigint "updated_by_id"
     t.bigint "film_id"
-    t.index ["created_by_id"], name: "index_works_on_created_by_id"
-    t.index ["film_id"], name: "index_works_on_film_id"
-    t.index ["material_format_id"], name: "index_works_on_material_format_id"
-    t.index ["publication_status"], name: "index_works_on_publication_status"
-    t.index ["updated_by_id"], name: "index_works_on_updated_by_id"
+    t.index ["created_by_id"], name: "index_resources_on_created_by_id"
+    t.index ["film_id"], name: "index_resources_on_film_id"
+    t.index ["material_format_id"], name: "index_resources_on_material_format_id"
+    t.index ["publication_status"], name: "index_resources_on_publication_status"
+    t.index ["updated_by_id"], name: "index_resources_on_updated_by_id"
   end
 
   add_foreign_key "catalogers", "catalogers", column: "created_by_id"
@@ -204,8 +204,8 @@ ActiveRecord::Schema.define(version: 20190701033538) do
   add_foreign_key "collections", "catalogers", column: "created_by_id"
   add_foreign_key "collections", "catalogers", column: "updated_by_id"
   add_foreign_key "collections", "repositories"
-  add_foreign_key "collections_works", "collections"
-  add_foreign_key "collections_works", "works"
+  add_foreign_key "collections_resources", "collections"
+  add_foreign_key "collections_resources", "resources"
   add_foreign_key "composers", "catalogers", column: "created_by_id"
   add_foreign_key "composers", "catalogers", column: "updated_by_id"
   add_foreign_key "composers_films", "composers"
@@ -230,8 +230,8 @@ ActiveRecord::Schema.define(version: 20190701033538) do
   add_foreign_key "production_companies", "catalogers", column: "updated_by_id"
   add_foreign_key "repositories", "catalogers", column: "created_by_id"
   add_foreign_key "repositories", "catalogers", column: "updated_by_id"
-  add_foreign_key "works", "catalogers", column: "created_by_id"
-  add_foreign_key "works", "catalogers", column: "updated_by_id"
-  add_foreign_key "works", "films"
-  add_foreign_key "works", "material_formats"
+  add_foreign_key "resources", "catalogers", column: "created_by_id"
+  add_foreign_key "resources", "catalogers", column: "updated_by_id"
+  add_foreign_key "resources", "films"
+  add_foreign_key "resources", "material_formats"
 end

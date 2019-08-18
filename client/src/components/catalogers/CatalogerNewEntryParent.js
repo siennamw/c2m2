@@ -9,7 +9,7 @@ import NewDirector from '../entries/director/NewDirector';
 import NewFilm from '../entries/film/NewFilm';
 import NewProductionCompany from '../entries/productionCompany/NewProductionCompany';
 import NewRepository from '../entries/repository/NewRepository';
-import NewWork from '../entries/work/NewWork';
+import NewResource from '../entries/resource/NewResource';
 
 const CatalogerNewEntryParent = ({ match }) => (
   <div>
@@ -28,7 +28,7 @@ const CatalogerNewEntryParent = ({ match }) => (
       <Route exact path={`${match.path}/film`} component={NewFilm} />
       <Route exact path={`${match.path}/production_company`} component={NewProductionCompany} />
       <Route exact path={`${match.path}/repository`} component={NewRepository} />
-      <Route exact path={`${match.path}/work`} component={NewWork} />
+      <Route exact path={`${match.path}/resource`} component={NewResource} />
       <Route render={() => (
         <div>
           <h3>Create a New Entry</h3>
@@ -48,7 +48,7 @@ const CatalogerNewEntryParent = ({ match }) => (
               score is associated
             </li>
             <li>
-              <Link to={`${match.path}/work`}>Work</Link>
+              <Link to={`${match.path}/resource`}>Resource</Link>
               &nbsp;
               - an individual library holding (ex. score, recording, etc.),
               within a collection, pertaining to a film, series, game, etc.

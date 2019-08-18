@@ -17,7 +17,7 @@ Types::CatalogerType = GraphQL::ObjectType.define do
   field :media_types, ( -> { !types[Types::MediaTypeType] })
   field :production_companies, ( -> { !types[Types::ProductionCompanyType] })
   field :repositories, ( -> { !types[Types::RepositoryType] })
-  field :works, ( -> { !types[Types::WorkType] })
+  field :resources, ( -> { !types[Types::ResourceType] })
 
   field :catalogers_as_updater, ( -> { !types[Types::CatalogerType] })
   field :collections_as_updater, ( -> { !types[Types::CollectionType] })
@@ -29,7 +29,7 @@ Types::CatalogerType = GraphQL::ObjectType.define do
   field :media_types_as_updater, ( -> { !types[Types::MediaTypeType] })
   field :production_companies_as_updater, ( -> { !types[Types::ProductionCompanyType] })
   field :repositories_as_updater, ( -> { !types[Types::RepositoryType] })
-  field :works_as_updater, ( -> { !types[Types::WorkType] })
+  field :resources_as_updater, ( -> { !types[Types::ResourceType] })
 
   field :created_by, (-> { Types::CatalogerType })
   field :updated_by, (-> { Types::CatalogerType })

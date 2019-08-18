@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class Resolvers::CreateWorkTest < ActiveSupport::TestCase
+class Resolvers::CreateResourceTest < ActiveSupport::TestCase
   def perform(args = {})
-    Resolvers::CreateWork.new.call(nil, args, { current_user: @cataloger })
+    Resolvers::CreateResource.new.call(nil, args, { current_user: @cataloger })
   end
 
   setup do
@@ -22,28 +22,28 @@ class Resolvers::CreateWorkTest < ActiveSupport::TestCase
     end
   end
 
-  test 'creating new work with the minimum required fields' do
-    work = perform(
+  test 'creating new resource with the minimum required fields' do
+    resource = perform(
       film_id: @film.id,
       material_format_id: @material_format.id,
     )
 
-    assert work.persisted?
-    assert_equal work.film, @film
-    assert_equal work.material_format, @material_format
-    assert_equal work.publication_status, 'draft'
+    assert resource.persisted?
+    assert_equal resource.film, @film
+    assert_equal resource.material_format, @material_format
+    assert_equal resource.publication_status, 'draft'
 
-    assert_equal work.created_by, @cataloger
+    assert_equal resource.created_by, @cataloger
   end
 
-  test 'creating new work with all possible fields' do
+  test 'creating new resource with all possible fields' do
     finding_aid_link = ''
     digital_copy_link = 'digital_copy_link'
     citation_source = 'citation_source'
     cataloging_notes = 'cataloging_notes'
     publication_status = 'provisional'
 
-    work = perform(
+    resource = perform(
       finding_aid_link: finding_aid_link,
       digital_copy_link: digital_copy_link,
       citation_source: citation_source,
@@ -56,19 +56,19 @@ class Resolvers::CreateWorkTest < ActiveSupport::TestCase
       collection_ids: @collection_ids,
     )
 
-    assert work.persisted?
+    assert resource.persisted?
 
-    assert_equal work.finding_aid_link, finding_aid_link
-    assert_equal work.digital_copy_link, digital_copy_link
-    assert_equal work.citation_source, citation_source
-    assert_equal work.cataloging_notes, cataloging_notes
-    assert_equal work.publication_status, publication_status
+    assert_equal resource.finding_aid_link, finding_aid_link
+    assert_equal resource.digital_copy_link, digital_copy_link
+    assert_equal resource.citation_source, citation_source
+    assert_equal resource.cataloging_notes, cataloging_notes
+    assert_equal resource.publication_status, publication_status
 
-    assert_equal work.film, @film
-    assert_equal work.material_format, @material_format
+    assert_equal resource.film, @film
+    assert_equal resource.material_format, @material_format
 
-    assert_equal work.collections.map { |obj| obj.id }, @collection_ids
+    assert_equal resource.collections.map { |obj| obj.id }, @collection_ids
 
-    assert_equal work.created_by, @cataloger
+    assert_equal resource.created_by, @cataloger
   end
 end

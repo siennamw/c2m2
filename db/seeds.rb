@@ -371,8 +371,8 @@ samurai = Film.create(
   production_companies: [toho],
 )
 
-# Works
-Work.create([
+# Resources
+Resource.create([
               { film: silverado,
                 material_format: printed_score_parts,
                 created_by: michael,

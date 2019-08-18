@@ -10,8 +10,8 @@ import NewCollection from '../collection/NewCollection';
 import NewFilm from '../film/NewFilm';
 import SelectField from '../SelectField';
 
-const WorkForm = ({ selfIsAdmin, setFieldValue }) => {
-  const model = 'work';
+const ResourceForm = ({ selfIsAdmin, setFieldValue }) => {
+  const model = 'resource';
   const selectOnChange = (evt, name) => {
     if (name.includes('_ids')) {
       // when selecting from a multiselect to set an array of IDs,
@@ -102,12 +102,12 @@ const WorkForm = ({ selfIsAdmin, setFieldValue }) => {
   );
 };
 
-WorkForm.defaultProps = {
+ResourceForm.defaultProps = {
   selfIsAdmin: false,
 };
 
-WorkForm.propTypes = {
+ResourceForm.propTypes = {
   selfIsAdmin: PropTypes.bool,
 };
 
-export default WorkForm;
+export default ResourceForm;

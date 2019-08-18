@@ -23,13 +23,13 @@ const DisplayCollection = ({ values }) => (
       </td>
     </tr>
     <tr>
-      <th>Works(s)</th>
+      <th>Resources(s)</th>
       <td>
         {
-          values.works.map(c => {
+          values.resources.map(c => {
             const text = `${c.film.title}: ${c.material_format.name}`;
             return (
-              <div key={c.id}>{wrapWithLink(text, c.id, 'work')}</div>
+              <div key={c.id}>{wrapWithLink(text, c.id, 'resource')}</div>
             )
           })
         }

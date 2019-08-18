@@ -1,5 +1,7 @@
-class Resolvers::CreateWork < GraphQL::Function
+class Resolvers::UpdateResource < GraphQL::Function
   # arguments passed as "args"
+  argument :id, !types.ID
+
   argument :finding_aid_link, types.String
   argument :digital_copy_link, types.String
   argument :citation_source, types.String
@@ -13,7 +15,7 @@ class Resolvers::CreateWork < GraphQL::Function
   argument :collection_ids, types[types.ID]
 
   # return type from the mutation
-  type Types::WorkType
+  type Types::ResourceType
 
   # the mutation method
   def call(_obj, args, ctx)
@@ -21,23 +23,34 @@ class Resolvers::CreateWork < GraphQL::Function
       raise GraphQL::ExecutionError.new("Authentication required")
     end
 
-    publication_status = args[:publication_status] || 'draft'
+    resource = Resource.find_by(id: args[:id])
 
-    Work.create!(
+    if !ctx[:current_user].admin && args[:publication_status] == 'approved'
+      # only admin can set to 'approved', fall back to 'provisional' if attempted
+      new_status = 'provisional'
+    else
+      # fall back to 'draft' if argument is missing
+      new_status = args[:publication_status] || 'draft'
+    end
+
+    resource.update(
       finding_aid_link: args[:finding_aid_link],
       digital_copy_link: args[:digital_copy_link],
       citation_source: args[:citation_source],
       cataloging_notes: args[:cataloging_notes],
-      publication_status: publication_status,
+
+      publication_status: new_status,
 
       film_id: args[:film_id],
       material_format_id: args[:material_format_id],
 
-      created_by: ctx[:current_user],
-
       collection_ids: args[:collection_ids],
+
+      updated_by: ctx[:current_user],
     )
 
+    # return resource
+    resource
   rescue ActiveRecord::RecordInvalid => e
     # this would catch all validation errors and translate them to GraphQL::ExecutionError
     GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")

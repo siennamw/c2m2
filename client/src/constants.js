@@ -20,7 +20,7 @@ export const MODEL_NAMES = [
   'media_type',
   'production_company',
   'repository',
-  'work',
+  'resource',
 ];
 
 // repeated values for TOOLTIP_BY_MODEL_AND_FIELD below
@@ -69,7 +69,7 @@ export const TOOLTIP_BY_MODEL_AND_FIELD = (model, fieldName) => {
   const tooltip = {
     cataloger: {
       admin: {
-        semantics: 'Administrators can approve entries for works and can create and modify other catalogers.',
+        semantics: 'Administrators can approve entries for resources and can create and modify other catalogers.',
       },
       description: {
         semantics: 'Title, institutional affiliation, or other description.',
@@ -270,7 +270,7 @@ export const TOOLTIP_BY_MODEL_AND_FIELD = (model, fieldName) => {
         ],
       },
     },
-    work: {
+    resource: {
       cataloging_notes: {
         semantics: 'Any other information pertinent to entry.',
         rules: [

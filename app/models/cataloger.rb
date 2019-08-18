@@ -11,7 +11,7 @@ class Cataloger < ApplicationRecord
   has_many :media_types, foreign_key: 'created_by_id', class_name: 'MediaType'
   has_many :production_companies, foreign_key: 'created_by_id', class_name: 'ProductionCompany'
   has_many :repositories, foreign_key: 'created_by_id', class_name: 'Repository'
-  has_many :works, foreign_key: 'created_by_id', class_name: 'Work'
+  has_many :resources, foreign_key: 'created_by_id', class_name: 'Resource'
 
   has_many :catalogers_as_updater, foreign_key: 'updated_by_id', class_name: 'Cataloger'
   has_many :collections_as_updater, foreign_key: 'updated_by_id', class_name: 'Collection'
@@ -23,7 +23,7 @@ class Cataloger < ApplicationRecord
   has_many :media_types_as_updater, foreign_key: 'updated_by_id', class_name: 'MediaType'
   has_many :production_companies_as_updater, foreign_key: 'updated_by_id', class_name: 'ProductionCompany'
   has_many :repositories_as_updater, foreign_key: 'updated_by_id', class_name: 'Repository'
-  has_many :works_as_updater, foreign_key: 'updated_by_id', class_name: 'Work'
+  has_many :resources_as_updater, foreign_key: 'updated_by_id', class_name: 'Resource'
 
   belongs_to :created_by, class_name: 'Cataloger', optional: true
   belongs_to :updated_by, class_name: 'Cataloger', optional: true

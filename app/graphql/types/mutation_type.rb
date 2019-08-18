@@ -11,7 +11,7 @@ Types::MutationType = GraphQL::ObjectType.define do
   field :createMediaType, function: Resolvers::CreateMediaType.new
   field :createProductionCompany, function: Resolvers::CreateProductionCompany.new
   field :createRepository, function: Resolvers::CreateRepository.new
-  field :createWork, function: Resolvers::CreateWork.new
+  field :createResource, function: Resolvers::CreateResource.new
 
   field :updateCataloger, function: Resolvers::UpdateCataloger.new
   field :updateCollection, function: Resolvers::UpdateCollection.new
@@ -23,7 +23,7 @@ Types::MutationType = GraphQL::ObjectType.define do
   field :updateMediaType, function: Resolvers::UpdateMediaType.new
   field :updateProductionCompany, function: Resolvers::UpdateProductionCompany.new
   field :updateRepository, function: Resolvers::UpdateRepository.new
-  field :updateWork, function: Resolvers::UpdateWork.new
+  field :updateResource, function: Resolvers::UpdateResource.new
 
   field :signInCataloger, function: Resolvers::SignInCataloger.new
 

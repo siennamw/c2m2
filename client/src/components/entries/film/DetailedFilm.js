@@ -92,11 +92,11 @@ const DisplayFilm = ({ values }) => (
       <th>Works</th>
       <td>
         {
-          values.works.reduce((result, w) => {
-            if (isAuthenticated() || w.publication_status !== 'draft') {
+          values.resources.reduce((result, r) => {
+            if (isAuthenticated() || r.publication_status !== 'draft') {
               result.push(
-                <div key={w.id}>
-                  {wrapWithLink(w.material_format.name, w.id, 'work')}
+                <div key={r.id}>
+                  {wrapWithLink(r.material_format.name, r.id, 'resource')}
                 </div>
               );
             }

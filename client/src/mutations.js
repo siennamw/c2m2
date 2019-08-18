@@ -164,8 +164,8 @@ export const CREATE_REPOSITORY = gql`
   }
 `;
 
-export const CREATE_WORK = gql`
-  mutation CreateWork(
+export const CREATE_RESOURCE = gql`
+  mutation CreateResource(
     $digital_copy_link: String,
     $finding_aid_link: String,
     $citation_source: String,
@@ -174,7 +174,7 @@ export const CREATE_WORK = gql`
     $material_format_id: ID!,
     $collection_ids: [ID],
   ){
-    createWork(
+    createResource(
       digital_copy_link: $digital_copy_link,
       finding_aid_link: $finding_aid_link,
       citation_source: $citation_source,
@@ -480,7 +480,7 @@ export const UPDATE_REPOSITORY = gql`
   }
 `;
 
-export const UPDATE_WORK = gql`
+export const UPDATE_RESOURCE = gql`
   mutation UpdateWork(
     $id: ID!,
     $digital_copy_link: String,

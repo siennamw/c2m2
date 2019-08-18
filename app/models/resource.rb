@@ -1,4 +1,4 @@
-class Work < ApplicationRecord
+class Resource < ApplicationRecord
   belongs_to :film
   belongs_to :material_format
 

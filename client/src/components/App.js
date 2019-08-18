@@ -27,7 +27,7 @@ import DetailedMaterialFormat from './entries/materialFormat/DetailedMaterialFor
 import DetailedMediaType from './entries/mediaType/DetailedMediaType';
 import DetailedProductionCompany from './entries/productionCompany/DetailedProductionCompany';
 import DetailedRepository from './entries/repository/DetailedRepository';
-import DetailedWork from './entries/work/DetailedWork';
+import DetailedResource from './entries/resource/DetailedResource';
 
 import PrivateRoute from './PrivateRoute';
 
@@ -65,7 +65,7 @@ class App extends React.Component {
               <Route exact path="/media_type/:id" component={DetailedMediaType} />
               <Route exact path="/production_company/:id" component={DetailedProductionCompany} />
               <Route exact path="/repository/:id" component={DetailedRepository} />
-              <Route exact path="/work/:id" component={DetailedWork} />
+              <Route exact path="/resource/:id" component={DetailedResource} />
 
               <PrivateRoute path="/dashboard" component={CatalogerDashboard} />
 

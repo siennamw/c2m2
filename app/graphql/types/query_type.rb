@@ -139,25 +139,25 @@ Types::QueryType = GraphQL::ObjectType.define do
     resolve ->(obj, args, ctx) { Repository.find(args[:id]) }
   end
 
-  field :allWorks do
-    type types[Types::WorkType]
-    description "A list of all works"
-    resolve ->(obj, args, ctx) { Work.all }
+  field :allResources do
+    type types[Types::ResourceType]
+    description "A list of all resources"
+    resolve ->(obj, args, ctx) { Resource.all }
   end
 
-  field :work do
-    type Types::WorkType
-    description "Work by ID"
+  field :resource do
+    type Types::ResourceType
+    description "Resource by ID"
     argument :id, !types.ID
     resolve ->(obj, args, ctx) {
-      work = Work.find(args[:id])
+      resource = Resource.find(args[:id])
 
       # filter out draft entries if user not authenticated
-      if work.publication_status === 'draft' && !ctx[:current_user]
+      if resource.publication_status === 'draft' && !ctx[:current_user]
         raise ActiveRecord::RecordNotFound
       end
 
-      work
+      resource
     }
   end
 end

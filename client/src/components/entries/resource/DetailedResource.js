@@ -1,10 +1,10 @@
 import React from 'react';
 
 import DetailedEntry from '../DetailedEntry';
-import { WORK_BY_ID } from '../../../queries';
+import { RESOURCE_BY_ID } from '../../../queries';
 import { wrapWithLink } from '../../../utils';
 
-const DisplayWork = ({ values }) => (
+const DisplayResource = ({ values }) => (
   <tbody>
     <tr>
       <th>Film</th>
@@ -65,18 +65,18 @@ const DisplayWork = ({ values }) => (
   </tbody>
 );
 
-const DetailedWork = ({ match }) => {
+const DetailedResource = ({ match }) => {
   const id = Number(match.params.id);
 
   return (
     <DetailedEntry
-      DisplayComponent={DisplayWork}
-      entryTypeForDisplay="work"
-      gqlQuery={WORK_BY_ID}
+      DisplayComponent={DisplayResource}
+      entryTypeForDisplay="resource"
+      gqlQuery={RESOURCE_BY_ID}
       id={id}
-      queryName="work"
+      queryName="resource"
     />
   );
 };
 
-export default DetailedWork;
+export default DetailedResource;

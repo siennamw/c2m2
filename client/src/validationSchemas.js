@@ -172,7 +172,7 @@ export const repositoryValidationSchema = Yup.object().shape({
     .url('Website is not a valid URL'),
 });
 
-export const workValidationSchema = Yup.object().shape({
+export const resourceValidationSchema = Yup.object().shape({
   digital_copy_link: Yup.string()
     .url('Digital copy link is not a valid URL'),
   finding_aid_link: Yup.string()

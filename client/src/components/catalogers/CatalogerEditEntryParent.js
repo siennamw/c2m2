@@ -11,7 +11,7 @@ import EditMaterialFormat from '../entries/materialFormat/EditMaterialFormat';
 import EditMediaType from '../entries/mediaType/EditMediaType';
 import EditProductionCompany from '../entries/productionCompany/EditProductionCompany';
 import EditRepository from '../entries/repository/EditRepository';
-import EditWork from '../entries/work/EditWork';
+import EditResource from '../entries/resource/EditResource';
 import UnknownRoute from '../UnknownRoute';
 
 const CatalogerEditEntryParent = ({ match }) => (
@@ -26,7 +26,7 @@ const CatalogerEditEntryParent = ({ match }) => (
     <Route exact path={`${match.path}/media_type/:id`} component={EditMediaType} />
     <Route exact path={`${match.path}/production_company/:id`} component={EditProductionCompany} />
     <Route exact path={`${match.path}/repository/:id`} component={EditRepository} />
-    <Route exact path={`${match.path}/work/:id`} component={EditWork} />
+    <Route exact path={`${match.path}/resource/:id`} component={EditResource} />
     <Route component={UnknownRoute} />
   </Switch>
 );

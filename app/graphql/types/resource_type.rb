@@ -1,5 +1,5 @@
-Types::WorkType = GraphQL::ObjectType.define do
-  name 'Work'
+Types::ResourceType = GraphQL::ObjectType.define do
+  name 'Resource'
 
   field :id, !types.ID
   field :finding_aid_link, types.String

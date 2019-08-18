@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
+class Resolvers::UpdateResourceTest < ActiveSupport::TestCase
   def perform(args = {}, current_user)
-    Resolvers::UpdateWork.new.call(nil, args, { current_user: current_user })
+    Resolvers::UpdateResource.new.call(nil, args, { current_user: current_user })
   end
 
   setup do
@@ -62,46 +62,46 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
       )
     end
 
-    @work = Work.create!(
+    @resource = Resource.create!(
       film_id: @films[0].id,
       material_format_id: @material_formats[0].id,
       created_by: @cataloger,
     )
   end
 
-  test 'updating a work with the minimum required fields' do
-    updated_work = perform(
+  test 'updating a resource with the minimum required fields' do
+    updated_resource = perform(
       {
-        id: @work.id,
+        id: @resource.id,
         film_id: @films[1].id,
         material_format_id: @material_formats[1].id,
       },
       @new_cataloger
     )
 
-    assert updated_work.persisted?
-    assert_equal updated_work.id, @work.id
+    assert updated_resource.persisted?
+    assert_equal updated_resource.id, @resource.id
 
     # fall back to 'draft' if publication_status argument is missing
-    assert_equal updated_work.publication_status, 'draft'
+    assert_equal updated_resource.publication_status, 'draft'
 
-    assert_equal updated_work.film, @films[1]
-    assert_equal updated_work.material_format, @material_formats[1]
+    assert_equal updated_resource.film, @films[1]
+    assert_equal updated_resource.material_format, @material_formats[1]
 
-    assert_equal updated_work.created_by, @cataloger
-    assert_equal updated_work.updated_by, @new_cataloger
+    assert_equal updated_resource.created_by, @cataloger
+    assert_equal updated_resource.updated_by, @new_cataloger
   end
 
-  test 'updating a work with all possible fields' do
+  test 'updating a resource with all possible fields' do
     finding_aid_link = ''
     digital_copy_link = 'digital_copy_link'
     citation_source = 'citation_source'
     cataloging_notes = 'cataloging_notes'
     publication_status = 'provisional'
 
-    updated_work = perform(
+    updated_resource = perform(
       {
-        id: @work.id,
+        id: @resource.id,
 
         finding_aid_link: finding_aid_link,
         digital_copy_link: digital_copy_link,
@@ -118,29 +118,29 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
       @new_cataloger
     )
 
-    assert updated_work.persisted?
-    assert_equal updated_work.id, @work.id
+    assert updated_resource.persisted?
+    assert_equal updated_resource.id, @resource.id
 
-    assert_equal updated_work.publication_status, publication_status
+    assert_equal updated_resource.publication_status, publication_status
 
-    assert_equal updated_work.finding_aid_link, finding_aid_link
-    assert_equal updated_work.digital_copy_link, digital_copy_link
-    assert_equal updated_work.citation_source, citation_source
-    assert_equal updated_work.cataloging_notes, cataloging_notes
+    assert_equal updated_resource.finding_aid_link, finding_aid_link
+    assert_equal updated_resource.digital_copy_link, digital_copy_link
+    assert_equal updated_resource.citation_source, citation_source
+    assert_equal updated_resource.cataloging_notes, cataloging_notes
 
-    assert_equal updated_work.film, @films[2]
-    assert_equal updated_work.material_format, @material_formats[2]
+    assert_equal updated_resource.film, @films[2]
+    assert_equal updated_resource.material_format, @material_formats[2]
 
-    assert_equal updated_work.collections.map { |obj| obj.id }, @collection_ids
+    assert_equal updated_resource.collections.map { |obj| obj.id }, @collection_ids
 
-    assert_equal updated_work.created_by, @cataloger
-    assert_equal updated_work.updated_by, @new_cataloger
+    assert_equal updated_resource.created_by, @cataloger
+    assert_equal updated_resource.updated_by, @new_cataloger
   end
 
-  test 'non-admin attempting to update a work to approved publication_status falls back to provisional' do
-    updated_work = perform(
+  test 'non-admin attempting to update a resource to approved publication_status falls back to provisional' do
+    updated_resource = perform(
       {
-        id: @work.id,
+        id: @resource.id,
         film_id: @films[1].id,
         material_format_id: @material_formats[1].id,
         publication_status: 'approved'
@@ -148,25 +148,25 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
       @new_cataloger
     )
 
-    assert updated_work.persisted?
-    assert_equal updated_work.id, @work.id
+    assert updated_resource.persisted?
+    assert_equal updated_resource.id, @resource.id
 
     # fall back to 'provisional' when cataloger is not an admin
-    assert_equal updated_work.publication_status, 'provisional'
+    assert_equal updated_resource.publication_status, 'provisional'
 
-    assert_equal updated_work.film, @films[1]
-    assert_equal updated_work.material_format, @material_formats[1]
+    assert_equal updated_resource.film, @films[1]
+    assert_equal updated_resource.material_format, @material_formats[1]
 
-    assert_equal updated_work.created_by, @cataloger
-    assert_equal updated_work.updated_by, @new_cataloger
+    assert_equal updated_resource.created_by, @cataloger
+    assert_equal updated_resource.updated_by, @new_cataloger
   end
 
-  test 'admin updating a work to approved publication_status is successful' do
+  test 'admin updating a resource to approved publication_status is successful' do
     publication_status = 'approved'
 
-    updated_work = perform(
+    updated_resource = perform(
       {
-        id: @work.id,
+        id: @resource.id,
         film_id: @films[2].id,
         material_format_id: @material_formats[2].id,
         publication_status: publication_status
@@ -174,16 +174,16 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
       @admin_cataloger
     )
 
-    assert updated_work.persisted?
-    assert_equal updated_work.id, @work.id
+    assert updated_resource.persisted?
+    assert_equal updated_resource.id, @resource.id
 
     # admin can set publication_status to 'approved'
-    assert_equal updated_work.publication_status, publication_status
+    assert_equal updated_resource.publication_status, publication_status
 
-    assert_equal updated_work.film, @films[2]
-    assert_equal updated_work.material_format, @material_formats[2]
+    assert_equal updated_resource.film, @films[2]
+    assert_equal updated_resource.material_format, @material_formats[2]
 
-    assert_equal updated_work.created_by, @cataloger
-    assert_equal updated_work.updated_by, @admin_cataloger
+    assert_equal updated_resource.created_by, @cataloger
+    assert_equal updated_resource.updated_by, @admin_cataloger
   end
 end

@@ -134,7 +134,7 @@ export const CATALOGER_BY_ID = gql`
         id
         name
       }
-      works {
+      resources {
         id
         material_format {
           name
@@ -183,7 +183,7 @@ export const CATALOGER_BY_ID = gql`
         id
         name
       }
-      works_as_updater {
+      resources_as_updater {
         id
         material_format {
           name
@@ -240,7 +240,7 @@ export const COLLECTION_BY_ID = gql`
         id
         name
       }
-      works {
+      resources {
         id
         material_format {
           name
@@ -373,7 +373,7 @@ export const FILM_BY_ID = gql`
         id
         name
       }
-      works {
+      resources {
         id
         material_format {
           name
@@ -423,7 +423,7 @@ export const MATERIAL_FORMAT_BY_ID = gql`
       id
       name
       description
-      works {
+      resources {
         id
         film {
           title
@@ -516,10 +516,10 @@ export const REPOSITORY_BY_ID = gql`
   }
 `;
 
-export const WORK_BY_ID = gql`
-  query work($id: ID!){
+export const RESOURCE_BY_ID = gql`
+  query resource($id: ID!){
     selfIsAdmin
-    work(id: $id){
+    resource(id: $id){
       id
       digital_copy_link
       finding_aid_link
