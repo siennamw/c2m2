@@ -23,7 +23,7 @@ const DisplayCollection = ({ values }) => (
       </td>
     </tr>
     <tr>
-      <th>Resources(s)</th>
+      <th>Resource(s)</th>
       <td>
         {
           values.resources.map(c => {
