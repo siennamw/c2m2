@@ -68,61 +68,6 @@ export const CREATE_DIRECTOR = gql`
   }
 `;
 
-export const CREATE_FILM = gql`
-  mutation CreateFilm(
-    $title: String!,
-    $secondary_title: String,
-    $alias_alternates: String,
-    $imdb_link: String,
-    $year: Int!,
-    $country_id: ID,
-    $media_type_id: ID!,
-    $composer_ids: [ID],
-    $director_ids: [ID],
-    $orchestrator_ids: [ID],
-    $production_company_ids: [ID],
-  ){
-    createFilm(
-      title: $title,
-      secondary_title: $secondary_title,
-      alias_alternates: $alias_alternates,
-      imdb_link: $imdb_link,
-      year: $year,
-      country_id: $country_id,
-      media_type_id: $media_type_id,
-      composer_ids: $composer_ids,
-      director_ids: $director_ids,
-      orchestrator_ids: $orchestrator_ids,
-      production_company_ids: $production_company_ids,
-    ) {
-      id
-      title
-      secondary_title
-      alias_alternates
-      imdb_link
-      year
-      country {
-        id
-      }
-      media_type {
-        id
-      }
-      composers {
-        id
-      }
-      directors {
-        id
-      }
-      orchestrators {
-        id
-      }
-      production_companies {
-        id
-      }
-    }
-  }
-`;
-
 export const CREATE_MATERIAL_FORMAT = gql`
   mutation CreateMaterialFormat($name: String!, $description: String){
     createMaterialFormat(name: $name, description: $description) {
@@ -170,7 +115,7 @@ export const CREATE_RESOURCE = gql`
     $finding_aid_link: String,
     $citation_source: String,
     $cataloging_notes: String,
-    $film_id: ID!,
+    $work_id: ID!,
     $material_format_id: ID!,
     $collection_ids: [ID],
   ){
@@ -179,7 +124,7 @@ export const CREATE_RESOURCE = gql`
       finding_aid_link: $finding_aid_link,
       citation_source: $citation_source,
       cataloging_notes: $cataloging_notes,
-      film_id: $film_id,
+      work_id: $work_id,
       material_format_id: $material_format_id,
       collection_ids: $collection_ids,
     ) {
@@ -188,7 +133,7 @@ export const CREATE_RESOURCE = gql`
       finding_aid_link
       citation_source
       cataloging_notes
-      film {
+      work {
         id
       }
       material_format {
@@ -201,6 +146,60 @@ export const CREATE_RESOURCE = gql`
   }
 `;
 
+export const CREATE_WORK = gql`
+  mutation CreateWork(
+    $title: String!,
+    $secondary_title: String,
+    $alias_alternates: String,
+    $imdb_link: String,
+    $year: Int!,
+    $country_id: ID,
+    $media_type_id: ID!,
+    $composer_ids: [ID],
+    $director_ids: [ID],
+    $orchestrator_ids: [ID],
+    $production_company_ids: [ID],
+  ){
+    createWork(
+      title: $title,
+      secondary_title: $secondary_title,
+      alias_alternates: $alias_alternates,
+      imdb_link: $imdb_link,
+      year: $year,
+      country_id: $country_id,
+      media_type_id: $media_type_id,
+      composer_ids: $composer_ids,
+      director_ids: $director_ids,
+      orchestrator_ids: $orchestrator_ids,
+      production_company_ids: $production_company_ids,
+    ) {
+      id
+      title
+      secondary_title
+      alias_alternates
+      imdb_link
+      year
+      country {
+        id
+      }
+      media_type {
+        id
+      }
+      composers {
+        id
+      }
+      directors {
+        id
+      }
+      orchestrators {
+        id
+      }
+      production_companies {
+        id
+      }
+    }
+  }
+`;
 
 // update entry
 
@@ -332,73 +331,6 @@ export const UPDATE_DIRECTOR = gql`
   }
 `;
 
-export const UPDATE_FILM = gql`
-  mutation UpdateFilm(
-    $id: ID!,
-    $title: String!,
-    $secondary_title: String,
-    $alias_alternates: String,
-    $imdb_link: String,
-    $year: Int!,
-    $country_id: ID,
-    $media_type_id: ID!,
-    $composer_ids: [ID],
-    $director_ids: [ID],
-    $orchestrator_ids: [ID],
-    $production_company_ids: [ID],
-  ){
-    updateFilm(
-      id: $id,
-      title: $title,
-      secondary_title: $secondary_title,
-      alias_alternates: $alias_alternates,
-      imdb_link: $imdb_link,
-      year: $year,
-      country_id: $country_id,
-      media_type_id: $media_type_id,
-      composer_ids: $composer_ids,
-      director_ids: $director_ids,
-      orchestrator_ids: $orchestrator_ids,
-      production_company_ids: $production_company_ids,
-    ) {
-      id
-      title
-      secondary_title
-      alias_alternates
-      imdb_link
-      year
-      country {
-        id
-      }
-      media_type {
-        id
-      }
-      composers {
-        id
-      }
-      directors {
-        id
-      }
-      orchestrators {
-        id
-      }
-      production_companies {
-        id
-      }
-      created_at
-      created_by {
-        id
-        name
-      }
-      updated_at
-      updated_by {
-        id
-        name
-      }
-    }
-  }
-`;
-
 export const UPDATE_MATERIAL_FORMAT = gql`
   mutation UpdateMaterialFormat($id: ID!, $name: String!, $description: String){
     updateMaterialFormat(id: $id, name: $name, description: $description) {
@@ -488,7 +420,7 @@ export const UPDATE_RESOURCE = gql`
     $citation_source: String,
     $cataloging_notes: String,
     $publication_status: String,
-    $film_id: ID!,
+    $work_id: ID!,
     $material_format_id: ID!,
     $collection_ids: [ID],
   ){
@@ -499,7 +431,7 @@ export const UPDATE_RESOURCE = gql`
       citation_source: $citation_source,
       cataloging_notes: $cataloging_notes,
       publication_status: $publication_status,
-      film_id: $film_id,
+      work_id: $work_id,
       material_format_id: $material_format_id,
       collection_ids: $collection_ids,
     ) {
@@ -509,13 +441,80 @@ export const UPDATE_RESOURCE = gql`
       citation_source
       cataloging_notes
       publication_status
-      film {
+      work {
         id
       }
       material_format {
         id
       }
       collections {
+        id
+      }
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const UPDATE_WORK = gql`
+  mutation UpdateWork(
+    $id: ID!,
+    $title: String!,
+    $secondary_title: String,
+    $alias_alternates: String,
+    $imdb_link: String,
+    $year: Int!,
+    $country_id: ID,
+    $media_type_id: ID!,
+    $composer_ids: [ID],
+    $director_ids: [ID],
+    $orchestrator_ids: [ID],
+    $production_company_ids: [ID],
+  ){
+    updateWork(
+      id: $id,
+      title: $title,
+      secondary_title: $secondary_title,
+      alias_alternates: $alias_alternates,
+      imdb_link: $imdb_link,
+      year: $year,
+      country_id: $country_id,
+      media_type_id: $media_type_id,
+      composer_ids: $composer_ids,
+      director_ids: $director_ids,
+      orchestrator_ids: $orchestrator_ids,
+      production_company_ids: $production_company_ids,
+    ) {
+      id
+      title
+      secondary_title
+      alias_alternates
+      imdb_link
+      year
+      country {
+        id
+      }
+      media_type {
+        id
+      }
+      composers {
+        id
+      }
+      directors {
+        id
+      }
+      orchestrators {
+        id
+      }
+      production_companies {
         id
       }
       created_at

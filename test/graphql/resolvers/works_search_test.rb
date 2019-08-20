@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class Resolvers::FilmsSearchTest < ActiveSupport::TestCase
+class Resolvers::WorksSearchTest < ActiveSupport::TestCase
   def find(args)
-    Resolvers::FilmsSearch.call(nil, args, nil)
+    Resolvers::WorksSearch.call(nil, args, nil)
   end
 
   setup do
@@ -18,9 +18,9 @@ class Resolvers::FilmsSearchTest < ActiveSupport::TestCase
   end
 
   test 'filter option' do
-    films = []
+    works = []
     4.times do |n|
-      films << Film.create!(
+      works << Work.create!(
         created_by: @cataloger,
         title: "title#{n}",
         secondary_title: "secondary#{n}",
@@ -43,13 +43,13 @@ class Resolvers::FilmsSearchTest < ActiveSupport::TestCase
       }
     )
 
-    assert_equal [films[1], films[2], films[3]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [works[1], works[2], works[3]].map(&:id).sort, result.map(&:id).sort
   end
 
   test 'filter option is case insensitive' do
-    films = []
+    works = []
     4.times do |n|
-      films << Film.create!(
+      works << Work.create!(
         created_by: @cataloger,
         title: "TITLE#{n}",
         secondary_title: "Secondary#{n}",
@@ -72,6 +72,6 @@ class Resolvers::FilmsSearchTest < ActiveSupport::TestCase
       }
     )
 
-    assert_equal [films[1], films[2], films[3]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [works[1], works[2], works[3]].map(&:id).sort, result.map(&:id).sort
   end
 end

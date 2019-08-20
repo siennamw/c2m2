@@ -1,5 +1,5 @@
-Types::FilmType = GraphQL::ObjectType.define do
-  name 'Film'
+Types::WorkType = GraphQL::ObjectType.define do
+  name 'Work'
 
   field :id, !types.ID
   field :title, !types.String

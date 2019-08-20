@@ -8,7 +8,7 @@ Types::ResourceType = GraphQL::ObjectType.define do
   field :cataloging_notes, types.String
   field :publication_status, types.String
 
-  field :film, (-> { !Types::FilmType })
+  field :work, (-> { !Types::WorkType })
   field :material_format, (-> { Types::MaterialFormatType })
 
   field :collections, ( -> { !types[Types::CollectionType] })

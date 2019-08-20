@@ -7,7 +7,7 @@ import InputField from '../InputField';
 import * as queries from '../../../queries';
 
 import NewCollection from '../collection/NewCollection';
-import NewFilm from '../film/NewFilm';
+import NewWork from '../work/NewWork';
 import SelectField from '../SelectField';
 
 const ResourceForm = ({ selfIsAdmin, setFieldValue }) => {
@@ -41,13 +41,13 @@ const ResourceForm = ({ selfIsAdmin, setFieldValue }) => {
   return (
     <Fragment>
       <SelectFieldWithQuery
-        componentForModal={<NewFilm />}
-        displayName="Film"
-        fieldName="film_id"
+        componentForModal={<NewWork />}
+        displayName="Work"
+        fieldName="work_id"
         modelName={model}
         onChangeCallback={selectOnChange}
-        query={queries.LIST_ALL_FILMS}
-        queryName="allFilms"
+        query={queries.LIST_ALL_WORKS}
+        queryName="allWorks"
       />
       <InputField
         displayName="Finding Aid Link"

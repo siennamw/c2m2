@@ -1,9 +1,9 @@
 class Composer < ApplicationRecord
-  has_and_belongs_to_many :films
-  has_and_belongs_to_many :films_as_orchestrator,
-    class_name: 'Film',
-    join_table: 'orchestrators_films',
-    foreign_key: 'film_id',
+  has_and_belongs_to_many :works
+  has_and_belongs_to_many :works_as_orchestrator,
+    class_name: 'Work',
+    join_table: 'orchestrators_works',
+    foreign_key: 'work_id',
     association_foreign_key: 'composer_id'
 
   belongs_to :created_by, class_name: 'Cataloger'

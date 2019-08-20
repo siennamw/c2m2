@@ -42,15 +42,6 @@ export const LIST_ALL_DIRECTORS = gql`
   }
 `;
 
-export const LIST_ALL_FILMS = gql`
-  query allFilms {
-    allFilms {
-      id
-      title
-    }
-  }
-`;
-
 export const LIST_ALL_MATERIAL_FORMATS = gql`
   query allMaterialFormats {
     allMaterialFormats {
@@ -87,6 +78,15 @@ export const LIST_ALL_REPOSITORIES = gql`
   }
 `;
 
+export const LIST_ALL_WORKS = gql`
+  query allWorks {
+    allWorks {
+      id
+      title
+    }
+  }
+`;
+
 export const CATALOGER_BY_ID = gql`
   query cataloger($id: ID!){
     cataloger(id: $id){
@@ -114,7 +114,7 @@ export const CATALOGER_BY_ID = gql`
         id
         name
       }
-      films {
+      works {
         id
         title
       }
@@ -139,7 +139,7 @@ export const CATALOGER_BY_ID = gql`
         material_format {
           name
         }
-        film {
+        work {
           title
         }
       }
@@ -163,7 +163,7 @@ export const CATALOGER_BY_ID = gql`
         id
         name
       }
-      films_as_updater {
+      works_as_updater {
         id
         title
       }
@@ -188,7 +188,7 @@ export const CATALOGER_BY_ID = gql`
         material_format {
           name
         }
-        film {
+        work {
           title
         }
       }
@@ -245,7 +245,7 @@ export const COLLECTION_BY_ID = gql`
         material_format {
           name
         }
-        film {
+        work {
           title
         }
       }
@@ -269,11 +269,11 @@ export const COMPOSER_BY_ID = gql`
       id
       name
       imdb_link
-      films {
+      works {
         id
         title
       }
-      films_as_orchestrator {
+      works_as_orchestrator {
         id
         title
       }
@@ -297,7 +297,7 @@ export const COUNTRY_BY_ID = gql`
       id
       name
       description
-      films {
+      works {
         id
         title
       }
@@ -321,7 +321,7 @@ export const DIRECTOR_BY_ID = gql`
       id
       name
       imdb_link
-      films {
+      works {
         id
         title
       }
@@ -339,84 +339,6 @@ export const DIRECTOR_BY_ID = gql`
   }
 `;
 
-export const FILM_BY_ID = gql`
-  query film($id: ID!){
-    selfIsAdmin
-    film(id: $id){
-      id
-      title
-      secondary_title
-      alias_alternates
-      imdb_link
-      year
-      country {
-        id
-        name
-      }
-      media_type {
-        id
-        name
-      }
-      composers {
-        id
-        name
-      }
-      directors {
-        id
-        name
-      }
-      orchestrators {
-        id
-        name
-      }
-      production_companies {
-        id
-        name
-      }
-      resources {
-        id
-        material_format {
-          name
-        }
-        publication_status
-      }
-      created_at
-      created_by {
-        id
-        name
-      }
-      updated_at
-      updated_by {
-        id
-        name
-      }
-    }
-  }
-`;
-
-export const FILMS_SEARCH = gql`
-  query searchFilms($filter: FilmFilter, $first: Int, $skip: Int){
-    allFilms(filter: $filter, first: $first, skip: $skip) {
-      id
-      title
-      secondary_title
-      year
-      composers {
-        id
-        name
-      }
-      directors {
-        id
-        name
-      }
-      country {
-        id
-        name
-      }
-    }
-  }
-`;
-
 export const MATERIAL_FORMAT_BY_ID = gql`
   query material_format($id: ID!){
     material_format(id: $id){
@@ -425,7 +347,7 @@ export const MATERIAL_FORMAT_BY_ID = gql`
       description
       resources {
         id
-        film {
+        work {
           title
         }
       }
@@ -449,7 +371,7 @@ export const MEDIA_TYPE_BY_ID = gql`
       id
       name
       description
-      films {
+      works {
         id
         title
       }
@@ -473,7 +395,7 @@ export const PRODUCTION_COMPANY_BY_ID = gql`
       id
       name
       contact_info
-      films {
+      works {
         id
         title
       }
@@ -526,7 +448,7 @@ export const RESOURCE_BY_ID = gql`
       citation_source
       cataloging_notes
       publication_status
-      film {
+      work {
         id
         title
       }
@@ -545,6 +467,84 @@ export const RESOURCE_BY_ID = gql`
       }
       updated_at
       updated_by {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const WORK_BY_ID = gql`
+  query work($id: ID!){
+    selfIsAdmin
+    work(id: $id){
+      id
+      title
+      secondary_title
+      alias_alternates
+      imdb_link
+      year
+      country {
+        id
+        name
+      }
+      media_type {
+        id
+        name
+      }
+      composers {
+        id
+        name
+      }
+      directors {
+        id
+        name
+      }
+      orchestrators {
+        id
+        name
+      }
+      production_companies {
+        id
+        name
+      }
+      resources {
+        id
+        material_format {
+          name
+        }
+        publication_status
+      }
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const WORKS_SEARCH = gql`
+  query searchWorks($filter: WorkFilter, $first: Int, $skip: Int){
+    allWorks(filter: $filter, first: $first, skip: $skip) {
+      id
+      title
+      secondary_title
+      year
+      composers {
+        id
+        name
+      }
+      directors {
+        id
+        name
+      }
+      country {
         id
         name
       }

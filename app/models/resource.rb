@@ -1,5 +1,5 @@
 class Resource < ApplicationRecord
-  belongs_to :film
+  belongs_to :work
   belongs_to :material_format
 
   has_and_belongs_to_many :collections

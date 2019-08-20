@@ -7,7 +7,7 @@ import {
 } from 'formik';
 import * as Yup from 'yup';
 
-import FilmsList from './FilmsList';
+import WorksList from './WorksList';
 
 const validationSchema = Yup.object().shape({
   title: Yup.string()
@@ -66,7 +66,7 @@ class BasicSearch extends React.Component {
     const { showResults, filter } = this.state;
     return (
       <div>
-        <h2>Basic Film Search</h2>
+        <h2>Basic Work Search</h2>
         <Formik
           initialValues={{
             title: '',
@@ -77,7 +77,7 @@ class BasicSearch extends React.Component {
         />
         {
           showResults
-            ? <FilmsList filter={filter} resetButton />
+            ? <WorksList filter={filter} resetButton />
             : undefined
         }
       </div>

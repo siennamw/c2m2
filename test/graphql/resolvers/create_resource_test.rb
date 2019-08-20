@@ -9,7 +9,7 @@ class Resolvers::CreateResourceTest < ActiveSupport::TestCase
     @cataloger = Cataloger.create!(name: 'test', email: 'test@email.com', password: 'test_test')
 
     media_type = MediaType.create!(name: 'a media type', created_by: @cataloger)
-    @film = Film.create!(title: 'a film', media_type: media_type, year: 1990, created_by: @cataloger)
+    @work = Work.create!(title: 'a film', media_type: media_type, year: 1990, created_by: @cataloger)
 
     @material_format = MaterialFormat.create!(name: 'a material format', created_by: @cataloger)
 
@@ -24,12 +24,12 @@ class Resolvers::CreateResourceTest < ActiveSupport::TestCase
 
   test 'creating new resource with the minimum required fields' do
     resource = perform(
-      film_id: @film.id,
+      work_id: @work.id,
       material_format_id: @material_format.id,
     )
 
     assert resource.persisted?
-    assert_equal resource.film, @film
+    assert_equal resource.work, @work
     assert_equal resource.material_format, @material_format
     assert_equal resource.publication_status, 'draft'
 
@@ -50,7 +50,7 @@ class Resolvers::CreateResourceTest < ActiveSupport::TestCase
       cataloging_notes: cataloging_notes,
       publication_status: publication_status,
 
-      film_id: @film.id,
+      work_id: @work.id,
       material_format_id: @material_format.id,
 
       collection_ids: @collection_ids,
@@ -64,7 +64,7 @@ class Resolvers::CreateResourceTest < ActiveSupport::TestCase
     assert_equal resource.cataloging_notes, cataloging_notes
     assert_equal resource.publication_status, publication_status
 
-    assert_equal resource.film, @film
+    assert_equal resource.work, @work
     assert_equal resource.material_format, @material_format
 
     assert_equal resource.collections.map { |obj| obj.id }, @collection_ids

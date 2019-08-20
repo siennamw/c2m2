@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class Resolvers::UpdateFilmTest < ActiveSupport::TestCase
+class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
   def perform(args = {}, current_user)
-    Resolvers::UpdateFilm.new.call(nil, args, { current_user: current_user })
+    Resolvers::UpdateWork.new.call(nil, args, { current_user: current_user })
   end
 
   setup do
@@ -56,7 +56,7 @@ class Resolvers::UpdateFilmTest < ActiveSupport::TestCase
       )
     end
 
-    @film = Film.create!(
+    @work = Work.create!(
       title: 'Fight Club',
       year: 1999,
       country_id: @countries[0].id,
@@ -65,13 +65,13 @@ class Resolvers::UpdateFilmTest < ActiveSupport::TestCase
     )
   end
 
-  test 'updating a film with the minimum required fields' do
+  test 'updating a work with the minimum required fields' do
     title = 'Casa Blanca'
     year = 1942
 
-    updated_film = perform(
+    updated_work = perform(
       {
-        id: @film.id,
+        id: @work.id,
         title: title,
         year: year,
         media_type_id: @media_types[1].id,
@@ -79,20 +79,20 @@ class Resolvers::UpdateFilmTest < ActiveSupport::TestCase
       @new_cataloger
     )
 
-    assert updated_film.persisted?
-    assert_equal updated_film.id, @film.id
-    assert_equal updated_film.title, title
-    assert_equal updated_film.year, year
+    assert updated_work.persisted?
+    assert_equal updated_work.id, @work.id
+    assert_equal updated_work.title, title
+    assert_equal updated_work.year, year
 
-    assert_equal updated_film.media_type, @media_types[1]
-    assert_equal updated_film.created_by, @cataloger
-    assert_equal updated_film.updated_by, @new_cataloger
+    assert_equal updated_work.media_type, @media_types[1]
+    assert_equal updated_work.created_by, @cataloger
+    assert_equal updated_work.updated_by, @new_cataloger
 
     # optional fields not passed are removed
-    assert_nil updated_film.country
+    assert_nil updated_work.country
   end
 
-  test 'updating a film with all possible fields' do
+  test 'updating a work with all possible fields' do
     title = 'Main Title'
     secondary_title = 'Secondary Title'
     alias_alternates = 'alias_alternates'
@@ -100,9 +100,9 @@ class Resolvers::UpdateFilmTest < ActiveSupport::TestCase
 
     year = 1941
 
-    updated_film = perform(
+    updated_work = perform(
       {
-        id: @film.id,
+        id: @work.id,
         title: title,
         secondary_title: secondary_title,
         alias_alternates: alias_alternates,
@@ -121,25 +121,25 @@ class Resolvers::UpdateFilmTest < ActiveSupport::TestCase
       @new_cataloger
     )
 
-    assert updated_film.persisted?
-    assert_equal updated_film.id, @film.id
+    assert updated_work.persisted?
+    assert_equal updated_work.id, @work.id
 
-    assert_equal updated_film.title, title
-    assert_equal updated_film.secondary_title, secondary_title
-    assert_equal updated_film.alias_alternates, alias_alternates
-    assert_equal updated_film.imdb_link, imdb_link
+    assert_equal updated_work.title, title
+    assert_equal updated_work.secondary_title, secondary_title
+    assert_equal updated_work.alias_alternates, alias_alternates
+    assert_equal updated_work.imdb_link, imdb_link
 
-    assert_equal updated_film.year, year
+    assert_equal updated_work.year, year
 
-    assert_equal updated_film.country, @countries[2]
-    assert_equal updated_film.media_type, @media_types[2]
+    assert_equal updated_work.country, @countries[2]
+    assert_equal updated_work.media_type, @media_types[2]
 
-    assert_equal updated_film.created_by, @cataloger
-    assert_equal updated_film.updated_by, @new_cataloger
+    assert_equal updated_work.created_by, @cataloger
+    assert_equal updated_work.updated_by, @new_cataloger
 
-    assert_equal updated_film.composers.map { |obj| obj.id }, @composer_ids
-    assert_equal updated_film.directors.map { |obj| obj.id }, @director_ids
-    assert_equal updated_film.orchestrators.map { |obj| obj.id }, @orchestrator_ids
-    assert_equal updated_film.production_companies.map { |obj| obj.id }, @production_company_ids
+    assert_equal updated_work.composers.map { |obj| obj.id }, @composer_ids
+    assert_equal updated_work.directors.map { |obj| obj.id }, @director_ids
+    assert_equal updated_work.orchestrators.map { |obj| obj.id }, @orchestrator_ids
+    assert_equal updated_work.production_companies.map { |obj| obj.id }, @production_company_ids
   end
 end

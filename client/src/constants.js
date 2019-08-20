@@ -15,12 +15,12 @@ export const MODEL_NAMES = [
   'composer',
   'country',
   'director',
-  'film',
   'material_format',
   'media_type',
   'production_company',
   'repository',
   'resource',
+  'work',
 ];
 
 // repeated values for TOOLTIP_BY_MODEL_AND_FIELD below
@@ -142,70 +142,6 @@ export const TOOLTIP_BY_MODEL_AND_FIELD = (model, fieldName) => {
         ],
       },
     },
-    film: {
-      alias_alternates: {
-        semantics: 'Aliases used by creators and alternate forms of title.',
-        rules: [
-          'Free field for any aliases or alternate forms of the title.',
-        ],
-      },
-      composer: {
-        semantics: 'Composer(s) of musical work.',
-      },
-      country: {
-        semantics: 'Official name of country of production.',
-        rules: [
-          'Primary country where production company, or primary commercial market for film, is located.',
-        ],
-      },
-      director: {
-        semantics: 'Director(s) of accompanied work.',
-      },
-      imdb_link: {
-        semantics: imdbTitleSearch,
-      },
-      media_type: {
-        semantics: 'Primary media type.',
-        rules: [
-          'Films and Series released/produced via streaming services (i.e. Netflix, Hulu, Amazon) or in a web-first format (i.e. YouTube, Vimeo, or self-published on a personal site) are to be categorized under whatever film or series format that best fits the work.',
-          '"Serial Series" is any series that comes out at periodic intervals, and has multiple episodes that constitute a whole. This can include on-going or mini-series.',
-        ],
-      },
-      orchestrator: {
-        semantics: 'Orchestrator(s) of musical work.',
-      },
-      production_company: {
-        semantics: 'Corporate body or bodies that produced or financed the accompanied work.',
-        rules: [
-          'If corporation has changed names or merged since time of production, include listing for the company as it appeared during production and listing for the company\'s current name.',
-          'If multiple companies responsible for production, list all known entities and observe above rule regarding any alternate or new names.',
-        ],
-      },
-      secondary_title: {
-        semantics: 'Title of sub work (i.e. cue, episode, etc.).',
-        rules: [
-          headlineStyleCapitalization,
-          'Use either authoritative list of episodes or cue sheet for proper format if available.',
-          'If not available, use work itself.',
-          'Can also be used to provide English translation of foreign tiles.',
-        ],
-      },
-      title: {
-        semantics: 'Title of overall work (i.e. film, series, or collection).',
-        rules: [
-          headlineStyleCapitalization,
-          'Use LC authority version of title if available, though omit "(Motion picture)" when it is used.',
-          'Do not use bold, underline, italics, or quotation marks.',
-        ],
-      },
-      year: {
-        semantics: 'Copyright, release, or air date of the accompanied work.',
-        rules: [
-          'Enter year alone, in Arabic numerals.',
-          'The year should be year of release of accompanied work that the score is associated with, or publication in the case of collection or published score.',
-        ],
-      },
-    },
     material_format: {
       description: {
         semantics: freeFieldForFurtherDescription,
@@ -296,14 +232,78 @@ export const TOOLTIP_BY_MODEL_AND_FIELD = (model, fieldName) => {
           'Only legal copies should be linked',
         ],
       },
-      film: {
-        semantics: 'Film/media associated with this resource.',
+      work: {
+        semantics: 'Work/media associated with this resource.',
       },
       finding_aid_link: {
         semantics: 'Full, stable URL or permalink to a finding aid.',
       },
       material_format: {
         semantics: 'Physical format of material in collection.',
+      },
+    },
+    work: {
+      alias_alternates: {
+        semantics: 'Aliases used by creators and alternate forms of title.',
+        rules: [
+          'Free field for any aliases or alternate forms of the title.',
+        ],
+      },
+      composer: {
+        semantics: 'Composer(s) of musical work.',
+      },
+      country: {
+        semantics: 'Official name of country of production.',
+        rules: [
+          'Primary country where production company, or primary commercial market for work, is located.',
+        ],
+      },
+      director: {
+        semantics: 'Director(s) of accompanied work.',
+      },
+      imdb_link: {
+        semantics: imdbTitleSearch,
+      },
+      media_type: {
+        semantics: 'Primary media type.',
+        rules: [
+          'Works and Series released/produced via streaming services (i.e. Netflix, Hulu, Amazon) or in a web-first format (i.e. YouTube, Vimeo, or self-published on a personal site) are to be categorized under whatever work or series format that best fits the work.',
+          '"Serial Series" is any series that comes out at periodic intervals, and has multiple episodes that constitute a whole. This can include on-going or mini-series.',
+        ],
+      },
+      orchestrator: {
+        semantics: 'Orchestrator(s) of musical work.',
+      },
+      production_company: {
+        semantics: 'Corporate body or bodies that produced or financed the accompanied work.',
+        rules: [
+          'If corporation has changed names or merged since time of production, include listing for the company as it appeared during production and listing for the company\'s current name.',
+          'If multiple companies responsible for production, list all known entities and observe above rule regarding any alternate or new names.',
+        ],
+      },
+      secondary_title: {
+        semantics: 'Title of sub work (i.e. cue, episode, etc.).',
+        rules: [
+          headlineStyleCapitalization,
+          'Use either authoritative list of episodes or cue sheet for proper format if available.',
+          'If not available, use work itself.',
+          'Can also be used to provide English translation of foreign tiles.',
+        ],
+      },
+      title: {
+        semantics: 'Title of overall work (i.e. work, series, or collection).',
+        rules: [
+          headlineStyleCapitalization,
+          'Use LC authority version of title if available, though omit "(Motion picture)" when it is used.',
+          'Do not use bold, underline, italics, or quotation marks.',
+        ],
+      },
+      year: {
+        semantics: 'Copyright, release, or air date of the accompanied work.',
+        rules: [
+          'Enter year alone, in Arabic numerals.',
+          'The year should be year of release of accompanied work that the score is associated with, or publication in the case of collection or published score.',
+        ],
       },
     },
   };

@@ -103,7 +103,7 @@ export const directorValidationSchema = Yup.object().shape({
     .url('Website is not a valid URL'),
 });
 
-export const filmValidationSchema = Yup.object().shape({
+export const workValidationSchema = Yup.object().shape({
   title: Yup.string()
     .trim()
     .required('Title is required'),
@@ -181,9 +181,9 @@ export const resourceValidationSchema = Yup.object().shape({
     .trim(),
   cataloging_notes: Yup.string()
     .trim(),
-  film_id: Yup.string()
+  work_id: Yup.string()
     .matches(stringOfDigitsRegex)
-    .required('Film is required'),
+    .required('Work is required'),
   material_format_id: Yup.string()
     .matches(stringOfDigitsRegex)
     .required('Material format is required'),

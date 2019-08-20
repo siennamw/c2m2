@@ -1,12 +1,10 @@
 import React from 'react';
 
 import DetailedEntry from '../DetailedEntry';
-import { FILM_BY_ID } from '../../../queries';
-import { wrapWithLink } from '../../../utils';
+import { WORK_BY_ID } from '../../../queries';
+import { isAuthenticated, wrapWithLink } from '../../../utils';
 
-import { isAuthenticated } from '../../../utils';
-
-const DisplayFilm = ({ values }) => (
+const DisplayWork = ({ values }) => (
   <tbody>
     <tr>
       <th>IMDB Link</th>
@@ -108,18 +106,18 @@ const DisplayFilm = ({ values }) => (
   </tbody>
 );
 
-const DetailedFilm = ({ match }) => {
+const DetailedWork = ({ match }) => {
   const id = Number(match.params.id);
 
   return (
     <DetailedEntry
-      DisplayComponent={DisplayFilm}
-      entryTypeForDisplay="film"
-      gqlQuery={FILM_BY_ID}
+      DisplayComponent={DisplayWork}
+      entryTypeForDisplay="work"
+      gqlQuery={WORK_BY_ID}
       id={id}
-      queryName="film"
+      queryName="work"
     />
   );
 };
 
-export default DetailedFilm;
+export default DetailedWork;

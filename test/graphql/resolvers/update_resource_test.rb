@@ -46,12 +46,12 @@ class Resolvers::UpdateResourceTest < ActiveSupport::TestCase
       ).id
     end
 
-    @films = []
+    @works = []
     @material_formats = []
 
     3.times do |n|
-      @films << Film.create!(
-        title: "film #{n}",
+      @works << Work.create!(
+        title: "work #{n}",
         year: 1990,
         media_type: media_type,
         created_by: @cataloger,
@@ -63,7 +63,7 @@ class Resolvers::UpdateResourceTest < ActiveSupport::TestCase
     end
 
     @resource = Resource.create!(
-      film_id: @films[0].id,
+      work_id: @works[0].id,
       material_format_id: @material_formats[0].id,
       created_by: @cataloger,
     )
@@ -73,7 +73,7 @@ class Resolvers::UpdateResourceTest < ActiveSupport::TestCase
     updated_resource = perform(
       {
         id: @resource.id,
-        film_id: @films[1].id,
+        work_id: @works[1].id,
         material_format_id: @material_formats[1].id,
       },
       @new_cataloger
@@ -85,7 +85,7 @@ class Resolvers::UpdateResourceTest < ActiveSupport::TestCase
     # fall back to 'draft' if publication_status argument is missing
     assert_equal updated_resource.publication_status, 'draft'
 
-    assert_equal updated_resource.film, @films[1]
+    assert_equal updated_resource.work, @works[1]
     assert_equal updated_resource.material_format, @material_formats[1]
 
     assert_equal updated_resource.created_by, @cataloger
@@ -110,7 +110,7 @@ class Resolvers::UpdateResourceTest < ActiveSupport::TestCase
 
         publication_status: publication_status,
 
-        film_id: @films[2].id,
+        work_id: @works[2].id,
         material_format_id: @material_formats[2].id,
 
         collection_ids: @collection_ids,
@@ -128,7 +128,7 @@ class Resolvers::UpdateResourceTest < ActiveSupport::TestCase
     assert_equal updated_resource.citation_source, citation_source
     assert_equal updated_resource.cataloging_notes, cataloging_notes
 
-    assert_equal updated_resource.film, @films[2]
+    assert_equal updated_resource.work, @works[2]
     assert_equal updated_resource.material_format, @material_formats[2]
 
     assert_equal updated_resource.collections.map { |obj| obj.id }, @collection_ids
@@ -141,7 +141,7 @@ class Resolvers::UpdateResourceTest < ActiveSupport::TestCase
     updated_resource = perform(
       {
         id: @resource.id,
-        film_id: @films[1].id,
+        work_id: @works[1].id,
         material_format_id: @material_formats[1].id,
         publication_status: 'approved'
       },
@@ -154,7 +154,7 @@ class Resolvers::UpdateResourceTest < ActiveSupport::TestCase
     # fall back to 'provisional' when cataloger is not an admin
     assert_equal updated_resource.publication_status, 'provisional'
 
-    assert_equal updated_resource.film, @films[1]
+    assert_equal updated_resource.work, @works[1]
     assert_equal updated_resource.material_format, @material_formats[1]
 
     assert_equal updated_resource.created_by, @cataloger
@@ -167,7 +167,7 @@ class Resolvers::UpdateResourceTest < ActiveSupport::TestCase
     updated_resource = perform(
       {
         id: @resource.id,
-        film_id: @films[2].id,
+        work_id: @works[2].id,
         material_format_id: @material_formats[2].id,
         publication_status: publication_status
       },
@@ -180,7 +180,7 @@ class Resolvers::UpdateResourceTest < ActiveSupport::TestCase
     # admin can set publication_status to 'approved'
     assert_equal updated_resource.publication_status, publication_status
 
-    assert_equal updated_resource.film, @films[2]
+    assert_equal updated_resource.work, @works[2]
     assert_equal updated_resource.material_format, @material_formats[2]
 
     assert_equal updated_resource.created_by, @cataloger

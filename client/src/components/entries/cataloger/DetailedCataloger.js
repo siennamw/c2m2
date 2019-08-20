@@ -61,11 +61,11 @@ const DisplayCataloger = ({ values }) => (
       </td>
     </tr>
     <tr>
-      <th>Films</th>
+      <th>Works</th>
       <td>
         {
-          [...values.films, ...values.films_as_updater].map(c => (
-            <div key={c.id}>{wrapWithLink(c.title, c.id, 'film')}</div>
+          [...values.works, ...values.works_as_updater].map(c => (
+            <div key={c.id}>{wrapWithLink(c.title, c.id, 'work')}</div>
           ))
         }
       </td>
@@ -114,10 +114,10 @@ const DisplayCataloger = ({ values }) => (
       <th>Resources</th>
       <td>
         {
-          [...values.resources, ...values.resources_as_updater].map((c) => {
-            const text = `${c.film.title}: ${c.material_format.name}`;
+          [...values.resources, ...values.resources_as_updater].map((r) => {
+            const text = `${r.work.title}: ${r.material_format.name}`;
             return (
-              <div key={c.id}>{wrapWithLink(text, c.id, 'resource')}</div>
+              <div key={r.id}>{wrapWithLink(text, r.id, 'resource')}</div>
             );
           })
         }

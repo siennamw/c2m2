@@ -78,13 +78,13 @@ Types::QueryType = GraphQL::ObjectType.define do
     resolve ->(obj, args, ctx) { Director.find(args[:id]) }
   end
 
-  field :allFilms, function: Resolvers::FilmsSearch
+  field :allWorks, function: Resolvers::WorksSearch
 
-  field :film do
-    type Types::FilmType
-    description "Film by ID"
+  field :work do
+    type Types::WorkType
+    description "Work by ID"
     argument :id, !types.ID
-    resolve ->(obj, args, ctx) { Film.find(args[:id]) }
+    resolve ->(obj, args, ctx) { Work.find(args[:id]) }
   end
 
   field :allMaterialFormats do

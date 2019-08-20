@@ -7,7 +7,7 @@ class Resolvers::CreateResource < GraphQL::Function
 
   argument :publication_status, types.String
 
-  argument :film_id, !types.ID
+  argument :work_id, !types.ID
   argument :material_format_id, !types.ID
 
   argument :collection_ids, types[types.ID]
@@ -30,7 +30,7 @@ class Resolvers::CreateResource < GraphQL::Function
       cataloging_notes: args[:cataloging_notes],
       publication_status: publication_status,
 
-      film_id: args[:film_id],
+      work_id: args[:work_id],
       material_format_id: args[:material_format_id],
 
       created_by: ctx[:current_user],

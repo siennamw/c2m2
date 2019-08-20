@@ -5,7 +5,7 @@ Types::DirectorType = GraphQL::ObjectType.define do
   field :name, !types.String
   field :imdb_link, types.String
 
-  field :films, ( -> { !types[Types::FilmType] })
+  field :works, ( -> { !types[Types::WorkType] })
 
   field :created_by, (-> { Types::CatalogerType })
   field :updated_by, (-> { Types::CatalogerType })

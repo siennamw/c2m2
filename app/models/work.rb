@@ -1,4 +1,4 @@
-class Film < ApplicationRecord
+class Work < ApplicationRecord
   belongs_to :country, optional: true
   belongs_to :media_type
 
@@ -7,9 +7,9 @@ class Film < ApplicationRecord
   has_and_belongs_to_many :composers
   has_and_belongs_to_many :orchestrators,
     class_name: 'Composer',
-    join_table: 'orchestrators_films',
+    join_table: 'orchestrators_works',
     foreign_key: 'composer_id',
-    association_foreign_key: 'film_id'
+    association_foreign_key: 'work_id'
   has_and_belongs_to_many :directors
   has_and_belongs_to_many :production_companies
 

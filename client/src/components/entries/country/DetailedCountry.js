@@ -13,11 +13,11 @@ const DisplayCountry = ({ values }) => (
       </td>
     </tr>
     <tr>
-      <th>Film(s)</th>
+      <th>Work(s)</th>
       <td>
         {
-          values.films.map(c => (
-            <div key={c.id}>{wrapWithLink(c.title, c.id, 'film')}</div>
+          values.works.map(w => (
+            <div key={w.id}>{wrapWithLink(w.title, w.id, 'work')}</div>
           ))
         }
       </td>

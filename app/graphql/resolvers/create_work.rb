@@ -1,7 +1,5 @@
-class Resolvers::UpdateFilm < GraphQL::Function
+class Resolvers::CreateWork < GraphQL::Function
   # arguments passed as "args"
-  argument :id, !types.ID
-
   argument :title, !types.String
   argument :secondary_title, types.String
   argument :alias_alternates, types.String
@@ -18,16 +16,15 @@ class Resolvers::UpdateFilm < GraphQL::Function
   argument :production_company_ids, types[types.ID]
 
   # return type from the mutation
-  type Types::FilmType
+  type Types::WorkType
 
   # the mutation method
   def call(_obj, args, ctx)
     if ctx[:current_user].blank?
-      raise GraphQL::ExecutionError.new('Authentication required')
+      raise GraphQL::ExecutionError.new("Authentication required")
     end
 
-    Film.update(
-      args[:id],
+    Work.create!(
       title: args[:title],
       secondary_title: args[:secondary_title],
       alias_alternates: args[:alias_alternates],
@@ -43,7 +40,7 @@ class Resolvers::UpdateFilm < GraphQL::Function
       orchestrator_ids: args[:orchestrator_ids],
       production_company_ids: args[:production_company_ids],
 
-      updated_by: ctx[:current_user],
+      created_by: ctx[:current_user],
     )
 
   rescue ActiveRecord::RecordInvalid => e

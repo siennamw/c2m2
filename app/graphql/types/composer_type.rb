@@ -5,8 +5,8 @@ Types::ComposerType = GraphQL::ObjectType.define do
   field :name, !types.String
   field :imdb_link, types.String
 
-  field :films, ( -> { !types[Types::FilmType] })
-  field :films_as_orchestrator, ( -> { !types[Types::FilmType] })
+  field :works, ( -> { !types[Types::WorkType] })
+  field :works_as_orchestrator, ( -> { !types[Types::WorkType] })
 
   field :created_by, (-> { Types::CatalogerType })
   field :updated_by, (-> { Types::CatalogerType })

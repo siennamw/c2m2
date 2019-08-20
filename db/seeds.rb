@@ -268,8 +268,8 @@ polygram = ProductionCompany.create(
   created_by: sienna
 )
 
-# Films
-silverado = Film.create(
+# Works
+silverado = Work.create(
   title: 'Silverado (Motion picture)',
   year: 1985,
   country: us,
@@ -279,7 +279,7 @@ silverado = Film.create(
   directors: [kasdan],
   production_companies: [columbia, delphi],
 )
-matrix = Film.create(
+matrix = Work.create(
   title: 'Matrix (Motion picture)',
   year: 1999,
   country: us,
@@ -289,7 +289,7 @@ matrix = Film.create(
   directors: [wachowski_lana, wachowski_lilly],
   production_companies: [warner_bros, village_roadshow, groucho, silver],
 )
-batman = Film.create(
+batman = Work.create(
   title: 'Batman (Motion picture: 1989)',
   year: 1989,
   country: us,
@@ -299,7 +299,7 @@ batman = Film.create(
   directors: [burton],
   production_companies: [warner_bros, guber, polygram],
 )
-scissorhands = Film.create(
+scissorhands = Work.create(
   title: 'Edward Scissorhands (Motion picture)',
   year: 1990,
   country: us,
@@ -309,7 +309,7 @@ scissorhands = Film.create(
   directors: [burton],
   production_companies: [fox],
 )
-willow = Film.create(
+willow = Work.create(
   title: 'Willow (Motion picture)',
   year: 1988,
   country: us,
@@ -319,7 +319,7 @@ willow = Film.create(
   directors: [howard],
   production_companies: [mgm, lucasfilm, imagine],
 )
-back_to_the_future = Film.create(
+back_to_the_future = Work.create(
   title: 'Back to the future (Motion picture)',
   year: 1985,
   country: us,
@@ -329,7 +329,7 @@ back_to_the_future = Film.create(
   directors: [zemeckis],
   production_companies: [universal, amblin, udrive],
 )
-rashomon = Film.create(
+rashomon = Work.create(
   title: 'Rashōmon (Motion picture)',
   year: 1950,
   country: japan,
@@ -339,7 +339,7 @@ rashomon = Film.create(
   directors: [kurosawa],
   production_companies: [daiei],
 )
-lawrence = Film.create(
+lawrence = Work.create(
   title: 'Lawrence of Arabia (Motion picture)',
   year: 1962,
   country: uk,
@@ -349,7 +349,7 @@ lawrence = Film.create(
   directors: [lean],
   production_companies: [horizon],
 )
-goonies = Film.create(
+goonies = Work.create(
   title: 'Goonies',
   year: 1985,
   country: us,
@@ -359,7 +359,7 @@ goonies = Film.create(
   directors: [donner],
   production_companies: [warner_bros, amblin],
 )
-samurai = Film.create(
+samurai = Work.create(
   title: 'Shichinin no samurai (Motion picture)',
   secondary_title: 'Seven Samurai',
   year: 1954,
@@ -373,63 +373,63 @@ samurai = Film.create(
 
 # Resources
 Resource.create([
-              { film: silverado,
+              { work: silverado,
                 material_format: printed_score_parts,
                 created_by: michael,
                 citation_source: 'Copy Owned',
                 collections: [harris_collection],
               },
-              { film: matrix,
+              { work: matrix,
                 material_format: printed_score_parts,
                 created_by: michael,
                 citation_source: 'Copy Owned',
                 collections: [harris_collection],
               },
-              { film: batman,
+              { work: batman,
                 material_format: printed_score_parts,
                 created_by: michael,
                 citation_source: 'Copy Owned',
                 collections: [harris_collection],
               },
-              { film: scissorhands,
+              { work: scissorhands,
                 material_format: printed_score_parts,
                 created_by: michael,
                 citation_source: 'Copy Owned',
                 collections: [harris_collection],
               },
-              { film: willow,
+              { work: willow,
                 material_format: printed_score_parts,
                 created_by: sienna,
                 citation_source: 'Copy Owned',
                 collections: [harris_collection],
               },
-              { film: back_to_the_future,
+              { work: back_to_the_future,
                 material_format: printed_score_parts,
                 created_by: sienna,
                 citation_source: 'Copy Owned',
                 collections: [harris_collection],
               },
-              { film: rashomon,
+              { work: rashomon,
                 material_format: manuscript_score,
                 created_by: sienna,
                 citation_source: 'Copy Owned',
                 collections: [hayasaka_collection],
               },
-              { film: lawrence,
+              { work: lawrence,
                 finding_aid_link: 'http://www.uwyo.edu/ahc/_files/pdffa/03261.pdf',
                 material_format: manuscript_score,
                 created_by: sienna,
                 citation_source: 'Institutional Website',
                 collections: [jarre_collection],
               },
-              { film: goonies,
+              { work: goonies,
                 finding_aid_link: 'http://www.colorado.edu/amrc/sites/default/files/attached-files/AMRC-Grusin.pdf',
                 material_format: manuscript_score,
                 created_by: sienna,
                 citation_source: 'Institutional Contact',
                 collections: [grusin_collection],
               },
-              { film: samurai,
+              { work: samurai,
                 material_format: manuscript_score,
                 created_by: sienna,
                 citation_source: 'Email with Repository',

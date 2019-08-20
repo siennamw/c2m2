@@ -11,8 +11,8 @@ import NewCountry from '../country/NewCountry';
 import NewDirector from '../director/NewDirector';
 import NewProductionCompany from '../productionCompany/NewProductionCompany';
 
-const FilmForm = ({ selfIsAdmin, setFieldValue }) => {
-  const model = 'film';
+const WorkForm = ({ selfIsAdmin, setFieldValue }) => {
+  const model = 'work';
 
   const selectOnChange = (evt, name) => {
     if (name.includes('_ids')) {
@@ -131,12 +131,12 @@ const FilmForm = ({ selfIsAdmin, setFieldValue }) => {
   );
 };
 
-FilmForm.defaultProps = {
+WorkForm.defaultProps = {
   selfIsAdmin: false,
 };
 
-FilmForm.propTypes = {
+WorkForm.propTypes = {
   selfIsAdmin: PropTypes.bool,
 };
 
-export default FilmForm;
+export default WorkForm;

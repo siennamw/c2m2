@@ -19,21 +19,21 @@ const DisplayComposer = ({ values }) => (
       </td>
     </tr>
     <tr>
-      <th>Composer for Film(s)</th>
+      <th>Composer for Work(s)</th>
       <td>
         {
-          values.films.map(c => (
-            <div key={c.id}>{wrapWithLink(c.title, c.id, 'film')}</div>
+          values.works.map(w => (
+            <div key={w.id}>{wrapWithLink(w.title, w.id, 'work')}</div>
           ))
         }
       </td>
     </tr>
     <tr>
-      <th>Orchestrator for Film(s)</th>
+      <th>Orchestrator for Work(s)</th>
       <td>
         {
-          values.films_as_orchestrator.map(c => (
-            <div key={c.id}>{wrapWithLink(c.title, c.id, 'film')}</div>
+          values.works_as_orchestrator.map(w => (
+            <div key={w.id}>{wrapWithLink(w.title, w.id, 'work')}</div>
           ))
         }
       </td>

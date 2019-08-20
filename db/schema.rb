@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190816025328) do
+ActiveRecord::Schema.define(version: 20190819134152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,11 +63,11 @@ ActiveRecord::Schema.define(version: 20190816025328) do
     t.index ["updated_by_id"], name: "index_composers_on_updated_by_id"
   end
 
-  create_table "composers_films", id: false, force: :cascade do |t|
+  create_table "composers_works", id: false, force: :cascade do |t|
     t.bigint "composer_id", null: false
-    t.bigint "film_id", null: false
-    t.index ["composer_id", "film_id"], name: "index_composers_films_on_composer_id_and_film_id", unique: true
-    t.index ["film_id", "composer_id"], name: "index_composers_films_on_film_id_and_composer_id", unique: true
+    t.bigint "work_id", null: false
+    t.index ["composer_id", "work_id"], name: "index_composers_works_on_composer_id_and_work_id", unique: true
+    t.index ["work_id", "composer_id"], name: "index_composers_works_on_work_id_and_composer_id", unique: true
   end
 
   create_table "countries", force: :cascade do |t|
@@ -94,36 +94,11 @@ ActiveRecord::Schema.define(version: 20190816025328) do
     t.index ["updated_by_id"], name: "index_directors_on_updated_by_id"
   end
 
-  create_table "directors_films", id: false, force: :cascade do |t|
+  create_table "directors_works", id: false, force: :cascade do |t|
     t.bigint "director_id", null: false
-    t.bigint "film_id", null: false
-    t.index ["director_id", "film_id"], name: "index_directors_films_on_director_id_and_film_id", unique: true
-    t.index ["film_id", "director_id"], name: "index_directors_films_on_film_id_and_director_id", unique: true
-  end
-
-  create_table "films", force: :cascade do |t|
-    t.string "title", null: false
-    t.string "secondary_title"
-    t.text "alias_alternates"
-    t.string "imdb_link"
-    t.integer "year", null: false
-    t.bigint "country_id"
-    t.bigint "media_type_id"
-    t.bigint "created_by_id"
-    t.bigint "updated_by_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["country_id"], name: "index_films_on_country_id"
-    t.index ["created_by_id"], name: "index_films_on_created_by_id"
-    t.index ["media_type_id"], name: "index_films_on_media_type_id"
-    t.index ["updated_by_id"], name: "index_films_on_updated_by_id"
-  end
-
-  create_table "films_production_companies", id: false, force: :cascade do |t|
-    t.bigint "production_company_id", null: false
-    t.bigint "film_id", null: false
-    t.index ["film_id", "production_company_id"], name: "index_pcs_films_on_film_id_and_pc_id", unique: true
-    t.index ["production_company_id", "film_id"], name: "index_pcs_films_on_pc_id_and_film_id", unique: true
+    t.bigint "work_id", null: false
+    t.index ["director_id", "work_id"], name: "index_directors_works_on_director_id_and_work_id", unique: true
+    t.index ["work_id", "director_id"], name: "index_directors_works_on_work_id_and_director_id", unique: true
   end
 
   create_table "material_formats", force: :cascade do |t|
@@ -150,11 +125,11 @@ ActiveRecord::Schema.define(version: 20190816025328) do
     t.index ["updated_by_id"], name: "index_media_types_on_updated_by_id"
   end
 
-  create_table "orchestrators_films", id: false, force: :cascade do |t|
+  create_table "orchestrators_works", id: false, force: :cascade do |t|
     t.bigint "composer_id", null: false
-    t.bigint "film_id", null: false
-    t.index ["composer_id", "film_id"], name: "index_orch_films_on_orch_id_and_film_id", unique: true
-    t.index ["film_id", "composer_id"], name: "index_orch_films_on_film_id_and_orch_id", unique: true
+    t.bigint "work_id", null: false
+    t.index ["composer_id", "work_id"], name: "index_orch_films_on_orch_id_and_film_id", unique: true
+    t.index ["work_id", "composer_id"], name: "index_orch_films_on_film_id_and_orch_id", unique: true
   end
 
   create_table "production_companies", force: :cascade do |t|
@@ -166,6 +141,13 @@ ActiveRecord::Schema.define(version: 20190816025328) do
     t.bigint "updated_by_id"
     t.index ["created_by_id"], name: "index_production_companies_on_created_by_id"
     t.index ["updated_by_id"], name: "index_production_companies_on_updated_by_id"
+  end
+
+  create_table "production_companies_works", id: false, force: :cascade do |t|
+    t.bigint "production_company_id", null: false
+    t.bigint "work_id", null: false
+    t.index ["production_company_id", "work_id"], name: "index_pcs_films_on_pc_id_and_film_id", unique: true
+    t.index ["work_id", "production_company_id"], name: "index_pcs_films_on_film_id_and_pc_id", unique: true
   end
 
   create_table "repositories", force: :cascade do |t|
@@ -191,12 +173,30 @@ ActiveRecord::Schema.define(version: 20190816025328) do
     t.datetime "updated_at", null: false
     t.string "publication_status", default: "draft", null: false
     t.bigint "updated_by_id"
-    t.bigint "film_id"
+    t.bigint "work_id"
     t.index ["created_by_id"], name: "index_resources_on_created_by_id"
-    t.index ["film_id"], name: "index_resources_on_film_id"
     t.index ["material_format_id"], name: "index_resources_on_material_format_id"
     t.index ["publication_status"], name: "index_resources_on_publication_status"
     t.index ["updated_by_id"], name: "index_resources_on_updated_by_id"
+    t.index ["work_id"], name: "index_resources_on_work_id"
+  end
+
+  create_table "works", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "secondary_title"
+    t.text "alias_alternates"
+    t.string "imdb_link"
+    t.integer "year", null: false
+    t.bigint "country_id"
+    t.bigint "media_type_id"
+    t.bigint "created_by_id"
+    t.bigint "updated_by_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_works_on_country_id"
+    t.index ["created_by_id"], name: "index_works_on_created_by_id"
+    t.index ["media_type_id"], name: "index_works_on_media_type_id"
+    t.index ["updated_by_id"], name: "index_works_on_updated_by_id"
   end
 
   add_foreign_key "catalogers", "catalogers", column: "created_by_id"
@@ -208,30 +208,30 @@ ActiveRecord::Schema.define(version: 20190816025328) do
   add_foreign_key "collections_resources", "resources"
   add_foreign_key "composers", "catalogers", column: "created_by_id"
   add_foreign_key "composers", "catalogers", column: "updated_by_id"
-  add_foreign_key "composers_films", "composers"
-  add_foreign_key "composers_films", "films"
+  add_foreign_key "composers_works", "composers"
+  add_foreign_key "composers_works", "works"
   add_foreign_key "countries", "catalogers", column: "created_by_id"
   add_foreign_key "countries", "catalogers", column: "updated_by_id"
   add_foreign_key "directors", "catalogers", column: "created_by_id"
   add_foreign_key "directors", "catalogers", column: "updated_by_id"
-  add_foreign_key "directors_films", "directors"
-  add_foreign_key "directors_films", "films"
-  add_foreign_key "films", "catalogers", column: "created_by_id"
-  add_foreign_key "films", "catalogers", column: "updated_by_id"
-  add_foreign_key "films", "countries"
-  add_foreign_key "films", "media_types"
-  add_foreign_key "films_production_companies", "films"
-  add_foreign_key "films_production_companies", "production_companies"
+  add_foreign_key "directors_works", "directors"
+  add_foreign_key "directors_works", "works"
   add_foreign_key "material_formats", "catalogers", column: "created_by_id"
   add_foreign_key "material_formats", "catalogers", column: "updated_by_id"
   add_foreign_key "media_types", "catalogers", column: "created_by_id"
   add_foreign_key "media_types", "catalogers", column: "updated_by_id"
   add_foreign_key "production_companies", "catalogers", column: "created_by_id"
   add_foreign_key "production_companies", "catalogers", column: "updated_by_id"
+  add_foreign_key "production_companies_works", "production_companies"
+  add_foreign_key "production_companies_works", "works"
   add_foreign_key "repositories", "catalogers", column: "created_by_id"
   add_foreign_key "repositories", "catalogers", column: "updated_by_id"
   add_foreign_key "resources", "catalogers", column: "created_by_id"
   add_foreign_key "resources", "catalogers", column: "updated_by_id"
-  add_foreign_key "resources", "films"
   add_foreign_key "resources", "material_formats"
+  add_foreign_key "resources", "works"
+  add_foreign_key "works", "catalogers", column: "created_by_id"
+  add_foreign_key "works", "catalogers", column: "updated_by_id"
+  add_foreign_key "works", "countries"
+  add_foreign_key "works", "media_types"
 end

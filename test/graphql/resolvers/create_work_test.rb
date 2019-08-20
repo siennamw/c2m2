@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class Resolvers::CreateFilmTest < ActiveSupport::TestCase
+class Resolvers::CreateWorkTest < ActiveSupport::TestCase
   def perform(args = {})
-    Resolvers::CreateFilm.new.call(nil, args, { current_user: @cataloger })
+    Resolvers::CreateWork.new.call(nil, args, { current_user: @cataloger })
   end
 
   setup do
@@ -24,25 +24,25 @@ class Resolvers::CreateFilmTest < ActiveSupport::TestCase
     end
   end
 
-  test 'creating new film with the minimum required fields' do
+  test 'creating new work with the minimum required fields' do
     title = 'Casa Blanca'
     year = 1942
 
-    film = perform(
+    work = perform(
       title: title,
       year: year,
       media_type_id: @media_type.id,
     )
 
-    assert film.persisted?
-    assert_equal film.title, title
-    assert_equal film.year, year
-    assert_equal film.media_type, @media_type
+    assert work.persisted?
+    assert_equal work.title, title
+    assert_equal work.year, year
+    assert_equal work.media_type, @media_type
 
-    assert_equal film.created_by, @cataloger
+    assert_equal work.created_by, @cataloger
   end
 
-  test 'creating new film with all possible fields' do
+  test 'creating new work with all possible fields' do
     title = 'Main Title'
     secondary_title = 'Secondary Title'
     alias_alternates = 'alias_alternates'
@@ -50,7 +50,7 @@ class Resolvers::CreateFilmTest < ActiveSupport::TestCase
 
     year = 1941
 
-    film = perform(
+    work = perform(
       title: title,
       secondary_title: secondary_title,
       alias_alternates: alias_alternates,
@@ -67,22 +67,22 @@ class Resolvers::CreateFilmTest < ActiveSupport::TestCase
       production_company_ids: @production_company_ids,
     )
 
-    assert film.persisted?
-    assert_equal film.title, title
-    assert_equal film.secondary_title, secondary_title
-    assert_equal film.alias_alternates, alias_alternates
-    assert_equal film.imdb_link, imdb_link
+    assert work.persisted?
+    assert_equal work.title, title
+    assert_equal work.secondary_title, secondary_title
+    assert_equal work.alias_alternates, alias_alternates
+    assert_equal work.imdb_link, imdb_link
 
-    assert_equal film.year, year
+    assert_equal work.year, year
 
-    assert_equal film.country, @country
-    assert_equal film.media_type, @media_type
+    assert_equal work.country, @country
+    assert_equal work.media_type, @media_type
 
-    assert_equal film.composers.map { |obj| obj.id }, @composer_ids
-    assert_equal film.directors.map { |obj| obj.id }, @director_ids
-    assert_equal film.orchestrators.map { |obj| obj.id }, @orchestrator_ids
-    assert_equal film.production_companies.map { |obj| obj.id }, @production_company_ids
+    assert_equal work.composers.map { |obj| obj.id }, @composer_ids
+    assert_equal work.directors.map { |obj| obj.id }, @director_ids
+    assert_equal work.orchestrators.map { |obj| obj.id }, @orchestrator_ids
+    assert_equal work.production_companies.map { |obj| obj.id }, @production_company_ids
 
-    assert_equal film.created_by, @cataloger
+    assert_equal work.created_by, @cataloger
   end
 end

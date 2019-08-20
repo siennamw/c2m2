@@ -1,13 +1,13 @@
 import React from 'react';
-import FilmsList from './FilmsList';
+import WorksList from './WorksList';
 
 const Browse = () => {
   const filter = {};
 
   return (
     <div>
-      <h2>Browse Films</h2>
-      <FilmsList filter={filter} />
+      <h2>Browse Works</h2>
+      <WorksList filter={filter} />
     </div>
   );
 };

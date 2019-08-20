@@ -9,7 +9,7 @@ class Resolvers::UpdateResource < GraphQL::Function
 
   argument :publication_status, types.String
 
-  argument :film_id, !types.ID
+  argument :work_id, !types.ID
   argument :material_format_id, !types.ID
 
   argument :collection_ids, types[types.ID]
@@ -41,7 +41,7 @@ class Resolvers::UpdateResource < GraphQL::Function
 
       publication_status: new_status,
 
-      film_id: args[:film_id],
+      work_id: args[:work_id],
       material_format_id: args[:material_format_id],
 
       collection_ids: args[:collection_ids],

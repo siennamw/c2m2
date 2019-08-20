@@ -7,8 +7,8 @@ import { wrapWithLink } from '../../../utils';
 const DisplayResource = ({ values }) => (
   <tbody>
     <tr>
-      <th>Film</th>
-      <td>{wrapWithLink(values.film.title, values.film.id, 'film')}</td>
+      <th>Work</th>
+      <td>{wrapWithLink(values.work.title, values.work.id, 'work')}</td>
     </tr>
     <tr>
       <th>Material Format</th>

@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 import { isEqual } from 'lodash';
 
-import { FILMS_SEARCH } from '../queries';
+import { WORKS_SEARCH } from '../queries';
 import { wrapWithLink } from '../utils';
 
-class FilmsList extends React.Component {
+class WorksList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,13 +32,13 @@ class FilmsList extends React.Component {
 
     fetchMore({
       variables: {
-        skip: data.allFilms.length,
+        skip: data.allWorks.length,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
         let result;
         const noMore = !fetchMoreResult
-          || !fetchMoreResult.allFilms
-          || fetchMoreResult.allFilms.length === 0;
+          || !fetchMoreResult.allWorks
+          || fetchMoreResult.allWorks.length === 0;
 
         if (noMore) {
           result = prev;
@@ -50,7 +50,7 @@ class FilmsList extends React.Component {
           result = {
             ...prev,
             ...{
-              allFilms: [...prev.allFilms, ...fetchMoreResult.allFilms],
+              allWorks: [...prev.allWorks, ...fetchMoreResult.allWorks],
             },
           };
           this.setState({
@@ -74,13 +74,13 @@ class FilmsList extends React.Component {
         );
       }
 
-      const haveData = data && data.allFilms && data.allFilms.length > 0;
+      const haveData = data && data.allWorks && data.allWorks.length > 0;
 
       if (haveData) {
         const { moreResults, loadingResults } = this.state;
         return (
-          <FilmsListTable
-            films={data.allFilms}
+          <WorksListTable
+            works={data.allWorks}
             loadMore={() => this.loadMore(data, fetchMore)}
             moreResults={moreResults}
             loadingResults={loadingResults}
@@ -97,7 +97,7 @@ class FilmsList extends React.Component {
 
     return (
       <Query
-        query={FILMS_SEARCH}
+        query={WORKS_SEARCH}
         variables={{
           filter,
           first,
@@ -114,32 +114,32 @@ class FilmsList extends React.Component {
   }
 }
 
-FilmsList.defaultProps = {
+WorksList.defaultProps = {
   filter: {},
 };
 
-FilmsList.propTypes = {
+WorksList.propTypes = {
   filter: PropTypes.object,
 };
 
-const FilmsListTable = ({
+const WorksListTable = ({
   loadMore,
   loadingResults,
   moreResults,
-  films,
+  works,
 }) => {
   const wrap = (item, itemType) => (
     <div key={item.id}>{wrapWithLink(item.name, item.id, itemType)}</div>
   );
 
-  const items = films.map(film => (
-    <tbody key={film.id}>
+  const items = works.map(work => (
+    <tbody key={work.id}>
       <tr>
         <td colSpan="4">
           <h4>
-            <a href={`/film/${film.id}`}>
-              {film.title}
-              {film.secondary_title ? `: ${film.secondary_title}` : ''}
+            <a href={`/work/${work.id}`}>
+              {work.title}
+              {work.secondary_title ? `: ${work.secondary_title}` : ''}
             </a>
           </h4>
         </td>
@@ -151,10 +151,10 @@ const FilmsListTable = ({
         <th>Country</th>
       </tr>
       <tr>
-        <td>{film.year}</td>
-        <td>{film.composers.map(composer => wrap(composer, 'composer'))}</td>
-        <td>{film.directors.map(director => wrap(director, 'director'))}</td>
-        <td>{film.country ? wrap(film.country, 'country') : null}</td>
+        <td>{work.year}</td>
+        <td>{work.composers.map(composer => wrap(composer, 'composer'))}</td>
+        <td>{work.directors.map(director => wrap(director, 'director'))}</td>
+        <td>{work.country ? wrap(work.country, 'country') : null}</td>
       </tr>
     </tbody>
   ));
@@ -169,7 +169,7 @@ const FilmsListTable = ({
 
   return (
     <div>
-      <table id="films-list-table" className="u-full-width">
+      <table id="works-list-table" className="u-full-width">
         {items}
       </table>
       <button
@@ -184,17 +184,17 @@ const FilmsListTable = ({
   );
 };
 
-FilmsListTable.defaultProps = {
+WorksListTable.defaultProps = {
   loadingResults: false,
   moreResults: true,
-  films: [],
+  works: [],
 };
 
-FilmsListTable.propTypes = {
+WorksListTable.propTypes = {
   loadMore: PropTypes.func.isRequired,
   loadingResults: PropTypes.bool,
   moreResults: PropTypes.bool,
-  films: PropTypes.arrayOf(PropTypes.object),
+  works: PropTypes.arrayOf(PropTypes.object),
 };
 
-export default FilmsList;
+export default WorksList;

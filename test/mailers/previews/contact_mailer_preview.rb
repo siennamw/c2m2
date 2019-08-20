@@ -9,7 +9,7 @@ class ContactMailerPreview < ActionMailer::Preview
     # http://localhost:3000/rails/mailers/contact_mailer/suggestion_email.html
     fields = {
       composers: 'one or more composers',
-      works: 'works or films concerned',
+      works: 'works or works concerned',
       link: 'link to a resource',
       location: 'name of library, repository, database...',
       comments: 'additional comments here'

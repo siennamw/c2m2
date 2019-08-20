@@ -6,7 +6,7 @@ import NewCollection from '../entries/collection/NewCollection';
 import NewComposer from '../entries/composer/NewComposer';
 import NewCountry from '../entries/country/NewCountry';
 import NewDirector from '../entries/director/NewDirector';
-import NewFilm from '../entries/film/NewFilm';
+import NewWork from '../entries/work/NewWork';
 import NewProductionCompany from '../entries/productionCompany/NewProductionCompany';
 import NewRepository from '../entries/repository/NewRepository';
 import NewResource from '../entries/resource/NewResource';
@@ -25,7 +25,7 @@ const CatalogerNewEntryParent = ({ match }) => (
       <Route exact path={`${match.path}/composer`} component={NewComposer} />
       <Route exact path={`${match.path}/country`} component={NewCountry} />
       <Route exact path={`${match.path}/director`} component={NewDirector} />
-      <Route exact path={`${match.path}/film`} component={NewFilm} />
+      <Route exact path={`${match.path}/work`} component={NewWork} />
       <Route exact path={`${match.path}/production_company`} component={NewProductionCompany} />
       <Route exact path={`${match.path}/repository`} component={NewRepository} />
       <Route exact path={`${match.path}/resource`} component={NewResource} />
@@ -42,7 +42,7 @@ const CatalogerNewEntryParent = ({ match }) => (
           </p>
           <ul>
             <li>
-              <Link to={`${match.path}/film`}>Film</Link>
+              <Link to={`${match.path}/work`}>Work</Link>
               &nbsp;
               - the overall work (ex. film, series, game) with which a musical
               score is associated
