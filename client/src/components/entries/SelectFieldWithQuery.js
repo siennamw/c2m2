@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 
 import { MODEL_NAMES } from '../../constants';
-import { SelectFieldNoLabel } from './SelectField';
+import SelectField from './SelectField';
 import ModalForComponentWithButton from './ModalForComponentWithButton';
 
 const SelectFieldWithQuery = ({
@@ -36,12 +36,13 @@ const SelectFieldWithQuery = ({
       } else if (data && data[queryName]) {
 
         content = (
-          <SelectFieldNoLabel
+          <SelectField
             addNewItemText={showButton}
             fieldName={fieldName}
             disabled={disabled}
             displayName={displayName}
             isMulti={isMulti}
+            labelDisabled
             modelName={modelName}
             onChangeCallback={onChangeCallback}
             options={data[queryName]}

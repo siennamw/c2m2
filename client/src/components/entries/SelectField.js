@@ -6,12 +6,13 @@ import Select from 'react-select';
 import FieldInfoTooltip from './FieldInfoTooltip';
 import { MODEL_NAMES } from '../../constants';
 
-export const SelectFieldNoLabel = ({
+const SelectField = ({
   addNewItemText,
   fieldName,
   disabled,
   displayName,
   isMulti,
+  labelDisabled,
   modelName,
   onChangeCallback,
   options,
@@ -30,7 +31,7 @@ export const SelectFieldNoLabel = ({
     ? items.filter(i => selected.includes(i.value))
     : items.find(i => i.value === selected);
 
-  return (
+  const content = (
     <Fragment>
       {displayName}
       <FieldInfoTooltip
@@ -72,21 +73,31 @@ export const SelectFieldNoLabel = ({
       />
     </Fragment>
   );
+
+  return labelDisabled
+    ? content
+    : (
+      <label htmlFor={fieldName}>
+        { content }
+      </label>
+    );
 };
 
-SelectFieldNoLabel.defaultProps = {
+SelectField.defaultProps = {
   addNewItemText: false,
   isMulti: false,
+  labelDisabled: false,
   disabled: false,
   selected: null,
 };
 
-SelectFieldNoLabel.propTypes = {
+SelectField.propTypes = {
   addNewItemText: PropTypes.bool,
   fieldName: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   displayName: PropTypes.string.isRequired,
   isMulti: PropTypes.bool,
+  labelDisabled: PropTypes.bool,
   modelName: PropTypes.oneOf(MODEL_NAMES).isRequired,
   onChangeCallback: PropTypes.func.isRequired,
   options: PropTypes.arrayOf(
@@ -117,65 +128,6 @@ SelectFieldNoLabel.propTypes = {
         );
       }
     },
-  ).isRequired,
-  selected: PropTypes.oneOfType([
-    PropTypes.arrayOf(
-      PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.bool,
-      ]),
-    ),
-    PropTypes.string,
-    PropTypes.bool,
-  ]),
-};
-
-const SelectField = ({
-  fieldName,
-  disabled,
-  displayName,
-  isMulti,
-  modelName,
-  onChangeCallback,
-  options,
-  selected,
-}) => (
-  <label htmlFor={fieldName}>
-    <SelectFieldNoLabel
-      fieldName={fieldName}
-      disabled={disabled}
-      displayName={displayName}
-      isMulti={isMulti}
-      modelName={modelName}
-      onChangeCallback={onChangeCallback}
-      options={options}
-      selected={selected}
-    />
-  </label>
-);
-
-SelectField.defaultProps = {
-  isMulti: false,
-  disabled: false,
-  selected: null,
-};
-
-SelectField.propTypes = {
-  fieldName: PropTypes.string.isRequired,
-  disabled: PropTypes.bool,
-  displayName: PropTypes.string.isRequired,
-  isMulti: PropTypes.bool,
-  modelName: PropTypes.oneOf(MODEL_NAMES).isRequired,
-  onChangeCallback: PropTypes.func.isRequired,
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-        PropTypes.bool,
-      ]).isRequired,
-      name: PropTypes.string.isRequired,
-    }),
   ).isRequired,
   selected: PropTypes.oneOfType([
     PropTypes.arrayOf(
