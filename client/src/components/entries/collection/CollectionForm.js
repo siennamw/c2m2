@@ -7,8 +7,12 @@ import SelectFieldWithQuery from '../SelectFieldWithQuery';
 import NewRepository from '../repository/NewRepository';
 import { reactSelectOnChange } from '../../../utils';
 
-const CollectionForm = ({ setFieldValue, values }) => {
+const CollectionForm = ({ setFieldValue, setFieldTouched, values }) => {
   const model = 'collection';
+
+  const selectOnBlur = (field) => {
+    setFieldTouched(field, true);
+  };
 
   const selectOnChange = (evt, name) => {
     reactSelectOnChange(evt, name, setFieldValue);
@@ -26,7 +30,8 @@ const CollectionForm = ({ setFieldValue, values }) => {
         displayName="Repository"
         fieldName="repository_id"
         modelName={model}
-        onChangeCallback={selectOnChange}
+        onBlur={selectOnBlur}
+        onChange={selectOnChange}
         query={LIST_ALL_REPOSITORIES}
         queryName="allRepositories"
         selected={values.repository_id}

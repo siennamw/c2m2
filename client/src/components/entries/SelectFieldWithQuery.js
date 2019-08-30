@@ -14,7 +14,8 @@ const SelectFieldWithQuery = ({
   displayName,
   isMulti,
   modelName,
-  onChangeCallback,
+  onBlur,
+  onChange,
   query,
   queryName,
   selected,
@@ -44,7 +45,8 @@ const SelectFieldWithQuery = ({
             isMulti={isMulti}
             labelDisabled
             modelName={modelName}
-            onChangeCallback={onChangeCallback}
+            onBlur={onBlur}
+            onChange={onChange}
             options={data[queryName]}
             selected={selected}
           />
@@ -102,7 +104,8 @@ SelectFieldWithQuery.propTypes = {
   displayName: PropTypes.string.isRequired,
   isMulti: PropTypes.bool,
   modelName: PropTypes.oneOf(MODEL_NAMES).isRequired,
-  onChangeCallback: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
   query: PropTypes.object.isRequired,
   queryName: PropTypes.string.isRequired,
   selected: PropTypes.oneOfType([

@@ -12,8 +12,12 @@ import NewCountry from '../country/NewCountry';
 import NewDirector from '../director/NewDirector';
 import NewProductionCompany from '../productionCompany/NewProductionCompany';
 
-const WorkForm = ({ selfIsAdmin, setFieldValue, values }) => {
+const WorkForm = ({ selfIsAdmin, setFieldTouched, setFieldValue, values }) => {
   const model = 'work';
+
+  const selectOnBlur = (field) => {
+    setFieldTouched(field, true);
+  };
 
   const selectOnChange = (evt, name) => {
     reactSelectOnChange(evt, name, setFieldValue);
@@ -60,7 +64,8 @@ const WorkForm = ({ selfIsAdmin, setFieldValue, values }) => {
         displayName="Country"
         fieldName="country_id"
         modelName={model}
-        onChangeCallback={selectOnChange}
+        onBlur={selectOnBlur}
+        onChange={selectOnChange}
         query={queries.LIST_ALL_COUNTRIES}
         queryName="allCountries"
         selected={values.country_id}
@@ -70,7 +75,8 @@ const WorkForm = ({ selfIsAdmin, setFieldValue, values }) => {
         displayName="Media Type"
         fieldName="media_type_id"
         modelName={model}
-        onChangeCallback={selectOnChange}
+        onBlur={selectOnBlur}
+        onChange={selectOnChange}
         query={queries.LIST_ALL_MEDIA_TYPES}
         queryName="allMediaTypes"
         selected={values.media_type_id}
@@ -81,7 +87,8 @@ const WorkForm = ({ selfIsAdmin, setFieldValue, values }) => {
         fieldName="composer_ids"
         isMulti
         modelName={model}
-        onChangeCallback={selectOnChange}
+        onBlur={selectOnBlur}
+        onChange={selectOnChange}
         query={queries.LIST_ALL_COMPOSERS}
         queryName="allComposers"
         selected={values.composer_ids}
@@ -92,7 +99,8 @@ const WorkForm = ({ selfIsAdmin, setFieldValue, values }) => {
         fieldName="orchestrator_ids"
         isMulti
         modelName={model}
-        onChangeCallback={selectOnChange}
+        onBlur={selectOnBlur}
+        onChange={selectOnChange}
         query={queries.LIST_ALL_COMPOSERS}
         queryName="allComposers"
         selected={values.orchestrator_ids}
@@ -103,7 +111,8 @@ const WorkForm = ({ selfIsAdmin, setFieldValue, values }) => {
         fieldName="director_ids"
         isMulti
         modelName={model}
-        onChangeCallback={selectOnChange}
+        onBlur={selectOnBlur}
+        onChange={selectOnChange}
         query={queries.LIST_ALL_DIRECTORS}
         queryName="allDirectors"
         selected={values.director_ids}
@@ -114,7 +123,8 @@ const WorkForm = ({ selfIsAdmin, setFieldValue, values }) => {
         fieldName="production_company_ids"
         isMulti
         modelName={model}
-        onChangeCallback={selectOnChange}
+        onBlur={selectOnBlur}
+        onChange={selectOnChange}
         query={queries.LIST_ALL_PRODUCTION_COMPANIES}
         queryName="allProductionCompanies"
         selected={values.production_company_ids}

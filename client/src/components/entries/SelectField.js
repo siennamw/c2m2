@@ -14,7 +14,8 @@ const SelectField = ({
   isMulti,
   labelDisabled,
   modelName,
-  onChangeCallback,
+  onBlur,
+  onChange,
   options,
   selected,
 }) => {
@@ -51,7 +52,8 @@ const SelectField = ({
         className="react-select"
         disabled={disabled}
         isMulti={isMulti}
-        onChange={evt => onChangeCallback(evt, fieldName)}
+        onBlur={() => onBlur(fieldName)}
+        onChange={evt => onChange(evt, fieldName)}
         options={items}
         styles={{
           container: (provided, state) => ({
@@ -99,7 +101,8 @@ SelectField.propTypes = {
   isMulti: PropTypes.bool,
   labelDisabled: PropTypes.bool,
   modelName: PropTypes.oneOf(MODEL_NAMES).isRequired,
-  onChangeCallback: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
   options: PropTypes.arrayOf(
     (propValue, key, componentName, location, propFullName) => {
       const idType = typeof propValue[key].id;

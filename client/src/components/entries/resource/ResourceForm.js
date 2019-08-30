@@ -11,8 +11,12 @@ import NewWork from '../work/NewWork';
 import SelectField from '../SelectField';
 import { reactSelectOnChange } from '../../../utils';
 
-const ResourceForm = ({ selfIsAdmin, setFieldValue, values }) => {
+const ResourceForm = ({ selfIsAdmin, setFieldTouched, setFieldValue, values }) => {
   const model = 'resource';
+
+  const selectOnBlur = (field) => {
+    setFieldTouched(field, true);
+  };
 
   const selectOnChange = (evt, name) => {
     reactSelectOnChange(evt, name, setFieldValue);
@@ -32,7 +36,8 @@ const ResourceForm = ({ selfIsAdmin, setFieldValue, values }) => {
         displayName="Work"
         fieldName="work_id"
         modelName={model}
-        onChangeCallback={selectOnChange}
+        onBlur={selectOnBlur}
+        onChange={selectOnChange}
         query={queries.LIST_ALL_WORKS}
         queryName="allWorks"
         selected={values.work_id}
@@ -59,7 +64,8 @@ const ResourceForm = ({ selfIsAdmin, setFieldValue, values }) => {
         displayName="Material Format"
         fieldName="material_format_id"
         modelName={model}
-        onChangeCallback={selectOnChange}
+        onBlur={selectOnBlur}
+        onChange={selectOnChange}
         query={queries.LIST_ALL_MATERIAL_FORMATS}
         queryName="allMaterialFormats"
         selected={values.material_format_id}
@@ -70,7 +76,8 @@ const ResourceForm = ({ selfIsAdmin, setFieldValue, values }) => {
         fieldName="collection_ids"
         isMulti
         modelName={model}
-        onChangeCallback={selectOnChange}
+        onBlur={selectOnBlur}
+        onChange={selectOnChange}
         query={queries.LIST_ALL_COLLECTIONS}
         queryName="allCollections"
         selected={values.collection_ids}
@@ -84,7 +91,8 @@ const ResourceForm = ({ selfIsAdmin, setFieldValue, values }) => {
         displayName="Publication Status"
         fieldName="publication_status"
         modelName={model}
-        onChangeCallback={selectOnChange}
+        onBlur={selectOnBlur}
+        onChange={selectOnChange}
         options={pubStatusOptions}
         selected={values.publication_status}
       />

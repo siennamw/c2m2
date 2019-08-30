@@ -5,8 +5,12 @@ import InputField from '../InputField';
 import SelectField from '../SelectField';
 import { reactSelectOnChange } from '../../../utils';
 
-const CatalogerForm = ({ entryIsSelf, selfIsAdmin, setFieldValue, values }) => {
+const CatalogerForm = ({ entryIsSelf, selfIsAdmin, setFieldTouched, setFieldValue, values }) => {
   const model = 'cataloger';
+
+  const selectOnBlur = (field) => {
+    setFieldTouched(field, true);
+  };
 
   const selectOnChange = (evt, name) => {
     reactSelectOnChange(evt, name, setFieldValue);
@@ -33,7 +37,8 @@ const CatalogerForm = ({ entryIsSelf, selfIsAdmin, setFieldValue, values }) => {
         displayName="Admin?"
         fieldName="admin"
         modelName={model}
-        onChangeCallback={selectOnChange}
+        onBlur={selectOnBlur}
+        onChange={selectOnChange}
         options={[
           { id: true, name: 'Yes' },
           { id: false, name: 'No' },
