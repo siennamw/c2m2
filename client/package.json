@@ -27,6 +27,7 @@
     "react-modal": "^3.8.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
+    "react-select": "^3.0.4",
     "serve": "^10.1.1",
     "sienna-boilerplate": "github:siennamw/sienna-boilerplate#c2b697c28883db9b22e242fb8d95664a5d7fef30",
     "yup": "^0.26.6"

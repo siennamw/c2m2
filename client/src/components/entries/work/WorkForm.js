@@ -5,32 +5,18 @@ import SelectFieldWithQuery from '../SelectFieldWithQuery';
 import InputField from '../InputField';
 
 import * as queries from '../../../queries';
+import { reactSelectOnChange } from '../../../utils';
 
 import NewComposer from '../composer/NewComposer';
 import NewCountry from '../country/NewCountry';
 import NewDirector from '../director/NewDirector';
 import NewProductionCompany from '../productionCompany/NewProductionCompany';
 
-const WorkForm = ({ selfIsAdmin, setFieldValue }) => {
+const WorkForm = ({ selfIsAdmin, setFieldValue, values }) => {
   const model = 'work';
 
   const selectOnChange = (evt, name) => {
-    if (name.includes('_ids')) {
-      // when selecting from a multiselect to set an array of IDs,
-      // build array manually
-      setFieldValue(
-        name,
-        // turn array-like object into a real array
-        [].slice
-          .call(evt.target.selectedOptions)
-          .map(option => option.value),
-      );
-    } else {
-      setFieldValue(
-        name,
-        evt.target.value,
-      );
-    }
+    reactSelectOnChange(evt, name, setFieldValue);
   };
 
   const pubStatusOptions = [
@@ -77,6 +63,7 @@ const WorkForm = ({ selfIsAdmin, setFieldValue }) => {
         onChangeCallback={selectOnChange}
         query={queries.LIST_ALL_COUNTRIES}
         queryName="allCountries"
+        selected={values.country_id}
       />
       <SelectFieldWithQuery
         disableAddButton
@@ -86,6 +73,7 @@ const WorkForm = ({ selfIsAdmin, setFieldValue }) => {
         onChangeCallback={selectOnChange}
         query={queries.LIST_ALL_MEDIA_TYPES}
         queryName="allMediaTypes"
+        selected={values.media_type_id}
       />
       <SelectFieldWithQuery
         componentForModal={<NewComposer />}
@@ -96,6 +84,7 @@ const WorkForm = ({ selfIsAdmin, setFieldValue }) => {
         onChangeCallback={selectOnChange}
         query={queries.LIST_ALL_COMPOSERS}
         queryName="allComposers"
+        selected={values.composer_ids}
       />
       <SelectFieldWithQuery
         componentForModal={<NewComposer />}
@@ -106,6 +95,7 @@ const WorkForm = ({ selfIsAdmin, setFieldValue }) => {
         onChangeCallback={selectOnChange}
         query={queries.LIST_ALL_COMPOSERS}
         queryName="allComposers"
+        selected={values.orchestrator_ids}
       />
       <SelectFieldWithQuery
         componentForModal={<NewDirector />}
@@ -116,6 +106,7 @@ const WorkForm = ({ selfIsAdmin, setFieldValue }) => {
         onChangeCallback={selectOnChange}
         query={queries.LIST_ALL_DIRECTORS}
         queryName="allDirectors"
+        selected={values.director_ids}
       />
       <SelectFieldWithQuery
         componentForModal={<NewProductionCompany />}
@@ -126,6 +117,7 @@ const WorkForm = ({ selfIsAdmin, setFieldValue }) => {
         onChangeCallback={selectOnChange}
         query={queries.LIST_ALL_PRODUCTION_COMPANIES}
         queryName="allProductionCompanies"
+        selected={values.production_company_ids}
       />
     </Fragment>
   );

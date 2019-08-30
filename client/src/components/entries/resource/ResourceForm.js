@@ -9,26 +9,13 @@ import * as queries from '../../../queries';
 import NewCollection from '../collection/NewCollection';
 import NewWork from '../work/NewWork';
 import SelectField from '../SelectField';
+import { reactSelectOnChange } from '../../../utils';
 
-const ResourceForm = ({ selfIsAdmin, setFieldValue }) => {
+const ResourceForm = ({ selfIsAdmin, setFieldValue, values }) => {
   const model = 'resource';
+
   const selectOnChange = (evt, name) => {
-    if (name.includes('_ids')) {
-      // when selecting from a multiselect to set an array of IDs,
-      // build array manually
-      setFieldValue(
-        name,
-        // turn array-like object into a real array
-        [].slice
-          .call(evt.target.selectedOptions)
-          .map(option => option.value),
-      );
-    } else {
-      setFieldValue(
-        name,
-        evt.target.value,
-      );
-    }
+    reactSelectOnChange(evt, name, setFieldValue);
   };
 
   const pubStatusOptions = [
@@ -48,6 +35,7 @@ const ResourceForm = ({ selfIsAdmin, setFieldValue }) => {
         onChangeCallback={selectOnChange}
         query={queries.LIST_ALL_WORKS}
         queryName="allWorks"
+        selected={values.work_id}
       />
       <InputField
         displayName="Finding Aid Link"
@@ -74,6 +62,7 @@ const ResourceForm = ({ selfIsAdmin, setFieldValue }) => {
         onChangeCallback={selectOnChange}
         query={queries.LIST_ALL_MATERIAL_FORMATS}
         queryName="allMaterialFormats"
+        selected={values.material_format_id}
       />
       <SelectFieldWithQuery
         componentForModal={<NewCollection />}
@@ -84,6 +73,7 @@ const ResourceForm = ({ selfIsAdmin, setFieldValue }) => {
         onChangeCallback={selectOnChange}
         query={queries.LIST_ALL_COLLECTIONS}
         queryName="allCollections"
+        selected={values.collection_ids}
       />
       <InputField
         displayName="Cataloging Notes"
@@ -91,12 +81,12 @@ const ResourceForm = ({ selfIsAdmin, setFieldValue }) => {
         modelName={model}
       />
       <SelectField
-        disablePlaceholder
         displayName="Publication Status"
         fieldName="publication_status"
         modelName={model}
         onChangeCallback={selectOnChange}
         options={pubStatusOptions}
+        selected={values.publication_status}
       />
     </Fragment>
   );

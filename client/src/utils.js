@@ -16,3 +16,18 @@ export const signOut = () => {
 export const wrapWithLink = (itemName, itemID, itemType) => (
   <a href={`/${itemType}/${itemID}`}>{itemName}</a>
 );
+
+export const reactSelectOnChange = (evt, name, setFieldValue) => {
+  if (Array.isArray(evt)) {
+    // multiselect
+    setFieldValue(
+      name,
+      evt.map(option => option.value),
+    );
+  } else {
+    setFieldValue(
+      name,
+      evt.value,
+    );
+  }
+};

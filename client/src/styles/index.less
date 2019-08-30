@@ -86,19 +86,6 @@ form {
     font-size: 80%;
     color: @gray;
     margin-bottom: .5rem;
-
-    div {
-      display: inline-block;
-
-      &:after {
-        content: '\2022';
-        margin: 0 1rem;
-      }
-
-      &:last-child:after {
-        content: none;
-      }
-    }
   }
 
   .status-message.form-message {
@@ -106,8 +93,18 @@ form {
     margin-bottom: 0;
   }
 
+  .react-select {
+    margin-bottom: 1.5rem;
+
+    input[type="text"] {
+      height: auto;
+      margin-bottom: 0;
+    }
+  }
+
   .select-with-query.has-button {
-    select {
+    .react-select {
+      display: inline-block;
       width: calc(100% - 50px);
     }
 
@@ -115,6 +112,7 @@ form {
       .button-symbol();
       margin-left: 12px;
       width: 38px;
+      height: 44px;
     }
   }
 
@@ -340,4 +338,3 @@ footer {
     }
   }
 }
-

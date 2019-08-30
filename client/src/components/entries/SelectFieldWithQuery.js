@@ -17,6 +17,7 @@ const SelectFieldWithQuery = ({
   onChangeCallback,
   query,
   queryName,
+  selected,
 }) => (
   <Query query={query}>
     {({ error, data, refetch }) => {
@@ -44,6 +45,7 @@ const SelectFieldWithQuery = ({
             modelName={modelName}
             onChangeCallback={onChangeCallback}
             options={data[queryName]}
+            selected={selected}
           />
         );
       }
@@ -85,6 +87,7 @@ SelectFieldWithQuery.defaultProps = {
   disableAddButton: false,
   disabled: false,
   isMulti: false,
+  selected: null,
 };
 
 SelectFieldWithQuery.propTypes = {
@@ -101,6 +104,16 @@ SelectFieldWithQuery.propTypes = {
   onChangeCallback: PropTypes.func.isRequired,
   query: PropTypes.object.isRequired,
   queryName: PropTypes.string.isRequired,
+  selected: PropTypes.oneOfType([
+    PropTypes.arrayOf(
+      PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.bool,
+      ]),
+    ),
+    PropTypes.string,
+    PropTypes.bool,
+  ]),
 };
 
 export default SelectFieldWithQuery;

@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 
 import InputField from '../InputField';
 import SelectField from '../SelectField';
+import { reactSelectOnChange } from '../../../utils';
 
-const CatalogerForm = ({ entryIsSelf, selfIsAdmin, setFieldValue }) => {
+const CatalogerForm = ({ entryIsSelf, selfIsAdmin, setFieldValue, values }) => {
   const model = 'cataloger';
 
   const selectOnChange = (evt, name) => {
-    setFieldValue(name, evt.target.value);
+    reactSelectOnChange(evt, name, setFieldValue);
   };
 
   const disabled = !selfIsAdmin && !entryIsSelf;
@@ -29,7 +30,6 @@ const CatalogerForm = ({ entryIsSelf, selfIsAdmin, setFieldValue }) => {
       />
       <SelectField
         disabled={!selfIsAdmin}
-        disablePlaceholder
         displayName="Admin?"
         fieldName="admin"
         modelName={model}
@@ -38,6 +38,7 @@ const CatalogerForm = ({ entryIsSelf, selfIsAdmin, setFieldValue }) => {
           { id: true, name: 'Yes' },
           { id: false, name: 'No' },
         ]}
+        selected={values.admin}
       />
       <InputField
         disabled={disabled}

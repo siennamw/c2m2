@@ -5,18 +5,13 @@ import { LIST_ALL_REPOSITORIES } from '../../../queries';
 
 import SelectFieldWithQuery from '../SelectFieldWithQuery';
 import NewRepository from '../repository/NewRepository';
+import { reactSelectOnChange } from '../../../utils';
 
-const CollectionForm = ({ setFieldValue }) => {
+const CollectionForm = ({ setFieldValue, values }) => {
   const model = 'collection';
 
   const selectOnChange = (evt, name) => {
-    // when selecting from a dropdown to set an ID
-    if (name.includes('_id')) {
-      setFieldValue(
-        name,
-        evt.target.value,
-      );
-    }
+    reactSelectOnChange(evt, name, setFieldValue);
   };
 
   return (
@@ -34,6 +29,7 @@ const CollectionForm = ({ setFieldValue }) => {
         onChangeCallback={selectOnChange}
         query={LIST_ALL_REPOSITORIES}
         queryName="allRepositories"
+        selected={values.repository_id}
       />
       <InputField
         displayName="Description"
