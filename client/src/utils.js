@@ -18,16 +18,16 @@ export const wrapWithLink = (itemName, itemID, itemType) => (
 );
 
 export const reactSelectOnChange = (evt, name, setFieldValue) => {
-  if (Array.isArray(evt)) {
+  if (name.includes('_ids')) {
     // multiselect
     setFieldValue(
       name,
-      evt.map(option => option.value),
+      evt ? evt.map(option => option.value) : [],
     );
   } else {
     setFieldValue(
       name,
-      evt.value,
+      evt ? evt.value : '',
     );
   }
 };
