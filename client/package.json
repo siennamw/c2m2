@@ -29,7 +29,7 @@
     "react-scripts": "1.1.4",
     "react-select": "^3.0.4",
     "serve": "^10.1.1",
-    "sienna-boilerplate": "github:siennamw/sienna-boilerplate#4cff0553a1b10834cf9abbab7211be1a9c849cf4",
+    "sienna-boilerplate": "github:siennamw/sienna-boilerplate#d1f9f854280e739c62b473d3e553525acd44ab80",
     "yup": "^0.26.6"
   },
   "scripts": {
