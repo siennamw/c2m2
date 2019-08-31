@@ -6,7 +6,7 @@ import { isAuthenticated } from '../../utils';
 const FooterLinks = () => (
   <div id="footer-links" className="row">
     <div className="three columns">
-      <h5>Contact</h5>
+      <h1 className="h5">Contact</h1>
       <ul>
         <li>
           <NavLink to="/contact">
@@ -19,7 +19,7 @@ const FooterLinks = () => (
           </NavLink>
         </li>
       </ul>
-      <h5>Contributors</h5>
+      <h1 className="h5">Contributors</h1>
       <ul>
         {
           isAuthenticated()
@@ -40,7 +40,7 @@ const FooterLinks = () => (
       </ul>
     </div>
     <div className="three columns">
-      <h5>About</h5>
+      <h1 className="h5">About</h1>
       <ul>
         <li>
           <NavLink to="/vision">
@@ -55,7 +55,7 @@ const FooterLinks = () => (
       </ul>
     </div>
     <div className="six columns">
-      <h5>External Links</h5>
+      <h1 className="h5">External Links</h1>
       <ul>
         <li>
           <a
