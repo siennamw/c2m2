@@ -1,7 +1,12 @@
 import React from 'react';
-import { Mutation } from "react-apollo";
-import { Formik, ErrorMessage, Field, Form } from "formik";
-import ReCAPTCHA from "react-google-recaptcha";
+import { Mutation } from 'react-apollo';
+import {
+  Formik,
+  ErrorMessage,
+  Field,
+  Form,
+} from 'formik';
+import ReCAPTCHA from 'react-google-recaptcha';
 import * as Yup from 'yup';
 
 import * as mutations from '../../mutations';
@@ -20,40 +25,73 @@ const validationSchema = Yup.object().shape({
 
 const InnerContactForm = ({ handleSubmit, isSubmitting, isValid, setFieldValue, status }) => (
   <Form>
-    <label htmlFor='name'>
+    <label htmlFor="name">
       Name
-      <ErrorMessage name='name' component='div' className='status-message form-message error'/>
-      <Field type='text' name='name' className='u-full-width'/>
+      <ErrorMessage
+        className="status-message form-message error"
+        component="div"
+        name="name"
+      />
+      <Field
+        className="u-full-width"
+        id="name"
+        name="name"
+        type="text"
+      />
     </label>
-    <label htmlFor='email'>
+    <label htmlFor="email">
       Email
-      <ErrorMessage name='email' component='div' className='status-message form-message error'/>
-      <Field type='email' name='email' className='u-full-width'/>
+      <ErrorMessage
+        className="status-message form-message error"
+        component="div"
+        name="email"
+      />
+      <Field
+        className="u-full-width"
+        id="email"
+        name="email"
+        type="email"
+      />
     </label>
-    <label htmlFor='message'>
+    <label htmlFor="message">
       Message
-      <ErrorMessage name='message' component='div' className='status-message form-message error'/>
-      <Field type='text' name='message' className='u-full-width' component='textarea'/>
+      <ErrorMessage
+        className="status-message form-message error"
+        component="div"
+        name="message"
+      />
+      <Field
+        className="u-full-width"
+        component="textarea"
+        id="message"
+        name="message"
+        type="text"
+      />
     </label>
-    <ErrorMessage name='recaptcha' component='div' className='status-message form-message error'/>
+    <ErrorMessage
+      className="status-message form-message error"
+      component="div"
+      name="recaptcha"
+    />
     <ReCAPTCHA
-      sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
       className="g-recaptcha"
       onChange={(response) => {
-        setFieldValue("recaptcha", response);
+        setFieldValue('recaptcha', response);
       }}
+      sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
     />
     <button
-      type='submit'
-      className='button-primary u-full-width'
+      className="button-primary u-full-width"
       disabled={isSubmitting || !isValid}
-      onClick={handleSubmit}>
+      onClick={handleSubmit}
+      type="submit"
+    >
       Submit
     </button>
     {
       status
-      ? <div className={`status-message ${status.type}`}>{status.message}</div>
-      : undefined
+        ? <div className={`status-message ${status.type}`}>{status.message}</div>
+        : undefined
     }
   </Form>
 );
@@ -66,7 +104,7 @@ class GeneralContact extends React.Component {
           name: values.name,
           email: values.email,
           message: values.message,
-        }
+        },
       };
       const { data } = await mutation(payload);
       setSubmitting(false);
@@ -96,7 +134,7 @@ class GeneralContact extends React.Component {
     <div>
       <h2>Contact Us</h2>
       <Mutation mutation={mutations.HANDLE_CONTACT_FORM}>
-        {(handleContactForm) => (
+        {handleContactForm => (
           <Formik
             initialValues={{
               name: '',
@@ -105,13 +143,15 @@ class GeneralContact extends React.Component {
               recaptcha: '',
             }}
             validationSchema={validationSchema}
-            onSubmit={(values, { setSubmitting, setStatus, resetForm }) => this.handleSubmit(handleContactForm, values, setSubmitting, setStatus, resetForm)}
+            onSubmit={(values, { setSubmitting, setStatus, resetForm }) => (
+              this.handleSubmit(handleContactForm, values, setSubmitting, setStatus, resetForm)
+            )}
             render={props => <InnerContactForm {...props} />}
           />
         )}
       </Mutation>
     </div>
-  )
+  );
 }
 
 export default GeneralContact;
