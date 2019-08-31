@@ -9,12 +9,16 @@ import NavSubMenu from './nav/NavSubMenu';
 const Header = () => (
   <header>
     <div className="center-text">
-      <NavLink to="/"><img className="logo" src={icon} alt="C2M2" /></NavLink>
+      <NavLink to="/">
+        <img className="logo" src={icon} alt="C2M2" />
+      </NavLink>
       <h1 className="title">
-        <NavLink to="/">Collections of Cinema and Media Music</NavLink>
+        <NavLink to="/">
+          Collections of Cinema and Media Music
+        </NavLink>
       </h1>
     </div>
-    <Nav>
+    <Nav ariaLabel="Main">
       <NavLink exact to="/">Home</NavLink>
       <NavLink to="/works">Browse</NavLink>
       <NavLink to="/search">Search</NavLink>

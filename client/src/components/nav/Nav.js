@@ -1,45 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
-class Nav extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { narrowNavShown: false };
-  }
+const Nav = ({ ariaLabel, children }) => {
+  const [narrowNavShown, setNarrowNavShown] = useState(false);
 
-  hideNarrowMenu = () => {
-    this.setState({ narrowNavShown: false });
+  const hideNarrowMenu = () => {
+    setNarrowNavShown(false);
   };
 
-  showNarrowMenu = () => {
-    this.setState({ narrowNavShown: true });
+  const showNarrowMenu = () => {
+    setNarrowNavShown(true);
   };
 
-  render() {
-    const items = this.props.children.map((item, index) => {
-      if(item.type.name === 'NavSubMenu' ||
-        // build does not recognize ^^, so check if children is an array with length
-        (Array.isArray(item.props.children) && item.props.children.length > 0)
-      ){
-        return item;
-      } else {
-        return <li key={index}>{item}</li>;
-      }
-    });
+  const items = children.map((item, index) => <li key={index}>{item}</li>);
 
-    return (
-      <nav>
-        <button className="nav-toggle button-primary u-full-width"
-                aria-expanded={this.state.narrowNavShown}
-                onClick={this.state.narrowNavShown ? this.hideNarrowMenu : this.showNarrowMenu}>
-          Show/Hide Menu
-        </button>
-        <ul className={this.state.narrowNavShown ? 'nav-menu show' : 'nav-menu'}
-            onClick={this.hideNarrowMenu}>
-          {items}
-        </ul>
-      </nav>
-    )
-  }
-}
+  return (
+    <nav role="navigation" aria-label={ariaLabel}>
+      <button
+        aria-expanded={narrowNavShown}
+        className="nav-toggle button-primary u-full-width"
+        onClick={narrowNavShown ? hideNarrowMenu : showNarrowMenu}
+        type="button"
+      >
+        Show/Hide Menu
+      </button>
+      <ul
+        className={narrowNavShown ? 'nav-menu show' : 'nav-menu'}
+        onClick={hideNarrowMenu}
+      >
+        {items}
+      </ul>
+    </nav>
+  );
+};
+
+Nav.propTypes = {
+  ariaLabel: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+};
 
 export default Nav;
