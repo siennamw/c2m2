@@ -14,7 +14,7 @@ const Home = () => (
 
     <div className="row">
       <div className="six columns">
-        <h4>Michael W. Harris, Ph.D.</h4>
+        <h2 className="h4">Michael W. Harris, Ph.D.</h2>
         <p>
           Michael is a librarian, archivist, and musicologist. C2M2 is Michael&apos;s
           brainchild. For more about
@@ -28,7 +28,7 @@ const Home = () => (
         </p>
       </div>
       <div className="six columns">
-        <h4>Sienna M. Wood, Ph.D.</h4>
+        <h2 className="h4">Sienna M. Wood, Ph.D.</h2>
         <p>
           Sienna is a musicologist and software engineer. She built this website. For
           more about Sienna, <a href="http://www.siennamwood.com"
