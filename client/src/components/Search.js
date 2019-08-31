@@ -19,21 +19,22 @@ const InnerBasicSearchForm = ({ handleSubmit, isSubmitting }) => (
     <label htmlFor="title">
       Title
       <ErrorMessage
-        name="title"
-        component="div"
         className="status-message form-message error"
+        component="div"
+        name="title"
       />
     </label>
     <Field
-      type="text"
-      name="title"
       className="u-full-width"
+      id="title"
+      name="title"
+      type="text"
     />
     <button
-      type="submit"
       className="button-primary u-full-width"
       disabled={isSubmitting}
       onClick={handleSubmit}
+      type="submit"
     >
       Submit
     </button>
