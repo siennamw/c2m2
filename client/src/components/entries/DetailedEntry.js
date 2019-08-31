@@ -32,14 +32,18 @@ const DetailedEntry = ({
         );
       } else if (data && data[queryName]) {
         const values = data[queryName];
-        const heading = values.title
-          ? (
+
+        let heading;
+        if (values.title) {
+          heading = (
             <h3>
               {values.title}
               {values.secondary_title ? `: ${values.secondary_title}` : ''}
             </h3>
-          )
-          : <h3>{values.name}</h3>;
+          );
+        } else if (values.name) {
+          heading = <h3>{values.name}</h3>;
+        }
 
         const pubStatus = (status) => {
           if (!['draft', 'provisional', 'approved'].includes(status)) {
@@ -63,7 +67,10 @@ const DetailedEntry = ({
 
           return (
             <div className={`publication-status bar ${status}`}>
-              <h3>{status}:</h3>
+              <span className="h3">
+                {status}
+                :
+              </span>
               <span>{description}</span>
             </div>
           );
