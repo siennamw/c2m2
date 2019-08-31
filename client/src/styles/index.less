@@ -3,7 +3,7 @@
 // Colors
 @primary: #0099F6;
 @secondary: lighten(@primary, 20%);
-@link-color: @primary;
+@link-color: darken(@primary, 15%);
 
 @lighter-gray: lighten(@gray, 20%);
 
@@ -263,6 +263,14 @@ footer {
       text-transform: lowercase;
       border: none;
       height: auto;
+
+      &:hover, &:focus {
+        color: @black;
+      }
+
+      &:focus {
+        outline: @gray 5px auto;
+      }
     }
 
     h3 {
@@ -282,7 +290,7 @@ footer {
 
   .tooltip-anchor {
     border-radius: 50%;
-    background-color: @border-color;
+    background-color: @lighter-gray;
     color: @white;
     cursor: help;
     width: 1em;
