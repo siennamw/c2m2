@@ -51,6 +51,7 @@ const SelectField = ({
         name={fieldName}
         className="react-select"
         disabled={disabled}
+        id={fieldName}
         isMulti={isMulti}
         onBlur={() => onBlur(fieldName)}
         onChange={evt => onChange(evt, fieldName)}
@@ -69,6 +70,7 @@ const SelectField = ({
             primary25: '#BBBBBB',
             primary50: '#999999',
             primary75: '#777777',
+            neutral50: '#555555', // placeholder; darkened for contrast ratio
           },
         })}
         value={selectedItems}
