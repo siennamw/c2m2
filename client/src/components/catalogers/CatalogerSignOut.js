@@ -1,42 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
-
-import { withApollo } from '@apollo/react-hoc';
+import { useApolloClient } from '@apollo/react-hooks';
 
 import { isAuthenticated, signOut } from '../../utils';
 
-class CatalogerSignOut extends React.Component {
-  state = {
-    authenticated: isAuthenticated(),
-    err: null,
-  };
+const CatalogerSignOut = () => {
+  const [err, setErr] = useState(null);
+  const [authenticated, setAuthenticated] = useState(isAuthenticated());
 
-  async componentDidMount() {
-    try {
-      await this.props.client.resetStore();
-    } catch (err) {
-      this.setState({ ...this.state, err });
-      console.log('Error signing out', err);
-    }
+  const client = useApolloClient();
 
+  useEffect(() => {
+    const handleSignOut = async () => {
+      try {
+        await client.resetStore();
+      } catch (error) {
+        setErr(error);
+        console.log('Error signing out', error);
+      }
+    };
+
+    handleSignOut();
     signOut();
-    this.setState({ ...this.state, authenticated: isAuthenticated() });
+    setAuthenticated(isAuthenticated());
+  });
+
+  if (err) {
+    return (
+      <div>
+        <h3>Error Signing Out</h3>
+        <p>{err}</p>
+      </div>
+    );
   }
 
-  render = () => {
-    if (this.state.err) {
-      return (
-        <div>
-          <h3>Error Signing Out</h3>
-          <p>{this.state.err}</p>
-        </div>
-      );
-    }
+  if (authenticated) return <h3>Signing out...</h3>;
 
-    if (this.state.authenticated) return <h3>Signing out...</h3>;
+  return <Redirect to="/" />;
+};
 
-    return <Redirect to="/" />;
-  }
-}
-
-export default withApollo(CatalogerSignOut);
+export default CatalogerSignOut;
