@@ -1,34 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { Query } from '@apollo/react-components';
-import { isEqual } from 'lodash';
 
 import { WORKS_SEARCH } from '../queries';
 import { wrapWithLink } from '../utils';
 
-class WorksList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      moreResults: true,
-      loadingResults: false,
-    };
-  }
+const WorksList = ({ filter }) => {
+  const [moreResults, setMoreResults] = useState(true);
+  const [loadingResults, setLoadingResults] = useState(false);
 
-  componentDidUpdate(prevProps) {
-    const { filter } = this.props;
-    if (!isEqual(filter, prevProps.filter)) {
-      // make sure button is enabled for a new search
-      this.setState({
-        moreResults: true,
-        loadingResults: false,
-      });
-    }
-  }
+  useEffect(() => {
+    // make sure button is enabled for a new search
+    setMoreResults(true);
+    setLoadingResults(false);
+  }, [filter]);
 
-  loadMore = (data, fetchMore) => {
-    this.setState({ loadingResults: true });
+  const loadMore = (data, fetchMore) => {
+    setLoadingResults(true);
 
     fetchMore({
       variables: {
@@ -42,10 +31,8 @@ class WorksList extends React.Component {
 
         if (noMore) {
           result = prev;
-          this.setState({
-            moreResults: false,
-            loadingResults: false,
-          });
+          setLoadingResults(false);
+          setMoreResults(false);
         } else {
           result = {
             ...prev,
@@ -53,66 +40,75 @@ class WorksList extends React.Component {
               allWorks: [...prev.allWorks, ...fetchMoreResult.allWorks],
             },
           };
-          this.setState({
-            moreResults: true,
-            loadingResults: false,
-          });
+          setLoadingResults(false);
+          setMoreResults(true);
         }
         return result;
       },
     });
   };
 
-  render() {
-    const content = (loading, error, data, fetchMore) => {
-      if (loading) {
-        return <div className="status-message">Fetching...</div>;
-      }
-      if (error) {
-        return (
-          <div className="status-message error">Sorry! There was an error fetching results.</div>
-        );
-      }
+  const content = (loading, error, data, fetchMore) => {
+    if (loading) {
+      return (
+        <div className="status-message">
+          Fetching...
+        </div>
+      );
+    }
+    if (error) {
+      return (
+        <div className="status-message error">
+          Sorry! There was an error fetching results.
+        </div>
+      );
+    }
 
-      const haveData = data && data.allWorks && data.allWorks.length > 0;
+    const haveData = data && data.allWorks && data.allWorks.length > 0;
 
-      if (haveData) {
-        const { moreResults, loadingResults } = this.state;
-        return (
-          <WorksListTable
-            works={data.allWorks}
-            loadMore={() => this.loadMore(data, fetchMore)}
-            moreResults={moreResults}
-            loadingResults={loadingResults}
-          />
-        );
-      }
-
-      return <div className="status-message error">Sorry! No results were found.</div>;
-    };
-
-    const { filter } = this.props;
-    const first = 5;
-    const skip = 0;
+    if (haveData) {
+      return (
+        <WorksListTable
+          works={data.allWorks}
+          loadMore={() => loadMore(data, fetchMore)}
+          moreResults={moreResults}
+          loadingResults={loadingResults}
+        />
+      );
+    }
 
     return (
-      <Query
-        query={WORKS_SEARCH}
-        variables={{
-          filter,
-          first,
-          skip,
-        }}
-      >
-        {
-          ({ loading, error, data, fetchMore }) => (
-            content(loading, error, data, fetchMore)
-          )
-        }
-      </Query>
+      <div className="status-message error">
+        Sorry! No results were found.
+      </div>
     );
-  }
-}
+  };
+
+  const first = 5;
+  const skip = 0;
+
+  return (
+    <Query
+      query={WORKS_SEARCH}
+      variables={{
+        filter,
+        first,
+        skip,
+      }}
+    >
+      {
+        ({
+          loading,
+          error,
+          data,
+          fetchMore,
+        }) => (
+          content(loading, error, data, fetchMore)
+        )
+      }
+    </Query>
+  );
+};
 
 WorksList.defaultProps = {
   filter: {},
