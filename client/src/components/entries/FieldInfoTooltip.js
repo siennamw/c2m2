@@ -1,82 +1,72 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { MODEL_NAMES, TOOLTIP_BY_MODEL_AND_FIELD } from '../../constants';
 
-export default class FieldInfoTooltip extends React.Component {
-  state = {
-    show: false,
+const FieldInfoTooltip = ({ field, model }) => {
+  const [show, setShow] = useState(false);
+
+  const showDisplay = () => {
+    setShow(true);
   };
 
-  showDisplay = () => {
-    this.setState({ show: true });
+  const hideDisplay = () => {
+    setShow(false);
   };
 
-  hideDisplay = () => {
-    this.setState({ show: false });
-  };
-
-  handleTouch = () => {
-    const { show } = this.state;
+  const handleTouch = () => {
     if (show) {
-      this.hideDisplay();
+      hideDisplay();
     } else {
-      this.showDisplay();
+      showDisplay();
     }
   };
 
-  render() {
-    const {
-      field,
-      model,
-    } = this.props;
+  const tooltip = TOOLTIP_BY_MODEL_AND_FIELD(model, field);
 
-    const tooltip = TOOLTIP_BY_MODEL_AND_FIELD(model, field);
+  const rules = tooltip && tooltip.rules && tooltip.rules.length > 0
+    ? tooltip.rules.map((r, i) => <li key={i}>{r}</li>)
+    : undefined;
 
-    const rules = tooltip && tooltip.rules && tooltip.rules.length > 0
-      ? tooltip.rules.map((r, i) => <li key={i}>{r}</li>)
-      : undefined;
+  const semantics = tooltip && tooltip.semantics
+    ? tooltip.semantics
+    : 'No description available for this field.';
 
-    const semantics = tooltip && tooltip.semantics
-      ? tooltip.semantics
-      : 'No description available for this field.';
+  const display = (
+    <div className="tooltip-content">
+      <div className="tooltip-description">{semantics}</div>
+      {
+        rules
+          ? (
+            <Fragment>
+              <hr />
+              <p>Rules</p>
+              <ul className="tooltip-rules">{rules}</ul>
+            </Fragment>
+          )
+          : undefined
+      }
+    </div>
+  );
 
-    const display = (
-      <div className="tooltip-content">
-        <div className="tooltip-description">{semantics}</div>
-        {
-          rules
-            ? (
-              <Fragment>
-                <hr />
-                <p>Rules</p>
-                <ul className="tooltip-rules">{rules}</ul>
-              </Fragment>
-            )
-            : undefined
-        }
-      </div>
-    );
-
-    const { show } = this.state;
-
-    return (
-      <span
-        className="field-info-tooltip"
-        onMouseOver={this.showDisplay}
-        onMouseLeave={this.hideDisplay}
-        onFocus={this.showDisplay}
-        onBlur={this.hideDisplay}
-        onTouchStart={this.handleTouch}
-      >
-        <div className="tooltip-anchor">&#8505;</div>
-        {show ? display : ''}
-      </span>
-    );
-  }
-}
+  return (
+    <span
+      className="field-info-tooltip"
+      onBlur={hideDisplay}
+      onFocus={showDisplay}
+      onMouseLeave={hideDisplay}
+      onMouseOver={showDisplay}
+      onTouchStart={handleTouch}
+    >
+      <div className="tooltip-anchor">&#8505;</div>
+      {show ? display : ''}
+    </span>
+  );
+};
 
 FieldInfoTooltip.propTypes = {
   field: PropTypes.string.isRequired,
   model: PropTypes.oneOf(MODEL_NAMES).isRequired,
 };
+
+export default FieldInfoTooltip;
