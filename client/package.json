@@ -5,7 +5,6 @@
   "proxy": "http://localhost:3000",
   "dependencies": {
     "@apollo/react-components": "^3.0.1",
-    "@apollo/react-hoc": "^3.0.1",
     "@apollo/react-hooks": "^3.0.1",
     "apollo-cache-inmemory": "^1.6.3",
     "apollo-client": "^2.6.4",
