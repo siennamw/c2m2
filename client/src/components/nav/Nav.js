@@ -15,7 +15,7 @@ const Nav = ({ ariaLabel, children }) => {
   const items = children.map((item, index) => <li key={index}>{item}</li>);
 
   return (
-    <nav role="navigation" aria-label={ariaLabel}>
+    <nav aria-label={ariaLabel}>
       <button
         aria-expanded={narrowNavShown}
         className="nav-toggle button-primary u-full-width"
