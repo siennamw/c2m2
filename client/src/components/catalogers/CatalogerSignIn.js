@@ -19,49 +19,60 @@ const validationSchema = Yup.object().shape({
     .required('E-mail is required'),
   password: Yup.string()
     .min(6, 'Password must be longer than 6 characters')
-    .required('Password is required')
+    .required('Password is required'),
 });
 
-const CatalogerSignInForm = ({ handleSubmit, isSubmitting, status }) => {
-  return (
-    <Form>
-      <label htmlFor='email'>
-        Email
-        <ErrorMessage name='email'
-                      component='div'
-                      className='status-message form-message error'
-        />
-      </label>
-      <Field type='email'
-             name='email'
-             autoComplete='email'
-             className='u-full-width' />
-      <label htmlFor='password'>
-        Password
-        <ErrorMessage name='password'
-                      component='div'
-                      className='status-message form-message error'
-        />
-      </label>
-      <Field type='password'
-             name='password'
-             autoComplete='current-password'
-             className='u-full-width' />
-      <button type='submit'
-              className='button-primary u-full-width'
-              disabled={isSubmitting}
-              onClick={handleSubmit}>
-        Sign In
-      </button>
-      {
-        status
-          ? <div
-            className={`status-message ${status.type}`}>{status.message}</div>
-          : undefined
-      }
-    </Form>
-  );
-};
+const CatalogerSignInForm = ({ handleSubmit, isSubmitting, status }) => (
+  <Form>
+    <label htmlFor="email">
+      Email
+      <ErrorMessage
+        className="status-message form-message error"
+        component="div"
+        name="email"
+      />
+      <Field
+        autoComplete="email"
+        className="u-full-width"
+        id="email"
+        name="email"
+        type="email"
+      />
+    </label>
+    <label htmlFor="password">
+      Password
+      <ErrorMessage
+        className="status-message form-message error"
+        component="div"
+        name="password"
+      />
+      <Field
+        autoComplete="current-password"
+        className="u-full-width"
+        id="password"
+        name="password"
+        type="password"
+      />
+    </label>
+    <button
+      className="button-primary u-full-width"
+      disabled={isSubmitting}
+      onClick={handleSubmit}
+      type="submit"
+    >
+      Sign In
+    </button>
+    {
+      status
+        ? (
+          <div className={`status-message ${status.type}`}>
+            {status.message}
+          </div>
+        )
+        : undefined
+    }
+  </Form>
+);
 
 const CatalogerSignIn = ({ location }) => {
   // if authenticated, redirect immediately
