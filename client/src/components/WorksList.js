@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-
-import { Query } from '@apollo/react-components';
+import { useQuery } from '@apollo/react-hooks';
 
 import { WORKS_SEARCH } from '../queries';
 import { wrapWithLink } from '../utils';
@@ -16,7 +15,20 @@ const WorksList = ({ filter }) => {
     setLoadingResults(false);
   }, [filter]);
 
-  const loadMore = (data, fetchMore) => {
+  const variables = {
+    filter,
+    first: 5,
+    skip: 0,
+  };
+
+  const {
+    data,
+    error,
+    fetchMore,
+    loading,
+  } = useQuery(WORKS_SEARCH, { variables });
+
+  const loadMore = () => {
     setLoadingResults(true);
 
     fetchMore({
@@ -48,65 +60,39 @@ const WorksList = ({ filter }) => {
     });
   };
 
-  const content = (loading, error, data, fetchMore) => {
-    if (loading) {
-      return (
-        <div className="status-message">
-          Fetching...
-        </div>
-      );
-    }
-    if (error) {
-      return (
-        <div className="status-message error">
-          Sorry! There was an error fetching results.
-        </div>
-      );
-    }
-
-    const haveData = data && data.allWorks && data.allWorks.length > 0;
-
-    if (haveData) {
-      return (
-        <WorksListTable
-          works={data.allWorks}
-          loadMore={() => loadMore(data, fetchMore)}
-          moreResults={moreResults}
-          loadingResults={loadingResults}
-        />
-      );
-    }
-
+  if (loading) {
     return (
-      <div className="status-message error">
-        Sorry! No results were found.
+      <div className="status-message">
+        Fetching...
       </div>
     );
-  };
+  }
 
-  const first = 5;
-  const skip = 0;
+  if (error) {
+    return (
+      <div className="status-message error">
+        Sorry! There was an error fetching results.
+      </div>
+    );
+  }
+
+  const haveData = data && data.allWorks && data.allWorks.length > 0;
+
+  if (haveData) {
+    return (
+      <WorksListTable
+        loadingResults={loadingResults}
+        loadMore={() => loadMore()}
+        moreResults={moreResults}
+        works={data.allWorks}
+      />
+    );
+  }
 
   return (
-    <Query
-      query={WORKS_SEARCH}
-      variables={{
-        filter,
-        first,
-        skip,
-      }}
-    >
-      {
-        ({
-          loading,
-          error,
-          data,
-          fetchMore,
-        }) => (
-          content(loading, error, data, fetchMore)
-        )
-      }
-    </Query>
+    <div className="status-message error">
+      Sorry! No results were found.
+    </div>
   );
 };
 
@@ -119,13 +105,15 @@ WorksList.propTypes = {
 };
 
 const WorksListTable = ({
-  loadMore,
   loadingResults,
+  loadMore,
   moreResults,
   works,
 }) => {
   const wrap = (item, itemType) => (
-    <div key={item.id}>{wrapWithLink(item.name, item.id, itemType)}</div>
+    <div key={item.id}>
+      { wrapWithLink(item.name, item.id, itemType) }
+    </div>
   );
 
   const items = works.map(work => (
@@ -164,19 +152,22 @@ const WorksListTable = ({
   }
 
   return (
-    <div>
-      <table id="works-list-table" className="u-full-width">
+    <Fragment>
+      <table
+        id="works-list-table"
+        className="u-full-width"
+      >
         {items}
       </table>
       <button
-        type="button"
         className="center load-more"
-        onClick={loadMore}
         disabled={!moreResults || loadingResults}
+        onClick={loadMore}
+        type="button"
       >
         {buttonText}
       </button>
-    </div>
+    </Fragment>
   );
 };
 
