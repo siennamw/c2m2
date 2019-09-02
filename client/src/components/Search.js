@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Formik,
   Form,
@@ -23,13 +23,13 @@ const InnerBasicSearchForm = ({ handleSubmit, isSubmitting }) => (
         component="div"
         name="title"
       />
+      <Field
+        className="u-full-width"
+        id="title"
+        name="title"
+        type="text"
+      />
     </label>
-    <Field
-      className="u-full-width"
-      id="title"
-      name="title"
-      type="text"
-    />
     <button
       className="button-primary u-full-width"
       disabled={isSubmitting}
@@ -41,49 +41,40 @@ const InnerBasicSearchForm = ({ handleSubmit, isSubmitting }) => (
   </Form>
 );
 
-class BasicSearch extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showResults: false,
-      filter: {},
-    };
-  }
+const BasicSearch = () => {
+  const [showResults, setShowResults] = useState(false);
+  const [filter, setFilter] = useState({});
 
-  handleSubmit = (title, setSubmitting) => {
-    const filter = {
+  const handleSubmit = (title, setSubmitting) => {
+    setFilter({
       title_contains: title,
       OR: {
         secondary_title_contains: title,
         OR: { alias_alternates_contains: title },
       },
-    };
-
-    this.setState({ showResults: true, filter });
+    });
+    setShowResults(true);
     setSubmitting(false);
   };
 
-  render() {
-    const { showResults, filter } = this.state;
-    return (
-      <div>
-        <h2>Basic Work Search</h2>
-        <Formik
-          initialValues={{
-            title: '',
-          }}
-          validationSchema={validationSchema}
-          onSubmit={(values, { setSubmitting }) => this.handleSubmit(values.title, setSubmitting)}
-          render={InnerBasicSearchForm}
-        />
-        {
-          showResults
-            ? <WorksList filter={filter} resetButton />
-            : undefined
-        }
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <h2>Basic Work Search</h2>
+      <Formik
+        initialValues={{
+          title: '',
+        }}
+        validationSchema={validationSchema}
+        onSubmit={(values, { setSubmitting }) => handleSubmit(values.title, setSubmitting)}
+        render={InnerBasicSearchForm}
+      />
+      {
+        showResults
+          ? <WorksList filter={filter} />
+          : undefined
+      }
+    </div>
+  );
+};
 
 export default BasicSearch;
