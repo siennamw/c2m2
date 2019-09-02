@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import { Mutation } from '@apollo/react-components';
+import { useMutation } from '@apollo/react-hooks';
 import {
   ErrorMessage,
   Field,
@@ -9,7 +10,7 @@ import {
 } from 'formik';
 import * as Yup from 'yup';
 
-import * as mutations from '../../mutations';
+import { SIGN_IN } from '../../mutations';
 import { isAuthenticated, signIn } from '../../utils';
 
 const validationSchema = Yup.object().shape({
@@ -66,21 +67,26 @@ const CatalogerSignIn = ({ location }) => {
   // if authenticated, redirect immediately
   const [redirect, setRedirect] = useState(isAuthenticated());
 
-  const handleSubmit = async (mutation, values, setSubmitting, setStatus) => {
+  const [signInMutation] = useMutation(SIGN_IN);
+
+  const handleSubmit = async ({ email, password }, setSubmitting, setStatus) => {
     try {
-      const payload = {
-        variables: {
-          email: values.email,
-          password: values.password,
-        },
+      const variables = {
+        email,
+        password,
       };
-      const { data } = await mutation(payload);
+      const {
+        data: { signInCataloger: { token } },
+        error,
+      } = await signInMutation({ variables });
+
       setSubmitting(false);
 
-      if (data.signInCataloger) {
-        signIn(data.signInCataloger.token);
+      if (token) {
+        signIn(token);
         setRedirect(true);
       } else {
+        console.log('Failed to sign in', error);
         setStatus({
           type: 'error',
           message: 'Failed to sign in. Please check email and password.',
@@ -104,23 +110,29 @@ const CatalogerSignIn = ({ location }) => {
   return (
     <div>
       <h2>Cataloger Sign In</h2>
-      <Mutation mutation={mutations.SIGN_IN}>
-        {signInMutation => (
-          <Formik
-            initialValues={{
-              email: '',
-              password: '',
-            }}
-            validationSchema={validationSchema}
-            onSubmit={(values, { setSubmitting, setStatus }) => (
-              handleSubmit(signInMutation, values, setSubmitting, setStatus)
-            )}
-            render={CatalogerSignInForm}
-          />
+      <Formik
+        initialValues={{
+          email: '',
+          password: '',
+        }}
+        validationSchema={validationSchema}
+        onSubmit={(values, { setSubmitting, setStatus }) => (
+          handleSubmit(values, setSubmitting, setStatus)
         )}
-      </Mutation>
+        render={CatalogerSignInForm}
+      />
     </div>
   );
+};
+
+CatalogerSignIn.propTypes = {
+  location: PropTypes.shape({
+    state: PropTypes.shape({
+      from: PropTypes.shape({
+        pathname: PropTypes.string,
+      }),
+    }),
+  }).isRequired,
 };
 
 export default CatalogerSignIn;
