@@ -9,6 +9,10 @@ export const getAuthorizationToken = () => {
   }
 };
 
+export const signIn = (token) => {
+  localStorage.setItem(constants.LOCAL_STORAGE_KEY, token);
+};
+
 export const signOut = () => {
   localStorage.removeItem(constants.LOCAL_STORAGE_KEY);
 };
