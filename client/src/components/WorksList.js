@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Query } from 'react-apollo';
+import { Query } from '@apollo/react-components';
 import { isEqual } from 'lodash';
 
 import { WORKS_SEARCH } from '../queries';

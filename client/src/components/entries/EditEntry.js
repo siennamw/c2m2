@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Query } from 'react-apollo';
+import { Query } from '@apollo/react-components';
 
 import NewEntry from './NewEntry';
 

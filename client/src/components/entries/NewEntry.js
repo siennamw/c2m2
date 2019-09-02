@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Mutation } from 'react-apollo';
+import { Mutation } from '@apollo/react-components';
 import { isEmpty } from 'lodash';
 
 import EntryFormWrapper from './EntryFormWrapper';

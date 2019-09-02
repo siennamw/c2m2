@@ -1,9 +1,9 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
-import { withApollo } from 'react-apollo';
+import { withApollo } from '@apollo/react-hoc';
 
-import { isAuthenticated, signOut } from "../../utils";
+import { isAuthenticated, signOut } from '../../utils';
 
 class CatalogerSignOut extends React.Component {
   state = {
