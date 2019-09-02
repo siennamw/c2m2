@@ -10,8 +10,6 @@ export const ModalContext = createContext({
   hideModal: () => {},
 });
 
-export const ModalConsumer = ModalContext.Consumer;
-
 export class ModalProvider extends React.Component {
   showModal = (component, props = {}) => {
     this.setState({

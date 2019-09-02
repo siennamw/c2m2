@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Modal from 'react-modal';
 import PropTypes from 'prop-types';
 
-import { ModalConsumer } from '../modal/ModalContext';
+import { ModalContext } from '../modal/ModalContext';
 
 // for accessibility,
 // https://github.com/reactjs/react-modal/tree/master/docs/accessibility
@@ -32,19 +32,17 @@ const ModalForComponentWithButton = ({
     </Modal>
   );
 
+  const { showModal } = useContext(ModalContext);
+
   return (
-    <ModalConsumer>
-      {({ showModal }) => (
-        <button
-          className="button-primary"
-          onClick={() => showModal(modal)}
-          title={`Add New ${displayName}`}
-          type="button"
-        >
-          +
-        </button>
-      )}
-    </ModalConsumer>
+    <button
+      className="button-primary"
+      onClick={() => showModal(modal)}
+      title={`Add New ${displayName}`}
+      type="button"
+    >
+      +
+    </button>
   );
 };
 
