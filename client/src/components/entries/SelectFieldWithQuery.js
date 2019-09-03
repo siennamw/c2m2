@@ -53,8 +53,7 @@ const SelectFieldWithQuery = ({
         );
       }
 
-      const updateOnCloseModal = (onClose) => {
-        onClose();
+      const updateOnCloseModal = () => {
         refetch();
       };
 

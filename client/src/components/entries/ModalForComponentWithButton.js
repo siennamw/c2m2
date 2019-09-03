@@ -1,8 +1,7 @@
-import React, { useContext } from 'react';
+import React, { Fragment, useState } from 'react';
+import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import PropTypes from 'prop-types';
-
-import { ModalContext } from '../modal/ModalContext';
 
 // for accessibility,
 // https://github.com/reactjs/react-modal/tree/master/docs/accessibility
@@ -13,17 +12,30 @@ const ModalForComponentWithButton = ({
   displayName,
   onClose,
 }) => {
+  const modalRoot = document.getElementById('root');
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const hideModal = () => {
+    setModalVisible(false);
+    onClose();
+  };
+
+  const showModal = () => {
+    setModalVisible(true);
+  };
+
   // modal for creating a new entry in this category
-  const modal = ({ onRequestClose }) => (
+  const modal = (
     <Modal
       className="custom-modal"
       isOpen
-      onRequestClose={() => onClose(onRequestClose)}
+      onRequestClose={hideModal}
       overlayClassName="custom-modal-overlay"
     >
       <button
         className="custom-modal-x"
-        onClick={() => onClose(onRequestClose)}
+        onClick={hideModal}
         type="button"
       >
         x
@@ -32,17 +44,22 @@ const ModalForComponentWithButton = ({
     </Modal>
   );
 
-  const { showModal } = useContext(ModalContext);
-
   return (
-    <button
-      className="button-primary"
-      onClick={() => showModal(modal)}
-      title={`Add New ${displayName}`}
-      type="button"
-    >
-      +
-    </button>
+    <Fragment>
+      <button
+        className="button-primary"
+        onClick={showModal}
+        title={`Add New ${displayName}`}
+        type="button"
+      >
+        +
+      </button>
+      {
+        modalVisible
+          ? ReactDOM.createPortal(modal, modalRoot)
+          : undefined
+      }
+    </Fragment>
   );
 };
 
