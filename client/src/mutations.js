@@ -424,7 +424,7 @@ export const UPDATE_RESOURCE = gql`
     $material_format_id: ID!,
     $collection_ids: [ID],
   ){
-    updateWork(
+    updateResource(
       id: $id,
       digital_copy_link: $digital_copy_link,
       finding_aid_link: $finding_aid_link,
