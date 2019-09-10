@@ -31,4 +31,19 @@ class Cataloger < ApplicationRecord
   validates :password, length: { minimum: 8 }
   validates_presence_of :name
   validates :email, presence: true, uniqueness: true
+
+  def generate_password_token!
+    reset_token = nil
+    while !reset_token || Cataloger.exists?(reset_password_token: reset_token)
+      # if nil or duplicate, generate a new reset token
+      reset_token = SecureRandom.urlsafe_base64
+    end
+    self.update_attribute(:reset_password_token, reset_token)
+    self.update_attribute(:reset_password_token_expires_at, 24.hours.from_now)
+  end
+
+  def clear_password_token!
+    self.update_attribute(:reset_password_token, nil)
+    self.update_attribute(:reset_password_token_expires_at, nil)
+  end
 end

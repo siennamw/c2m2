@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190819134152) do
+ActiveRecord::Schema.define(version: 20190909134852) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(version: 20190819134152) do
     t.bigint "created_by_id"
     t.boolean "admin", default: false, null: false
     t.bigint "updated_by_id"
+    t.string "reset_password_token"
+    t.datetime "reset_password_token_expires_at"
     t.index ["admin"], name: "index_catalogers_on_admin"
     t.index ["created_by_id"], name: "index_catalogers_on_created_by_id"
     t.index ["email"], name: "index_catalogers_on_email", unique: true
