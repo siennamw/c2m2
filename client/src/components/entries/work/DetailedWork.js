@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import DetailedEntry from '../DetailedEntry';
+import { AuthContext } from '../../App';
 import { WORK_BY_ID } from '../../../queries';
-import { isAuthenticated, wrapWithLink } from '../../../utils';
+import { wrapWithLink } from '../../../utils';
 
-const DisplayWork = ({ values }) => (
-  <tbody>
+const DisplayWork = ({ values }) => {
+  const { authState } = useContext(AuthContext);
+
+  return (
+    <tbody>
     <tr>
       <th>IMDB Link</th>
       <td>
@@ -81,7 +85,8 @@ const DisplayWork = ({ values }) => (
       <td>
         {
           values.production_companies.map(c => (
-            <div key={c.id}>{wrapWithLink(c.name, c.id, 'production_company')}</div>
+            <div
+              key={c.id}>{wrapWithLink(c.name, c.id, 'production_company')}</div>
           ))
         }
       </td>
@@ -91,7 +96,7 @@ const DisplayWork = ({ values }) => (
       <td>
         {
           values.resources.reduce((result, r) => {
-            if (isAuthenticated() || r.publication_status !== 'draft') {
+            if (authState || r.publication_status !== 'draft') {
               result.push(
                 <div key={r.id}>
                   {wrapWithLink(r.material_format.name, r.id, 'resource')}
@@ -103,8 +108,9 @@ const DisplayWork = ({ values }) => (
         }
       </td>
     </tr>
-  </tbody>
-);
+    </tbody>
+  );
+};
 
 const DetailedWork = ({ match }) => {
   const id = Number(match.params.id);

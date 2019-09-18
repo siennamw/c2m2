@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { useMutation } from '@apollo/react-hooks';
@@ -10,8 +10,9 @@ import {
 } from 'formik';
 import * as Yup from 'yup';
 
+import { AuthContext } from '../App';
 import { SIGN_IN } from '../../mutations';
-import { isAuthenticated, signIn } from '../../utils';
+import { signIn } from '../../utils';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -75,9 +76,8 @@ const CatalogerSignInForm = ({ handleSubmit, isSubmitting, status }) => (
 );
 
 const CatalogerSignIn = ({ location }) => {
-  // if authenticated, redirect immediately
-  const [redirect, setRedirect] = useState(isAuthenticated());
-
+  const { authState, setAuthState } = useContext(AuthContext);
+  const [redirect, setRedirect] = useState(authState);
   const [signInMutation] = useMutation(SIGN_IN);
 
   const handleSubmit = async ({ email, password }, setSubmitting, setStatus) => {
@@ -95,9 +95,11 @@ const CatalogerSignIn = ({ location }) => {
 
       if (token) {
         signIn(token);
+        setAuthState(true);
         setRedirect(true);
       } else {
         console.log('Failed to sign in', error);
+        setAuthState(false);
         setStatus({
           type: 'error',
           message: 'Failed to sign in. Please check email and password.',
@@ -105,6 +107,7 @@ const CatalogerSignIn = ({ location }) => {
       }
     } catch (err) {
       console.log('Error signing in', err);
+      setAuthState(false);
       setStatus({
         type: 'error',
         message: 'Unknown error signing in. Please try again later.',
