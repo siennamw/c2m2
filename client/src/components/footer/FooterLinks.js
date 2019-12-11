@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../App';
 
 const FooterLinks = () => {
-  const { authState } = useContext(AuthContext);
+  const { authenticated } = useContext(AuthContext);
   return (
     <div id="footer-links" className="row">
       <div className="three columns">
@@ -24,7 +24,7 @@ const FooterLinks = () => {
         <h1 className="h5">Contributors</h1>
         <ul>
           {
-            authState
+            authenticated
               ? (
                 <li>
                   <NavLink to="/dashboard/home">Cataloger Home</NavLink>
@@ -34,7 +34,7 @@ const FooterLinks = () => {
           }
           <li>
             {
-              authState
+              authenticated
                 ? <NavLink to="/sign-out">Sign Out</NavLink>
                 : <NavLink to="/sign-in">Sign In</NavLink>
             }

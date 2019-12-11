@@ -1,4 +1,6 @@
 import React from 'react';
+import jwtDecode from 'jwt-decode';
+
 import * as constants from './constants';
 
 export const isAuthenticated = () => !!localStorage.getItem(constants.LOCAL_STORAGE_KEY);
@@ -7,6 +9,17 @@ export const getAuthorizationToken = () => {
   if (isAuthenticated()) {
     return localStorage.getItem(constants.LOCAL_STORAGE_KEY);
   }
+
+  return null;
+};
+
+export const getAuthorizationTokenData = () => {
+  const token = getAuthorizationToken();
+  if (token) {
+    return jwtDecode(token);
+  }
+
+  return null;
 };
 
 export const signIn = (token) => {

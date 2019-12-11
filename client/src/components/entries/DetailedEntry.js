@@ -12,7 +12,7 @@ const DetailedEntry = ({
   id,
   queryName,
 }) => {
-  const { authState } = useContext(AuthContext);
+  const { authenticated } = useContext(AuthContext);
 
   return (
     <Query query={gqlQuery} variables={{ id }}>
@@ -91,7 +91,7 @@ const DetailedEntry = ({
                   <DisplayComponent values={values} />
                 </table>
                 {
-                  authState
+                  authenticated
                     ? (
                       <div className="edit-entry-link">
                         <Link to={`/dashboard/edit/${queryName}/${id}`}>

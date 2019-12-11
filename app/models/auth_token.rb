@@ -14,6 +14,6 @@ class AuthToken
   def self.verify(token)
     result = JsonWebToken.verify(token, key: key)
     return nil if result[:error]
-    Cataloger.find_by(id: result[:ok][:user_id])
+    Cataloger.find_by(id: result[:ok][:id])
   end
 end

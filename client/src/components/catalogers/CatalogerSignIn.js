@@ -76,8 +76,13 @@ const CatalogerSignInForm = ({ handleSubmit, isSubmitting, status }) => (
 );
 
 const CatalogerSignIn = ({ location }) => {
-  const { authState, setAuthState } = useContext(AuthContext);
-  const [redirect, setRedirect] = useState(authState);
+  const {
+    authenticated,
+    setAuthenticated,
+    setAdmin,
+    setId,
+  } = useContext(AuthContext);
+  const [redirect, setRedirect] = useState(authenticated);
   const [signInMutation] = useMutation(SIGN_IN);
 
   const handleSubmit = async ({ email, password }, setSubmitting, setStatus) => {
@@ -87,19 +92,21 @@ const CatalogerSignIn = ({ location }) => {
         password,
       };
       const {
-        data: { signInCataloger: { token } },
+        data: { signInCataloger: { cataloger, token } },
         error,
       } = await signInMutation({ variables });
 
       setSubmitting(false);
 
-      if (token) {
+      if (cataloger && token) {
         signIn(token);
-        setAuthState(true);
+        setAdmin(cataloger.isAdmin);
+        setAuthenticated(true);
+        setId(cataloger.id);
         setRedirect(true);
       } else {
         console.log('Failed to sign in', error);
-        setAuthState(false);
+        setAuthenticated(false);
         setStatus({
           type: 'error',
           message: 'Failed to sign in. Please check email and password.',
@@ -107,7 +114,7 @@ const CatalogerSignIn = ({ location }) => {
       }
     } catch (err) {
       console.log('Error signing in', err);
-      setAuthState(false);
+      setAuthenticated(false);
       setStatus({
         type: 'error',
         message: 'Unknown error signing in. Please try again later.',

@@ -6,7 +6,7 @@ import { WORK_BY_ID } from '../../../queries';
 import { wrapWithLink } from '../../../utils';
 
 const DisplayWork = ({ values }) => {
-  const { authState } = useContext(AuthContext);
+  const { authenticated } = useContext(AuthContext);
 
   return (
     <tbody>
@@ -96,7 +96,7 @@ const DisplayWork = ({ values }) => {
       <td>
         {
           values.resources.reduce((result, r) => {
-            if (authState || r.publication_status !== 'draft') {
+            if (authenticated || r.publication_status !== 'draft') {
               result.push(
                 <div key={r.id}>
                   {wrapWithLink(r.material_format.name, r.id, 'resource')}

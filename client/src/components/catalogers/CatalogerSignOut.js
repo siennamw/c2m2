@@ -8,14 +8,21 @@ import { signOut } from '../../utils';
 const CatalogerSignOut = () => {
   const [err, setErr] = useState(null);
   const client = useApolloClient();
-  const { authState, setAuthState } = useContext(AuthContext);
+  const {
+    authenticated,
+    setAuthenticated,
+    setId,
+    setAdmin,
+  } = useContext(AuthContext);
 
   useEffect(() => {
     const handleSignOut = async () => {
       try {
         await client.resetStore();
         signOut();
-        setAuthState(false);
+        setAdmin(false);
+        setAuthenticated(false);
+        setId(null);
       } catch (error) {
         setErr(error);
         console.log('Error signing out', error);
@@ -34,7 +41,7 @@ const CatalogerSignOut = () => {
     );
   }
 
-  if (authState) return <h3>Signing out...</h3>;
+  if (authenticated) return <h3>Signing out...</h3>;
 
   return <Redirect to="/" />;
 };

@@ -32,15 +32,27 @@ import DetailedResource from './entries/resource/DetailedResource';
 import PrivateRoute from './PrivateRoute';
 import UnknownRoute from './UnknownRoute';
 
-import { isAuthenticated } from '../utils';
+import { isAuthenticated, getAuthorizationTokenData } from '../utils';
 
 export const AuthContext = React.createContext();
 
 const App = () => {
-  const [authState, setAuthState] = React.useState(isAuthenticated());
+  const [authenticated, setAuthenticated] = React.useState(isAuthenticated());
+  const tokenData = getAuthorizationTokenData();
+  const [admin, setAdmin] = React.useState(tokenData ? tokenData.admin : false);
+  const [id, setId] = React.useState(tokenData ? tokenData.id : null);
 
   return (
-    <AuthContext.Provider value={{ authState, setAuthState }}>
+    <AuthContext.Provider
+      value={{
+        authenticated,
+        setAuthenticated,
+        admin,
+        setAdmin,
+        id,
+        setId,
+      }}
+    >
       <div className="app container" id="top">
         <Header />
         <main>
