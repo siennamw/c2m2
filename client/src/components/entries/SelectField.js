@@ -50,7 +50,7 @@ const SelectField = ({
       <Select
         name={fieldName}
         className="react-select"
-        disabled={disabled}
+        isDisabled={disabled}
         id={fieldName}
         isMulti={isMulti}
         onBlur={() => onBlur(fieldName)}
