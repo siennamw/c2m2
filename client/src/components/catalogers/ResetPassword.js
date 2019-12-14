@@ -126,7 +126,4 @@ const ResetPassword = ({ match }) => {
   );
 };
 
-ResetPassword.propTypes = {
-};
-
 export default ResetPassword;

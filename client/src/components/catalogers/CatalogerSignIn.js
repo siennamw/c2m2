@@ -115,7 +115,13 @@ const CatalogerSignIn = ({ location }) => {
     }
   };
 
-  const { from } = location.state || { from: { pathname: '/dashboard/home' } };
+  const from = (
+    location.state
+    && location.state.from
+    && location.state.from.pathname !== '/sign-out'
+  )
+    ? location.state.from
+    : { pathname: '/dashboard/home' };
 
   if (redirect) {
     return <Redirect to={from} />;

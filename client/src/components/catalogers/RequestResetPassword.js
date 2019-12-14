@@ -100,7 +100,4 @@ const RequestResetPassword = () => {
   );
 };
 
-RequestResetPassword.propTypes = {
-};
-
 export default RequestResetPassword;
