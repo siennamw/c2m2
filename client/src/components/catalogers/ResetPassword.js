@@ -1,6 +1,4 @@
-import React, { useContext, useState } from 'react';
-import PropTypes from 'prop-types';
-import { Link, Redirect } from 'react-router-dom';
+import React from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import {
   ErrorMessage,
@@ -10,20 +8,18 @@ import {
 } from 'formik';
 import * as Yup from 'yup';
 
-import { AuthContext } from '../App';
-import { SIGN_IN } from '../../mutations';
-import { signIn } from '../../utils';
+import { RESET_PASSWORD } from '../../mutations';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
     .email('E-mail is not valid')
     .required('E-mail is required'),
-  password: Yup.string()
+  new_password: Yup.string()
     .min(6, 'Password must be longer than 6 characters')
     .required('Password is required'),
 });
 
-const CatalogerSignInForm = ({ handleSubmit, isSubmitting, status }) => (
+const CatalogerResetPasswordForm = ({ handleSubmit, isSubmitting, status }) => (
   <Form>
     <label htmlFor="email">
       Email
@@ -40,18 +36,18 @@ const CatalogerSignInForm = ({ handleSubmit, isSubmitting, status }) => (
         type="email"
       />
     </label>
-    <label htmlFor="password">
-      Password
+    <label htmlFor="new_password">
+      New Password
       <ErrorMessage
         className="status-message form-message error"
         component="div"
-        name="password"
+        name="new_password"
       />
       <Field
         autoComplete="current-password"
         className="u-full-width"
-        id="password"
-        name="password"
+        id="new_password"
+        name="new_password"
         type="password"
       />
     </label>
@@ -75,83 +71,62 @@ const CatalogerSignInForm = ({ handleSubmit, isSubmitting, status }) => (
   </Form>
 );
 
-const CatalogerSignIn = ({ location }) => {
-  const { authState, setAuthState } = useContext(AuthContext);
-  const [redirect, setRedirect] = useState(authState);
-  const [signInMutation] = useMutation(SIGN_IN);
+const ResetPassword = ({ match }) => {
+  const [resetPasswordMutation] = useMutation(RESET_PASSWORD);
 
-  const handleSubmit = async ({ email, password }, setSubmitting, setStatus) => {
+  const handleSubmit = async ({ email, new_password }, setSubmitting, setStatus) => {
     try {
       const variables = {
         email,
-        password,
+        new_password,
+        reset_token: match.params.resetToken,
       };
       const {
-        data: { signInCataloger: { token } },
-        error,
-      } = await signInMutation({ variables });
+        data: { resetPassword },
+      } = await resetPasswordMutation({ variables });
 
       setSubmitting(false);
 
-      if (token) {
-        signIn(token);
-        setAuthState(true);
-        setRedirect(true);
+      if (resetPassword) {
+        setStatus({
+          type: 'success',
+          message: 'Password was successfully changed. You may now log in with your new password.',
+        });
       } else {
-        console.log('Failed to sign in', error);
-        setAuthState(false);
         setStatus({
           type: 'error',
-          message: 'Failed to sign in. Please check email and password.',
+          message: 'Failed to change password. The link may be expired. Request a new one if needed.',
         });
       }
     } catch (err) {
       console.log('Error signing in', err);
-      setAuthState(false);
       setStatus({
         type: 'error',
-        message: 'Unknown error signing in. Please try again later.',
+        message: 'Unknown error changing password. Please try again later.',
       });
     }
   };
 
-  const { from } = location.state || { from: { pathname: '/dashboard/home' } };
-
-  if (redirect) {
-    return <Redirect to={from} />;
-  }
 
   return (
     <div>
-      <h2>Cataloger Sign In</h2>
+      <h2>Reset Cataloger Password</h2>
       <Formik
         initialValues={{
           email: '',
-          password: '',
+          new_password: '',
         }}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting, setStatus }) => (
           handleSubmit(values, setSubmitting, setStatus)
         )}
-        render={CatalogerSignInForm}
+        render={CatalogerResetPasswordForm}
       />
-      <div className="center-text">
-        <Link to="request-reset-password">
-          Forgot your password? Click here to reset it.
-        </Link>
-      </div>
     </div>
   );
 };
 
-CatalogerSignIn.propTypes = {
-  location: PropTypes.shape({
-    state: PropTypes.shape({
-      from: PropTypes.shape({
-        pathname: PropTypes.string,
-      }),
-    }),
-  }).isRequired,
+ResetPassword.propTypes = {
 };
 
-export default CatalogerSignIn;
+export default ResetPassword;

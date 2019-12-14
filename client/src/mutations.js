@@ -571,3 +571,15 @@ export const SIGN_IN = gql`
     }
   }
 `;
+
+export const GET_RESET_PASSWORD_TOKEN = gql`
+  mutation GetResetPasswordToken($email: String!){
+    getResetPasswordToken(email: $email)
+  }
+`;
+
+export const RESET_PASSWORD = gql`
+  mutation ResetPassword($email: String!, $reset_token: String!, $new_password: String!){
+    resetPassword(email: $email, reset_token: $reset_token, new_password: $new_password)
+  }
+`;

@@ -5,15 +5,17 @@ import Header from './Header';
 import Footer from './footer/Footer';
 
 import About from './About';
+import Browse from './Browse';
 import CatalogerDashboard from './catalogers/CatalogerDashboard';
 import CatalogerSignIn from './catalogers/CatalogerSignIn';
 import CatalogerSignOut from './catalogers/CatalogerSignOut';
 import GeneralContact from './contact/GeneralContact';
 import Home from './Home';
+import RequestResetPassword from './catalogers/RequestResetPassword';
+import ResetPassword from './catalogers/ResetPassword';
 import ResourceSuggestion from './contact/ResourceSuggestion';
 import SimpleSearch from './Search';
 import Vision from './Vision';
-import Browse from './Browse';
 
 import DetailedCataloger from './entries/cataloger/DetailedCataloger';
 import DetailedCollection from './entries/collection/DetailedCollection';
@@ -43,11 +45,10 @@ const App = () => {
         <Header />
         <main>
           <Switch>
-            <Route exact path="/about" component={About} />
-            <Route exact path="/sign-in" component={CatalogerSignIn} />
-            <Route exact path="/sign-out" component={CatalogerSignOut} />
-            <Route exact path="/contact" component={GeneralContact} />
             <Route exact path="/" component={Home} />
+
+            <Route exact path="/about" component={About} />
+            <Route exact path="/contact" component={GeneralContact} />
             <Route exact path="/search" component={SimpleSearch} />
             <Route exact path="/suggest" component={ResourceSuggestion} />
             <Route exact path="/vision" component={Vision} />
@@ -65,6 +66,11 @@ const App = () => {
             <Route exact path="/repository/:id" component={DetailedRepository} />
             <Route exact path="/resource/:id" component={DetailedResource} />
 
+            <Route exact path="/reset-password/:resetToken" component={ResetPassword} />
+            <Route exact path="/request-reset-password" component={RequestResetPassword} />
+            <Route exact path="/sign-in" component={CatalogerSignIn} />
+
+            <PrivateRoute path="/sign-out" component={CatalogerSignOut} />
             <PrivateRoute path="/dashboard" component={CatalogerDashboard} />
 
             <Route component={UnknownRoute} />
