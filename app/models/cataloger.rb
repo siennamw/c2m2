@@ -28,7 +28,7 @@ class Cataloger < ApplicationRecord
   belongs_to :created_by, class_name: 'Cataloger', optional: true
   belongs_to :updated_by, class_name: 'Cataloger', optional: true
 
-  validates :password, length: { minimum: 8 }
+  validates :password, presence: true, length: { minimum: 8 }
   validates_presence_of :name
   validates :email, presence: true, uniqueness: true
 
@@ -40,10 +40,12 @@ class Cataloger < ApplicationRecord
     end
     self.update_attribute(:reset_password_token, reset_token)
     self.update_attribute(:reset_password_token_expires_at, 24.hours.from_now)
+    self
   end
 
   def clear_password_token!
     self.update_attribute(:reset_password_token, nil)
     self.update_attribute(:reset_password_token_expires_at, nil)
+    self
   end
 end

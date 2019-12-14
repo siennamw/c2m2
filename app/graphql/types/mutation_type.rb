@@ -26,6 +26,8 @@ Types::MutationType = GraphQL::ObjectType.define do
   field :updateResource, function: Resolvers::UpdateResource.new
 
   field :signInCataloger, function: Resolvers::SignInCataloger.new
+  field :getResetPasswordToken, function: Resolvers::GetResetPasswordToken.new
+  field :resetPassword, function: Resolvers::ResetPassword.new
 
   field :handleContactForm, function: Resolvers::HandleContactForm.new
   field :handleSuggestionForm, function: Resolvers::HandleSuggestionForm.new
