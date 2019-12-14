@@ -1,5 +1,4 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import React, { Fragment, useContext } from 'react';
 
 import SelectFieldWithQuery from '../SelectFieldWithQuery';
 import InputField from '../InputField';
@@ -10,8 +9,11 @@ import NewCollection from '../collection/NewCollection';
 import NewWork from '../work/NewWork';
 import SelectField from '../SelectField';
 import { reactSelectOnChange } from '../../../utils';
+import { AuthContext } from '../../App';
 
-const ResourceForm = ({ selfIsAdmin, setFieldTouched, setFieldValue, values }) => {
+const ResourceForm = ({ setFieldTouched, setFieldValue, values }) => {
+  const { admin } = useContext(AuthContext);
+
   const model = 'resource';
 
   const selectOnBlur = (field) => {
@@ -27,7 +29,7 @@ const ResourceForm = ({ selfIsAdmin, setFieldTouched, setFieldValue, values }) =
     { id: 'provisional', name: 'provisional' },
   ];
 
-  if (selfIsAdmin) pubStatusOptions.push({ id: 'approved', name: 'approved' });
+  if (admin) pubStatusOptions.push({ id: 'approved', name: 'approved' });
 
   return (
     <Fragment>
@@ -98,14 +100,6 @@ const ResourceForm = ({ selfIsAdmin, setFieldTouched, setFieldValue, values }) =
       />
     </Fragment>
   );
-};
-
-ResourceForm.defaultProps = {
-  selfIsAdmin: false,
-};
-
-ResourceForm.propTypes = {
-  selfIsAdmin: PropTypes.bool,
 };
 
 export default ResourceForm;

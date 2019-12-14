@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
 
 import SelectFieldWithQuery from '../SelectFieldWithQuery';
 import InputField from '../InputField';
@@ -12,7 +11,7 @@ import NewCountry from '../country/NewCountry';
 import NewDirector from '../director/NewDirector';
 import NewProductionCompany from '../productionCompany/NewProductionCompany';
 
-const WorkForm = ({ selfIsAdmin, setFieldTouched, setFieldValue, values }) => {
+const WorkForm = ({ setFieldTouched, setFieldValue, values }) => {
   const model = 'work';
 
   const selectOnBlur = (field) => {
@@ -22,13 +21,6 @@ const WorkForm = ({ selfIsAdmin, setFieldTouched, setFieldValue, values }) => {
   const selectOnChange = (evt, name) => {
     reactSelectOnChange(evt, name, setFieldValue);
   };
-
-  const pubStatusOptions = [
-    { id: 'draft', name: 'draft' },
-    { id: 'provisional', name: 'provisional' },
-  ];
-
-  if (selfIsAdmin) pubStatusOptions.push({ id: 'approved', name: 'approved' });
 
   return (
     <Fragment>
@@ -131,14 +123,6 @@ const WorkForm = ({ selfIsAdmin, setFieldTouched, setFieldValue, values }) => {
       />
     </Fragment>
   );
-};
-
-WorkForm.defaultProps = {
-  selfIsAdmin: false,
-};
-
-WorkForm.propTypes = {
-  selfIsAdmin: PropTypes.bool,
 };
 
 export default WorkForm;

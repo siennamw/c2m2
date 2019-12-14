@@ -1,11 +1,13 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import React, { Fragment, useContext } from 'react';
 
 import InputField from '../InputField';
 import SelectField from '../SelectField';
 import { reactSelectOnChange } from '../../../utils';
+import { AuthContext } from '../../App';
 
-const CatalogerForm = ({ entryIsSelf, selfIsAdmin, setFieldTouched, setFieldValue, values }) => {
+const CatalogerForm = ({ setFieldTouched, setFieldValue, values }) => {
+  const { admin, id } = useContext(AuthContext);
+
   const model = 'cataloger';
 
   const selectOnBlur = (field) => {
@@ -16,7 +18,8 @@ const CatalogerForm = ({ entryIsSelf, selfIsAdmin, setFieldTouched, setFieldValu
     reactSelectOnChange(evt, name, setFieldValue);
   };
 
-  const disabled = !selfIsAdmin && !entryIsSelf;
+  const entryIsSelf = Number(values.id) === id;
+  const disabled = !admin && !entryIsSelf;
 
   return (
     <Fragment>
@@ -33,7 +36,7 @@ const CatalogerForm = ({ entryIsSelf, selfIsAdmin, setFieldTouched, setFieldValu
         modelName={model}
       />
       <SelectField
-        disabled={!selfIsAdmin}
+        disabled={!admin}
         displayName="Admin?"
         fieldName="admin"
         modelName={model}
@@ -61,16 +64,6 @@ const CatalogerForm = ({ entryIsSelf, selfIsAdmin, setFieldTouched, setFieldValu
       />
     </Fragment>
   );
-};
-
-CatalogerForm.defaultProps = {
-  entryIsSelf: false,
-  selfIsAdmin: false,
-};
-
-CatalogerForm.propTypes = {
-  entryIsSelf: PropTypes.bool,
-  selfIsAdmin: PropTypes.bool,
 };
 
 export default CatalogerForm;

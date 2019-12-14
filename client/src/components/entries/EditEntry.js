@@ -28,10 +28,6 @@ const EditEntry = ({
           </div>
         );
       } else if (data && data[queryName]) {
-        // metadata
-        const { selfIsAdmin } = data;
-        const entryIsSelf = data[queryName].is_self;
-
         const createdAt = data[queryName].created_at;
         const createdBy = data[queryName].created_by;
         const updatedAt = data[queryName].updated_at;
@@ -74,11 +70,9 @@ const EditEntry = ({
           <Fragment>
             <NewEntry
               FormComponent={FormComponent}
-              entryIsSelf={entryIsSelf}
               gqlMutation={gqlMutation}
               initialValues={data[queryName]}
               mutationName={mutationName}
-              selfIsAdmin={selfIsAdmin}
               title={title}
               yupSchema={yupSchema}
             />

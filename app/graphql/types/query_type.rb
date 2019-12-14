@@ -1,18 +1,6 @@
 Types::QueryType = GraphQL::ObjectType.define do
   name "Query"
 
-  field :selfIsAdmin do
-    type types.Boolean
-    description "The user making the request is authenticated and is an admin"
-    resolve ->(obj, args, ctx) {
-      if ctx[:current_user]
-        return ctx[:current_user].admin
-      else
-        return false
-      end
-    }
-  end
-
   field :allCatalogers do
     type types[Types::CatalogerType]
     description "A list of all catalogers"

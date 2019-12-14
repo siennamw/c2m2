@@ -4,12 +4,10 @@ import { Formik, Form } from 'formik';
 import { getInitialFormValuesForSchema } from '../../validationSchemas';
 
 const EntryFormWrapper = ({
-  entryIsSelf,
   FormComponent,
   handleSubmit,
   initialValues,
   mutation,
-  selfIsAdmin,
   validationSchema,
 }) => (
   <Formik
@@ -21,8 +19,6 @@ const EntryFormWrapper = ({
     render={props => (
       <Form>
         <FormComponent
-          entryIsSelf={entryIsSelf}
-          selfIsAdmin={selfIsAdmin}
           {...props}
         />
         <button
@@ -45,13 +41,10 @@ const EntryFormWrapper = ({
 );
 
 EntryFormWrapper.defaultProps = {
-  entryIsSelf: false,
   initialValues: null,
-  selfIsAdmin: false,
 };
 
 EntryFormWrapper.propTypes = {
-  entryIsSelf: PropTypes.bool,
   FormComponent: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.element,
@@ -68,7 +61,6 @@ EntryFormWrapper.propTypes = {
       });
   },
   mutation: PropTypes.func.isRequired,
-  selfIsAdmin: PropTypes.bool,
   validationSchema: PropTypes.object.isRequired,
 };
 

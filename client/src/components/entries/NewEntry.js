@@ -11,12 +11,10 @@ import {
 
 const NewEntry = ({
   clearAfterSubmit,
-  entryIsSelf,
   FormComponent,
   gqlMutation,
   initialValues,
   mutationName,
-  selfIsAdmin,
   title,
   yupSchema,
 }) => {
@@ -59,12 +57,10 @@ const NewEntry = ({
       <Mutation mutation={gqlMutation}>
         {mutation => (
           <EntryFormWrapper
-            entryIsSelf={entryIsSelf}
             FormComponent={FormComponent}
             handleSubmit={handleSubmit}
             initialValues={initialValues}
             mutation={mutation}
-            selfIsAdmin={selfIsAdmin}
             validationSchema={yupSchema}
           />
         )}
@@ -75,15 +71,12 @@ const NewEntry = ({
 
 NewEntry.defaultProps = {
   clearAfterSubmit: false,
-  entryIsSelf: false,
   initialValues: null,
   mutationName: null,
-  selfIsAdmin: false,
 };
 
 NewEntry.propTypes = {
   clearAfterSubmit: PropTypes.bool,
-  entryIsSelf: PropTypes.bool,
   FormComponent: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.element,
@@ -108,7 +101,6 @@ NewEntry.propTypes = {
     }
     return null;
   },
-  selfIsAdmin: PropTypes.bool,
   title: PropTypes.string.isRequired,
   yupSchema: PropTypes.object.isRequired,
 };

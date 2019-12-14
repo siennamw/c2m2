@@ -1,11 +1,5 @@
 import gql from 'graphql-tag';
 
-export const SELF_IS_ADMIN = gql`
-  query selfIsAdmin {
-    selfIsAdmin
-  }
-`;
-
 export const LIST_ALL_COLLECTIONS = gql`
   query allCollections {
     allCollections {
@@ -208,14 +202,12 @@ export const CATALOGER_BY_ID = gql`
 
 export const CATALOGER_BY_ID_LEAN = gql`
   query cataloger_lean($id: ID!){
-    selfIsAdmin
     cataloger(id: $id){
       id
       name
       email
       description
       admin
-      is_self
       created_at
       created_by {
         id
@@ -440,7 +432,6 @@ export const REPOSITORY_BY_ID = gql`
 
 export const RESOURCE_BY_ID = gql`
   query resource($id: ID!){
-    selfIsAdmin
     resource(id: $id){
       id
       digital_copy_link
@@ -476,7 +467,6 @@ export const RESOURCE_BY_ID = gql`
 
 export const WORK_BY_ID = gql`
   query work($id: ID!){
-    selfIsAdmin
     work(id: $id){
       id
       title
