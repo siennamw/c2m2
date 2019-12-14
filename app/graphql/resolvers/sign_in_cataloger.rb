@@ -1,5 +1,6 @@
 class Resolvers::SignInCataloger < GraphQL::Function
-  argument :email, !Types::AuthProviderEmailInput
+  argument :email, !types.String
+  argument :password, !types.String
 
   # defines inline return type for the mutation
   type do
@@ -10,16 +11,14 @@ class Resolvers::SignInCataloger < GraphQL::Function
   end
 
   def call(_obj, args, _ctx)
-    input = args[:email]
-
     # basic validation
-    return unless input
+    return unless args[:email] && args[:password]
 
-    cataloger = Cataloger.find_by(email: input[:email])
+    cataloger = Cataloger.find_by(email: args[:email])
 
     # ensures we have the correct cataloger
     return unless cataloger
-    return unless cataloger.authenticate(input[:password])
+    return unless cataloger.authenticate(args[:password])
 
     OpenStruct.new({
       token: AuthToken.token(cataloger),

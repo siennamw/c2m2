@@ -28,12 +28,8 @@ class Resolvers::CreateCatalogerTest < ActiveSupport::TestCase
 
     cataloger = perform({
       name: name,
-      authProvider: {
-        email: {
-          email: email,
-          password: password,
-        }
-      },
+      email: email,
+      password: password,
       description: description,
     }, @admin)
 
@@ -53,12 +49,8 @@ class Resolvers::CreateCatalogerTest < ActiveSupport::TestCase
 
     cataloger = perform({
       name: name,
-      authProvider: {
-        email: {
-          email: email,
-          password: password,
-        }
-      },
+      email: email,
+      password: password,
       description: description,
       admin: true,
     }, @admin)

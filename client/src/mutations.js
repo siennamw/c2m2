@@ -12,7 +12,8 @@ export const CREATE_CATALOGER = gql`
   ){
     createCataloger(
       name: $name, 
-      authProvider: { email: { email: $email, password: $password } },
+      email: $email,
+      password: $password,
       admin: $admin,
       description: $description
     ) {
@@ -215,7 +216,8 @@ export const UPDATE_CATALOGER = gql`
     updateCataloger(
       id: $id,
       name: $name,
-      authProvider: { email: { email: $email, password: $password } },
+      email: $email,
+      password: $password,
       admin: $admin,
       description: $description
     ) {
@@ -561,7 +563,7 @@ export const HANDLE_CONTACT_FORM = gql`
 
 export const SIGN_IN = gql`
   mutation SignInCataloger($email: String!, $password: String!){
-    signInCataloger(email: { email: $email, password: $password }) {
+    signInCataloger(email: $email, password: $password) {
       token
       cataloger {
         id

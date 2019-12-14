@@ -11,10 +11,8 @@ class Resolvers::SignInCatalogerTest < ActiveSupport::TestCase
 
   test 'creates a token' do
     result = perform(
-      email: {
-        email: @cataloger.email,
-        password: @cataloger.password
-      }
+      email: @cataloger.email,
+      password: @cataloger.password
     )
 
     assert result.present?
@@ -27,10 +25,10 @@ class Resolvers::SignInCatalogerTest < ActiveSupport::TestCase
   end
 
   test 'handling wrong email' do
-    assert_nil perform(email: { email: 'wrong' })
+    assert_nil perform(email: 'wrong')
   end
 
   test 'handling wrong password' do
-    assert_nil perform(email: { email: @cataloger.email, password: 'wrong' })
+    assert_nil perform(email: @cataloger.email, password: 'wrong')
   end
 end

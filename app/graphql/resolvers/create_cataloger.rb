@@ -1,13 +1,8 @@
 class Resolvers::CreateCataloger < GraphQL::Function
-  auth_provider_input = GraphQL::InputObjectType.define do
-    name 'AuthProviderSignupData'
-
-    argument :email, Types::AuthProviderEmailInput
-  end
-
   # arguments passed as "args"
   argument :name, !types.String
-  argument :authProvider, !auth_provider_input
+  argument :email, !types.String
+  argument :password, !types.String
   argument :description, types.String
   argument :admin, types.Boolean
 
@@ -30,8 +25,8 @@ class Resolvers::CreateCataloger < GraphQL::Function
 
     cataloger = Cataloger.create!(
       name: args[:name],
-      email: args[:authProvider][:email][:email],
-      password: args[:authProvider][:email][:password],
+      email: args[:email],
+      password: args[:password],
       description: args[:description],
       admin: !!args[:admin],
       created_by: ctx[:current_user],

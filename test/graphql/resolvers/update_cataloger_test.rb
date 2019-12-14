@@ -31,12 +31,8 @@ class Resolvers::UpdateCatalogerTest < ActiveSupport::TestCase
     updated_cataloger = perform({
       id: @admin.id,
       name: name,
-      authProvider: {
-        email: {
-          email: email,
-          password: password,
-        }
-      },
+      email: email,
+      password: password,
       description: description,
     }, @admin)
 
@@ -57,12 +53,8 @@ class Resolvers::UpdateCatalogerTest < ActiveSupport::TestCase
     updated_cataloger = perform({
       id: @non_admin.id,
       name: name,
-      authProvider: {
-        email: {
-          email: email,
-          password: password,
-        }
-      },
+      email: email,
+      password: password,
       description: description,
     }, @admin)
 
@@ -83,12 +75,8 @@ class Resolvers::UpdateCatalogerTest < ActiveSupport::TestCase
     updated_cataloger = perform({
       id: @non_admin.id,
       name: name,
-      authProvider: {
-        email: {
-          email: email,
-          password: password,
-        }
-      },
+      email: email,
+      password: password,
       description: description,
     }, @non_admin)
 
@@ -110,12 +98,8 @@ class Resolvers::UpdateCatalogerTest < ActiveSupport::TestCase
       perform({
         id: @admin.id,
         name: name,
-        authProvider: {
-          email: {
-            email: email,
-            password: password,
-          }
-        },
+        email: email,
+      password: password,
         description: description,
       }, @non_admin)
     end
@@ -128,12 +112,8 @@ class Resolvers::UpdateCatalogerTest < ActiveSupport::TestCase
       id: old_cataloger.id,
       admin: true,
       name: old_cataloger.name,
-      authProvider: {
-        email: {
-          email: old_cataloger.email,
-          password: old_cataloger.password,
-        }
-      },
+      email: old_cataloger.email,
+      password: old_cataloger.password,
       description: old_cataloger.description,
     }, @non_admin)
 
@@ -152,12 +132,8 @@ class Resolvers::UpdateCatalogerTest < ActiveSupport::TestCase
       id: old_cataloger.id,
       admin: true,
       name: old_cataloger.name,
-      authProvider: {
-        email: {
-          email: old_cataloger.email,
-          password: old_cataloger.password,
-        }
-      },
+      email: old_cataloger.email,
+      password: old_cataloger.password,
       description: old_cataloger.description,
     }, @admin)
 

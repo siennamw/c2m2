@@ -1,15 +1,9 @@
 class Resolvers::UpdateCataloger < GraphQL::Function
-  auth_provider_input = GraphQL::InputObjectType.define do
-    name 'AuthProviderUpdateData'
-
-    argument :email, Types::AuthProviderEmailInput
-  end
-
   # arguments passed as "args"
   argument :id, !types.ID
-
+  argument :email, !types.String
   argument :name, !types.String
-  argument :authProvider, !auth_provider_input
+  argument :password, types.String
   argument :admin, types.Boolean
   argument :description, types.String
 
@@ -38,8 +32,8 @@ class Resolvers::UpdateCataloger < GraphQL::Function
 
     cataloger.update(
       name: args[:name],
-      email: args[:authProvider][:email][:email],
-      password: args[:authProvider][:email][:password],
+      email: args[:email],
+      password: args[:password] || cataloger.password,
       description: args[:description],
       admin: is_admin,
       updated_by: ctx[:current_user],
