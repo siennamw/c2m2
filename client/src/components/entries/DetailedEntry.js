@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Query } from '@apollo/react-components';
 import { Link } from 'react-router-dom';
 
-import { AuthContext } from '../App';
+import { AuthContext } from '../AuthContext';
 
 const DetailedEntry = ({
   DisplayComponent,

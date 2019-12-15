@@ -9,7 +9,7 @@ import NewCollection from '../collection/NewCollection';
 import NewWork from '../work/NewWork';
 import SelectField from '../SelectField';
 import { reactSelectOnChange } from '../../../utils';
-import { AuthContext } from '../../App';
+import { AuthContext } from '../../AuthContext';
 
 const ResourceForm = ({ setFieldTouched, setFieldValue, values }) => {
   const { admin } = useContext(AuthContext);

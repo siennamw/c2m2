@@ -5,7 +5,7 @@ import NewEntry from '../NewEntry';
 import CatalogerForm from './CatalogerForm';
 import { CREATE_CATALOGER } from '../../../mutations';
 import { catalogerValidationSchema } from '../../../validationSchemas';
-import { AuthContext } from '../../App';
+import { AuthContext } from '../../AuthContext';
 
 const NewCataloger = () => {
   const { admin } = useContext(AuthContext);

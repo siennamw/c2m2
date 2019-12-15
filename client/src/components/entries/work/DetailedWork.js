@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import DetailedEntry from '../DetailedEntry';
-import { AuthContext } from '../../App';
+import { AuthContext } from '../../AuthContext';
 import { WORK_BY_ID } from '../../../queries';
 import { wrapWithLink } from '../../../utils';
 

@@ -3,7 +3,7 @@ import React, { Fragment, useContext } from 'react';
 import InputField from '../InputField';
 import SelectField from '../SelectField';
 import { reactSelectOnChange } from '../../../utils';
-import { AuthContext } from '../../App';
+import { AuthContext } from '../../AuthContext';
 
 const CatalogerForm = ({ setFieldTouched, setFieldValue, values }) => {
   const { admin, id } = useContext(AuthContext);

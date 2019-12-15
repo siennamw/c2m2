@@ -2,27 +2,20 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useApolloClient } from '@apollo/react-hooks';
 
-import { AuthContext } from '../App';
+import { AuthContext } from '../AuthContext';
 import { signOut } from '../../utils';
 
 const CatalogerSignOut = () => {
   const [err, setErr] = useState(null);
   const client = useApolloClient();
-  const {
-    authenticated,
-    setAuthenticated,
-    setId,
-    setAdmin,
-  } = useContext(AuthContext);
+  const { authenticated, setAuthenticated } = useContext(AuthContext);
 
   useEffect(() => {
     const handleSignOut = async () => {
       try {
         await client.resetStore();
         signOut();
-        setAdmin(false);
         setAuthenticated(false);
-        setId(null);
       } catch (error) {
         setErr(error);
         console.log('Error signing out', error);

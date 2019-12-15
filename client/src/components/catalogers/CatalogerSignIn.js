@@ -10,9 +10,9 @@ import {
 } from 'formik';
 import * as Yup from 'yup';
 
-import { AuthContext } from '../App';
+import { AuthContext } from '../AuthContext';
 import { SIGN_IN } from '../../mutations';
-import { signIn } from '../../utils';
+import { signIn, signOut } from '../../utils';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -76,12 +76,7 @@ const CatalogerSignInForm = ({ handleSubmit, isSubmitting, status }) => (
 );
 
 const CatalogerSignIn = ({ location }) => {
-  const {
-    authenticated,
-    setAuthenticated,
-    setAdmin,
-    setId,
-  } = useContext(AuthContext);
+  const { authenticated, setAuthenticated } = useContext(AuthContext);
   const [redirect, setRedirect] = useState(authenticated);
   const [signInMutation] = useMutation(SIGN_IN);
 
@@ -100,12 +95,11 @@ const CatalogerSignIn = ({ location }) => {
 
       if (cataloger && token) {
         signIn(token);
-        setAdmin(cataloger.isAdmin);
         setAuthenticated(true);
-        setId(cataloger.id);
         setRedirect(true);
       } else {
         console.log('Failed to sign in', error);
+        signOut();
         setAuthenticated(false);
         setStatus({
           type: 'error',
@@ -114,6 +108,7 @@ const CatalogerSignIn = ({ location }) => {
       }
     } catch (err) {
       console.log('Error signing in', err);
+      signOut();
       setAuthenticated(false);
       setStatus({
         type: 'error',

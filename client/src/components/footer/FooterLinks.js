@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { AuthContext } from '../App';
+import { AuthContext } from '../AuthContext';
 
 const FooterLinks = () => {
   const { authenticated } = useContext(AuthContext);
