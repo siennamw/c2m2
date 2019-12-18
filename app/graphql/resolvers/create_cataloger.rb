@@ -31,7 +31,6 @@ class Resolvers::CreateCataloger < GraphQL::Function
     )
 
     # Tell the UserMailer to send a welcome email asynchronously
-    # TODO: update email instructing user to set password using password reset flow
     UserMailer.welcome_email(cataloger).deliver_later
 
     # Return cataloger
