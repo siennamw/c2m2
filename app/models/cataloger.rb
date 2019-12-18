@@ -32,6 +32,16 @@ class Cataloger < ApplicationRecord
   validates_presence_of :name
   validates :email, presence: true, uniqueness: true
 
+  before_validation(on: :create) do
+    unless self.password
+      self.password = Cataloger.generate_temporary_password
+    end
+  end
+
+  def self.generate_temporary_password
+    SecureRandom.base58(8)
+  end
+
   def generate_password_token!
     reset_token = nil
     while !reset_token || Cataloger.exists?(reset_password_token: reset_token)
