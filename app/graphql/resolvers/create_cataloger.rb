@@ -2,7 +2,6 @@ class Resolvers::CreateCataloger < GraphQL::Function
   # arguments passed as "args"
   argument :name, !types.String
   argument :email, !types.String
-  argument :password, !types.String
   argument :description, types.String
   argument :admin, types.Boolean
 
@@ -26,13 +25,13 @@ class Resolvers::CreateCataloger < GraphQL::Function
     cataloger = Cataloger.create!(
       name: args[:name],
       email: args[:email],
-      password: args[:password],
       description: args[:description],
       admin: !!args[:admin],
       created_by: ctx[:current_user],
     )
 
     # Tell the UserMailer to send a welcome email asynchronously
+    # TODO: update email instructing user to set password using password reset flow
     UserMailer.welcome_email(cataloger).deliver_later
 
     # Return cataloger

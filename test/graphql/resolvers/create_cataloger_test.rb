@@ -24,12 +24,10 @@ class Resolvers::CreateCatalogerTest < ActiveSupport::TestCase
     name = 'Jane Doe'
     email = 'jane.doe@example.com'
     description = 'great cataloger'
-    password = '[omitted]'
 
     cataloger = perform({
       name: name,
       email: email,
-      password: password,
       description: description,
     }, @admin)
 
@@ -37,6 +35,7 @@ class Resolvers::CreateCatalogerTest < ActiveSupport::TestCase
     assert_equal cataloger.name, name
     assert_equal cataloger.email, email
     assert_equal cataloger.description, description
+    assert cataloger.password.present?
     assert_equal cataloger.created_by, @admin
     assert_equal cataloger.admin, false
   end
@@ -45,12 +44,10 @@ class Resolvers::CreateCatalogerTest < ActiveSupport::TestCase
     name = 'John Doe'
     email = 'john.doe@example.com'
     description = 'great cataloger'
-    password = '[omitted]'
 
     cataloger = perform({
       name: name,
       email: email,
-      password: password,
       description: description,
       admin: true,
     }, @admin)
@@ -59,6 +56,7 @@ class Resolvers::CreateCatalogerTest < ActiveSupport::TestCase
     assert_equal cataloger.name, name
     assert_equal cataloger.email, email
     assert_equal cataloger.description, description
+    assert cataloger.password.present?
     assert_equal cataloger.created_by, @admin
     assert_equal cataloger.admin, true
   end
