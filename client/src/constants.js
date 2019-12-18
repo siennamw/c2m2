@@ -83,6 +83,9 @@ export const TOOLTIP_BY_MODEL_AND_FIELD = (model, fieldName) => {
       password: {
         semantics: passwordSemantics,
       },
+      new_password: {
+        semantics: passwordSemantics,
+      },
     },
     collection: {
       description: {

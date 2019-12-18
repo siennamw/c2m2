@@ -202,20 +202,56 @@ export const CREATE_WORK = gql`
 
 // update entry
 
-export const UPDATE_CATALOGER = gql`
-  mutation UpdateCataloger(
+export const UPDATE_CATALOGER_ADMIN = gql`
+  mutation UpdateCatalogerAdmin(
+    $id: ID!,
+    $name: String!,
+    $email: String!,
+    $admin: Boolean,
+    $description: String
+  ){
+    updateCatalogerAdmin(
+      id: $id,
+      name: $name,
+      email: $email,
+      admin: $admin,
+      description: $description
+    ) {
+      id
+      name
+      email
+      admin
+      description
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const UPDATE_CATALOGER_SELF = gql`
+  mutation UpdateCatalogerSelf(
     $id: ID!,
     $name: String!,
     $email: String!,
     $password: String!,
+    $new_password: String,
     $admin: Boolean,
     $description: String
   ){
-    updateCataloger(
+    updateCatalogerSelf(
       id: $id,
       name: $name,
       email: $email,
       password: $password,
+      new_password: $new_password,
       admin: $admin,
       description: $description
     ) {
