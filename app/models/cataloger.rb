@@ -28,7 +28,7 @@ class Cataloger < ApplicationRecord
   belongs_to :created_by, class_name: 'Cataloger', optional: true
   belongs_to :updated_by, class_name: 'Cataloger', optional: true
 
-  validates :password, presence: true, length: { minimum: 8 }
+  validates :password, presence: true, length: { minimum: 8 }, if: :password_digest_changed?
   validates_presence_of :name
   validates :email, presence: true, uniqueness: true
 

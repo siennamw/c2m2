@@ -6,14 +6,12 @@ export const CREATE_CATALOGER = gql`
   mutation CreateCataloger(
     $name: String!, 
     $email: String!,
-    $password: String!,
     $admin: Boolean,
     $description: String
   ){
     createCataloger(
       name: $name, 
       email: $email,
-      password: $password,
       admin: $admin,
       description: $description
     ) {
