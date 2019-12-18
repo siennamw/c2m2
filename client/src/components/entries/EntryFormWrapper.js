@@ -31,8 +31,11 @@ const EntryFormWrapper = ({
         </button>
         {
           props.status
-            ? <div
-              className={`status-message ${props.status.type}`}>{props.status.message}</div>
+            ? (
+              <div className={`status-message ${props.status.type}`}>
+                {props.status.message}
+              </div>
+            )
             : undefined
         }
       </Form>

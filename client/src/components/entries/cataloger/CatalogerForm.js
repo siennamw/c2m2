@@ -5,7 +5,12 @@ import SelectField from '../SelectField';
 import { reactSelectOnChange } from '../../../utils';
 import { AuthContext } from '../../AuthContext';
 
-const CatalogerForm = ({ setFieldTouched, setFieldValue, values }) => {
+const CatalogerForm = ({
+  hidePasswordFields,
+  setFieldTouched,
+  setFieldValue,
+  values
+}) => {
   const { admin, id } = useContext(AuthContext);
 
   const model = 'cataloger';
@@ -55,15 +60,34 @@ const CatalogerForm = ({ setFieldTouched, setFieldValue, values }) => {
         fieldType="email"
         modelName={model}
       />
-      <InputField
-        disabled={disabled}
-        displayName="Password"
-        fieldName="password"
-        fieldType="password"
-        modelName={model}
-      />
+      {
+        entryIsSelf && !hidePasswordFields
+          ? (
+            <Fragment>
+              <InputField
+                disabled={disabled}
+                displayName="Password"
+                fieldName="password"
+                fieldType="password"
+                modelName={model}
+              />
+              <InputField
+                disabled={disabled}
+                displayName="New Password (leave blank if no change)"
+                fieldName="new_password"
+                fieldType="password"
+                modelName={model}
+              />
+            </Fragment>
+          )
+          : undefined
+      }
     </Fragment>
   );
+};
+
+export const CatalogerFormNoPasswords = (props) => {
+  return <CatalogerForm {...props} hidePasswordFields />;
 };
 
 export default CatalogerForm;

@@ -3,6 +3,7 @@ import { NavLink, Route, Switch } from 'react-router-dom';
 
 import Nav from '../nav/Nav';
 
+import CatalogerEditAccount from './CatalogerEditAccount';
 import CatalogerHome from './CatalogerHome';
 import CatalogerNewEntryParent from './CatalogerNewEntryParent';
 import CatalogerEditEntryParent from './CatalogerEditEntryParent';
@@ -15,12 +16,14 @@ const CatalogerDashboard = ({ match }) => (
     <Nav ariaLabel="Cataloger dashboard">
       <NavLink to={`${match.path}/home`}>Home</NavLink>
       <NavLink to={`${match.path}/new`}>New Entry</NavLink>
+      <NavLink to={`${match.path}/account`}>Account</NavLink>
       <NavLink to="/sign-out">Sign Out</NavLink>
     </Nav>
     <Switch>
+      <Route path={`${match.path}/account`} component={CatalogerEditAccount} />
+      <Route path={`${match.path}/edit`} component={CatalogerEditEntryParent} />
       <Route path={`${match.path}/home`} component={CatalogerHome} />
       <Route path={`${match.path}/new`} component={CatalogerNewEntryParent} />
-      <Route path={`${match.path}/edit`} component={CatalogerEditEntryParent} />
       <Route component={UnknownRoute} />
     </Switch>
   </div>

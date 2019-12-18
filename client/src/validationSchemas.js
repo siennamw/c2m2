@@ -63,9 +63,6 @@ export const catalogerValidationSchema = Yup.object().shape({
   admin: Yup.boolean()
     .default(false)
     .required('Admin yes/no is required'),
-  password: Yup.string()
-    .min(6, 'Password must be longer than 6 characters')
-    .required('Password is required'),
 });
 
 export const collectionValidationSchema = Yup.object().shape({
@@ -202,5 +199,15 @@ export const addIdToSchema = baseSchema => (
       .integer('ID is invalid')
       .positive('ID is invalid')
       .required('ID is required'),
+  })
+);
+
+export const addPasswordsToSchema = baseSchema => (
+  baseSchema.shape({
+    password: Yup.string()
+      .min(6, 'Password must be longer than 6 characters')
+      .required('Password is required'),
+    new_password: Yup.string()
+      .min(6, 'Password must be longer than 6 characters'),
   })
 );
