@@ -35,7 +35,6 @@ const SelectFieldWithQuery = ({
           </div>
         );
       } else if (data && data[queryName]) {
-
         content = (
           <SelectField
             addNewItemText={showButton}
@@ -53,8 +52,21 @@ const SelectFieldWithQuery = ({
         );
       }
 
-      const updateOnCloseModal = () => {
+      const updateOnCloseModal = (modalData) => {
         refetch();
+
+        if (modalData && modalData.id) {
+          // call onChange with data from modal
+          if (isMulti) {
+            const vals = [
+              ...selected,
+              modalData.id,
+            ];
+            onChange(vals.map(itemId => ({ value: itemId })), fieldName);
+          } else {
+            onChange({ value: modalData.id }, fieldName);
+          }
+        }
       };
 
       let classes = 'select-with-query';

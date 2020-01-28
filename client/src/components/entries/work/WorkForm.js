@@ -52,7 +52,7 @@ const WorkForm = ({ setFieldTouched, setFieldValue, values }) => {
         modelName={model}
       />
       <SelectFieldWithQuery
-        componentForModal={<NewCountry />}
+        componentForModal={NewCountry}
         displayName="Country"
         fieldName="country_id"
         modelName={model}
@@ -74,7 +74,7 @@ const WorkForm = ({ setFieldTouched, setFieldValue, values }) => {
         selected={values.media_type_id}
       />
       <SelectFieldWithQuery
-        componentForModal={<NewComposer />}
+        componentForModal={NewComposer}
         displayName="Composer(s)"
         fieldName="composer_ids"
         isMulti
@@ -86,7 +86,7 @@ const WorkForm = ({ setFieldTouched, setFieldValue, values }) => {
         selected={values.composer_ids}
       />
       <SelectFieldWithQuery
-        componentForModal={<NewComposer />}
+        componentForModal={NewComposer}
         displayName="Orchestrator(s)"
         fieldName="orchestrator_ids"
         isMulti
@@ -98,7 +98,7 @@ const WorkForm = ({ setFieldTouched, setFieldValue, values }) => {
         selected={values.orchestrator_ids}
       />
       <SelectFieldWithQuery
-        componentForModal={<NewDirector />}
+        componentForModal={NewDirector}
         displayName="Director(s)"
         fieldName="director_ids"
         isMulti
@@ -110,7 +110,7 @@ const WorkForm = ({ setFieldTouched, setFieldValue, values }) => {
         selected={values.director_ids}
       />
       <SelectFieldWithQuery
-        componentForModal={<NewProductionCompany />}
+        componentForModal={NewProductionCompany}
         displayName="Production Company or Companies"
         fieldName="production_company_ids"
         isMulti

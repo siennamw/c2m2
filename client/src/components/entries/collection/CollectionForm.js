@@ -26,7 +26,7 @@ const CollectionForm = ({ setFieldValue, setFieldTouched, values }) => {
         modelName={model}
       />
       <SelectFieldWithQuery
-        componentForModal={<NewRepository />}
+        componentForModal={NewRepository}
         displayName="Repository"
         fieldName="repository_id"
         modelName={model}

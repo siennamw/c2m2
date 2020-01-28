@@ -34,7 +34,7 @@ const ResourceForm = ({ setFieldTouched, setFieldValue, values }) => {
   return (
     <Fragment>
       <SelectFieldWithQuery
-        componentForModal={<NewWork />}
+        componentForModal={NewWork}
         displayName="Work"
         fieldName="work_id"
         modelName={model}
@@ -73,7 +73,7 @@ const ResourceForm = ({ setFieldTouched, setFieldValue, values }) => {
         selected={values.material_format_id}
       />
       <SelectFieldWithQuery
-        componentForModal={<NewCollection />}
+        componentForModal={NewCollection}
         displayName="Collection(s)"
         fieldName="collection_ids"
         isMulti
