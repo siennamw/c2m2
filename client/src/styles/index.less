@@ -33,6 +33,16 @@
   box-shadow: 0 0 30px -5px fade(@black, 30%);
 }
 
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
 
 .logo {
   width: 14em;
@@ -122,6 +132,13 @@ form {
   margin-bottom: 1rem;
   text-align: center;
   color: @gray;
+
+  &:not(.form-message) {
+    animation-delay: 3s;
+    animation-duration: 1s;
+    animation-name: fadeOut;
+    animation-fill-mode: forwards;
+  }
 
   &.error {
     color: @error;
