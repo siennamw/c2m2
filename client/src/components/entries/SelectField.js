@@ -20,13 +20,19 @@ const SelectField = ({
   selected,
 }) => {
   const items = options
-    .sort((a, b) => (
-      (a.name || a.title).toLowerCase().localeCompare(
-        (b.name || b.title).toLowerCase()
-      )
-    )).map(i => (
+    .sort((a, b) => {
+      const aTitle = (a.name || a.title).toLowerCase();
+      const bTitle = (b.name || b.title).toLowerCase();
+      return aTitle.localeCompare(bTitle);
+    })
+    .map(i => (
       { value: i.id, label: i.name || i.title }
     ));
+
+  if (!isMulti) {
+    // placeholder & empty value for reset
+    items.unshift({ value: '', label: 'Select...' });
+  }
 
   const selectedItems = Array.isArray(selected)
     ? items.filter(i => selected.includes(i.value))
@@ -70,7 +76,7 @@ const SelectField = ({
             primary25: '#BBBBBB',
             primary50: '#999999',
             primary75: '#777777',
-            neutral50: '#555555', // placeholder; darkened for contrast ratio
+            neutral50: '#333333', // placeholder; darkened for contrast ratio
           },
         })}
         value={selectedItems}
