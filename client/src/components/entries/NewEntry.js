@@ -10,6 +10,7 @@ import {
 } from '../../validationSchemas';
 
 const NewEntry = ({
+  successCallback,
   clearAfterSubmit,
   FormComponent,
   gqlMutation,
@@ -35,6 +36,10 @@ const NewEntry = ({
           type: 'success',
           message: 'Success!',
         });
+
+        if (successCallback && data[mutationName]) {
+          successCallback(data[mutationName]);
+        }
       } else {
         setStatus({
           type: 'error',
@@ -72,7 +77,7 @@ const NewEntry = ({
 NewEntry.defaultProps = {
   clearAfterSubmit: false,
   initialValues: null,
-  mutationName: null,
+  successCallback: null,
 };
 
 NewEntry.propTypes = {
@@ -92,15 +97,8 @@ NewEntry.propTypes = {
         return true;
       });
   },
-  mutationName: (props, propName) => {
-    if (
-      !props.clearAfterSubmit
-      && (!props[propName] || typeof props[propName] !== 'string')
-    ) {
-      return new Error('mutationName is required if clearAfterSubmit is false');
-    }
-    return null;
-  },
+  mutationName: PropTypes.string.isRequired,
+  successCallback: PropTypes.func,
   title: PropTypes.string.isRequired,
   yupSchema: PropTypes.object.isRequired,
 };
