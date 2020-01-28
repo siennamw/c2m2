@@ -12,17 +12,25 @@ const ModalForComponentWithButton = ({
   displayName,
   onClose,
 }) => {
+  const [modalVisible, setModalVisible] = useState(false);
+
   const modalRoot = document.getElementById('root');
 
-  const [modalVisible, setModalVisible] = useState(false);
+  const Component = component;
 
   const hideModal = () => {
     setModalVisible(false);
-    onClose();
   };
 
   const showModal = () => {
     setModalVisible(true);
+  };
+
+  const successCallback = (data) => {
+    hideModal();
+    if (data) {
+      onClose(data);
+    }
   };
 
   // modal for creating a new entry in this category
@@ -40,7 +48,9 @@ const ModalForComponentWithButton = ({
       >
         x
       </button>
-      {component}
+      <Component
+        successCallback={successCallback}
+      />
     </Modal>
   );
 
