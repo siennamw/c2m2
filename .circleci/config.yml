@@ -2,17 +2,17 @@
 #
 # Check https://circleci.com/docs/2.0/language-ruby/ for more details
 #
-version: 2
+version: 3
 jobs:
   build:
     docker:
     # specify the version you desire here
-    - image: circleci/ruby:2.4.1-node-browsers
+    - image: circleci/ruby:2.5.5-node-browsers
       environment:
         PGHOST: localhost
         PGUSER: c2m2-test
         RAILS_ENV: test
-    - image: circleci/postgres:10.4
+    - image: circleci/postgres:12.1
       environment:
         POSTGRES_USER: c2m2-test
         POSTGRES_DB: c2m2-test_test
@@ -26,15 +26,11 @@ jobs:
     # Download and cache dependencies
     - restore_cache:
         keys:
-        - v1-ruby-dependencies-{{ checksum "Gemfile.lock" }}
-        # fallback to using the latest cache if no exact match is found
-        - v1-ruby-dependencies-
+        - ruby-dependencies-{{ checksum "Gemfile.lock" }}
 
     - restore_cache:
         keys:
-        - v1-js-dependencies-{{ checksum "client/yarn.lock" }}
-        # fallback to using the latest cache if no exact match is found
-        - v1-js-dependencies-
+        - js-dependencies-{{ checksum "client/yarn.lock" }}
 
     - run:
         name: install javascript dependencies, build app
@@ -44,17 +40,17 @@ jobs:
     - run:
         name: install ruby dependencies
         command: |
-          bundle install --jobs=4 --retry=3 --path vendor/bundle
+          bundle
 
     - save_cache:
         paths:
         - ./vendor/bundle
-        key: v1-ruby-dependencies-{{ checksum "Gemfile.lock" }}
+        key: ruby-dependencies-{{ checksum "Gemfile.lock" }}
 
     - save_cache:
         paths:
         - ./client/node_modules
-        key: v1-js-dependencies-{{ checksum "client/yarn.lock" }}
+        key: js-dependencies-{{ checksum "client/yarn.lock" }}
 
     - run:
         name: wait for DB
@@ -64,12 +60,12 @@ jobs:
     - run:
         name: database setup
         command: |
-          bundle exec rake db:create
-          bundle exec rake db:schema:load
+          rake db:create
+          rake db:schema:load
 
     # run tests!
     - run:
         name: run tests
         command: |
           mkdir /tmp/test-results
-          rails test
+          rake test

@@ -5,10 +5,10 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '2.4.1'
+ruby '2.5.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.6'
+gem 'rails', '~> 5.1.7'
 # Use PostgreSQL as the database
 gem 'pg'
 # Use Puma as the app server
@@ -46,7 +46,8 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # GraphQL
-gem 'graphql', '1.7.4'
+gem 'graphql', '1.8'
 gem 'graphiql-rails', '1.4.4', group: :development
 gem 'search_object', '1.2.0'
 gem 'search_object_graphql', '0.1'
+gem 'apollo_upload_server', '2.0.0.beta.3'
