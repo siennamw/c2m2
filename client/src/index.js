@@ -6,8 +6,8 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import { ApolloClient } from 'apollo-client';
 import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error';
-import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { createUploadLink } from 'apollo-upload-client';
 
 import registerServiceWorker from './registerServiceWorker';
 
@@ -15,7 +15,7 @@ import './styles/index.css';
 import App from './components/App';
 import { getAuthorizationToken, signOut } from './utils';
 
-const httpLink = createHttpLink({
+const httpLink = createUploadLink({
   uri: '/graphql',
 });
 

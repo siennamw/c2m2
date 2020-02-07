@@ -32,4 +32,6 @@ Types::MutationType = GraphQL::ObjectType.define do
 
   field :handleContactForm, function: Resolvers::HandleContactForm.new
   field :handleSuggestionForm, function: Resolvers::HandleSuggestionForm.new
+
+  field :bulkUpload, function: Resolvers::BulkUpload.new
 end

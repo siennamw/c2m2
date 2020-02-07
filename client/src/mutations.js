@@ -619,3 +619,9 @@ export const RESET_PASSWORD = gql`
     resetPassword(email: $email, reset_token: $reset_token, new_password: $new_password)
   }
 `;
+
+export const UPLOAD_CSV = gql`
+  mutation BulkUpload($file: Upload!, $model: String!) {
+    bulkUpload(file: $file, model: $model)
+  }
+`;
