@@ -6,6 +6,91 @@ import Select from 'react-select';
 import FieldInfoTooltip from './FieldInfoTooltip';
 import { MODEL_NAMES } from '../../constants';
 
+export const StyledSelect = ({
+  disabled,
+  fieldName,
+  id,
+  isMulti,
+  options,
+  onBlur,
+  onChange,
+  value,
+}) => {
+  return (
+    <Select
+      name={fieldName}
+      className="react-select"
+      isDisabled={disabled}
+      id={id}
+      isMulti={isMulti}
+      onBlur={onBlur}
+      onChange={onChange}
+      options={options}
+      styles={{
+        container: provided => ({
+          ...provided,
+          borderWidth: '1px',
+        }),
+      }}
+      theme={theme => ({
+        ...theme,
+        colors: {
+          ...theme.colors,
+          primary: '#0099F6',
+          primary25: '#BBBBBB',
+          primary50: '#999999',
+          primary75: '#777777',
+          neutral50: '#333333', // placeholder; darkened for contrast ratio
+        },
+      })}
+      value={value}
+    />
+  );
+};
+
+StyledSelect.propTypes = {
+  disabled: PropTypes.bool,
+  fieldName: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  isMulti: PropTypes.bool,
+  onBlur: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.bool,
+      ]).isRequired,
+    }).isRequired,
+  ).isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.arrayOf(
+      PropTypes.shape({
+        label: PropTypes.string,
+        value: PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.bool,
+        ]),
+      }),
+    ),
+    PropTypes.shape({
+      label: PropTypes.string,
+      value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.bool,
+      ]),
+    }),
+  ]),
+};
+
+StyledSelect.defaultProps = {
+  disabled: false,
+  isMulti: false,
+  value: null,
+};
+
+
 const SelectField = ({
   addNewItemText,
   fieldName,
@@ -51,34 +136,20 @@ const SelectField = ({
         className="status-message form-message error"
       />
       <div className="help-text">
-        {addNewItemText ? 'select from the list below or click + to create a new entry' : undefined }
+        {
+          addNewItemText
+            ? 'choose from the list below or click + to create a new entry'
+            : undefined
+        }
       </div>
-      <Select
-        name={fieldName}
-        className="react-select"
-        isDisabled={disabled}
+      <StyledSelect
+        disabled={disabled}
+        fieldName={fieldName}
         id={fieldName}
         isMulti={isMulti}
         onBlur={() => onBlur(fieldName)}
         onChange={evt => onChange(evt, fieldName)}
         options={items}
-        styles={{
-          container: (provided, state) => ({
-            ...provided,
-            borderWidth: '1px',
-          }),
-        }}
-        theme={theme => ({
-          ...theme,
-          colors: {
-            ...theme.colors,
-            primary: '#0099F6',
-            primary25: '#BBBBBB',
-            primary50: '#999999',
-            primary75: '#777777',
-            neutral50: '#333333', // placeholder; darkened for contrast ratio
-          },
-        })}
         value={selectedItems}
       />
     </Fragment>
@@ -103,9 +174,9 @@ SelectField.defaultProps = {
 
 SelectField.propTypes = {
   addNewItemText: PropTypes.bool,
-  fieldName: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   displayName: PropTypes.string.isRequired,
+  fieldName: PropTypes.string.isRequired,
   isMulti: PropTypes.bool,
   labelDisabled: PropTypes.bool,
   modelName: PropTypes.oneOf(MODEL_NAMES).isRequired,
