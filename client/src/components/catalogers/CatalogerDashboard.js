@@ -8,6 +8,8 @@ import CatalogerHome from './CatalogerHome';
 import CatalogerNewEntryParent from './CatalogerNewEntryParent';
 import CatalogerEditEntryParent from './CatalogerEditEntryParent';
 
+import BulkUpload from './BulkUpload';
+
 import UnknownRoute from '../UnknownRoute';
 
 const CatalogerDashboard = ({ match }) => (
@@ -16,6 +18,7 @@ const CatalogerDashboard = ({ match }) => (
     <Nav ariaLabel="Cataloger dashboard">
       <NavLink to={`${match.path}/home`}>Home</NavLink>
       <NavLink to={`${match.path}/new`}>New Entry</NavLink>
+      <NavLink to={`${match.path}/bulk-upload`}>Bulk Upload</NavLink>
       <NavLink to={`${match.path}/account`}>Account</NavLink>
       <NavLink to="/sign-out">Sign Out</NavLink>
     </Nav>
@@ -24,6 +27,7 @@ const CatalogerDashboard = ({ match }) => (
       <Route path={`${match.path}/edit`} component={CatalogerEditEntryParent} />
       <Route path={`${match.path}/home`} component={CatalogerHome} />
       <Route path={`${match.path}/new`} component={CatalogerNewEntryParent} />
+      <Route path={`${match.path}/bulk-upload`} component={BulkUpload} />
       <Route component={UnknownRoute} />
     </Switch>
   </div>
