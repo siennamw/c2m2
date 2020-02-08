@@ -18,4 +18,15 @@ class Work < ApplicationRecord
 
   validates_presence_of :title
   validates_presence_of :year
+  validates :imdb_link, uniqueness: true, if: -> { imdb_link.present? }
+
+  before_validation :strip_imdb_link_query_string
+
+  private
+
+  def strip_imdb_link_query_string
+    if self.imdb_link
+      self.imdb_link = self.imdb_link.split('?').first
+    end
+  end
 end
