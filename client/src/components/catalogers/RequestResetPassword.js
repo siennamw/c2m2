@@ -57,6 +57,8 @@ const RequestResetPassword = () => {
   const [resetPasswordMutation] = useMutation(GET_RESET_PASSWORD_TOKEN);
 
   const handleSubmit = async ({ email }, setSubmitting, setStatus) => {
+    setStatus(null);
+
     try {
       const variables = {
         email,

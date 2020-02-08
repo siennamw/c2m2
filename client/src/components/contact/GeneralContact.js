@@ -98,6 +98,8 @@ const InnerContactForm = ({ handleSubmit, isSubmitting, isValid, setFieldValue, 
 
 class GeneralContact extends React.Component {
   handleSubmit = async (mutation, values, setSubmitting, setStatus, resetForm) => {
+    setStatus(null);
+
     try {
       const payload = {
         variables: {

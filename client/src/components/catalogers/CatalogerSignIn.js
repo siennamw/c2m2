@@ -81,6 +81,8 @@ const CatalogerSignIn = ({ location }) => {
   const [signInMutation] = useMutation(SIGN_IN);
 
   const handleSubmit = async ({ email, password }, setSubmitting, setStatus) => {
+    setStatus(null);
+
     try {
       const variables = {
         email,
