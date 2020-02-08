@@ -20,12 +20,14 @@ const NewEntry = ({
   yupSchema,
 }) => {
   const handleSubmit = async (mutation, values, setSubmitting, setStatus, resetForm) => {
+    setStatus(null);
+
     try {
       const variables = getNormalizedSubmissionValuesForSchema(yupSchema, values);
       const payload = { variables };
-      const { data } = await mutation(payload);
+      const { data, errors } = await mutation(payload);
 
-      if (data && !isEmpty(data)) {
+      if (!errors && data && !isEmpty(data)) {
         if (clearAfterSubmit) {
           resetForm(getInitialFormValuesForSchema(yupSchema));
         } else if (data[mutationName]) {
@@ -43,7 +45,9 @@ const NewEntry = ({
       } else {
         setStatus({
           type: 'error',
-          message: 'Failed. Please try again later.',
+          message: errors
+            ? errors.map(({ message }) => message).join('; ')
+            : 'Failed. Please try again later.',
         });
       }
     } catch (err) {

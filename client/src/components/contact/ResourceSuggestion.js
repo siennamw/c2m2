@@ -164,6 +164,7 @@ const InnerSuggestionForm = ({
 
 class ResourceSuggestion extends React.Component {
   handleSubmit = async (mutation, values, setSubmitting, setStatus, resetForm) => {
+    setStatus(null);
     try {
       const payload = {
         variables: {
