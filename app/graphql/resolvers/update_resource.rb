@@ -23,7 +23,7 @@ class Resolvers::UpdateResource < GraphQL::Function
       raise GraphQL::ExecutionError.new("Authentication required")
     end
 
-    resource = Resource.find_by(id: args[:id])
+    resource = Resource.find(args[:id])
 
     if !ctx[:current_user].admin && args[:publication_status] == 'approved'
       # only admin can set to 'approved', fall back to 'provisional' if attempted
@@ -33,7 +33,7 @@ class Resolvers::UpdateResource < GraphQL::Function
       new_status = args[:publication_status] || 'draft'
     end
 
-    resource.update(
+    resource.update!(
       finding_aid_link: args[:finding_aid_link],
       digital_copy_link: args[:digital_copy_link],
       citation_source: args[:citation_source],
@@ -49,8 +49,7 @@ class Resolvers::UpdateResource < GraphQL::Function
       updated_by: ctx[:current_user],
     )
 
-    # return resource
-    resource
+    Resource.find(args[:id])
   rescue ActiveRecord::RecordInvalid => e
     # this would catch all validation errors and translate them to GraphQL::ExecutionError
     GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")

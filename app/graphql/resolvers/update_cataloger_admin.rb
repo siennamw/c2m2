@@ -36,7 +36,7 @@ class Resolvers::UpdateCatalogerAdmin < GraphQL::Function
     # UserMailer.info_change_email(cataloger).deliver_later
 
     # Return updated cataloger
-    Cataloger.find_by(id: args[:id])
+    Cataloger.find(args[:id])
   rescue ActiveRecord::RecordInvalid => e
     # this would catch all validation errors and translate them to GraphQL::ExecutionError
     GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")

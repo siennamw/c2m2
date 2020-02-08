@@ -26,8 +26,8 @@ class Resolvers::UpdateWork < GraphQL::Function
       raise GraphQL::ExecutionError.new('Authentication required')
     end
 
-    Work.update(
-      args[:id],
+    work = Work.find(args[:id])
+    work.update!(
       title: args[:title],
       secondary_title: args[:secondary_title],
       alias_alternates: args[:alias_alternates],
@@ -46,6 +46,7 @@ class Resolvers::UpdateWork < GraphQL::Function
       updated_by: ctx[:current_user],
     )
 
+    Work.find(args[:id])
   rescue ActiveRecord::RecordInvalid => e
     # this would catch all validation errors and translate them to GraphQL::ExecutionError
     GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")

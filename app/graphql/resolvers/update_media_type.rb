@@ -17,13 +17,14 @@ class Resolvers::UpdateMediaType < GraphQL::Function
       raise GraphQL::ExecutionError.new("Authentication required")
     end
 
-    MediaType.update(
-      args[:id],
+    media_type = MediaType.find(args[:id])
+    media_type.update!(
       name: args[:name],
       description: args[:description],
       updated_by: ctx[:current_user],
     )
 
+    MediaType.find(args[:id])
   rescue ActiveRecord::RecordInvalid => e
     # this would catch all validation errors and translate them to GraphQL::ExecutionError
     GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")

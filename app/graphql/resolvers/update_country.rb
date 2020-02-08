@@ -14,13 +14,14 @@ class Resolvers::UpdateCountry < GraphQL::Function
       raise GraphQL::ExecutionError.new("Authentication required")
     end
 
-    Country.update(
-      args[:id],
+    country = Country.find(args[:id])
+    country.update!(
       name: args[:name],
       description: args[:description],
       updated_by: ctx[:current_user],
     )
 
+    Country.find(args[:id])
   rescue ActiveRecord::RecordInvalid => e
     # this would catch all validation errors and translate them to GraphQL::ExecutionError
     GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")

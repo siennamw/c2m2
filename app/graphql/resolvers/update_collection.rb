@@ -18,14 +18,15 @@ class Resolvers::UpdateCollection < GraphQL::Function
     repository = Repository.find(args[:repository_id])
     return unless repository
 
-    Collection.update(
-      args[:id],
+    collection = Collection.find(args[:id])
+    collection.update!(
       name: args[:name],
       description: args[:description],
       repository: repository,
       updated_by: ctx[:current_user],
     )
 
+    Collection.find(args[:id])
   rescue ActiveRecord::RecordInvalid => e
     # this would catch all validation errors and translate them to GraphQL::ExecutionError
     GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")

@@ -14,13 +14,14 @@ class Resolvers::UpdateDirector < GraphQL::Function
       raise GraphQL::ExecutionError.new("Authentication required")
     end
 
-    Director.update(
-      args[:id],
+    director = Director.find(args[:id])
+    director.update!(
       name: args[:name],
       imdb_link: args[:imdb_link],
       updated_by: ctx[:current_user],
     )
 
+    Director.find(args[:id])
   rescue ActiveRecord::RecordInvalid => e
     # this would catch all validation errors and translate them to GraphQL::ExecutionError
     GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")
