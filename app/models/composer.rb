@@ -9,5 +9,16 @@ class Composer < ApplicationRecord
   belongs_to :created_by, class_name: 'Cataloger'
   belongs_to :updated_by, class_name: 'Cataloger', optional: true
 
-  validates_presence_of :name
+  validates :name, presence: true, uniqueness: true
+  validates :imdb_link, uniqueness: true, if: -> { imdb_link.present? }
+
+  before_validation :strip_imdb_link_query_string
+
+  private
+
+  def strip_imdb_link_query_string
+    if self.imdb_link
+      self.imdb_link = self.imdb_link.split('?').first
+    end
+  end
 end
