@@ -14,13 +14,14 @@ class Resolvers::UpdateComposer < GraphQL::Function
       raise GraphQL::ExecutionError.new("Authentication required")
     end
 
-    Composer.update(
-      args[:id],
+    composer = Composer.find(args[:id])
+    new_composer = composer.update!(
       name: args[:name],
       imdb_link: args[:imdb_link],
       updated_by: ctx[:current_user],
     )
 
+    Composer.find(args[:id])
   rescue ActiveRecord::RecordInvalid => e
     # this would catch all validation errors and translate them to GraphQL::ExecutionError
     GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")

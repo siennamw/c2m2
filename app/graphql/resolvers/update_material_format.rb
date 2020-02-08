@@ -14,13 +14,14 @@ class Resolvers::UpdateMaterialFormat < GraphQL::Function
       raise GraphQL::ExecutionError.new("Authentication required")
     end
 
-    MaterialFormat.update(
-      args[:id],
+    material_format = MaterialFormat.find(args[:id])
+    material_format.update!(
       name: args[:name],
       description: args[:description],
       updated_by: ctx[:current_user],
     )
 
+    MaterialFormat.find(args[:id])
   rescue ActiveRecord::RecordInvalid => e
     # this would catch all validation errors and translate them to GraphQL::ExecutionError
     GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")
