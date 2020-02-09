@@ -49,8 +49,20 @@ class Resolvers::BulkUpload < GraphQL::Function
     results = []
 
     CSV.foreach(tempfile, headers: true) do |row|
-      attributes = row.to_h
-      attributes[:created_by] = current_user
+      attributes = {}
+      row.to_h.each do |k, v|
+        if k === 'publication_status'
+          # always draft status for bulk imports
+          attributes[k] = 'draft'
+        elsif k.end_with?('_ids')
+          # handle multiple id fields
+          attributes[k] = v.split(',').map(&:strip)
+        else
+          attributes[k] = v
+        end
+      end
+
+      attributes['created_by'] = current_user
 
       new_entry = model.new(attributes)
 
