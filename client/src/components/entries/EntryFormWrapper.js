@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
+
 import { getInitialFormValuesForSchema } from '../../validationSchemas';
+
+import FormStatus from '../FormStatus';
 
 const EntryFormWrapper = ({
   FormComponent,
@@ -16,7 +19,8 @@ const EntryFormWrapper = ({
     onSubmit={(values, { setSubmitting, setStatus, resetForm }) => (
       handleSubmit(mutation, values, setSubmitting, setStatus, resetForm)
     )}
-    render={props => (
+  >
+    {props => (
       <Form>
         <FormComponent
           {...props}
@@ -25,22 +29,13 @@ const EntryFormWrapper = ({
           type="submit"
           className="button-primary u-full-width"
           disabled={props.isSubmitting || !props.isValid}
-          onClick={props.handleSubmit}
         >
           Submit
         </button>
-        {
-          props.status
-            ? (
-              <div className={`status-message ${props.status.type}`}>
-                {props.status.message}
-              </div>
-            )
-            : undefined
-        }
+        <FormStatus />
       </Form>
     )}
-  />
+  </Formik>
 );
 
 EntryFormWrapper.defaultProps = {
