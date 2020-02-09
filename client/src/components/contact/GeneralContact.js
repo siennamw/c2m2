@@ -1,10 +1,9 @@
 import React from 'react';
 import { Mutation } from '@apollo/react-components';
 import {
-  Formik,
   ErrorMessage,
-  Field,
   Form,
+  Formik,
   useFormikContext,
 } from 'formik';
 import ReCAPTCHA from 'react-google-recaptcha';
@@ -13,76 +12,48 @@ import * as Yup from 'yup';
 import * as mutations from '../../mutations';
 
 import FormStatus from '../FormStatus';
+import InputField from '../entries/InputField';
 
 const InnerContactForm = () => {
   const {
-    handleSubmit,
     isSubmitting,
-    isValid,
     setFieldValue,
   } = useFormikContext();
 
   return (
     <Form>
-      <label htmlFor="name">
-        Name
-        <ErrorMessage
-          className="status-message form-message error"
-          component="div"
-          name="name"
-        />
-        <Field
-          className="u-full-width"
-          id="name"
-          name="name"
-          type="text"
-        />
-      </label>
-      <label htmlFor="email">
-        Email
-        <ErrorMessage
-          className="status-message form-message error"
-          component="div"
-          name="email"
-        />
-        <Field
-          className="u-full-width"
-          id="email"
-          name="email"
-          type="email"
-        />
-      </label>
-      <label htmlFor="message">
-        Message
-        <ErrorMessage
-          className="status-message form-message error"
-          component="div"
-          name="message"
-        />
-        <Field
-          className="u-full-width"
-          component="textarea"
-          id="message"
-          name="message"
-          type="text"
-        />
-      </label>
-      <ErrorMessage
-        className="status-message form-message error"
-        component="div"
-        name="recaptcha"
+      <InputField
+        displayName="Name"
+        fieldName="name"
       />
-      <ReCAPTCHA
-        className="g-recaptcha"
-        onChange={(response) => {
-          setFieldValue('recaptcha', response);
-        }}
-        sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+      <InputField
+        displayName="Email"
+        fieldName="email"
+        fieldType="email"
       />
+      <InputField
+        component="textarea"
+        displayName="Message"
+        fieldName="message"
+      />
+      <label htmlFor="recaptcha">
+        <ErrorMessage
+          className="status-message form-message error"
+          component="div"
+          name="recaptcha"
+        />
+        <ReCAPTCHA
+          className="g-recaptcha"
+          id="recaptcha"
+          onChange={(response) => {
+            setFieldValue('recaptcha', response);
+          }}
+          sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+        />
+      </label>
       <button
         className="button-primary u-full-width"
-        disabled={isSubmitting || !isValid}
-        onClick={handleSubmit}
+        disabled={isSubmitting}
         type="submit"
       >
         Submit

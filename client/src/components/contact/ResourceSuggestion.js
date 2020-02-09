@@ -13,132 +13,67 @@ import * as Yup from 'yup';
 import * as mutations from '../../mutations';
 
 import FormStatus from '../FormStatus';
+import InputField from '../entries/InputField';
 
 const InnerSuggestionForm = () => {
   const {
     handleSubmit,
     isSubmitting,
-    isValid,
     setFieldValue,
   } = useFormikContext();
 
   return (
     <Form>
-      <label htmlFor="name">
-        Name
-        <ErrorMessage
-          name="name"
-          component="div"
-          className="status-message form-message error"
-        />
-        <Field
-          id="name"
-          type="text"
-          name="name"
-          className="u-full-width"
-        />
-      </label>
-      <label htmlFor="email">
-        Email
-        <ErrorMessage
-          name="email"
-          component="div"
-          className="status-message form-message error"
-        />
-        <Field
-          id="email"
-          type="email"
-          name="email"
-          className="u-full-width"
-        />
-      </label>
-      <label htmlFor="composers">
-        Composer(s) Concerned
-        <ErrorMessage
-          name="composers"
-          component="div"
-          className="status-message form-message error"
-        />
-        <Field
-          id="composers"
-          type="text"
-          name="composers"
-          className="u-full-width"
-        />
-      </label>
-      <label htmlFor="works">
-        Major Work(s) and/or Film(s) Concerned
-        <ErrorMessage
-          name="works"
-          component="div"
-          className="status-message form-message error"
-        />
-        <Field
-          id="works"
-          type="text"
-          name="works"
-          className="u-full-width"
-        />
-      </label>
-      <label htmlFor="link">
-        Link to Resource
-        <ErrorMessage
-          name="link"
-          component="div"
-          className="status-message form-message error"
-        />
-        <Field
-          id="link"
-          type="text"
-          name="link"
-          className="u-full-width"
-        />
-      </label>
-      <label htmlFor="location">
-        Location (name of library, repository, database...)
-        <ErrorMessage
-          name="location"
-          component="div"
-          className="status-message form-message error"
-        />
-        <Field
-          id="location"
-          type="text"
-          name="location"
-          className="u-full-width"
-        />
-      </label>
-      <label htmlFor="comments">
-        Comments
-        <ErrorMessage
-          name="comments"
-          component="div"
-          className="status-message form-message error"
-        />
-        <Field
-          id="comments"
-          type="text"
-          name="comments"
-          className="u-full-width"
-          component="textarea"
-        />
-      </label>
-      <ErrorMessage
-        name="recaptcha"
-        component="div"
-        className="status-message form-message error"
+      <InputField
+        displayName="Name"
+        fieldName="name"
       />
-      <ReCAPTCHA
-        sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
-        className="g-recaptcha"
-        onChange={(response) => {
-          setFieldValue('recaptcha', response);
-        }}
+      <InputField
+        displayName="Email"
+        fieldName="email"
+        fieldType="email"
       />
+      <InputField
+        displayName="Composer(s) Concerned"
+        fieldName="composers"
+      />
+      <InputField
+        displayName="Major Work(s) and/or Film(s) Concerned"
+        fieldName="works"
+      />
+      <InputField
+        displayName="Link to Resource"
+        fieldName="link"
+        fieldType="url"
+      />
+      <InputField
+        displayName="Location (name of library, repository, database...)"
+        fieldName="location"
+      />
+      <InputField
+        component="textarea"
+        displayName="Comments"
+        fieldName="comments"
+      />
+      <label htmlFor="recaptcha">
+        <ErrorMessage
+          name="recaptcha"
+          component="div"
+          className="status-message form-message error"
+        />
+        <ReCAPTCHA
+          id="recaptcha"
+          className="g-recaptcha"
+          onChange={(response) => {
+            setFieldValue('recaptcha', response);
+          }}
+          sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+        />
+      </label>
       <button
         type="submit"
         className="button-primary u-full-width"
-        disabled={isSubmitting || !isValid}
+        disabled={isSubmitting}
         onClick={handleSubmit}
       >
         Submit

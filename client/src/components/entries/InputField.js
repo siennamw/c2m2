@@ -6,6 +6,7 @@ import FieldInfoTooltip from './FieldInfoTooltip';
 import { MODEL_NAMES } from '../../constants';
 
 const InputField = ({
+  component,
   disabled,
   displayName,
   fieldName,
@@ -20,13 +21,18 @@ const InputField = ({
   return (
     <label htmlFor={fieldName}>
       {displayName}
-      <FieldInfoTooltip field={fieldName} model={modelName} />
+      {
+        modelName
+          ? <FieldInfoTooltip field={fieldName} model={modelName} />
+          : null
+      }
       <ErrorMessage
         name={fieldName}
         component="div"
         className="status-message form-message error"
       />
       <Field
+        component={component}
         disabled={disabled}
         id={fieldName}
         type={fieldType}
@@ -39,16 +45,19 @@ const InputField = ({
 };
 
 InputField.defaultProps = {
+  component: null,
   disabled: false,
   fieldType: 'text',
+  modelName: null,
 };
 
 InputField.propTypes = {
+  component: PropTypes.string,
   disabled: PropTypes.bool,
   displayName: PropTypes.string.isRequired,
   fieldName: PropTypes.string.isRequired,
   fieldType: PropTypes.oneOf(['text', 'url', 'password', 'email', 'number']),
-  modelName: PropTypes.oneOf(MODEL_NAMES).isRequired,
+  modelName: PropTypes.oneOf(MODEL_NAMES),
 };
 
 export default InputField;
