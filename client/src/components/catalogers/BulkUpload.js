@@ -13,6 +13,7 @@ import { UPLOAD_CSV } from '../../mutations';
 import { MODEL_NAMES } from '../../constants';
 
 import { reactSelectOnChange } from '../../utils';
+import BulkUploadReport from './BulkUploadReport';
 
 const BulkUpload = () => {
   const [report, setReport] = useState();
@@ -27,7 +28,6 @@ const BulkUpload = () => {
   const initialValues = {
     model: '',
   };
-
   const validationSchema = yup.object().shape({
     model: yup.string().oneOf(modelsForUpload).required(),
   });
@@ -152,40 +152,7 @@ const BulkUpload = () => {
           }
         }
       </Formik>
-      {
-        !report
-          ? null
-          : (
-            <Fragment>
-              <h2>Upload Report</h2>
-              <table className="u-full-width">
-                <thead>
-                  <tr>
-                    <th>Row in CSV</th>
-                    <th>Result</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>n/a (heading row)</td>
-                  </tr>
-                  {
-                    report.map((result, index) => (
-                      <tr>
-                        <td>
-                          {/* heading row in CSV was row 1, now offset by 2 for parity */}
-                          {index + 2}
-                        </td>
-                        <td>{result}</td>
-                      </tr>
-                    ))
-                  }
-                </tbody>
-              </table>
-            </Fragment>
-          )
-      }
+      <BulkUploadReport report={report} />
     </Fragment>
   );
 };
