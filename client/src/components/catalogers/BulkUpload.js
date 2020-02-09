@@ -8,12 +8,13 @@ import {
   Formik,
 } from 'formik';
 
-import { StyledSelect } from '../entries/SelectField';
 import { UPLOAD_CSV } from '../../mutations';
 import { MODEL_NAMES } from '../../constants';
-
 import { reactSelectOnChange } from '../../utils';
+
+import { StyledSelect } from '../entries/SelectField';
 import BulkUploadReport from './BulkUploadReport';
+import FormStatus from '../FormStatus';
 
 const BulkUpload = () => {
   const [report, setReport] = useState();
@@ -138,15 +139,7 @@ const BulkUpload = () => {
                     type="file"
                   />
                 </label>
-                {
-                  status
-                    ? (
-                      <div className={`status-message ${status.type}`}>
-                        {status.message}
-                      </div>
-                    )
-                    : undefined
-                }
+              <FormStatus />
               </Form>
             );
           }
