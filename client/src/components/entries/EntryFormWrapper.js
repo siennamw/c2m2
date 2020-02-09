@@ -28,7 +28,7 @@ const EntryFormWrapper = ({
         <button
           type="submit"
           className="button-primary u-full-width"
-          disabled={props.isSubmitting || !props.isValid}
+          disabled={props.isSubmitting}
         >
           Submit
         </button>
