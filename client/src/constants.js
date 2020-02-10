@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 
 export const LOCAL_STORAGE_KEY = 'c2m2-auth';
 
@@ -24,13 +25,14 @@ export const MODEL_NAMES = [
 ];
 
 // repeated values for TOOLTIP_BY_MODEL_AND_FIELD below
-const doNotUseAliases = 'Do not use aliases in this field.';
+const doNotUseAliases = 'Do not use nicknames or aliases in this field.';
 const freeFieldForFurtherDescription = 'Free field for further description.';
 const headlineStyleCapitalization = 'Headline-style capitalization (CMS16 8.157).';
+const imbdAbbreviation = 'IMDB links will be abbreviated automatically if possible.';
 const imdbPersonSearch = (
   <Fragment>
     <a
-      href="https://www.imdb.com/search/name"
+      href="https://www.imdb.com/search/name/"
       target="_blank"
       rel="noopener noreferrer"
     >
@@ -51,266 +53,321 @@ const imdbTitleSearch = (
     URL here.
   </Fragment>
 );
-const includeBirthAndDeathDates = 'Include birth and death dates.';
-const lcAuthorityName = 'Use LC authority version of name if available.';
+const includeBirthAndDeathDates = 'If possible, include birth and death dates even if not included in the LC authority version.';
+const includeProtocol = 'Include http:// or https://.';
+const lcAuthorityName = 'Always use LC authority version of name if available.';
+const mediaTypeDefinitionsLink = (
+  <Fragment>
+    Media type of work. See <Link
+      to="/dashboard/media-type-definitions"
+      target="_blank"
+    >
+      definitions of media types
+    </Link>.
+  </Fragment>
+);
+const noImdbPage = 'If no associated IMDB page exists, leave blank.';
 const passwordSemantics = (
   <Fragment>
     Choose or <a
-    href="https://www.lastpass.com/password-generator"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    generate
-  </a> a strong password that is only used on this site.
+      href="https://www.lastpass.com/password-generator"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      generate
+    </a> a strong password that is only used on this site.
   </Fragment>
 );
+const shortestLink = 'Use shortest link possible.';
+const websiteUnavailable = 'If no website available, leave blank.';
 
-export const TOOLTIP_BY_MODEL_AND_FIELD = (model, fieldName) => {
-  const tooltip = {
-    cataloger: {
-      admin: {
-        semantics: 'Administrators can approve entries for resources and can create and modify other catalogers.',
-      },
-      description: {
-        semantics: 'Title, institutional affiliation, or other description.',
-      },
-      email: {
-        semantics: 'The email address at which project administrators and other contributors may contact you.',
-      },
-      name: {
-        semantics: 'Full name.',
-      },
-      password: {
-        semantics: passwordSemantics,
-      },
-      new_password: {
-        semantics: passwordSemantics,
-      },
+export const tooltip = {
+  cataloger: {
+    admin: {
+      semantics: 'Administrators can approve entries for resources, create and modify other catalogers, and perform bulk uploads.',
     },
-    collection: {
-      description: {
-        semantics: freeFieldForFurtherDescription,
-      },
-      name: {
-        semantics: 'Official name of collection with manuscripts.',
-        rules: [
-          'Use name as given by the holding repository.',
-        ],
-      },
-      repository: {
-        semantics: 'Name of repository that contains the manuscripts.',
-        rules: [
-          headlineStyleCapitalization,
-          lcAuthorityName,
-          'Do not use nicknames of institutions in this field.',
-        ],
-      },
+    description: {
+      semantics: 'Title, institutional affiliation, or other description.',
     },
-    composer: {
-      imdb_link: {
-        semantics: imdbPersonSearch,
-      },
-      name: {
-        semantics: 'Full name.',
-        rules: [
-          lcAuthorityName,
-          includeBirthAndDeathDates,
-          doNotUseAliases,
-        ],
-      },
+    email: {
+      semantics: 'The email address at which cataloger may be reached by project administrators and other contributors.',
     },
-    country: {
-      description: {
-        semantics: freeFieldForFurtherDescription,
-      },
-      name: {
-        semantics: 'Official name.',
-        rules: [
-          lcAuthorityName,
-          'Use Getty Thesaurus of Geographic Names for authority version of country.',
-          doNotUseAliases,
-        ],
-      },
+    name: {
+      semantics: 'Full name.',
     },
-    director: {
-      imdb_link: {
-        semantics: imdbPersonSearch,
-      },
-      name: {
-        semantics: 'Full name.',
-        rules: [
-          lcAuthorityName,
-          includeBirthAndDeathDates,
-          doNotUseAliases,
-        ],
-      },
+    password: {
+      semantics: passwordSemantics,
     },
-    material_format: {
-      description: {
-        semantics: freeFieldForFurtherDescription,
-      },
-      name: {
-        semantics: 'Full name.',
-        rules: [
-          lcAuthorityName,
-          doNotUseAliases,
-        ],
-      },
+    new_password: {
+      semantics: passwordSemantics,
     },
-    media_type: {
-      description: {
-        semantics: freeFieldForFurtherDescription,
-      },
-      name: {
-        semantics: 'Full name.',
-        rules: [
-          lcAuthorityName,
-          doNotUseAliases,
-        ],
-      },
+  },
+  collection: {
+    description: {
+      semantics: freeFieldForFurtherDescription,
+      rules: [
+        'Consider copying a portion of the collection scope and content note.',
+      ],
     },
-    production_company: {
-      contact_info: {
-        semantics: 'Public website, mailing address, or email address.',
-        rules: [
-          'Do not use individuals\' names or private contact information.',
-        ],
-      },
-      name: {
-        semantics: 'Full name.',
-        rules: [
-          'If corporation has changed names or merged since time of production, list name of company as it appeared during production and list current name in additional entry.',
-          lcAuthorityName,
-          doNotUseAliases,
-        ],
-      },
+    name: {
+      semantics: 'Official name of collection with manuscripts.',
+      rules: [
+        'Use name as given by the holding repository.',
+      ],
     },
     repository: {
-      location: {
-        semantics: 'Sheltering institution, city, and state of institution.',
-        rules: [
-          headlineStyleCapitalization,
-          'Use LC authority version of institution name if available',
-          'City and State/Country',
-          'Do not use nicknames of intuitions in this field',
-        ],
-      },
-      name: {
-        semantics: 'Full name.',
-        rules: [
-          lcAuthorityName,
-          doNotUseAliases,
-        ],
-      },
-      website: {
-        semantics: 'Full, stable URL or permalink.',
-        rules: [
-          'Select the specific page most relevant to this entry.',
-        ],
-      },
+      semantics: 'Name of repository that contains the manuscripts.',
+      rules: [
+        headlineStyleCapitalization,
+        lcAuthorityName,
+        doNotUseAliases,
+        'If special/private library, name of institution goes here (i.e. Newberry Library).',
+      ],
     },
-    resource: {
-      cataloging_notes: {
-        semantics: 'Any other information pertinent to entry.',
-        rules: [
-          'Free field in which cataloger can place any other notes, unanswered questions, or relevant information regarding the entry.',
-        ],
-      },
-      citation_source: {
-        semantics: 'How information was found.',
-        rules: [
-          'Reference source (include citation for book following CMS16), or',
-          'Article/book citation (include citation for article following CMS16), or',
-          'Submission via C2M2 website (include name of submitter if they desire credit), or',
-          'Coordinating project (include name and website of project), or',
-          'C2M2 project research (include name of project member)',
-        ],
-      },
-      collection: {
-        semantics: 'Collection(s) in which the record is held.',
-      },
-      digital_copy_link: {
-        semantics: 'Full, stable URL or permalink to a digital copy of the resource or as close to the resource as possible.',
-        rules: [
-          'Only legal copies should be linked',
-        ],
-      },
-      work: {
-        semantics: 'Work/media associated with this resource.',
-      },
-      finding_aid_link: {
-        semantics: 'Full, stable URL or permalink to a finding aid.',
-      },
-      material_format: {
-        semantics: 'Physical format of material in collection.',
-      },
+  },
+  composer: {
+    imdb_link: {
+      semantics: 'Link for IMDB entry of composer.',
+      rules: [
+        imdbPersonSearch,
+        noImdbPage,
+        imbdAbbreviation,
+      ],
+    },
+    name: {
+      semantics: 'Full name.',
+      rules: [
+        lcAuthorityName,
+        includeBirthAndDeathDates,
+        doNotUseAliases,
+      ],
+    },
+  },
+  country: {
+    description: {
+      semantics: freeFieldForFurtherDescription,
+      rules: [
+        'If country has been renamed or no longer exists, include that information here.',
+      ],
+    },
+    name: {
+      semantics: 'Official name of country of production.',
+      rules: [
+        'Use Getty Thesaurus of Geographic Names for authority version of country.',
+        doNotUseAliases,
+      ],
+    },
+  },
+  director: {
+    imdb_link: {
+      semantics: 'Link for IMDB entry of director.',
+      rules: [
+        imdbPersonSearch,
+        noImdbPage,
+        imbdAbbreviation,
+      ],
+    },
+    name: {
+      semantics: 'Full name.',
+      rules: [
+        lcAuthorityName,
+        includeBirthAndDeathDates,
+        doNotUseAliases,
+      ],
+    },
+  },
+  material_format: {
+    description: {
+      semantics: freeFieldForFurtherDescription,
+    },
+    name: {
+      semantics: 'Full name.',
+      rules: [
+        lcAuthorityName,
+        doNotUseAliases,
+      ],
+    },
+  },
+  media_type: {
+    description: {
+      semantics: freeFieldForFurtherDescription,
+    },
+    name: {
+      semantics: 'Full name.',
+      rules: [
+        lcAuthorityName,
+        doNotUseAliases,
+      ],
+    },
+  },
+  production_company: {
+    imdb_link: {
+      semantics: 'Link for IMDB entry of production company.',
+      rules: [
+        imdbTitleSearch,
+        noImdbPage,
+        imbdAbbreviation,
+      ],
+    },
+    name: {
+      semantics: 'Name of production company as listed in IMDB.',
+    },
+  },
+  repository: {
+    location: {
+      semantics: 'Sheltering institution, city, and state of institution.',
+      rules: [
+        headlineStyleCapitalization,
+        lcAuthorityName,
+        'City and state/country.',
+        doNotUseAliases,
+        'Example: Bringham Young University, Provo, Utah.',
+      ],
+    },
+    name: {
+      semantics: 'Full name.',
+      rules: [
+        headlineStyleCapitalization,
+        lcAuthorityName,
+        doNotUseAliases,
+      ],
+    },
+    website: {
+      semantics: 'Link to repository website.',
+      rules: [
+        shortestLink,
+        includeProtocol,
+        websiteUnavailable,
+      ],
+    },
+  },
+  resource: {
+    cataloging_notes: {
+      semantics: 'Any other information pertinent to entry.',
+      rules: [
+        'Free field in which cataloger can place any other notes, unanswered questions, or relevant information regarding the entry.',
+        'If material is a photocopy, indicate here.',
+      ],
+    },
+    citation_source: {
+      semantics: 'How information was found. Only required if associated collection has no finding aid link.',
+      rules: [
+        'Free field to describe how information was discovered.',
+      ],
+    },
+    collection: {
+      semantics: 'Official name of collection with manuscripts.',
+      rules: [
+        'Use name as given by the holding repository.',
+      ],
+    },
+    digital_copy_link: {
+      semantics: 'Link to digital copy of collection.',
+      rules: [
+        'Full, stable URL or permalink to a digital copy of the resource or as close to the resource as possible.',
+        'Only legal copies should be linked.',
+      ],
     },
     work: {
-      alias_alternates: {
-        semantics: 'Aliases used by creators and alternate forms of title.',
-        rules: [
-          'Free field for any aliases or alternate forms of the title.',
-        ],
-      },
-      composer: {
-        semantics: 'Composer(s) of musical work.',
-      },
-      country: {
-        semantics: 'Official name of country of production.',
-        rules: [
-          'Primary country where production company, or primary commercial market for work, is located.',
-        ],
-      },
-      director: {
-        semantics: 'Director(s) of accompanied work.',
-      },
-      imdb_link: {
-        semantics: imdbTitleSearch,
-      },
-      media_type: {
-        semantics: 'Primary media type.',
-        rules: [
-          'Works and Series released/produced via streaming services (i.e. Netflix, Hulu, Amazon) or in a web-first format (i.e. YouTube, Vimeo, or self-published on a personal site) are to be categorized under whatever work or series format that best fits the work.',
-          '"Serial Series" is any series that comes out at periodic intervals, and has multiple episodes that constitute a whole. This can include on-going or mini-series.',
-        ],
-      },
-      orchestrator: {
-        semantics: 'Orchestrator(s) of musical work.',
-      },
-      production_company: {
-        semantics: 'Corporate body or bodies that produced or financed the accompanied work.',
-        rules: [
-          'If corporation has changed names or merged since time of production, include listing for the company as it appeared during production and listing for the company\'s current name.',
-          'If multiple companies responsible for production, list all known entities and observe above rule regarding any alternate or new names.',
-        ],
-      },
-      secondary_title: {
-        semantics: 'Title of sub work (i.e. cue, episode, etc.).',
-        rules: [
-          headlineStyleCapitalization,
-          'Use either authoritative list of episodes or cue sheet for proper format if available.',
-          'If not available, use work itself.',
-          'Can also be used to provide English translation of foreign tiles.',
-        ],
-      },
-      title: {
-        semantics: 'Title of overall work (i.e. work, series, or collection).',
-        rules: [
-          headlineStyleCapitalization,
-          'Use LC authority version of title if available, though omit "(Motion picture)" when it is used.',
-          'Do not use bold, underline, italics, or quotation marks.',
-        ],
-      },
-      year: {
-        semantics: 'Copyright, release, or air date of the accompanied work.',
-        rules: [
-          'Enter year alone, in Arabic numerals.',
-          'The year should be year of release of accompanied work that the score is associated with, or publication in the case of collection or published score.',
-        ],
-      },
+      semantics: 'Work/media associated with this resource.',
     },
-  };
+    finding_aid_link: {
+      semantics: 'Link to online finding aid.',
+      rules: [
+        shortestLink,
+        includeProtocol,
+        websiteUnavailable,
+      ],
+    },
+    material_format: {
+      semantics: 'Physical format of material in collection.',
+      rules: [
+        'Physical format that the archival material is in.',
+      ],
+    },
+    publication_status: {
+      semantics: 'The status of this catalog entry.',
+      rules: [
+        'A draft entry is only visible to other catalogers.',
+        'A provisional entry is visible to the public and is displayed with a warning that the entry has not yet been approved by a project administrator.',
+        'An approved entry has been reviewed by a project administrator and is displayed with a note to that effect.',
+      ],
+    },
+  },
+  work: {
+    alias_alternates: {
+      semantics: 'Aliases used by creators and alternate forms of title.',
+      rules: [
+        'Free field for any alternate forms of the title of work.',
+      ],
+    },
+    composer: {
+      semantics: 'Primary composer(s) of musical work.',
+    },
+    country: {
+      semantics: 'Official name of country of production.',
+      rules: [
+        'Primary country where production company, or primary commercial market for film, is located.',
+      ],
+    },
+    director: {
+      semantics: 'Primary director(s) of work.',
+    },
+    imdb_link: {
+      semantics: 'Link for IMDB entry of work.',
+      rules: [
+        imdbTitleSearch,
+        noImdbPage,
+        imbdAbbreviation,
+      ],
+    },
+    media_type: {
+      semantics: mediaTypeDefinitionsLink,
+      rules: [
+        'Primary media type of the work.',
+        'Films and Series released/produced via streaming services (i.e. Netflix, Hulu, Amazon) or in a web first format (i.e. YouTube, Vimeo, or self-published on a personal site) are to be categorized under whatever film or series format that best fits the work.',
+        '"Serial Series" is any series that comes out at periodic intervals, and has multiple episodes that constitute a whole. This can include on-going or mini-series.',
+      ],
+    },
+    orchestrator: {
+      semantics: 'Primary orchestrator(s) of musical work.',
+    },
+    production_company: {
+      semantics: 'Corporate body that produced or financed a accompanied work.',
+      rules: [
+        'Use version of name listed in IMDB.',
+        'Include top two production companies listed in IMDB entry, any additional entries are optional for inclusion.',
+      ],
+    },
+    secondary_title: {
+      semantics: 'Title of sub work (i.e. cue, episode, etc.).',
+      rules: [
+        headlineStyleCapitalization,
+        'Use either an authoritative list of episodes or cue sheet for proper format if available.',
+        'If no authoritative version is available, use work itself.',
+        'Can also be used to provide English translation of foreign tiles.',
+      ],
+    },
+    title: {
+      semantics: 'Title of overall work (i.e. film, series, or collection).',
+      rules: [
+        headlineStyleCapitalization,
+        'Use LC authority version of title if available, though omit "(Motion picture)" when it is used.',
+        'Omit date from title as well.',
+        'Omit initial articles from titles, but put full title in alias field.',
+      ],
+    },
+    year: {
+      semantics: 'Copyright, release, or air date of the work.',
+      rules: [
+        'Enter year alone, in Arabic numerals.',
+        'The year should be year of release of work within its market of production. Use earliest release date in market. The date listed in the IMDB header on the top of the film\'s entry can be considered authoritative.',
+      ],
+    },
+  },
+};
 
+export const TOOLTIP_BY_MODEL_AND_FIELD = (model, fieldName) => {
   if (!tooltip[model]) return undefined;
 
   return tooltip[model][fieldName]
