@@ -35,7 +35,7 @@ const BulkUpload = () => {
 
   return (
     <Fragment>
-      <h1>Bulk Upload</h1>
+      <h3>Bulk Upload</h3>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -48,7 +48,6 @@ const BulkUpload = () => {
             setFieldValue,
             setStatus,
             setSubmitting,
-            status,
             values,
           }) => {
             const touchedOnBlur = (field) => {
@@ -139,7 +138,7 @@ const BulkUpload = () => {
                     type="file"
                   />
                 </label>
-              <FormStatus />
+                <FormStatus />
               </Form>
             );
           }

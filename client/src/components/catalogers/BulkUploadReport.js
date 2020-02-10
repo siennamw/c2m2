@@ -8,7 +8,7 @@ const BulkUploadReport = ({ report }) => {
 
   return (
     <Fragment>
-      <h2>Upload Report</h2>
+      <h4>Upload Report</h4>
       <table className="u-full-width">
         <thead>
           <tr>
