@@ -132,13 +132,13 @@ const WorksListTable = ({
         <th>Year</th>
         <th>Composer</th>
         <th>Director</th>
-        <th>Country</th>
+        <th>Production Companies</th>
       </tr>
       <tr>
         <td>{work.year}</td>
         <td>{work.composers.map(composer => wrap(composer, 'composer'))}</td>
         <td>{work.directors.map(director => wrap(director, 'director'))}</td>
-        <td>{work.country ? wrap(work.country, 'country') : null}</td>
+        <td>{work.production_companies.map(company => wrap(company, 'production_company'))}</td>
       </tr>
     </tbody>
   ));
