@@ -17,7 +17,7 @@ const WorksList = ({ filter }) => {
 
   const variables = {
     filter,
-    first: 5,
+    first: 25,
     skip: 0,
   };
 
