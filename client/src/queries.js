@@ -545,7 +545,7 @@ export const WORKS_SEARCH = gql`
         id
         name
       }
-      country {
+      production_companies {
         id
         name
       }
