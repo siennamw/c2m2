@@ -7,6 +7,7 @@ import { AuthContext } from '../AuthContext';
 import Nav from '../nav/Nav';
 
 import BulkUpload from './BulkUpload';
+import CatalogerDirectory from './CatalogerDirectory';
 import CatalogerEditAccount from './CatalogerEditAccount';
 import CatalogerHome from './CatalogerHome';
 import CatalogerNewEntryParent from './CatalogerNewEntryParent';
@@ -28,12 +29,14 @@ const CatalogerDashboard = ({ match }) => {
             ? <NavLink to={`${match.path}/bulk-upload`}>Bulk Upload</NavLink>
             : null
         }
+        <NavLink to={`${match.path}/directory`}>Directory</NavLink>
         <NavLink to={`${match.path}/account`}>Account</NavLink>
         <NavLink to="/sign-out">Sign Out</NavLink>
       </Nav>
       <Switch>
         <Route path={`${match.path}/account`} component={CatalogerEditAccount} />
         <Route path={`${match.path}/bulk-upload`} component={BulkUpload} />
+        <Route path={`${match.path}/directory`} component={CatalogerDirectory} />
         <Route path={`${match.path}/edit`} component={CatalogerEditEntryParent} />
         <Route path={`${match.path}/home`} component={CatalogerHome} />
         <Route path={`${match.path}/new`} component={CatalogerNewEntryParent} />

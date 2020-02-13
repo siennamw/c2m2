@@ -1,5 +1,16 @@
 import gql from 'graphql-tag';
 
+export const LIST_ALL_CATALOGERS = gql`
+  query allCatalogers {
+    allCatalogers {
+      id
+      admin
+      email
+      name
+    }
+  }
+`;
+
 export const LIST_ALL_COLLECTIONS = gql`
   query allCollections {
     allCollections {
