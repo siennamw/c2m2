@@ -2,8 +2,8 @@ import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useQuery } from '@apollo/react-hooks';
 
-import { WORKS_SEARCH } from '../queries';
-import { wrapWithLink } from '../utils';
+import { WORKS_SEARCH } from '../../../queries';
+import { wrapWithLink } from '../../../utils';
 
 const WorksList = ({ filter }) => {
   const [moreResults, setMoreResults] = useState(true);

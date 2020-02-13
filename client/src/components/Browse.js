@@ -1,5 +1,5 @@
 import React from 'react';
-import WorksList from './WorksList';
+import WorksList from './entries/work/WorksList';
 
 const Browse = () => {
   const filter = {};

@@ -7,7 +7,7 @@ import {
 } from 'formik';
 import * as Yup from 'yup';
 
-import WorksList from './WorksList';
+import WorksList from './entries/work/WorksList';
 
 const validationSchema = Yup.object().shape({
   title: Yup.string()
