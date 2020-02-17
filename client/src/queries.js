@@ -511,6 +511,12 @@ export const WORK_BY_ID = gql`
       }
       resources {
         id
+        collections {
+          repository {
+            location,
+            name,
+          }
+        }
         material_format {
           name
         }

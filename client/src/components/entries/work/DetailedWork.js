@@ -22,6 +22,29 @@ const DisplayWork = ({ values }) => {
     year,
   } = values;
 
+  const formattedResources = resources.reduce((result, r) => {
+    if (authenticated || r.publication_status !== 'draft') {
+      let text = r.material_format.name;
+      if (r.collections && r.collections.length > 0) {
+        const repositories = r.collections.reduce((all, collection) => {
+          if (collection.repository) {
+            all.push(`${collection.repository.name}, ${collection.repository.location}`);
+          }
+          return all;
+        }, []).join('; ');
+
+        text = `${text} (${repositories})`;
+      }
+
+      result.push((
+        <div key={r.id}>
+          {wrapWithLink(text, r.id, 'resource')}
+        </div>
+      ));
+    }
+    return result;
+  }, []);
+
   return (
     <tbody>
       <tr>
@@ -108,20 +131,7 @@ const DisplayWork = ({ values }) => {
       </tr>
       <tr>
         <th>Resources</th>
-        <td>
-          {
-            resources.reduce((result, r) => {
-              if (authenticated || r.publication_status !== 'draft') {
-                result.push((
-                  <div key={r.id}>
-                    {wrapWithLink(r.material_format.name, r.id, 'resource')}
-                  </div>
-                ));
-              }
-              return result;
-            }, [])
-          }
-        </td>
+        <td>{formattedResources}</td>
       </tr>
     </tbody>
   );
