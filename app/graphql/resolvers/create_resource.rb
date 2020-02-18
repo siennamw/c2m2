@@ -1,6 +1,5 @@
 class Resolvers::CreateResource < GraphQL::Function
   # arguments passed as "args"
-  argument :finding_aid_link, types.String
   argument :digital_copy_link, types.String
   argument :citation_source, types.String
   argument :cataloging_notes, types.String
@@ -24,7 +23,6 @@ class Resolvers::CreateResource < GraphQL::Function
     publication_status = args[:publication_status] || 'draft'
 
     Resource.create!(
-      finding_aid_link: args[:finding_aid_link],
       digital_copy_link: args[:digital_copy_link],
       citation_source: args[:citation_source],
       cataloging_notes: args[:cataloging_notes],

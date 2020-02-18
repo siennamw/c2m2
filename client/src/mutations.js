@@ -25,10 +25,11 @@ export const CREATE_CATALOGER = gql`
 `;
 
 export const CREATE_COLLECTION = gql`
-  mutation CreateCollection($name: String!, $description: String, $repository_id: ID!){
-    createCollection(name: $name, description: $description, repository_id: $repository_id) {
+  mutation CreateCollection($name: String!, $finding_aid_link: String, $description: String, $repository_id: ID!){
+    createCollection(name: $name, finding_aid_link: $finding_aid_link, description: $description, repository_id: $repository_id) {
       id
       name
+      finding_aid_link
       description
       repository {
         id
@@ -111,7 +112,6 @@ export const CREATE_REPOSITORY = gql`
 export const CREATE_RESOURCE = gql`
   mutation CreateResource(
     $digital_copy_link: String,
-    $finding_aid_link: String,
     $citation_source: String,
     $cataloging_notes: String,
     $work_id: ID!,
@@ -120,7 +120,6 @@ export const CREATE_RESOURCE = gql`
   ){
     createResource(
       digital_copy_link: $digital_copy_link,
-      finding_aid_link: $finding_aid_link,
       citation_source: $citation_source,
       cataloging_notes: $cataloging_notes,
       work_id: $work_id,
@@ -129,7 +128,6 @@ export const CREATE_RESOURCE = gql`
     ) {
       id
       digital_copy_link
-      finding_aid_link
       citation_source
       cataloging_notes
       work {
@@ -278,17 +276,20 @@ export const UPDATE_COLLECTION = gql`
   mutation UpdateCollection(
     $id: ID!,
     $name: String!,
+    $finding_aid_link: String,
     $description: String,
     $repository_id: ID!
   ){
     updateCollection(
       id: $id,
       name: $name,
+      finding_aid_link: $finding_aid_link,
       description: $description,
       repository_id: $repository_id
     ) {
       id
       name
+      finding_aid_link
       description
       repository {
         id
@@ -452,7 +453,6 @@ export const UPDATE_RESOURCE = gql`
   mutation UpdateWork(
     $id: ID!,
     $digital_copy_link: String,
-    $finding_aid_link: String,
     $citation_source: String,
     $cataloging_notes: String,
     $publication_status: String,
@@ -463,7 +463,6 @@ export const UPDATE_RESOURCE = gql`
     updateResource(
       id: $id,
       digital_copy_link: $digital_copy_link,
-      finding_aid_link: $finding_aid_link,
       citation_source: $citation_source,
       cataloging_notes: $cataloging_notes,
       publication_status: $publication_status,
@@ -473,7 +472,6 @@ export const UPDATE_RESOURCE = gql`
     ) {
       id
       digital_copy_link
-      finding_aid_link
       citation_source
       cataloging_notes
       publication_status

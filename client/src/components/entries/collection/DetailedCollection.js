@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -6,7 +7,12 @@ import { COLLECTION_BY_ID } from '../../../queries';
 import { wrapWithLink } from '../../../utils';
 
 const DisplayCollection = ({ values }) => {
-  const { description, repository, resources } = values;
+  const {
+    description,
+    finding_aid_link,
+    repository,
+    resources,
+  } = values;
 
   return (
     <tbody>
@@ -15,6 +21,17 @@ const DisplayCollection = ({ values }) => {
         <td>{description}</td>
       </tr>
       <tr>
+        <th>Finding Aid Link</th>
+        <td>
+          <a
+            href={finding_aid_link}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {finding_aid_link}
+          </a>
+        </td>
+      </tr>      <tr>
         <th>Repository</th>
         <td>
           {wrapWithLink(repository.name, repository.id, 'repository')}
@@ -44,6 +61,7 @@ DisplayCollection.defaultProps = {
 DisplayCollection.propTypes = {
   values: PropTypes.shape({
     description: PropTypes.string,
+    finding_aid_link: PropTypes.string,
     repository: PropTypes.shape({
       name: PropTypes.string,
       id: PropTypes.oneOfType([

@@ -3,6 +3,7 @@ Types::CollectionType = GraphQL::ObjectType.define do
 
   field :id, !types.ID
   field :name, !types.String
+  field :finding_aid_link, types.String
   field :description, types.String
 
   field :repository, (-> { Types::RepositoryType })

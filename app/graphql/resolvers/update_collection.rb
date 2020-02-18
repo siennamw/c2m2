@@ -3,6 +3,7 @@ class Resolvers::UpdateCollection < GraphQL::Function
   argument :id, !types.ID
 
   argument :name, !types.String
+  argument :finding_aid_link, types.String
   argument :description, types.String
   argument :repository_id, !types.ID
 
@@ -21,6 +22,7 @@ class Resolvers::UpdateCollection < GraphQL::Function
     collection = Collection.find(args[:id])
     collection.update!(
       name: args[:name],
+      finding_aid_link: args[:finding_aid_link],
       description: args[:description],
       repository: repository,
       updated_by: ctx[:current_user],

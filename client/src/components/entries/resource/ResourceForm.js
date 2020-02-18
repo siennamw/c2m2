@@ -45,12 +45,6 @@ const ResourceForm = ({ setFieldTouched, setFieldValue, values }) => {
         selected={values.work_id}
       />
       <InputField
-        displayName="Finding Aid Link"
-        fieldName="finding_aid_link"
-        fieldType="url"
-        modelName={model}
-      />
-      <InputField
         displayName="Digital Copy Link"
         fieldName="digital_copy_link"
         fieldType="url"

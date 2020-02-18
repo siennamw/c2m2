@@ -238,6 +238,7 @@ export const COLLECTION_BY_ID = gql`
     collection(id: $id){
       id
       name
+      finding_aid_link
       description
       repository {
         id
@@ -446,7 +447,6 @@ export const RESOURCE_BY_ID = gql`
     resource(id: $id){
       id
       digital_copy_link
-      finding_aid_link
       citation_source
       cataloging_notes
       publication_status

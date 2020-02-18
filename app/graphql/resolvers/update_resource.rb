@@ -2,7 +2,6 @@ class Resolvers::UpdateResource < GraphQL::Function
   # arguments passed as "args"
   argument :id, !types.ID
 
-  argument :finding_aid_link, types.String
   argument :digital_copy_link, types.String
   argument :citation_source, types.String
   argument :cataloging_notes, types.String
@@ -34,7 +33,6 @@ class Resolvers::UpdateResource < GraphQL::Function
     end
 
     resource.update!(
-      finding_aid_link: args[:finding_aid_link],
       digital_copy_link: args[:digital_copy_link],
       citation_source: args[:citation_source],
       cataloging_notes: args[:cataloging_notes],
