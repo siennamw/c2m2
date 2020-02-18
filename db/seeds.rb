@@ -22,32 +22,96 @@ japan = Country.create(name: 'Japan', created_by: michael)
 uk = Country.create(name: 'United Kingdom', created_by: sienna)
 
 # Media Types
-ff_narrative = MediaType.create(name: 'Feature Film - Narrative', created_by: michael)
+ff_narrative = MediaType.create(
+  name: 'Feature Film - Narrative',
+  description: 'Typical feature-length films that are fictional. These can include adaptations of a true story but that are not documentary in nature (e.g. Jurassic Park).',
+  created_by: michael
+)
 MediaType.create([
-                 { name: 'Feature Film - Documentary/Other', created_by: michael },
-                 { name: 'Short Film - Narrative', created_by: michael },
-                 { name: 'Short Film - Documentary/Other', created_by: michael },
-                 { name: 'Silent Film - Feature, Short, or Photoplay', created_by: michael },
-                 { name: 'Serial Series - Narrative', created_by: sienna },
-                 { name: 'Serial Series - Documentary/Other', created_by: sienna },
-                 { name: 'Serial Series - Information/Education', created_by: sienna },
-                 { name: 'Video Game', created_by: sienna },
-                 { name: 'Radio or Podcast', created_by: sienna },
-                 ])
+  {
+    name: 'Feature Film - Documentary/Other',
+    description: 'Feature length films that are documentaries, educational, and other films that mix archival footage, interviews, and possibly reenactments (e.g. March of the Penguins).',
+    created_by: michael
+  },
+  {
+    name: 'Short Film - Narrative',
+    description: 'Short films, typically less than sixty minutes, that are story driven fictional or fictional retellings (e.g. La Jetée).',
+    created_by: michael
+  },
+  {
+    name: 'Short Film - Documentary/Other',
+    description: 'Short films, typically less than sixty minutes, that are documentaries, educational, and other films that mix archival footage, interviews, and possibly reenactments (e.g. Absence).',
+    created_by: michael
+  },
+  {
+    name: 'Silent Film - Feature, Short, or Photoplay',
+    description: 'Any type of silent film c. 1930 or earlier. This is also where we will catalog any photoplay music collections that are not associated with a specific film (e.g. Metropolis, or individual cues from photoplay music libraries).',
+    created_by: michael
+  },
+  {
+    name: 'Serial Series - Narrative',
+    description: 'Serialized series (television, streaming, or internet based) that are fictional. These can include adaptations of a true story but that are not documentary in nature. These can also include broadcast, cable tv, streaming services, YouTube, or other video hosting platform (e.g. Lost or House of Cards).',
+    created_by: sienna
+  },
+  {
+    name: 'Serial Series - Documentary/Other',
+    description: 'Serialized series (television, streaming, or internet-based) that are documentaries, and other series that mix archival footage, interviews, and possibly reenactments. These can include broadcast, cable tv, streaming services, YouTube, or other video hosting platform (e.g. Nova or Making a Murderer).',
+    created_by: sienna
+  },
+  {
+    name: 'Serial Series - Information/Education/Journalistic',
+    description: 'Other type of series or show that is informational, informative, news programs, or educational programming (including comedy news shows) and is distributed via broadcast, cable tv, streaming services, YouTube, or other video hosting platform (e.g. 60 Minutes or Last Week Tonight).',
+    created_by: sienna
+  },
+  {
+    name: 'Video Game',
+    description: 'Any form of interactive electronic game that includes a musical score. These can exist across many types of platforms but must include some form of human-based input (e.g. Final Fantasy or Call of Duty).',
+    created_by: sienna
+  },
+  {
+    name: 'Radio or Podcast',
+    description: 'Any type of series (narrative, educational, documentary, or other) that exists in a purely audio format (e.g. Radiolab or Welcome to Night Vale).',
+    created_by: sienna
+  },
+])
 
 # Material Formats
 manuscript_score = MaterialFormat.create(name: 'Manuscript Scores', created_by: michael)
 printed_score_parts = MaterialFormat.create(name: 'Printed Scores and Parts', created_by: michael)
 MaterialFormat.create([
-                        { name: 'Short Scores', created_by: michael },
-                        { name: 'Sketches', created_by: michael },
-                        { name: 'Published Scores or Collections', created_by: michael },
-                        { name: 'Cue Sheets', created_by: michael },
-                        { name: 'Working Notes', created_by: sienna },
-                        { name: 'Recordings', created_by: sienna },
-                        { name: 'Contracts', created_by: sienna },
-                        { name: 'Personal Papers and Other Items', created_by: sienna },
-                      ])
+  {
+    name: 'Short Scores',
+    created_by: michael
+  },
+  {
+    name: 'Sketches',
+    created_by: michael
+  },
+  {
+    name: 'Published Scores or Collections',
+    created_by: michael
+  },
+  {
+    name: 'Cue Sheets',
+    created_by: michael
+  },
+  {
+    name: 'Working Notes',
+    created_by: sienna
+  },
+  {
+    name: 'Recordings',
+    created_by: sienna
+  },
+  {
+    name: 'Contracts',
+    created_by: sienna
+  },
+  {
+    name: 'Personal Papers and Other Items',
+    created_by: sienna
+  },
+])
 
 # Repositories
 harris = Repository.create(
