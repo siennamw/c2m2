@@ -2,7 +2,6 @@ Types::ResourceType = GraphQL::ObjectType.define do
   name 'Resource'
 
   field :id, !types.ID
-  field :finding_aid_link, types.String
   field :digital_copy_link, types.String
   field :citation_source, types.String
   field :cataloging_notes, types.String

@@ -95,10 +95,10 @@ export const tooltip = {
     name: {
       semantics: 'Full name.',
     },
-    password: {
+    new_password: {
       semantics: passwordSemantics,
     },
-    new_password: {
+    password: {
       semantics: passwordSemantics,
     },
   },
@@ -107,6 +107,14 @@ export const tooltip = {
       semantics: freeFieldForFurtherDescription,
       rules: [
         'Consider copying a portion of the collection scope and content note.',
+      ],
+    },
+    finding_aid_link: {
+      semantics: 'Link to online finding aid.',
+      rules: [
+        shortestLink,
+        includeProtocol,
+        websiteUnavailable,
       ],
     },
     name: {
@@ -268,17 +276,6 @@ export const tooltip = {
         'Only legal copies should be linked.',
       ],
     },
-    work: {
-      semantics: 'Work/media associated with this resource.',
-    },
-    finding_aid_link: {
-      semantics: 'Link to online finding aid.',
-      rules: [
-        shortestLink,
-        includeProtocol,
-        websiteUnavailable,
-      ],
-    },
     material_format: {
       semantics: 'Physical format of material in collection.',
       rules: [
@@ -292,6 +289,9 @@ export const tooltip = {
         'A provisional entry is visible to the public and is displayed with a warning that the entry has not yet been approved by a project administrator.',
         'An approved entry has been reviewed by a project administrator and is displayed with a note to that effect.',
       ],
+    },
+    work: {
+      semantics: 'Work/media associated with this resource.',
     },
   },
   work: {

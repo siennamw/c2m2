@@ -93,7 +93,6 @@ class Resolvers::UpdateResourceTest < ActiveSupport::TestCase
   end
 
   test 'updating a resource with all possible fields' do
-    finding_aid_link = ''
     digital_copy_link = 'digital_copy_link'
     citation_source = 'citation_source'
     cataloging_notes = 'cataloging_notes'
@@ -103,7 +102,6 @@ class Resolvers::UpdateResourceTest < ActiveSupport::TestCase
       {
         id: @resource.id,
 
-        finding_aid_link: finding_aid_link,
         digital_copy_link: digital_copy_link,
         citation_source: citation_source,
         cataloging_notes: cataloging_notes,
@@ -123,7 +121,6 @@ class Resolvers::UpdateResourceTest < ActiveSupport::TestCase
 
     assert_equal updated_resource.publication_status, publication_status
 
-    assert_equal updated_resource.finding_aid_link, finding_aid_link
     assert_equal updated_resource.digital_copy_link, digital_copy_link
     assert_equal updated_resource.citation_source, citation_source
     assert_equal updated_resource.cataloging_notes, cataloging_notes

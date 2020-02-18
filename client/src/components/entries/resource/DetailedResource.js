@@ -12,7 +12,6 @@ const DisplayResource = ({ values }) => {
     citation_source,
     collections,
     digital_copy_link,
-    finding_aid_link,
     material_format,
     work,
   } = values;
@@ -31,18 +30,6 @@ const DisplayResource = ({ values }) => {
               ? wrapWithLink(material_format.name, material_format.id, 'material_format')
               : null
           }
-        </td>
-      </tr>
-      <tr>
-        <th>Finding Aid Link</th>
-        <td>
-          <a
-            href={finding_aid_link}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {finding_aid_link}
-          </a>
         </td>
       </tr>
       <tr>
@@ -97,7 +84,6 @@ DisplayResource.propTypes = {
       }),
     ),
     digital_copy_link: PropTypes.string,
-    finding_aid_link: PropTypes.string,
     material_format: PropTypes.shape({
       id: PropTypes.oneOfType([
         PropTypes.string,

@@ -3,11 +3,13 @@
 
 # Catalogers - with dummy passwords for development only!!
 michael = Cataloger.create(
+  admin: true,
   name: 'Michael W. Harris',
   email: 'michael.harris@example.com',
   password: 'password',
 )
 sienna = Cataloger.create(
+  admin: true,
   name: 'Sienna M. Wood',
   email: 'sienna.wood@example.com',
   password: 'password',
@@ -81,11 +83,13 @@ harris_collection = Collection.create(
 )
 grusin_collection = Collection.create(
   name: 'Dave Grusin manuscripts',
+  finding_aid_link: 'http://www.colorado.edu/amrc/sites/default/files/attached-files/AMRC-Grusin.pdf',
   repository: amrc,
   created_by: sienna,
 )
 jarre_collection = Collection.create(
   name: 'Maurice Jarre papers',
+  finding_aid_link: 'http://www.uwyo.edu/ahc/_files/pdffa/03261.pdf',
   repository: ahc,
   created_by: sienna,
 )
@@ -270,7 +274,7 @@ polygram = ProductionCompany.create(
 
 # Works
 silverado = Work.create(
-  title: 'Silverado (Motion picture)',
+  title: 'Silverado',
   year: 1985,
   country: us,
   media_type: ff_narrative,
@@ -280,7 +284,7 @@ silverado = Work.create(
   production_companies: [columbia, delphi],
 )
 matrix = Work.create(
-  title: 'Matrix (Motion picture)',
+  title: 'Matrix',
   year: 1999,
   country: us,
   media_type: ff_narrative,
@@ -290,7 +294,7 @@ matrix = Work.create(
   production_companies: [warner_bros, village_roadshow, groucho, silver],
 )
 batman = Work.create(
-  title: 'Batman (Motion picture: 1989)',
+  title: 'Batman',
   year: 1989,
   country: us,
   media_type: ff_narrative,
@@ -300,7 +304,7 @@ batman = Work.create(
   production_companies: [warner_bros, guber, polygram],
 )
 scissorhands = Work.create(
-  title: 'Edward Scissorhands (Motion picture)',
+  title: 'Edward Scissorhands',
   year: 1990,
   country: us,
   media_type: ff_narrative,
@@ -310,7 +314,7 @@ scissorhands = Work.create(
   production_companies: [fox],
 )
 willow = Work.create(
-  title: 'Willow (Motion picture)',
+  title: 'Willow',
   year: 1988,
   country: us,
   media_type: ff_narrative,
@@ -320,7 +324,7 @@ willow = Work.create(
   production_companies: [mgm, lucasfilm, imagine],
 )
 back_to_the_future = Work.create(
-  title: 'Back to the future (Motion picture)',
+  title: 'Back to the future',
   year: 1985,
   country: us,
   media_type: ff_narrative,
@@ -330,7 +334,7 @@ back_to_the_future = Work.create(
   production_companies: [universal, amblin, udrive],
 )
 rashomon = Work.create(
-  title: 'Rashōmon (Motion picture)',
+  title: 'Rashōmon',
   year: 1950,
   country: japan,
   media_type: ff_narrative,
@@ -340,7 +344,7 @@ rashomon = Work.create(
   production_companies: [daiei],
 )
 lawrence = Work.create(
-  title: 'Lawrence of Arabia (Motion picture)',
+  title: 'Lawrence of Arabia',
   year: 1962,
   country: uk,
   media_type: ff_narrative,
@@ -360,7 +364,7 @@ goonies = Work.create(
   production_companies: [warner_bros, amblin],
 )
 samurai = Work.create(
-  title: 'Shichinin no samurai (Motion picture)',
+  title: 'Shichinin no samurai',
   secondary_title: 'Seven Samurai',
   year: 1954,
   country: japan,
@@ -416,14 +420,12 @@ Resource.create([
                 collections: [hayasaka_collection],
               },
               { work: lawrence,
-                finding_aid_link: 'http://www.uwyo.edu/ahc/_files/pdffa/03261.pdf',
                 material_format: manuscript_score,
                 created_by: sienna,
                 citation_source: 'Institutional Website',
                 collections: [jarre_collection],
               },
               { work: goonies,
-                finding_aid_link: 'http://www.colorado.edu/amrc/sites/default/files/attached-files/AMRC-Grusin.pdf',
                 material_format: manuscript_score,
                 created_by: sienna,
                 citation_source: 'Institutional Contact',

@@ -37,6 +37,12 @@ const CollectionForm = ({ setFieldValue, setFieldTouched, values }) => {
         selected={values.repository_id}
       />
       <InputField
+        displayName="Finding Aid Link"
+        fieldName="finding_aid_link"
+        fieldType="url"
+        modelName={model}
+      />
+      <InputField
         displayName="Description"
         fieldName="description"
         modelName={model}

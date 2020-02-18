@@ -71,6 +71,8 @@ export const collectionValidationSchema = Yup.object().shape({
     .required('Name is required'),
   description: Yup.string()
     .trim(),
+  finding_aid_link: Yup.string()
+    .url('Finding aid link is not a valid URL'),
   repository_id: Yup.string()
     .matches(stringOfDigitsRegex)
     .required('Repository is required'),
@@ -172,8 +174,6 @@ export const repositoryValidationSchema = Yup.object().shape({
 export const resourceValidationSchema = Yup.object().shape({
   digital_copy_link: Yup.string()
     .url('Digital copy link is not a valid URL'),
-  finding_aid_link: Yup.string()
-    .url('Finding aid link is not a valid URL'),
   citation_source: Yup.string()
     .trim(),
   cataloging_notes: Yup.string()
@@ -185,8 +185,8 @@ export const resourceValidationSchema = Yup.object().shape({
     .matches(stringOfDigitsRegex)
     .required('Material format is required'),
   collection_ids: Yup.array()
-    .default([])
-    .of(Yup.string().matches(stringOfDigitsRegex)),
+    .of(Yup.string().matches(stringOfDigitsRegex))
+    .required('Collection is required'),
   publication_status: Yup.string()
     .oneOf(['draft', 'provisional', 'approved'])
     .default('draft')
