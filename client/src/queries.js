@@ -51,6 +51,7 @@ export const LIST_ALL_MATERIAL_FORMATS = gql`
   query allMaterialFormats {
     allMaterialFormats {
       id
+      description
       name
     }
   }
@@ -60,6 +61,7 @@ export const LIST_ALL_MEDIA_TYPES = gql`
   query allMediaTypes {
     allMediaTypes {
       id
+      description
       name
     }
   }

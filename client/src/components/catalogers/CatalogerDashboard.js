@@ -13,6 +13,9 @@ import CatalogerHome from './CatalogerHome';
 import CatalogerNewEntryParent from './CatalogerNewEntryParent';
 import CatalogerEditEntryParent from './CatalogerEditEntryParent';
 
+import MaterialFormatsList from '../entries/materialFormat/MaterialFormatsList';
+import MediaTypesList from '../entries/mediaType/MediaTypesList';
+
 import UnknownRoute from '../UnknownRoute';
 
 const CatalogerDashboard = ({ match }) => {
@@ -40,6 +43,10 @@ const CatalogerDashboard = ({ match }) => {
         <Route path={`${match.path}/edit`} component={CatalogerEditEntryParent} />
         <Route path={`${match.path}/home`} component={CatalogerHome} />
         <Route path={`${match.path}/new`} component={CatalogerNewEntryParent} />
+
+        <Route path={`${match.path}/material-formats`} component={MaterialFormatsList} />
+        <Route path={`${match.path}/media-types`} component={MediaTypesList} />
+
         <Route component={UnknownRoute} />
       </Switch>
     </div>
