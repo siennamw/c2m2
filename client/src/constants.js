@@ -56,13 +56,23 @@ const imdbTitleSearch = (
 const includeBirthAndDeathDates = 'If possible, include birth and death dates even if not included in the LC authority version.';
 const includeProtocol = 'Include http:// or https://.';
 const lcAuthorityName = 'Always use LC authority version of name if available.';
-const mediaTypeDefinitionsLink = (
+const MaterialFormatsListLink = (
   <Fragment>
-    Media type of work. See <Link
-      to="/dashboard/media-type-definitions"
+    Material format of the resource. See <Link
+      to="/dashboard/material-formats"
       target="_blank"
     >
-      definitions of media types
+      descriptions of material formats
+    </Link>.
+  </Fragment>
+);
+const MediaTypesListLink = (
+  <Fragment>
+    Media type of work. See <Link
+      to="/dashboard/media-types"
+      target="_blank"
+    >
+    descriptions of media types
     </Link>.
   </Fragment>
 );
@@ -277,9 +287,9 @@ export const tooltip = {
       ],
     },
     material_format: {
-      semantics: 'Physical format of material in collection.',
+      semantics: MaterialFormatsListLink,
       rules: [
-        'Physical format that the archival material is in.',
+        'Physical format of the archival material.',
       ],
     },
     publication_status: {
@@ -322,7 +332,7 @@ export const tooltip = {
       ],
     },
     media_type: {
-      semantics: mediaTypeDefinitionsLink,
+      semantics: MediaTypesListLink,
       rules: [
         'Primary media type of the work.',
         'Films and Series released/produced via streaming services (i.e. Netflix, Hulu, Amazon) or in a web first format (i.e. YouTube, Vimeo, or self-published on a personal site) are to be categorized under whatever film or series format that best fits the work.',
