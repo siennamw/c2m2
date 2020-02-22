@@ -76,39 +76,60 @@ MediaType.create([
 ])
 
 # Material Formats
-manuscript_score = MaterialFormat.create(name: 'Manuscript Scores', created_by: michael)
-printed_score_parts = MaterialFormat.create(name: 'Printed Scores and Parts', created_by: michael)
+manuscript_score = MaterialFormat.create(
+  name: 'Manuscript Scores',
+  description: 'A composer or orchestrator\'s handwritten full scores.',
+  created_by: michael
+)
+printed_score_parts = MaterialFormat.create(
+  name: 'Printed Scores and Parts',
+  description: 'Printers\' scores and parts used for performance purposes (either score recording or concert performances).',
+  created_by: michael
+)
 MaterialFormat.create([
   {
     name: 'Short Scores',
+    description: 'A composer\'s short score that would eventually be arranged into a full score by the composer or orchestrator.',
     created_by: michael
   },
   {
     name: 'Sketches',
+    description: 'Sketches, notes, or other types of early work on a score.',
     created_by: michael
   },
   {
     name: 'Published Scores or Collections',
+    description: 'Full scores, arrangements, or other type of derivative work published for a commercial market.',
     created_by: michael
   },
   {
     name: 'Cue Sheets',
+    description: 'Sheets detailing music and scene breakdowns for a work.',
     created_by: michael
   },
   {
     name: 'Working Notes',
+    description: 'A composer or director’s notes on music, spotting, etc.',
     created_by: sienna
   },
   {
     name: 'Recordings',
+    description: 'An audio or video recording made for either the work or produced for a commercial market.',
     created_by: sienna
   },
   {
     name: 'Contracts',
+    description: 'Contracts made between a composer and producer or studio for production of the musical work.',
     created_by: sienna
   },
   {
     name: 'Personal Papers and Other Items',
+    description: 'Miscellaneous personal items or papers that relate to a composer.',
+    created_by: sienna
+  },
+  {
+    name: 'Conductor\'s Scores',
+    description: '',
     created_by: sienna
   },
 ])
