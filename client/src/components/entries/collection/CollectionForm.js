@@ -43,6 +43,7 @@ const CollectionForm = ({ setFieldValue, setFieldTouched, values }) => {
         modelName={model}
       />
       <InputField
+        component="textarea"
         displayName="Description"
         fieldName="description"
         modelName={model}

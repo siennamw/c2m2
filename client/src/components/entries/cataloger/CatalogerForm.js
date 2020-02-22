@@ -35,6 +35,7 @@ const CatalogerForm = ({
         modelName={model}
       />
       <InputField
+        component="textarea"
         displayName="Description"
         fieldName="description"
         disabled={disabled}

@@ -11,6 +11,7 @@ const MediaTypeForm = () => {
         modelName={model}
       />
       <InputField
+        component="textarea"
         displayName="Description"
         fieldName="description"
         modelName={model}
