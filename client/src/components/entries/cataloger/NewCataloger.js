@@ -26,7 +26,7 @@ const NewCataloger = ({ successCallback }) => {
   }
 
   return (
-    <div className="status-message error">
+    <div className="status-message error persist">
       Sorry! Only administrators can create new catalogers.
     </div>
   );

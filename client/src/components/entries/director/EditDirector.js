@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import EditEntry from '../EditEntry';
 
@@ -24,6 +25,14 @@ const EditDirector = ({ match }) => {
       yupSchema={schema}
     />
   );
+};
+
+EditDirector.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
 export default EditDirector;
