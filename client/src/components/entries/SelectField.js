@@ -104,15 +104,7 @@ const SelectField = ({
   options,
   selected,
 }) => {
-  const items = options
-    .sort((a, b) => {
-      const aTitle = (a.name || a.title).toLowerCase();
-      const bTitle = (b.name || b.title).toLowerCase();
-      return aTitle.localeCompare(bTitle);
-    })
-    .map(i => (
-      { value: i.id, label: i.name || i.title }
-    ));
+  const items = options.map(i => ({ value: i.id, label: i.name || i.title }));
 
   if (!isMulti) {
     // placeholder & empty value for reset

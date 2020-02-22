@@ -4,7 +4,7 @@ Types::QueryType = GraphQL::ObjectType.define do
   field :allCatalogers do
     type types[Types::CatalogerType]
     description "A list of all catalogers"
-    resolve ->(obj, args, ctx) { Cataloger.all }
+    resolve ->(obj, args, ctx) { Cataloger.order(name: :asc).all }
   end
 
   field :cataloger do
@@ -17,7 +17,7 @@ Types::QueryType = GraphQL::ObjectType.define do
   field :allCollections do
     type types[Types::CollectionType]
     description "A list of all collections"
-    resolve ->(obj, args, ctx) { Collection.all }
+    resolve ->(obj, args, ctx) { Collection.order(name: :asc).all }
   end
 
   field :collection do
@@ -30,7 +30,7 @@ Types::QueryType = GraphQL::ObjectType.define do
   field :allComposers do
     type types[Types::ComposerType]
     description "A list of all composers"
-    resolve ->(obj, args, ctx) { Composer.all }
+    resolve ->(obj, args, ctx) { Composer.order(name: :asc).all }
   end
 
   field :composer do
@@ -43,7 +43,7 @@ Types::QueryType = GraphQL::ObjectType.define do
   field :allCountries do
     type types[Types::CountryType]
     description "A list of all countries"
-    resolve ->(obj, args, ctx) { Country.all }
+    resolve ->(obj, args, ctx) { Country.order(name: :asc).all }
   end
 
   field :country do
@@ -56,7 +56,7 @@ Types::QueryType = GraphQL::ObjectType.define do
   field :allDirectors do
     type types[Types::DirectorType]
     description "A list of all directors"
-    resolve ->(obj, args, ctx) { Director.all }
+    resolve ->(obj, args, ctx) { Director.order(name: :asc).all }
   end
 
   field :director do
@@ -78,7 +78,7 @@ Types::QueryType = GraphQL::ObjectType.define do
   field :allMaterialFormats do
     type types[Types::MaterialFormatType]
     description "A list of all material formats"
-    resolve ->(obj, args, ctx) { MaterialFormat.all }
+    resolve ->(obj, args, ctx) { MaterialFormat.order(name: :asc).all }
   end
 
   field :material_format do
@@ -91,7 +91,7 @@ Types::QueryType = GraphQL::ObjectType.define do
   field :allMediaTypes do
     type types[Types::MediaTypeType]
     description "A list of all media types"
-    resolve ->(obj, args, ctx) { MediaType.all }
+    resolve ->(obj, args, ctx) { MediaType.order(name: :asc).all }
   end
 
   field :media_type do
@@ -104,7 +104,7 @@ Types::QueryType = GraphQL::ObjectType.define do
   field :allProductionCompanies do
     type types[Types::ProductionCompanyType]
     description "A list of all production companies"
-    resolve ->(obj, args, ctx) { ProductionCompany.all }
+    resolve ->(obj, args, ctx) { ProductionCompany.order(name: :asc).all }
   end
 
   field :production_company do
@@ -117,7 +117,7 @@ Types::QueryType = GraphQL::ObjectType.define do
   field :allRepositories do
     type types[Types::RepositoryType]
     description "A list of all repositories"
-    resolve ->(obj, args, ctx) { Repository.all }
+    resolve ->(obj, args, ctx) { Repository.order(name: :asc).all }
   end
 
   field :repository do
@@ -130,7 +130,7 @@ Types::QueryType = GraphQL::ObjectType.define do
   field :allResources do
     type types[Types::ResourceType]
     description "A list of all resources"
-    resolve ->(obj, args, ctx) { Resource.all }
+    resolve ->(obj, args, ctx) { Resource.order(material_format: :asc).all }
   end
 
   field :resource do
