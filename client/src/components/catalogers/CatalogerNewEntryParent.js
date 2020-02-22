@@ -1,16 +1,20 @@
-import React, { useContext } from 'react';
+import React, { Fragment, useContext } from 'react';
+import PropTypes from 'prop-types';
 import { Link, Route, Switch } from 'react-router-dom';
+
+import { AuthContext } from '../AuthContext';
 
 import NewCataloger from '../entries/cataloger/NewCataloger';
 import NewCollection from '../entries/collection/NewCollection';
 import NewComposer from '../entries/composer/NewComposer';
 import NewCountry from '../entries/country/NewCountry';
 import NewDirector from '../entries/director/NewDirector';
-import NewWork from '../entries/work/NewWork';
+import NewMaterialFormat from '../entries/materialFormat/NewMaterialFormat';
+import NewMediaType from '../entries/mediaType/NewMediaType';
 import NewProductionCompany from '../entries/productionCompany/NewProductionCompany';
 import NewRepository from '../entries/repository/NewRepository';
 import NewResource from '../entries/resource/NewResource';
-import { AuthContext } from '../AuthContext';
+import NewWork from '../entries/work/NewWork';
 
 const CatalogerNewEntryParent = ({ match }) => {
   const { admin } = useContext(AuthContext);
@@ -28,10 +32,12 @@ const CatalogerNewEntryParent = ({ match }) => {
         <Route exact path={`${match.path}/composer`} component={NewComposer} />
         <Route exact path={`${match.path}/country`} component={NewCountry} />
         <Route exact path={`${match.path}/director`} component={NewDirector} />
-        <Route exact path={`${match.path}/work`} component={NewWork} />
+        <Route exact path={`${match.path}/material_format`} component={NewMaterialFormat} />
+        <Route exact path={`${match.path}/media_type`} component={NewMediaType} />
         <Route exact path={`${match.path}/production_company`} component={NewProductionCompany} />
         <Route exact path={`${match.path}/repository`} component={NewRepository} />
         <Route exact path={`${match.path}/resource`} component={NewResource} />
+        <Route exact path={`${match.path}/work`} component={NewWork} />
         <Route
           render={() => (
             <div>
@@ -68,15 +74,6 @@ const CatalogerNewEntryParent = ({ match }) => {
               <div className="row">
                 <div className="six columns">
                   <ul className="no-margin">
-                    {
-                      admin
-                        ? (
-                          <li>
-                            <Link to={`${match.path}/cataloger`}>Cataloger</Link>
-                          </li>
-                        )
-                        : undefined
-                    }
                     <li><Link to={`${match.path}/collection`}>Collection</Link></li>
                     <li><Link to={`${match.path}/composer`}>Composer</Link></li>
                     <li><Link to={`${match.path}/country`}>Country</Link></li>
@@ -90,12 +87,42 @@ const CatalogerNewEntryParent = ({ match }) => {
                   </ul>
                 </div>
               </div>
+                {
+                  admin
+                    ? (
+                      <div>
+                        <h4>Administrator-Only Supporting Entries</h4>
+                        <p>These entry types can only be created by administrators.</p>
+                        <ul>
+                          <li>
+                            <Link to={`${match.path}/cataloger`}>Cataloger</Link>
+                          </li>
+                          <li>
+                            <Link to={`${match.path}/material_format`}>Material Format</Link>
+                          </li>
+                          <li>
+                            <Link to={`${match.path}/media_type`}>Media Type</Link>
+                          </li>
+                        </ul>
+                      </div>
+
+                    )
+                    : undefined
+                }
             </div>
           )}
         />
       </Switch>
     </div>
   );
+};
+
+CatalogerNewEntryParent.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
 export default CatalogerNewEntryParent;

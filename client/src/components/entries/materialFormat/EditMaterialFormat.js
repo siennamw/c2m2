@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+
+import { AuthContext } from '../../AuthContext';
 
 import EditEntry from '../EditEntry';
 
@@ -9,8 +12,17 @@ import { addIdToSchema, materialFormatValidationSchema } from '../../../validati
 import MaterialFormatForm from './MaterialFormatForm';
 
 const EditMaterialFormat = ({ match }) => {
+  const { admin } = useContext(AuthContext);
   const id = Number(match.params.id);
   const schema = addIdToSchema(materialFormatValidationSchema);
+
+  if (!admin) {
+    return (
+      <div className="status-message error persist">
+        Sorry! Only administrators can edit material formats.
+      </div>
+    );
+  }
 
   return (
     <EditEntry
@@ -24,6 +36,14 @@ const EditMaterialFormat = ({ match }) => {
       yupSchema={schema}
     />
   );
+};
+
+EditMaterialFormat.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
 export default EditMaterialFormat;
