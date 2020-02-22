@@ -129,7 +129,7 @@ MaterialFormat.create([
   },
   {
     name: 'Conductor\'s Scores',
-    description: '',
+    description: 'A score made for the purposes of conducting an ensemble in the recording or performance of the work.',
     created_by: sienna
   },
 ])
