@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import DetailedEntry from '../DetailedEntry';
+import EntryListWithLinks from '../EntryListWithLinks';
+
 import { MEDIA_TYPE_BY_ID } from '../../../queries';
-import { wrapWithLink } from '../../../utils';
 
 const DisplayMediaType = ({ values }) => {
   const { description, works } = values;
@@ -17,11 +18,11 @@ const DisplayMediaType = ({ values }) => {
       <tr>
         <th>Work(s)</th>
         <td>
-          {
-            works.map(w => (
-              <div key={w.id}>{wrapWithLink(w.title, w.id, 'work')}</div>
-            ))
-          }
+          <EntryListWithLinks
+            displayFieldName="title"
+            items={works}
+            model="work"
+          />
         </td>
       </tr>
     </tbody>

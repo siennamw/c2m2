@@ -1,8 +1,9 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 
+import LinkToEntry from '../LinkToEntry';
+
 import { LIST_ALL_CATALOGERS } from '../../../queries';
-import { wrapWithLink } from '../../../utils';
 
 const CatalogersList = () => {
   const {
@@ -42,7 +43,7 @@ const CatalogersList = () => {
             data.allCatalogers.map(cataloger => (
               <tr>
                 <td>
-                  {wrapWithLink(cataloger.name, cataloger.id, 'cataloger')}
+                  <LinkToEntry entry={cataloger} model="cataloger" />
                 </td>
                 <td>
                   <a href={`mailto:${cataloger.email}`}>

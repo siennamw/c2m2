@@ -3,8 +3,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import DetailedEntry from '../DetailedEntry';
+import EntryListWithLinks from '../EntryListWithLinks';
+import LinkToEntry from '../LinkToEntry';
+
 import { COLLECTION_BY_ID } from '../../../queries';
-import { wrapWithLink } from '../../../utils';
 
 const DisplayCollection = ({ values }) => {
   const {
@@ -13,6 +15,11 @@ const DisplayCollection = ({ values }) => {
     repository,
     resources,
   } = values;
+
+  const resourcesWithDisplayText = resources.map(r => ({
+    ...r,
+    displayText: `${r.work.title}: ${r.material_format.name}`,
+  }));
 
   return (
     <tbody>
@@ -31,23 +38,24 @@ const DisplayCollection = ({ values }) => {
             {finding_aid_link}
           </a>
         </td>
-      </tr>      <tr>
+      </tr>
+      <tr>
         <th>Repository</th>
         <td>
-          {wrapWithLink(repository.name, repository.id, 'repository')}
+          <LinkToEntry
+            entry={repository}
+            model="repository"
+          />
         </td>
       </tr>
       <tr>
         <th>Resource(s)</th>
         <td>
-          {
-            resources.map((r) => {
-              const text = `${r.work.title}: ${r.material_format.name}`;
-              return (
-                <div key={r.id}>{wrapWithLink(text, r.id, 'resource')}</div>
-              );
-            })
-          }
+          <EntryListWithLinks
+            displayFieldName="displayText"
+            items={resourcesWithDisplayText}
+            model="resource"
+          />
         </td>
       </tr>
     </tbody>

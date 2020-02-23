@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import { uniqBy } from 'lodash';
 
 import DetailedEntry from '../DetailedEntry';
+import EntryListWithLinks from '../EntryListWithLinks';
+
 import { CATALOGER_BY_ID } from '../../../queries';
-import { wrapWithLink } from '../../../utils';
 
 const DisplayCataloger = ({ values }) => {
   const getUniqueByID = list => uniqBy(list, item => item.id);
@@ -36,6 +37,12 @@ const DisplayCataloger = ({ values }) => {
     works_as_updater,
   } = values;
 
+  const resourcesWithDisplayText = getUniqueByID([...resources, ...resources_as_updater])
+    .map(r => ({
+      ...r,
+      displayText: `${r.work.title}: ${r.material_format.name}`,
+    }));
+
   return (
     <tbody>
       <tr>
@@ -45,151 +52,152 @@ const DisplayCataloger = ({ values }) => {
       <tr>
         <th>Catalogers</th>
         <td>
-          {
-            getUniqueByID([
-              ...catalogers,
-              ...catalogers_as_updater,
-            ]).map(c => (
-              <div key={c.id}>{wrapWithLink(c.name, c.id, 'cataloger')}</div>
-            ))
-          }
+          <EntryListWithLinks
+            items={
+              getUniqueByID([
+                ...catalogers,
+                ...catalogers_as_updater,
+              ])
+            }
+            model="cataloger"
+          />
         </td>
       </tr>
       <tr>
         <th>Collections</th>
         <td>
-          {
-            getUniqueByID([
-              ...collections,
-              ...collections_as_updater,
-            ]).map(c => (
-              <div key={c.id}>{wrapWithLink(c.name, c.id, 'collection')}</div>
-            ))
-          }
+          <EntryListWithLinks
+            items={
+              getUniqueByID([
+                ...collections,
+                ...collections_as_updater,
+              ])
+            }
+            model="collection"
+          />
         </td>
       </tr>
       <tr>
         <th>Composers</th>
         <td>
-          {
-            getUniqueByID([
-              ...composers,
-              ...composers_as_updater,
-            ]).map(c => (
-              <div key={c.id}>{wrapWithLink(c.name, c.id, 'composer')}</div>
-            ))
-          }
+          <EntryListWithLinks
+            items={
+              getUniqueByID([
+                ...composers,
+                ...composers_as_updater,
+              ])
+            }
+            model="composer"
+          />
         </td>
       </tr>
       <tr>
         <th>Countries</th>
         <td>
-          {
-            getUniqueByID([
-              ...countries,
-              ...countries_as_updater,
-            ]).map(c => (
-              <div key={c.id}>{wrapWithLink(c.name, c.id, 'country')}</div>
-            ))
-          }
+          <EntryListWithLinks
+            items={
+              getUniqueByID([
+                ...countries,
+                ...countries_as_updater,
+              ])
+            }
+            model="country"
+          />
         </td>
       </tr>
       <tr>
         <th>Directors</th>
         <td>
-          {
-            getUniqueByID([
-              ...directors,
-              ...directors_as_updater,
-            ]).map(c => (
-              <div key={c.id}>{wrapWithLink(c.name, c.id, 'director')}</div>
-            ))
-          }
+          <EntryListWithLinks
+            items={
+              getUniqueByID([
+                ...directors,
+                ...directors_as_updater,
+              ])
+            }
+            model="director"
+          />
         </td>
       </tr>
       <tr>
         <th>Works</th>
         <td>
-          {
-            getUniqueByID([
-              ...works,
-              ...works_as_updater,
-            ]).map(c => (
-              <div key={c.id}>{wrapWithLink(c.title, c.id, 'work')}</div>
-            ))
-          }
+          <EntryListWithLinks
+            displayFieldName="title"
+            items={
+              getUniqueByID([
+                ...works,
+                ...works_as_updater,
+              ])
+            }
+            model="work"
+          />
         </td>
       </tr>
       <tr>
         <th>Material Formats</th>
         <td>
-          {
-            getUniqueByID([
-              ...material_formats,
-              ...material_formats_as_updater,
-            ]).map(c => (
-              <div key={c.id}>
-                {wrapWithLink(c.name, c.id, 'material_format')}
-              </div>
-            ))
-          }
+          <EntryListWithLinks
+            items={
+              getUniqueByID([
+                ...material_formats,
+                ...material_formats_as_updater,
+              ])
+            }
+            model="material_format"
+          />
         </td>
       </tr>
       <tr>
         <th>Media Types</th>
         <td>
-          {
-            getUniqueByID([
-              ...media_types,
-              ...media_types_as_updater,
-            ]).map(c => (
-              <div key={c.id}>{wrapWithLink(c.name, c.id, 'media_type')}</div>
-            ))
-          }
+          <EntryListWithLinks
+            items={
+              getUniqueByID([
+                ...media_types,
+                ...media_types_as_updater,
+              ])
+            }
+            model="media_type"
+          />
         </td>
       </tr>
       <tr>
         <th>Production Companies</th>
         <td>
-          {
-            getUniqueByID([
-              ...production_companies,
-              ...production_companies_as_updater,
-            ]).map(c => (
-              <div key={c.id}>
-                {wrapWithLink(c.name, c.id, 'production_company')}
-              </div>
-            ))
-          }
+          <EntryListWithLinks
+            items={
+              getUniqueByID([
+                ...production_companies,
+                ...production_companies_as_updater,
+              ])
+            }
+            model="production_company"
+          />
         </td>
       </tr>
       <tr>
         <th>Repositories</th>
         <td>
-          {
-            getUniqueByID([
-              ...repositories,
-              ...repositories_as_updater,
-            ]).map(c => (
-              <div key={c.id}>{wrapWithLink(c.name, c.id, 'repository')}</div>
-            ))
-          }
+          <EntryListWithLinks
+            items={
+              getUniqueByID([
+                ...repositories,
+                ...repositories_as_updater,
+              ])
+            }
+            model="repository"
+          />
         </td>
       </tr>
       <tr>
         <th>Resources</th>
         <td>
-          {
-            getUniqueByID([
-              ...resources,
-              ...resources_as_updater,
-            ]).map((r) => {
-              const text = `${r.work.title}: ${r.material_format.name}`;
-              return (
-                <div key={r.id}>{wrapWithLink(text, r.id, 'resource')}</div>
-              );
-            })
-          }
+          <EntryListWithLinks
+            displayFieldName="displayText"
+            items={resourcesWithDisplayText}
+            model="resource"
+          />
         </td>
       </tr>
     </tbody>

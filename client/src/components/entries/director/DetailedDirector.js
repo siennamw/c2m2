@@ -3,8 +3,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import DetailedEntry from '../DetailedEntry';
+import EntryListWithLinks from '../EntryListWithLinks';
+
 import { DIRECTOR_BY_ID } from '../../../queries';
-import { wrapWithLink } from '../../../utils';
 
 const DisplayDirector = ({ values }) => {
   const {
@@ -29,11 +30,11 @@ const DisplayDirector = ({ values }) => {
       <tr>
         <th>Work(s)</th>
         <td>
-          {
-            works.map(w => (
-              <div key={w.id}>{wrapWithLink(w.title, w.id, 'work')}</div>
-            ))
-          }
+          <EntryListWithLinks
+            items={works}
+            displayFieldName="title"
+            model="work"
+          />
         </td>
       </tr>
     </tbody>

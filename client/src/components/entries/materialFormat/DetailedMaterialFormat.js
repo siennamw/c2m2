@@ -2,11 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import DetailedEntry from '../DetailedEntry';
+import EntryListWithLinks from '../EntryListWithLinks';
+
 import { MATERIAL_FORMAT_BY_ID } from '../../../queries';
-import { wrapWithLink } from '../../../utils';
 
 const DisplayMaterialFormat = ({ values }) => {
   const { description, resources } = values;
+
+  const resourcesWithDisplayText = resources.map(r => ({
+    ...r,
+    displayText: r.work.title,
+  }));
 
   return (
     <tbody>
@@ -17,11 +23,11 @@ const DisplayMaterialFormat = ({ values }) => {
       <tr>
         <th>Resource(s)</th>
         <td>
-          {
-            resources.map(r => (
-              <div key={r.id}>{wrapWithLink(r.work.title, r.id, 'resource')}</div>
-            ))
-          }
+          <EntryListWithLinks
+            displayFieldName="displayText"
+            items={resourcesWithDisplayText}
+            model="resource"
+          />
         </td>
       </tr>
     </tbody>

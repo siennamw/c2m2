@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import DetailedEntry from '../DetailedEntry';
+import EntryListWithLinks from '../EntryListWithLinks';
+
 import { REPOSITORY_BY_ID } from '../../../queries';
-import { wrapWithLink } from '../../../utils';
 
 const DisplayRepository = ({ values }) => {
   const {
@@ -33,11 +34,10 @@ const DisplayRepository = ({ values }) => {
       <tr>
         <th>Collection(s)</th>
         <td>
-          {
-            collections.map(c => (
-              <div key={c.id}>{wrapWithLink(c.name, c.id, 'collection')}</div>
-            ))
-          }
+          <EntryListWithLinks
+            items={collections}
+            model="collection"
+          />
         </td>
       </tr>
     </tbody>

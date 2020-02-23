@@ -2,10 +2,13 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
-import DetailedEntry from '../DetailedEntry';
 import { AuthContext } from '../../AuthContext';
+
+import DetailedEntry from '../DetailedEntry';
+import EntryListWithLinks from '../EntryListWithLinks';
+import LinkToEntry from '../LinkToEntry';
+
 import { WORK_BY_ID } from '../../../queries';
-import { wrapWithLink } from '../../../utils';
 
 const DisplayWork = ({ values }) => {
   const { authenticated } = useContext(AuthContext);
@@ -22,9 +25,9 @@ const DisplayWork = ({ values }) => {
     year,
   } = values;
 
-  const formattedResources = resources.reduce((result, r) => {
+  const resourcesWithDisplayText = resources.reduce((result, r) => {
     if (authenticated || r.publication_status !== 'draft') {
-      let text = r.material_format.name;
+      let displayText = r.material_format.name;
       if (r.collections && r.collections.length > 0) {
         const repositories = r.collections.reduce((all, collection) => {
           if (collection.repository) {
@@ -33,14 +36,13 @@ const DisplayWork = ({ values }) => {
           return all;
         }, []).join('; ');
 
-        text = `${text} (${repositories})`;
+        displayText = `${displayText} (${repositories})`;
       }
 
-      result.push((
-        <div key={r.id}>
-          {wrapWithLink(text, r.id, 'resource')}
-        </div>
-      ));
+      result.push({
+        ...r,
+        displayText,
+      });
     }
     return result;
   }, []);
@@ -72,7 +74,12 @@ const DisplayWork = ({ values }) => {
         <td>
           {
             country
-              ? wrapWithLink(country.name, country.id, 'country')
+              ? (
+                <LinkToEntry
+                  entry={country}
+                  model="country"
+                />
+              )
               : null
           }
         </td>
@@ -82,7 +89,12 @@ const DisplayWork = ({ values }) => {
         <td>
           {
             media_type
-              ? wrapWithLink(media_type.name, media_type.id, 'media_type')
+              ? (
+                <LinkToEntry
+                  entry={media_type}
+                  model="media_type"
+                />
+              )
               : null
           }
         </td>
@@ -90,48 +102,48 @@ const DisplayWork = ({ values }) => {
       <tr>
         <th>Composer(s)</th>
         <td>
-          {
-            composers.map(c => (
-              <div key={c.id}>{wrapWithLink(c.name, c.id, 'composer')}</div>
-            ))
-          }
+          <EntryListWithLinks
+            items={composers}
+            model="composer"
+          />
         </td>
       </tr>
       <tr>
         <th>Orchestrator(s)</th>
         <td>
-          {
-            orchestrators.map(c => (
-              <div key={c.id}>{wrapWithLink(c.name, c.id, 'composer')}</div>
-            ))
-          }
+          <EntryListWithLinks
+            items={orchestrators}
+            model="composer"
+          />
         </td>
       </tr>
       <tr>
         <th>Director(s)</th>
         <td>
-          {
-            directors.map(c => (
-              <div key={c.id}>{wrapWithLink(c.name, c.id, 'director')}</div>
-            ))
-          }
+          <EntryListWithLinks
+            items={directors}
+            model="director"
+          />
         </td>
       </tr>
       <tr>
         <th>Production Company or Companies</th>
         <td>
-          {
-            production_companies.map(c => (
-              <div key={c.id}>
-                {wrapWithLink(c.name, c.id, 'production_company')}
-              </div>
-            ))
-          }
+          <EntryListWithLinks
+            items={production_companies}
+            model="production_company"
+          />
         </td>
       </tr>
       <tr>
         <th>Resources</th>
-        <td>{formattedResources}</td>
+        <td>
+          <EntryListWithLinks
+            displayFieldName="displayText"
+            items={resourcesWithDisplayText}
+            model="resource"
+          />
+        </td>
       </tr>
     </tbody>
   );

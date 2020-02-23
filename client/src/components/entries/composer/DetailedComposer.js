@@ -3,8 +3,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import DetailedEntry from '../DetailedEntry';
+import EntryListWithLinks from '../EntryListWithLinks';
+
 import { COMPOSER_BY_ID } from '../../../queries';
-import { wrapWithLink } from '../../../utils';
 
 const DisplayComposer = ({ values }) => {
   const {
@@ -30,21 +31,21 @@ const DisplayComposer = ({ values }) => {
       <tr>
         <th>Composer for Work(s)</th>
         <td>
-          {
-            works.map(w => (
-              <div key={w.id}>{wrapWithLink(w.title, w.id, 'work')}</div>
-            ))
-          }
+          <EntryListWithLinks
+            displayFieldName="title"
+            items={works}
+            model="work"
+          />
         </td>
       </tr>
       <tr>
         <th>Orchestrator for Work(s)</th>
         <td>
-          {
-            works_as_orchestrator.map(w => (
-              <div key={w.id}>{wrapWithLink(w.title, w.id, 'work')}</div>
-            ))
-          }
+          <EntryListWithLinks
+            displayFieldName="title"
+            items={works_as_orchestrator}
+            model="work"
+          />
         </td>
       </tr>
     </tbody>

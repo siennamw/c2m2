@@ -2,8 +2,9 @@ import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useQuery } from '@apollo/react-hooks';
 
+import EntryListWithLinks from '../EntryListWithLinks';
+
 import { WORKS_SEARCH } from '../../../queries';
-import { wrapWithLink } from '../../../utils';
 
 const WorksList = ({ filter }) => {
   const [moreResults, setMoreResults] = useState(true);
@@ -110,12 +111,6 @@ const WorksListTable = ({
   moreResults,
   works,
 }) => {
-  const wrap = (item, itemType) => (
-    <div key={item.id}>
-      { wrapWithLink(item.name, item.id, itemType) }
-    </div>
-  );
-
   const items = works.map(work => (
     <tbody key={work.id}>
       <tr>
@@ -136,9 +131,24 @@ const WorksListTable = ({
       </tr>
       <tr>
         <td>{work.year}</td>
-        <td>{work.composers.map(composer => wrap(composer, 'composer'))}</td>
-        <td>{work.directors.map(director => wrap(director, 'director'))}</td>
-        <td>{work.production_companies.map(company => wrap(company, 'production_company'))}</td>
+        <td>
+          <EntryListWithLinks
+            items={work.composers}
+            model="composer"
+          />
+        </td>
+        <td>
+          <EntryListWithLinks
+            items={work.directors}
+            model="director"
+          />
+        </td>
+        <td>
+          <EntryListWithLinks
+            items={work.production_companies}
+            model="production_company"
+          />
+        </td>
       </tr>
     </tbody>
   ));

@@ -34,6 +34,14 @@ export const wrapWithLink = (itemName, itemID, itemType) => (
   <a href={`/${itemType}/${itemID}`}>{itemName}</a>
 );
 
+export const sortByField = (items = [], field) => (
+  items.sort((a, b) => {
+    const aTitle = a[field].toLowerCase();
+    const bTitle = b[field].toLowerCase();
+    return aTitle.localeCompare(bTitle);
+  })
+);
+
 export const reactSelectOnChange = (evt, name, setFieldValue) => {
   if (name.includes('_ids')) {
     // multiselect

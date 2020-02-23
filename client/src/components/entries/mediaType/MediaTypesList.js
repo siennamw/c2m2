@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 
+import LinkToEntry from '../LinkToEntry';
+
 import { LIST_ALL_MEDIA_TYPES } from '../../../queries';
-import { wrapWithLink } from '../../../utils';
 
 const MediaTypesTable = () => {
   const {
@@ -37,7 +38,7 @@ const MediaTypesTable = () => {
             data.allMediaTypes.map(mediaType => (
               <tr>
                 <th>
-                  { wrapWithLink(mediaType.name, mediaType.id, 'media_type') }
+                  <LinkToEntry entry={mediaType} model="media_type" />
                 </th>
                 <td>
                   {mediaType.description}

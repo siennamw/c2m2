@@ -3,8 +3,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import DetailedEntry from '../DetailedEntry';
+import LinkToEntry from '../LinkToEntry';
+import EntryListWithLinks from '../EntryListWithLinks';
+
 import { RESOURCE_BY_ID } from '../../../queries';
-import { wrapWithLink } from '../../../utils';
 
 const DisplayResource = ({ values }) => {
   const {
@@ -20,16 +22,21 @@ const DisplayResource = ({ values }) => {
     <tbody>
       <tr>
         <th>Work</th>
-        <td>{wrapWithLink(work.title, work.id, 'work')}</td>
+        <td>
+          <LinkToEntry
+            displayField="title"
+            entry={work}
+            model="work"
+          />
+        </td>
       </tr>
       <tr>
         <th>Material Format</th>
         <td>
-          {
-            material_format
-              ? wrapWithLink(material_format.name, material_format.id, 'material_format')
-              : null
-          }
+          <LinkToEntry
+            entry={material_format}
+            model="material_format"
+          />
         </td>
       </tr>
       <tr>
@@ -47,11 +54,10 @@ const DisplayResource = ({ values }) => {
       <tr>
         <th>Collection(s)</th>
         <td>
-          {
-            collections.map(c => (
-              <div key={c.id}>{wrapWithLink(c.name, c.id, 'collection')}</div>
-            ))
-          }
+          <EntryListWithLinks
+            items={collections}
+            model="collection"
+          />
         </td>
       </tr>
       <tr>

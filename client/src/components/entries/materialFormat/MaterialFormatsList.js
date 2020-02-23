@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 
+import LinkToEntry from '../LinkToEntry';
+
 import { LIST_ALL_MATERIAL_FORMATS } from '../../../queries';
-import { wrapWithLink } from '../../../utils';
 
 const MaterialFormatsTable = () => {
   const {
@@ -37,7 +38,7 @@ const MaterialFormatsTable = () => {
             data.allMaterialFormats.map(materialFormat => (
               <tr>
                 <th>
-                  { wrapWithLink(materialFormat.name, materialFormat.id, 'material_format') }
+                  <LinkToEntry entry={materialFormat} model="material_format" />
                 </th>
                 <td>
                   {materialFormat.description}
