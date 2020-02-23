@@ -37,6 +37,8 @@ const DisplayCataloger = ({ values }) => {
     works_as_updater,
   } = values;
 
+  // no need to filter out draft resources;
+  // this route only available to authenticated catalogers
   const resourcesWithDisplayText = getUniqueByID([...resources, ...resources_as_updater])
     .map(r => ({
       ...r,

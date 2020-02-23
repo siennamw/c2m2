@@ -251,6 +251,7 @@ export const COLLECTION_BY_ID = gql`
         material_format {
           name
         }
+        publication_status
         work {
           title
         }
@@ -353,6 +354,7 @@ export const MATERIAL_FORMAT_BY_ID = gql`
       description
       resources {
         id
+        publication_status
         work {
           title
         }

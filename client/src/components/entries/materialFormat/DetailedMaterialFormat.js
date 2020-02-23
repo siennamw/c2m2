@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+
+import { AuthContext } from '../../AuthContext';
 
 import DetailedEntry from '../DetailedEntry';
 import EntryListWithLinks from '../EntryListWithLinks';
@@ -7,12 +9,18 @@ import EntryListWithLinks from '../EntryListWithLinks';
 import { MATERIAL_FORMAT_BY_ID } from '../../../queries';
 
 const DisplayMaterialFormat = ({ values }) => {
+  const { authenticated } = useContext(AuthContext);
   const { description, resources } = values;
 
-  const resourcesWithDisplayText = resources.map(r => ({
-    ...r,
-    displayText: r.work.title,
-  }));
+  const resourcesWithDisplayText = resources.reduce((result, r) => {
+    if (authenticated || r.publication_status !== 'draft') {
+      result.push({
+        ...r,
+        displayText: r.work.title,
+      });
+    }
+    return result;
+  }, []);
 
   return (
     <tbody>

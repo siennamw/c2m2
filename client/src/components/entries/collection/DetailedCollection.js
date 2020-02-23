@@ -1,6 +1,8 @@
 /* eslint-disable camelcase */
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+
+import { AuthContext } from '../../AuthContext';
 
 import DetailedEntry from '../DetailedEntry';
 import EntryListWithLinks from '../EntryListWithLinks';
@@ -9,6 +11,7 @@ import LinkToEntry from '../LinkToEntry';
 import { COLLECTION_BY_ID } from '../../../queries';
 
 const DisplayCollection = ({ values }) => {
+  const { authenticated } = useContext(AuthContext);
   const {
     description,
     finding_aid_link,
@@ -16,10 +19,15 @@ const DisplayCollection = ({ values }) => {
     resources,
   } = values;
 
-  const resourcesWithDisplayText = resources.map(r => ({
-    ...r,
-    displayText: `${r.work.title}: ${r.material_format.name}`,
-  }));
+  const resourcesWithDisplayText = resources.reduce((result, r) => {
+    if (authenticated || r.publication_status !== 'draft') {
+      result.push({
+        ...r,
+        displayText: `${r.work.title}: ${r.material_format.name}`,
+      });
+    }
+    return result;
+  }, []);
 
   return (
     <tbody>
