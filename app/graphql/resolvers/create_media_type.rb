@@ -15,6 +15,11 @@ class Resolvers::CreateMediaType < GraphQL::Function
       raise GraphQL::ExecutionError.new("Authentication required")
     end
 
+    # only admins can create media type entries
+    unless ctx[:current_user].admin
+      raise GraphQL::ExecutionError.new("You do not have permission to create media type entries")
+    end
+
     MediaType.create!(
       name: args[:name],
       description: args[:description],

@@ -17,6 +17,11 @@ class Resolvers::UpdateMediaType < GraphQL::Function
       raise GraphQL::ExecutionError.new("Authentication required")
     end
 
+    # only admins can edit media type entries
+    unless ctx[:current_user].admin
+      raise GraphQL::ExecutionError.new("You do not have permission to edit media type entries")
+    end
+
     media_type = MediaType.find(args[:id])
     media_type.update!(
       name: args[:name],

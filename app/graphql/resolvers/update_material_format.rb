@@ -14,6 +14,11 @@ class Resolvers::UpdateMaterialFormat < GraphQL::Function
       raise GraphQL::ExecutionError.new("Authentication required")
     end
 
+    # only admins can edit material format entries
+    unless ctx[:current_user].admin
+      raise GraphQL::ExecutionError.new("You do not have permission to edit material format entries")
+    end
+
     material_format = MaterialFormat.find(args[:id])
     material_format.update!(
       name: args[:name],

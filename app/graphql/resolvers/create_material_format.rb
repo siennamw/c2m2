@@ -12,6 +12,11 @@ class Resolvers::CreateMaterialFormat < GraphQL::Function
       raise GraphQL::ExecutionError.new("Authentication required")
     end
 
+    # only admins can create material format entries
+    unless ctx[:current_user].admin
+      raise GraphQL::ExecutionError.new("You do not have permission to create material format entries")
+    end
+
     MaterialFormat.create!(
       name: args[:name],
       description: args[:description],
