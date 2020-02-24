@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import { AuthContext } from '../../AuthContext';
 
 import EditEntry from '../EditEntry';
+import MaterialFormatForm from './MaterialFormatForm';
+import StatusMessage from '../../StatusMessage';
 
 import { UPDATE_MATERIAL_FORMAT } from '../../../mutations';
 import { MATERIAL_FORMAT_BY_ID } from '../../../queries';
 import { addIdToSchema, materialFormatValidationSchema } from '../../../validationSchemas';
-
-import MaterialFormatForm from './MaterialFormatForm';
 
 const EditMaterialFormat = ({ match }) => {
   const { admin } = useContext(AuthContext);
@@ -18,9 +18,10 @@ const EditMaterialFormat = ({ match }) => {
 
   if (!admin) {
     return (
-      <div className="status-message error persist">
-        Sorry! Only administrators can edit material formats.
-      </div>
+      <StatusMessage
+        message="Sorry! Only administrators can edit material formats."
+        type="error"
+      />
     );
   }
 

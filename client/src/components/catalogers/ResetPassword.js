@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/react-hooks';
 import {
   ErrorMessage,
@@ -7,6 +8,8 @@ import {
   Formik,
 } from 'formik';
 import * as Yup from 'yup';
+
+import FormStatus from '../FormStatus';
 
 import { RESET_PASSWORD } from '../../mutations';
 
@@ -19,7 +22,7 @@ const validationSchema = Yup.object().shape({
     .required('Password is required'),
 });
 
-const CatalogerResetPasswordForm = ({ handleSubmit, isSubmitting, status }) => (
+const CatalogerResetPasswordForm = ({ handleSubmit, isSubmitting }) => (
   <Form>
     <label htmlFor="email">
       Email
@@ -59,15 +62,7 @@ const CatalogerResetPasswordForm = ({ handleSubmit, isSubmitting, status }) => (
     >
       Sign In
     </button>
-    {
-      status
-        ? (
-          <div className={`status-message ${status.type}`}>
-            {status.message}
-          </div>
-        )
-        : undefined
-    }
+    <FormStatus />
   </Form>
 );
 
@@ -101,7 +96,6 @@ const ResetPassword = ({ match }) => {
         });
       }
     } catch (err) {
-      console.log('Error signing in', err);
       setStatus({
         type: 'error',
         message: 'Unknown error changing password. Please try again later.',
@@ -126,6 +120,14 @@ const ResetPassword = ({ match }) => {
       />
     </div>
   );
+};
+
+ResetPassword.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      resetToken: PropTypes.string,
+    }).isRequired,
+  }).isRequired,
 };
 
 export default ResetPassword;

@@ -133,12 +133,11 @@ form {
   text-align: center;
   color: @gray;
 
-  &:not(.form-message),
-  &:not(.persist) {
+  &.fade {
     animation-delay: 7s;
     animation-duration: 1s;
-    animation-name: fadeOut;
     animation-fill-mode: forwards;
+    animation-name: fadeOut;
   }
 
   &.error {

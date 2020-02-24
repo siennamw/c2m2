@@ -2,6 +2,7 @@ import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 
 import LinkToEntry from '../LinkToEntry';
+import StatusMessage from '../../StatusMessage';
 
 import { LIST_ALL_CATALOGERS } from '../../../queries';
 
@@ -14,17 +15,16 @@ const CatalogersList = () => {
 
   if (loading) {
     return (
-      <div className="status-message">
-        Fetching...
-      </div>
+      <StatusMessage message="Fetching..." />
     );
   }
 
   if (error) {
     return (
-      <div className="status-message error">
-        Sorry! There was an error fetching results.
-      </div>
+      <StatusMessage
+        message="Sorry! There was an error fetching results."
+        type="error"
+      />
     );
   }
 
@@ -62,9 +62,10 @@ const CatalogersList = () => {
   }
 
   return (
-    <div className="status-message error">
-      Sorry! No results were found.
-    </div>
+    <StatusMessage
+      message="Sorry! No results were found."
+      type="error"
+    />
   );
 };
 

@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 
 import { AuthContext } from '../../AuthContext';
 
-import NewEntry from '../NewEntry';
-
 import MaterialFormatForm from './MaterialFormatForm';
+import NewEntry from '../NewEntry';
+import StatusMessage from '../../StatusMessage';
+
 import { CREATE_MATERIAL_FORMAT } from '../../../mutations';
 import { materialFormatValidationSchema } from '../../../validationSchemas';
 
@@ -14,9 +15,10 @@ const NewMaterialFormat = ({ successCallback }) => {
 
   if (!admin) {
     return (
-      <div className="status-message error persist">
-        Sorry! Only administrators can create material formats.
-      </div>
+      <StatusMessage
+        message="Sorry! Only administrators can create material formats."
+        type="error"
+      />
     );
   }
 
