@@ -1,6 +1,8 @@
 import React from 'react';
 import { useFormikContext } from 'formik';
 
+import StatusMessage from './StatusMessage';
+
 const FormStatus = () => {
   const { status } = useFormikContext();
 
@@ -9,9 +11,7 @@ const FormStatus = () => {
   }
 
   return (
-    <div className={`status-message ${status.type}`}>
-      {status.message}
-    </div>
+    <StatusMessage message={status.message} type={status.type} fade />
   );
 };
 

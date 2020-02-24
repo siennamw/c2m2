@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 
 import LinkToEntry from '../LinkToEntry';
+import StatusMessage from '../../StatusMessage';
 
 import { LIST_ALL_MATERIAL_FORMATS } from '../../../queries';
 
@@ -14,17 +15,16 @@ const MaterialFormatsTable = () => {
 
   if (loading) {
     return (
-      <div className="status-message">
-        Fetching...
-      </div>
+      <StatusMessage message="Fetching..." />
     );
   }
 
   if (error) {
     return (
-      <div className="status-message error">
-        Sorry! There was an error fetching results.
-      </div>
+      <StatusMessage
+        message="Sorry! There was an error fetching results."
+        type="error"
+      />
     );
   }
 
@@ -52,9 +52,10 @@ const MaterialFormatsTable = () => {
   }
 
   return (
-    <div className="status-message error">
-      Sorry! No results were found.
-    </div>
+    <StatusMessage
+      message="Sorry! No results were found."
+      type="error"
+    />
   );
 };
 

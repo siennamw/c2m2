@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Query } from '@apollo/react-components';
 
-import { MODEL_NAMES } from '../../constants';
-import SelectField from './SelectField';
 import ModalForComponentWithButton from './ModalForComponentWithButton';
+import SelectField from './SelectField';
+import StatusMessage from '../StatusMessage';
+
+import { MODEL_NAMES } from '../../constants';
 
 const SelectFieldWithQuery = ({
   fieldName,
@@ -25,14 +27,15 @@ const SelectFieldWithQuery = ({
       const showButton = componentForModal && !disableAddButton;
 
       let content = (
-        <div className="status-message">Fetching...</div>
+        <StatusMessage message="Fetching..." />
       );
 
       if (error) {
         content = (
-          <div className="status-message error">
-            Sorry! There was an error fetching data.
-          </div>
+          <StatusMessage
+            message="Sorry! There was an error fetching data."
+            type="error"
+          />
         );
       } else if (data && data[queryName]) {
         content = (

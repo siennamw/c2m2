@@ -8,6 +8,8 @@ import {
 } from 'formik';
 import * as Yup from 'yup';
 
+import FormStatus from '../FormStatus';
+
 import { GET_RESET_PASSWORD_TOKEN } from '../../mutations';
 
 const validationSchema = Yup.object().shape({
@@ -16,7 +18,7 @@ const validationSchema = Yup.object().shape({
     .required('E-mail is required'),
 });
 
-const RequestResetPasswordForm = ({ handleSubmit, isSubmitting, status }) => (
+const RequestResetPasswordForm = ({ handleSubmit, isSubmitting }) => (
   <Form>
     <label htmlFor="email">
       Email
@@ -41,15 +43,7 @@ const RequestResetPasswordForm = ({ handleSubmit, isSubmitting, status }) => (
     >
       Request Password Reset
     </button>
-    {
-      status
-        ? (
-          <div className={`status-message ${status.type}`}>
-            {status.message}
-          </div>
-        )
-        : undefined
-    }
+    <FormStatus />
   </Form>
 );
 

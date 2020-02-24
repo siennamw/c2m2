@@ -10,6 +10,8 @@ import {
 } from 'formik';
 import * as Yup from 'yup';
 
+import FormStatus from '../FormStatus';
+
 import { AuthContext } from '../AuthContext';
 import { SIGN_IN } from '../../mutations';
 import { signIn, signOut } from '../../utils';
@@ -23,7 +25,7 @@ const validationSchema = Yup.object().shape({
     .required('Password is required'),
 });
 
-const CatalogerSignInForm = ({ handleSubmit, isSubmitting, status }) => (
+const CatalogerSignInForm = ({ handleSubmit, isSubmitting }) => (
   <Form>
     <label htmlFor="email">
       Email
@@ -63,15 +65,7 @@ const CatalogerSignInForm = ({ handleSubmit, isSubmitting, status }) => (
     >
       Sign In
     </button>
-    {
-      status
-        ? (
-          <div className={`status-message ${status.type}`}>
-            {status.message}
-          </div>
-        )
-        : undefined
-    }
+    <FormStatus />
   </Form>
 );
 

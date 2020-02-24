@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Query } from '@apollo/react-components';
 import { Link } from 'react-router-dom';
 
+import StatusMessage from '../StatusMessage';
+
 import { AuthContext } from '../AuthContext';
 
 const DetailedEntry = ({
@@ -18,7 +20,7 @@ const DetailedEntry = ({
     <Query query={gqlQuery} variables={{ id }}>
       {({ error, data }) => {
         let content = (
-          <div className="status-message">Fetching...</div>
+          <StatusMessage message="Fetching..." />
         );
 
         if (error) {
@@ -30,9 +32,7 @@ const DetailedEntry = ({
             : 'Sorry! There was an error fetching data.';
 
           content = (
-            <div className="status-message error">
-              {message}
-            </div>
+            <StatusMessage message={message} type="error" />
           );
         } else if (data && data[queryName]) {
           const values = data[queryName];

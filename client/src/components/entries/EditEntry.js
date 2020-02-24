@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Query } from '@apollo/react-components';
 
 import NewEntry from './NewEntry';
+import StatusMessage from '../StatusMessage';
 
 const EditEntry = ({
   FormComponent,
@@ -18,14 +19,15 @@ const EditEntry = ({
   <Query query={gqlQuery} variables={{ id }}>
     {({ error, data }) => {
       let content = (
-        <div className="status-message">Fetching...</div>
+        <StatusMessage message="Fetching..." />
       );
 
       if (error) {
         content = (
-          <div className="status-message error">
-            Sorry! There was an error fetching data.
-          </div>
+          <StatusMessage
+            message="Sorry! There was an error fetching data."
+            type="error"
+          />
         );
       } else if (data && data[queryName]) {
         const createdAt = data[queryName].created_at;

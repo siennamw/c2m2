@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import { AuthContext } from '../../AuthContext';
 
 import EditEntry from '../EditEntry';
+import MediaTypeForm from './MediaTypeForm';
+import StatusMessage from '../../StatusMessage';
 
 import { UPDATE_MEDIA_TYPE } from '../../../mutations';
 import { MEDIA_TYPE_BY_ID } from '../../../queries';
 import { addIdToSchema, mediaTypeValidationSchema } from '../../../validationSchemas';
-
-import MediaTypeForm from './MediaTypeForm';
 
 const EditMediaType = ({ match }) => {
   const { admin } = useContext(AuthContext);
@@ -18,9 +18,10 @@ const EditMediaType = ({ match }) => {
 
   if (!admin) {
     return (
-      <div className="status-message error persist">
-        Sorry! Only administrators can edit media types.
-      </div>
+      <StatusMessage
+        message="Sorry! Only administrators can edit media types."
+        type="error"
+      />
     );
   }
 

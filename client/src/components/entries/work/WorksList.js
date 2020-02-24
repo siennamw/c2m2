@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useQuery } from '@apollo/react-hooks';
 
 import EntryListWithLinks from '../EntryListWithLinks';
+import StatusMessage from '../../StatusMessage';
 
 import { WORKS_SEARCH } from '../../../queries';
 
@@ -63,17 +64,16 @@ const WorksList = ({ filter }) => {
 
   if (loading) {
     return (
-      <div className="status-message">
-        Fetching...
-      </div>
+      <StatusMessage message="Fetching..." />
     );
   }
 
   if (error) {
     return (
-      <div className="status-message error">
-        Sorry! There was an error fetching results.
-      </div>
+      <StatusMessage
+        message="Sorry! There was an error fetching results."
+        type="error"
+      />
     );
   }
 
@@ -91,9 +91,10 @@ const WorksList = ({ filter }) => {
   }
 
   return (
-    <div className="status-message error">
-      Sorry! No results were found.
-    </div>
+    <StatusMessage
+      message="Sorry! No results were found."
+      type="error"
+    />
   );
 };
 
