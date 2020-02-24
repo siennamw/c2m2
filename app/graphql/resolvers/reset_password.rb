@@ -15,7 +15,10 @@ class Resolvers::ResetPassword < GraphQL::Function
     cataloger = Cataloger.find_by(email: args[:email])
 
     if cataloger
-      # check reset_token validity
+      # check that reset token fields exist
+      return false unless cataloger.reset_password_token && cataloger.reset_password_token_expires_at
+
+      # check token validity
       token_matches = args[:reset_token] == cataloger.reset_password_token
       token_is_not_expired = Time.now < cataloger.reset_password_token_expires_at
 
