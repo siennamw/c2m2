@@ -1,102 +1,72 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { useQuery } from '@apollo/react-hooks';
 
 import EntryListWithLinks from '../EntryListWithLinks';
-import StatusMessage from '../../StatusMessage';
+import QueryWrap from '../QueryWrap';
 
 import { WORKS_SEARCH } from '../../../queries';
 
-const WorksList = ({ filter }) => {
-  const [moreResults, setMoreResults] = useState(true);
-  const [loadingResults, setLoadingResults] = useState(false);
-
-  useEffect(() => {
-    // make sure button is enabled for a new search
-    setMoreResults(true);
-    setLoadingResults(false);
-  }, [filter]);
-
-  const variables = {
-    filter,
-    first: 25,
-    skip: 0,
-  };
-
-  const {
-    data,
-    error,
-    fetchMore,
-    loading,
-  } = useQuery(WORKS_SEARCH, { variables });
-
-  const loadMore = () => {
-    setLoadingResults(true);
-
-    fetchMore({
-      variables: {
-        skip: data.allWorks.length,
-      },
-      updateQuery: (prev, { fetchMoreResult }) => {
-        let result;
-        const noMore = !fetchMoreResult
-          || !fetchMoreResult.allWorks
-          || fetchMoreResult.allWorks.length === 0;
-
-        if (noMore) {
-          result = prev;
-          setLoadingResults(false);
-          setMoreResults(false);
-        } else {
-          result = {
-            ...prev,
-            ...{
-              allWorks: [...prev.allWorks, ...fetchMoreResult.allWorks],
-            },
-          };
-          setLoadingResults(false);
-          setMoreResults(true);
-        }
-        return result;
-      },
-    });
-  };
-
-  if (loading) {
-    return (
-      <StatusMessage message="Fetching..." />
-    );
-  }
-
-  if (error) {
-    return (
-      <StatusMessage
-        message="Sorry! There was an error fetching results."
-        type="error"
-      />
-    );
-  }
-
-  const haveData = data && data.allWorks && data.allWorks.length > 0;
-
-  if (haveData) {
-    return (
-      <WorksListTable
-        loadingResults={loadingResults}
-        loadMore={() => loadMore()}
-        moreResults={moreResults}
-        works={data.allWorks}
-      />
-    );
-  }
-
-  return (
-    <StatusMessage
-      message="Sorry! No results were found."
-      type="error"
-    />
-  );
-};
+const WorksList = ({ filter }) => (
+  <QueryWrap
+    filter={filter}
+    pagination
+    query={WORKS_SEARCH}
+    queryName="allWorks"
+  >
+    {
+      works => (
+        <table
+          id="works-list-table"
+          className="u-full-width"
+        >
+          {
+            works.map(work => (
+              <tbody key={work.id}>
+                <tr>
+                  <td colSpan="4">
+                    <h4>
+                      <a href={`/work/${work.id}`}>
+                        {work.title}
+                        {work.secondary_title ? `: ${work.secondary_title}` : ''}
+                      </a>
+                    </h4>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Year</th>
+                  <th>Composer</th>
+                  <th>Director</th>
+                  <th>Production Companies</th>
+                </tr>
+                <tr>
+                  <td>{work.year}</td>
+                  <td>
+                    <EntryListWithLinks
+                      items={work.composers}
+                      model="composer"
+                    />
+                  </td>
+                  <td>
+                    <EntryListWithLinks
+                      items={work.directors}
+                      model="director"
+                    />
+                  </td>
+                  <td>
+                    <EntryListWithLinks
+                      items={work.production_companies}
+                      model="production_company"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            ))
+          }
+        </table>
+      )
+    }
+  </QueryWrap>
+);
 
 WorksList.defaultProps = {
   filter: {},
@@ -104,95 +74,6 @@ WorksList.defaultProps = {
 
 WorksList.propTypes = {
   filter: PropTypes.object,
-};
-
-const WorksListTable = ({
-  loadingResults,
-  loadMore,
-  moreResults,
-  works,
-}) => {
-  const items = works.map(work => (
-    <tbody key={work.id}>
-      <tr>
-        <td colSpan="4">
-          <h4>
-            <a href={`/work/${work.id}`}>
-              {work.title}
-              {work.secondary_title ? `: ${work.secondary_title}` : ''}
-            </a>
-          </h4>
-        </td>
-      </tr>
-      <tr>
-        <th>Year</th>
-        <th>Composer</th>
-        <th>Director</th>
-        <th>Production Companies</th>
-      </tr>
-      <tr>
-        <td>{work.year}</td>
-        <td>
-          <EntryListWithLinks
-            items={work.composers}
-            model="composer"
-          />
-        </td>
-        <td>
-          <EntryListWithLinks
-            items={work.directors}
-            model="director"
-          />
-        </td>
-        <td>
-          <EntryListWithLinks
-            items={work.production_companies}
-            model="production_company"
-          />
-        </td>
-      </tr>
-    </tbody>
-  ));
-
-  let buttonText = 'Load More Results';
-
-  if (loadingResults) {
-    buttonText = 'Loading...';
-  } else if (!moreResults) {
-    buttonText = 'No More Results';
-  }
-
-  return (
-    <Fragment>
-      <table
-        id="works-list-table"
-        className="u-full-width"
-      >
-        {items}
-      </table>
-      <button
-        className="center load-more"
-        disabled={!moreResults || loadingResults}
-        onClick={loadMore}
-        type="button"
-      >
-        {buttonText}
-      </button>
-    </Fragment>
-  );
-};
-
-WorksListTable.defaultProps = {
-  loadingResults: false,
-  moreResults: true,
-  works: [],
-};
-
-WorksListTable.propTypes = {
-  loadMore: PropTypes.func.isRequired,
-  loadingResults: PropTypes.bool,
-  moreResults: PropTypes.bool,
-  works: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default WorksList;
