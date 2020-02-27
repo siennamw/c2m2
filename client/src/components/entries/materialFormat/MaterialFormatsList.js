@@ -1,69 +1,52 @@
 import React, { Fragment } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import PropTypes from 'prop-types';
 
 import LinkToEntry from '../LinkToEntry';
-import StatusMessage from '../../StatusMessage';
+import QueryWrap from '../QueryWrap';
 
 import { LIST_ALL_MATERIAL_FORMATS } from '../../../queries';
 
-const MaterialFormatsTable = () => {
-  const {
-    data,
-    error,
-    loading,
-  } = useQuery(LIST_ALL_MATERIAL_FORMATS);
-
-  if (loading) {
-    return (
-      <StatusMessage message="Fetching..." />
-    );
-  }
-
-  if (error) {
-    return (
-      <StatusMessage
-        message="Sorry! There was an error fetching results."
-        type="error"
-      />
-    );
-  }
-
-  const haveData = data && data.allMaterialFormats && data.allMaterialFormats.length > 0;
-
-  if (haveData) {
-    return (
-      <table className="u-full-width">
-        <tbody>
-          {
-            data.allMaterialFormats.map(materialFormat => (
-              <tr>
-                <th>
-                  <LinkToEntry entry={materialFormat} model="material_format" />
-                </th>
-                <td>
-                  {materialFormat.description}
-                </td>
-              </tr>
-            ))
-          }
-        </tbody>
-      </table>
-    );
-  }
-
-  return (
-    <StatusMessage
-      message="Sorry! No results were found."
-      type="error"
-    />
-  );
-};
-
-const MaterialFormatsList = () => (
+const MaterialFormatsList = ({ filter }) => (
   <Fragment>
     <h3>Material Formats</h3>
-    <MaterialFormatsTable />
+    <QueryWrap
+      filter={filter}
+      query={LIST_ALL_MATERIAL_FORMATS}
+      queryName="allMaterialFormats"
+    >
+      {
+        allMaterialFormats => (
+          <table className="u-full-width">
+            <tbody>
+              {
+                allMaterialFormats.map(materialFormat => (
+                  <tr key={materialFormat.id}>
+                    <th>
+                      <LinkToEntry
+                        entry={materialFormat}
+                        model="material_format"
+                      />
+                    </th>
+                    <td>
+                      {materialFormat.description}
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        )
+      }
+    </QueryWrap>
   </Fragment>
 );
+
+MaterialFormatsList.defaultProps = {
+  filter: {},
+};
+
+MaterialFormatsList.propTypes = {
+  filter: PropTypes.object,
+};
 
 export default MaterialFormatsList;
