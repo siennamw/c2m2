@@ -23,6 +23,7 @@ const DisplayCataloger = ({ values }) => {
     description,
     directors,
     directors_as_updater,
+    email,
     material_formats,
     material_formats_as_updater,
     media_types,
@@ -47,6 +48,14 @@ const DisplayCataloger = ({ values }) => {
 
   return (
     <tbody>
+      <tr>
+        <th>Email</th>
+        <td>
+          <a href={`mailto:${email}`}>
+            {email}
+          </a>
+        </td>
+      </tr>
       <tr>
         <th>Description</th>
         <td>{description}</td>
@@ -122,21 +131,6 @@ const DisplayCataloger = ({ values }) => {
         </td>
       </tr>
       <tr>
-        <th>Works</th>
-        <td>
-          <EntryListWithLinks
-            displayFieldName="title"
-            items={
-              getUniqueByID([
-                ...works,
-                ...works_as_updater,
-              ])
-            }
-            model="work"
-          />
-        </td>
-      </tr>
-      <tr>
         <th>Material Formats</th>
         <td>
           <EntryListWithLinks
@@ -199,6 +193,21 @@ const DisplayCataloger = ({ values }) => {
             displayFieldName="displayText"
             items={resourcesWithDisplayText}
             model="resource"
+          />
+        </td>
+      </tr>
+      <tr>
+        <th>Works</th>
+        <td>
+          <EntryListWithLinks
+            displayFieldName="title"
+            items={
+              getUniqueByID([
+                ...works,
+                ...works_as_updater,
+              ])
+            }
+            model="work"
           />
         </td>
       </tr>
