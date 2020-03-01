@@ -1,10 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Formik, Form } from 'formik';
+import { Form, Formik, useFormikContext } from 'formik';
 
 import { getInitialFormValuesForSchema } from '../../validationSchemas';
 
 import FormStatus from '../FormStatus';
+
+const SubmitButton = () => {
+  const { isSubmitting, dirty } = useFormikContext();
+
+  return (
+    <button
+      type="submit"
+      className="button-primary u-full-width"
+      disabled={isSubmitting || !dirty}
+    >
+      Submit
+    </button>
+  );
+};
 
 const EntryFormWrapper = ({
   FormComponent,
@@ -25,13 +39,7 @@ const EntryFormWrapper = ({
         <FormComponent
           {...props}
         />
-        <button
-          type="submit"
-          className="button-primary u-full-width"
-          disabled={props.isSubmitting}
-        >
-          Submit
-        </button>
+        <SubmitButton />
         <FormStatus />
       </Form>
     )}
