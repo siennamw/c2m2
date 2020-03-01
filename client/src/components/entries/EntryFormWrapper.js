@@ -24,14 +24,13 @@ const EntryFormWrapper = ({
   FormComponent,
   handleSubmit,
   initialValues,
-  mutation,
   validationSchema,
 }) => (
   <Formik
     initialValues={getInitialFormValuesForSchema(validationSchema, initialValues)}
     validationSchema={validationSchema}
     onSubmit={(values, { setSubmitting, setStatus, resetForm }) => (
-      handleSubmit(mutation, values, setSubmitting, setStatus, resetForm)
+      handleSubmit(values, setSubmitting, setStatus, resetForm)
     )}
   >
     {props => (
@@ -66,7 +65,6 @@ EntryFormWrapper.propTypes = {
         return true;
       });
   },
-  mutation: PropTypes.func.isRequired,
   validationSchema: PropTypes.object.isRequired,
 };
 
