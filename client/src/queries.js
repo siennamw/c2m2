@@ -25,6 +25,7 @@ export const LIST_ALL_COMPOSERS = gql`
     allComposers {
       id
       name
+      imdb_link
     }
   }
 `;
@@ -43,6 +44,7 @@ export const LIST_ALL_DIRECTORS = gql`
     allDirectors {
       id
       name
+      imdb_link
     }
   }
 `;
