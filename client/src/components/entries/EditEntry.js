@@ -1,10 +1,12 @@
 import moment from 'moment';
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Query } from '@apollo/react-components';
 
 import NewEntry from './NewEntry';
-import StatusMessage from '../StatusMessage';
+import QueryWrap from './QueryWrap';
+
+import * as mutations from '../../mutations';
+import * as queries from '../../queries';
 
 const EditEntry = ({
   FormComponent,
@@ -16,27 +18,23 @@ const EditEntry = ({
   title,
   yupSchema,
 }) => (
-  <Query query={gqlQuery} variables={{ id }}>
-    {({ error, data }) => {
-      let content = (
-        <StatusMessage message="Fetching..." />
-      );
+  <QueryWrap
+    query={gqlQuery}
+    queryName={queryName}
+    variables={{ id }}
+  >
+    {
+      (data) => {
+        const {
+          created_at: createdAt,
+          created_by: createdBy,
+          updated_at: updatedAt,
+          updated_by: updatedBy,
+        } = data;
 
-      if (error) {
-        content = (
-          <StatusMessage
-            message="Sorry! There was an error fetching data."
-            type="error"
-          />
-        );
-      } else if (data && data[queryName]) {
-        const createdAt = data[queryName].created_at;
-        const createdBy = data[queryName].created_by;
-        const updatedAt = data[queryName].updated_at;
-        const updatedBy = data[queryName].updated_by;
-
-        const createdInfo = createdAt && createdBy
-          ? (
+        const createdInfo = !createdAt || !createdBy
+          ? null
+          : (
             <div className="row">
               <dl>
                 <div className="six columns">
@@ -49,10 +47,11 @@ const EditEntry = ({
                 </div>
               </dl>
             </div>
-          )
-          : undefined;
-        const lastUpdatedInfo = updatedAt && updatedBy
-          ? (
+          );
+
+        const lastUpdatedInfo = !updatedAt || !updatedBy
+          ? null
+          : (
             <div className="row">
               <dl>
                 <div className="six columns">
@@ -65,15 +64,14 @@ const EditEntry = ({
                 </div>
               </dl>
             </div>
-          )
-          : undefined;
+          );
 
-        content = (
+        return (
           <Fragment>
             <NewEntry
               FormComponent={FormComponent}
               gqlMutation={gqlMutation}
-              initialValues={data[queryName]}
+              initialValues={data}
               mutationName={mutationName}
               title={title}
               yupSchema={yupSchema}
@@ -83,10 +81,8 @@ const EditEntry = ({
           </Fragment>
         );
       }
-
-      return content;
-    }}
-  </Query>
+    }
+  </QueryWrap>
 );
 
 EditEntry.defaultProps = {
@@ -98,8 +94,8 @@ EditEntry.propTypes = {
     PropTypes.func,
     PropTypes.element,
   ]).isRequired,
-  gqlMutation: PropTypes.object.isRequired,
-  gqlQuery: PropTypes.object.isRequired,
+  gqlMutation: PropTypes.oneOf(Object.values(mutations)).isRequired,
+  gqlQuery: PropTypes.oneOf(Object.values(queries)).isRequired,
   id: PropTypes.number.isRequired,
   mutationName: PropTypes.string,
   queryName: PropTypes.string.isRequired,
