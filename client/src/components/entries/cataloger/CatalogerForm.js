@@ -35,6 +35,13 @@ const CatalogerForm = ({
         modelName={model}
       />
       <InputField
+        disabled={disabled}
+        displayName="Email"
+        fieldName="email"
+        fieldType="email"
+        modelName={model}
+      />
+      <InputField
         component="textarea"
         displayName="Description"
         fieldName="description"
@@ -53,13 +60,6 @@ const CatalogerForm = ({
           { id: false, name: 'No' },
         ]}
         selected={values.admin}
-      />
-      <InputField
-        disabled={disabled}
-        displayName="Email"
-        fieldName="email"
-        fieldType="email"
-        modelName={model}
       />
       {
         entryIsSelf && !hidePasswordFields
