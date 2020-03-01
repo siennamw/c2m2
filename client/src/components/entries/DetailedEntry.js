@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Query } from '@apollo/react-components';
 import { Link } from 'react-router-dom';
 
-import StatusMessage from '../StatusMessage';
+import QueryWrap from './QueryWrap';
 
 import { AuthContext } from '../AuthContext';
+import * as queries from '../../queries';
 
 const DetailedEntry = ({
   DisplayComponent,
@@ -17,41 +17,33 @@ const DetailedEntry = ({
   const { authenticated } = useContext(AuthContext);
 
   return (
-    <Query query={gqlQuery} variables={{ id }}>
-      {({ error, data }) => {
-        let content = (
-          <StatusMessage message="Fetching..." />
-        );
+    <QueryWrap
+      query={gqlQuery}
+      queryName={queryName}
+      variables={{ id }}
+    >
+      {
+        (values) => {
+          const heading = () => {
+            if (values.title) {
+              return (
+                <h3>
+                  {values.title}
+                  {values.secondary_title ? `: ${values.secondary_title}` : ''}
+                </h3>
+              );
+            }
 
-        if (error) {
-          const notFound = error.networkError
-            ? error.networkError.statusCode === 404
-            : false;
-          const message = notFound
-            ? 'Sorry! No matching record was found.'
-            : 'Sorry! There was an error fetching data.';
+            if (values.name) {
+              return <h3>{values.name}</h3>;
+            }
 
-          content = (
-            <StatusMessage message={message} type="error" />
-          );
-        } else if (data && data[queryName]) {
-          const values = data[queryName];
-
-          let heading;
-          if (values.title) {
-            heading = (
-              <h3>
-                {values.title}
-                {values.secondary_title ? `: ${values.secondary_title}` : ''}
-              </h3>
-            );
-          } else if (values.name) {
-            heading = <h3>{values.name}</h3>;
-          }
+            return null;
+          };
 
           const pubStatus = (status) => {
             if (!['draft', 'provisional', 'approved'].includes(status)) {
-              return;
+              return null;
             }
 
             let description = '';
@@ -79,36 +71,34 @@ const DetailedEntry = ({
             );
           };
 
-          content = (
+          return (
             <div className="detailed-entry">
               <div>
-                {pubStatus(values.publication_status)}
+                {pubStatus()}
                 <div className="entry-type">
                   {`${entryTypeForDisplay}:`}
                 </div>
-                {heading}
+                {heading()}
                 <table className="u-full-width">
                   <DisplayComponent values={values} />
                 </table>
                 {
-                  authenticated
-                    ? (
+                  !authenticated
+                    ? null
+                    : (
                       <div className="edit-entry-link">
                         <Link to={`/dashboard/edit/${queryName}/${id}`}>
                           {`Edit this ${entryTypeForDisplay} \u2192`}
                         </Link>
                       </div>
                     )
-                    : undefined
                 }
               </div>
             </div>
           );
         }
-
-        return content;
-      }}
-    </Query>
+      }
+    </QueryWrap>
   );
 };
 
@@ -122,7 +112,7 @@ DetailedEntry.propTypes = {
     PropTypes.element,
   ]).isRequired,
   entryTypeForDisplay: PropTypes.string,
-  gqlQuery: PropTypes.object.isRequired,
+  gqlQuery: PropTypes.oneOf(Object.values(queries)).isRequired,
   id: PropTypes.number.isRequired,
   queryName: PropTypes.string.isRequired,
 };
