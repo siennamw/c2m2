@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Mutation } from '@apollo/react-components';
 import { isEmpty } from 'lodash';
+import { useMutation } from '@apollo/react-hooks';
 
 import EntryFormWrapper from './EntryFormWrapper';
+
 import {
   getInitialFormValuesForSchema,
   getNormalizedSubmissionValuesForSchema,
 } from '../../validationSchemas';
+import * as mutations from '../../mutations';
 
 const NewEntry = ({
   successCallback,
@@ -19,7 +21,9 @@ const NewEntry = ({
   title,
   yupSchema,
 }) => {
-  const handleSubmit = async (mutation, values, setSubmitting, setStatus, resetForm) => {
+  const [mutation] = useMutation(gqlMutation);
+
+  const handleSubmit = async (values, setSubmitting, setStatus, resetForm) => {
     setStatus(null);
 
     try {
@@ -63,17 +67,12 @@ const NewEntry = ({
   return (
     <div>
       <h3>{title}</h3>
-      <Mutation mutation={gqlMutation}>
-        {mutation => (
-          <EntryFormWrapper
-            FormComponent={FormComponent}
-            handleSubmit={handleSubmit}
-            initialValues={initialValues}
-            mutation={mutation}
-            validationSchema={yupSchema}
-          />
-        )}
-      </Mutation>
+      <EntryFormWrapper
+        FormComponent={FormComponent}
+        handleSubmit={handleSubmit}
+        initialValues={initialValues}
+        validationSchema={yupSchema}
+      />
     </div>
   );
 };
@@ -90,7 +89,7 @@ NewEntry.propTypes = {
     PropTypes.func,
     PropTypes.element,
   ]).isRequired,
-  gqlMutation: PropTypes.object.isRequired,
+  gqlMutation: PropTypes.oneOf(Object.values(mutations)).isRequired,
   initialValues: (props, propName, componentName) => {
     props.yupSchema
       .isValid(props[propName])
