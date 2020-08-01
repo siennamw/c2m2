@@ -1,16 +1,18 @@
+import PropTypes from 'prop-types';
 import React, { Fragment, useContext } from 'react';
+import { useFormikContext } from 'formik';
 
 import InputField from '../InputField';
 import SelectField from '../SelectField';
 import { reactSelectOnChange } from '../../../utils';
 import { AuthContext } from '../../AuthContext';
 
-const CatalogerForm = ({
-  hidePasswordFields,
-  setFieldTouched,
-  setFieldValue,
-  values
-}) => {
+const CatalogerForm = ({ hidePasswordFields }) => {
+  const {
+    setFieldTouched,
+    setFieldValue,
+    values,
+  } = useFormikContext();
   const { admin, id } = useContext(AuthContext);
 
   const model = 'cataloger';
@@ -87,8 +89,16 @@ const CatalogerForm = ({
   );
 };
 
-export const CatalogerFormNoPasswords = (props) => {
-  return <CatalogerForm {...props} hidePasswordFields />;
+CatalogerForm.propTypes = {
+  hidePasswordFields: PropTypes.bool,
 };
+
+CatalogerForm.defaultProps = {
+  hidePasswordFields: false,
+};
+
+export const CatalogerFormNoPasswords = () => (
+  <CatalogerForm hidePasswordFields />
+);
 
 export default CatalogerForm;

@@ -25,6 +25,8 @@ const FieldInfoTooltip = ({ field, model }) => {
   const tooltip = TOOLTIP_BY_MODEL_AND_FIELD(model, field);
 
   const rules = tooltip && tooltip.rules && tooltip.rules.length > 0
+    // key as index here is okay because content is static
+    // eslint-disable-next-line react/no-array-index-key
     ? tooltip.rules.map((r, i) => <li key={i}>{r}</li>)
     : undefined;
 

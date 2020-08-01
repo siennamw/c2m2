@@ -7,6 +7,7 @@ import {
   Field,
   Form,
   Formik,
+  useFormikContext,
 } from 'formik';
 import * as Yup from 'yup';
 
@@ -25,49 +26,53 @@ const validationSchema = Yup.object().shape({
     .required('Password is required'),
 });
 
-const CatalogerSignInForm = ({ handleSubmit, isSubmitting }) => (
-  <Form>
-    <label htmlFor="email">
-      Email
-      <ErrorMessage
-        className="status-message form-message error"
-        component="div"
-        name="email"
-      />
-      <Field
-        autoComplete="email"
-        className="u-full-width"
-        id="email"
-        name="email"
-        type="email"
-      />
-    </label>
-    <label htmlFor="password">
-      Password
-      <ErrorMessage
-        className="status-message form-message error"
-        component="div"
-        name="password"
-      />
-      <Field
-        autoComplete="current-password"
-        className="u-full-width"
-        id="password"
-        name="password"
-        type="password"
-      />
-    </label>
-    <button
-      className="button-primary u-full-width"
-      disabled={isSubmitting}
-      onClick={handleSubmit}
-      type="submit"
-    >
-      Sign In
-    </button>
-    <FormStatus />
-  </Form>
-);
+const CatalogerSignInForm = () => {
+  const { handleSubmit, isSubmitting } = useFormikContext();
+
+  return (
+    <Form>
+      <label htmlFor="email">
+        Email
+        <ErrorMessage
+          className="status-message form-message error"
+          component="div"
+          name="email"
+        />
+        <Field
+          autoComplete="email"
+          className="u-full-width"
+          id="email"
+          name="email"
+          type="email"
+        />
+      </label>
+      <label htmlFor="password">
+        Password
+        <ErrorMessage
+          className="status-message form-message error"
+          component="div"
+          name="password"
+        />
+        <Field
+          autoComplete="current-password"
+          className="u-full-width"
+          id="password"
+          name="password"
+          type="password"
+        />
+      </label>
+      <button
+        className="button-primary u-full-width"
+        disabled={isSubmitting}
+        onClick={handleSubmit}
+        type="submit"
+      >
+        Sign In
+      </button>
+      <FormStatus />
+    </Form>
+  );
+};
 
 const CatalogerSignIn = ({ location }) => {
   const { authenticated, setAuthenticated } = useContext(AuthContext);

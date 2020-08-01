@@ -55,6 +55,7 @@ const InnerSuggestionForm = () => {
         fieldName="comments"
       />
       <label htmlFor="recaptcha">
+        {/* actual label is provided by ReCAPTCHA */}
         <ErrorMessage
           name="recaptcha"
           component="div"
@@ -152,7 +153,7 @@ const ResourceSuggestion = () => {
     <div>
       <h2>Suggest a Resource</h2>
       <Mutation mutation={mutations.HANDLE_SUGGESTION_FORM}>
-        {handleSuggestionForm => (
+        {(handleSuggestionForm) => (
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
@@ -166,6 +167,6 @@ const ResourceSuggestion = () => {
       </Mutation>
     </div>
   );
-}
+};
 
 export default ResourceSuggestion;

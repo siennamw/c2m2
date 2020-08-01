@@ -1,13 +1,20 @@
 import React, { Fragment } from 'react';
+import { useFormikContext } from 'formik';
+
 import InputField from '../InputField';
-
-import { LIST_ALL_REPOSITORIES } from '../../../queries';
-
 import SelectFieldWithQuery from '../SelectFieldWithQuery';
 import NewRepository from '../repository/NewRepository';
+
+import { LIST_ALL_REPOSITORIES } from '../../../queries';
 import { reactSelectOnChange } from '../../../utils';
 
-const CollectionForm = ({ setFieldValue, setFieldTouched, values }) => {
+const CollectionForm = () => {
+  const {
+    setFieldTouched,
+    setFieldValue,
+    values,
+  } = useFormikContext();
+
   const model = 'collection';
 
   const selectOnBlur = (field) => {

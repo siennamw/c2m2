@@ -1,17 +1,24 @@
 import React, { Fragment, useContext } from 'react';
+import { useFormikContext } from 'formik';
 
-import SelectFieldWithQuery from '../SelectFieldWithQuery';
 import InputField from '../InputField';
-
-import * as queries from '../../../queries';
+import SelectField from '../SelectField';
+import SelectFieldWithQuery from '../SelectFieldWithQuery';
 
 import NewCollection from '../collection/NewCollection';
 import NewWork from '../work/NewWork';
-import SelectField from '../SelectField';
-import { reactSelectOnChange } from '../../../utils';
+
 import { AuthContext } from '../../AuthContext';
 
-const ResourceForm = ({ setFieldTouched, setFieldValue, values }) => {
+import { reactSelectOnChange } from '../../../utils';
+import * as queries from '../../../queries';
+
+const ResourceForm = () => {
+  const {
+    setFieldTouched,
+    setFieldValue,
+    values,
+  } = useFormikContext();
   const { admin } = useContext(AuthContext);
 
   const model = 'resource';

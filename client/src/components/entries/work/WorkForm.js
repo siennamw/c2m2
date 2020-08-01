@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { useFormikContext } from 'formik';
 
 import SelectFieldWithQuery from '../SelectFieldWithQuery';
 import InputField from '../InputField';
@@ -11,7 +12,12 @@ import NewCountry from '../country/NewCountry';
 import NewDirector from '../director/NewDirector';
 import NewProductionCompany from '../productionCompany/NewProductionCompany';
 
-const WorkForm = ({ setFieldTouched, setFieldValue, values }) => {
+const WorkForm = () => {
+  const {
+    setFieldTouched,
+    setFieldValue,
+    values,
+  } = useFormikContext();
   const model = 'work';
 
   const selectOnBlur = (field) => {

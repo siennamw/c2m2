@@ -5,6 +5,7 @@ import {
   Field,
   Form,
   Formik,
+  useFormikContext,
 } from 'formik';
 import * as Yup from 'yup';
 
@@ -18,34 +19,38 @@ const validationSchema = Yup.object().shape({
     .required('E-mail is required'),
 });
 
-const RequestResetPasswordForm = ({ handleSubmit, isSubmitting }) => (
-  <Form>
-    <label htmlFor="email">
-      Email
-      <ErrorMessage
-        className="status-message form-message error"
-        component="div"
-        name="email"
-      />
-      <Field
-        autoComplete="email"
-        className="u-full-width"
-        id="email"
-        name="email"
-        type="email"
-      />
-    </label>
-    <button
-      className="button-primary u-full-width"
-      disabled={isSubmitting}
-      onClick={handleSubmit}
-      type="submit"
-    >
-      Request Password Reset
-    </button>
-    <FormStatus />
-  </Form>
-);
+const RequestResetPasswordForm = () => {
+  const { handleSubmit, isSubmitting } = useFormikContext();
+
+  return (
+    <Form>
+      <label htmlFor="email">
+        Email
+        <ErrorMessage
+          className="status-message form-message error"
+          component="div"
+          name="email"
+        />
+        <Field
+          autoComplete="email"
+          className="u-full-width"
+          id="email"
+          name="email"
+          type="email"
+        />
+      </label>
+      <button
+        className="button-primary u-full-width"
+        disabled={isSubmitting}
+        onClick={handleSubmit}
+        type="submit"
+      >
+        Request Password Reset
+      </button>
+      <FormStatus />
+    </Form>
+  );
+};
 
 const RequestResetPassword = () => {
   const [resetPasswordMutation] = useMutation(GET_RESET_PASSWORD_TOKEN);
