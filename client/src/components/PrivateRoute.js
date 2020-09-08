@@ -1,17 +1,17 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, useLocation } from 'react-router-dom';
 
 import { AuthContext } from './AuthContext';
 
 const PrivateRoute = ({
   component: Component,
-  location,
   path,
   ...rest
 }) => {
   const { authenticated } = useContext(AuthContext);
+  const location = useLocation();
 
   return (
     <Route
@@ -23,7 +23,7 @@ const PrivateRoute = ({
           : (
             <Redirect to={{
               pathname: '/sign-in',
-              state: { from: location },
+              state: { from: location.pathname },
             }}
             />
           )
@@ -37,12 +37,7 @@ PrivateRoute.propTypes = {
     PropTypes.func,
     PropTypes.element,
   ]).isRequired,
-  location: PropTypes.string,
   path: PropTypes.string.isRequired,
-};
-
-PrivateRoute.defaultProps = {
-  location: '/',
 };
 
 export default PrivateRoute;
