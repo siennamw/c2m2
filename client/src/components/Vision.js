@@ -21,10 +21,9 @@ const Vision = () => (
           additional contributors to help with tasks such as this.
         </p>
         <p>
-          As this project matures, C2M2 hopes to foster communication between
-          scholars, archivists, and practitioners in order to build a robust
-          archival record of cinema and media music. For more on this,
-          see <Link to="/about">Why C2M2?</Link>.
+          {'As this project matures, C2M2 hopes to foster communication between scholars, archivists, and practitioners in order to build a robust archival record of cinema and media music. For more on this, see '}
+          <Link to="/about">Why C2M2?</Link>
+          .
         </p>
       </div>
       <div className="four columns">

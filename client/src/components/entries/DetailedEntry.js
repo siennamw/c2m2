@@ -18,9 +18,9 @@ const DetailedEntry = ({
 
   return (
     <QueryWrap
+      id={id}
       query={gqlQuery}
       queryName={queryName}
-      variables={{ id }}
     >
       {
         (values) => {

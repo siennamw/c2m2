@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import * as Yup from 'yup';
 import { FIELD_TO_PLURAL } from './constants';
 
@@ -193,7 +194,7 @@ export const resourceValidationSchema = Yup.object().shape({
     .required('Publication status is required'),
 });
 
-export const addIdToSchema = baseSchema => (
+export const addIdToSchema = (baseSchema) => (
   baseSchema.shape({
     id: Yup.number()
       .integer('ID is invalid')
@@ -202,7 +203,7 @@ export const addIdToSchema = baseSchema => (
   })
 );
 
-export const addPasswordsToSchema = baseSchema => (
+export const addPasswordsToSchema = (baseSchema) => (
   baseSchema.shape({
     password: Yup.string()
       .min(6, 'Password must be longer than 6 characters')

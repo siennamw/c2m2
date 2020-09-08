@@ -4,6 +4,7 @@ import {
   Form,
   Field,
   ErrorMessage,
+  useFormikContext,
 } from 'formik';
 import * as Yup from 'yup';
 
@@ -14,32 +15,36 @@ const validationSchema = Yup.object().shape({
     .required('Title is required'),
 });
 
-const InnerBasicSearchForm = ({ handleSubmit, isSubmitting }) => (
-  <Form>
-    <label htmlFor="title">
-      Title
-      <ErrorMessage
-        className="status-message form-message error"
-        component="div"
-        name="title"
-      />
-      <Field
-        className="u-full-width"
-        id="title"
-        name="title"
-        type="text"
-      />
-    </label>
-    <button
-      className="button-primary u-full-width"
-      disabled={isSubmitting}
-      onClick={handleSubmit}
-      type="submit"
-    >
-      Submit
-    </button>
-  </Form>
-);
+const InnerBasicSearchForm = () => {
+  const { handleSubmit, isSubmitting } = useFormikContext();
+
+  return (
+    <Form>
+      <label htmlFor="title">
+        Title
+        <ErrorMessage
+          className="status-message form-message error"
+          component="div"
+          name="title"
+        />
+        <Field
+          className="u-full-width"
+          id="title"
+          name="title"
+          type="text"
+        />
+      </label>
+      <button
+        className="button-primary u-full-width"
+        disabled={isSubmitting}
+        onClick={handleSubmit}
+        type="submit"
+      >
+        Submit
+      </button>
+    </Form>
+  );
+};
 
 const BasicSearch = () => {
   const [showResults, setShowResults] = useState(false);

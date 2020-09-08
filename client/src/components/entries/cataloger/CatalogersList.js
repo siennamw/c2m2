@@ -8,7 +8,7 @@ import { LIST_ALL_CATALOGERS } from '../../../queries';
 const CatalogersList = () => (
   <QueryWrap query={LIST_ALL_CATALOGERS} queryName="allCatalogers">
     {
-      allCatalogers => (
+      (allCatalogers) => (
         <table className="u-full-width">
           <tbody>
             <tr>
@@ -17,7 +17,7 @@ const CatalogersList = () => (
               <th>Admin</th>
             </tr>
             {
-              allCatalogers.map(cataloger => (
+              allCatalogers.map((cataloger) => (
                 <tr>
                   <td>
                     <LinkToEntry entry={cataloger} model="cataloger" />

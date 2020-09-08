@@ -1,6 +1,11 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Link, Route, Switch } from 'react-router-dom';
+import {
+  Link,
+  Route,
+  Switch,
+  useLocation,
+} from 'react-router-dom';
 
 import { AuthContext } from '../AuthContext';
 
@@ -17,14 +22,16 @@ import NewResource from '../entries/resource/NewResource';
 import NewWork from '../entries/work/NewWork';
 
 const CatalogerNewEntryParent = ({ match }) => {
+  const location = useLocation();
   const { admin } = useContext(AuthContext);
+
   return (
     <div>
       {
         // add back arrow to root path for all but root path
-        match.path !== window.location.pathname
+        match.path !== location.pathname
           ? <Link to={`${match.path}`}>&larr; Back</Link>
-          : undefined
+          : null
       }
       <Switch>
         <Route exact path={`${match.path}/cataloger`} component={NewCataloger} />
@@ -87,28 +94,27 @@ const CatalogerNewEntryParent = ({ match }) => {
                   </ul>
                 </div>
               </div>
-                {
-                  admin
-                    ? (
-                      <div>
-                        <h4>Administrator-Only Supporting Entries</h4>
-                        <p>These entry types can only be created by administrators.</p>
-                        <ul>
-                          <li>
-                            <Link to={`${match.path}/cataloger`}>Cataloger</Link>
-                          </li>
-                          <li>
-                            <Link to={`${match.path}/material_format`}>Material Format</Link>
-                          </li>
-                          <li>
-                            <Link to={`${match.path}/media_type`}>Media Type</Link>
-                          </li>
-                        </ul>
-                      </div>
-
-                    )
-                    : undefined
-                }
+              {
+                admin
+                  ? (
+                    <div>
+                      <h4>Administrator-Only Supporting Entries</h4>
+                      <p>These entry types can only be created by administrators.</p>
+                      <ul>
+                        <li>
+                          <Link to={`${match.path}/cataloger`}>Cataloger</Link>
+                        </li>
+                        <li>
+                          <Link to={`${match.path}/material_format`}>Material Format</Link>
+                        </li>
+                        <li>
+                          <Link to={`${match.path}/media_type`}>Media Type</Link>
+                        </li>
+                      </ul>
+                    </div>
+                  )
+                  : null
+              }
             </div>
           )}
         />
@@ -119,6 +125,7 @@ const CatalogerNewEntryParent = ({ match }) => {
 
 CatalogerNewEntryParent.propTypes = {
   match: PropTypes.shape({
+    path: PropTypes.string,
     params: PropTypes.shape({
       id: PropTypes.string,
     }),

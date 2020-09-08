@@ -33,15 +33,11 @@ const EntryFormWrapper = ({
       handleSubmit(values, setSubmitting, setStatus, resetForm)
     )}
   >
-    {props => (
-      <Form>
-        <FormComponent
-          {...props}
-        />
-        <SubmitButton />
-        <FormStatus />
-      </Form>
-    )}
+    <Form>
+      <FormComponent />
+      <SubmitButton />
+      <FormStatus />
+    </Form>
   </Formik>
 );
 
@@ -65,7 +61,7 @@ EntryFormWrapper.propTypes = {
         return true;
       });
   },
-  validationSchema: PropTypes.object.isRequired,
+  validationSchema: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 };
 
 export default EntryFormWrapper;

@@ -37,6 +37,7 @@ const InnerContactForm = () => {
         fieldName="message"
       />
       <label htmlFor="recaptcha">
+        {/* actual label is provided by ReCAPTCHA */}
         <ErrorMessage
           className="status-message form-message error"
           component="div"
@@ -122,7 +123,7 @@ const GeneralContact = () => {
     <div>
       <h2>Contact Us</h2>
       <Mutation mutation={mutations.HANDLE_CONTACT_FORM}>
-        {handleContactForm => (
+        {(handleContactForm) => (
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}

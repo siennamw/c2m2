@@ -9,7 +9,7 @@ import EntryListWithLinks from '../EntryListWithLinks';
 import { CATALOGER_BY_ID } from '../../../queries';
 
 const DisplayCataloger = ({ values }) => {
-  const getUniqueByID = list => uniqBy(list, item => item.id);
+  const getUniqueByID = (list) => uniqBy(list, (item) => item.id);
 
   const {
     catalogers,
@@ -41,7 +41,7 @@ const DisplayCataloger = ({ values }) => {
   // no need to filter out draft resources;
   // this route only available to authenticated catalogers
   const resourcesWithDisplayText = getUniqueByID([...resources, ...resources_as_updater])
-    .map(r => ({
+    .map((r) => ({
       ...r,
       displayText: `${r.work.title}: ${r.material_format.name}`,
     }));
@@ -312,6 +312,7 @@ DisplayCataloger.propTypes = {
         name: PropTypes.string,
       }),
     ),
+    email: PropTypes.string,
     material_formats: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.oneOfType([

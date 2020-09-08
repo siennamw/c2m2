@@ -12,7 +12,11 @@ const Nav = ({ ariaLabel, children }) => {
     setNarrowNavShown(true);
   };
 
-  const items = children.map((item, index) => <li key={index}>{item}</li>);
+  const items = children.map((item, index) => (
+    // index as key okay here because items are static
+    // eslint-disable-next-line react/no-array-index-key
+    <li key={index}>{item}</li>
+  ));
 
   return (
     <nav aria-label={ariaLabel}>
@@ -24,6 +28,8 @@ const Nav = ({ ariaLabel, children }) => {
       >
         Show/Hide Menu
       </button>
+      {/* this onClick catches the clicks/keyboard selections on nested interactive elements */}
+      {/* eslint-disable-next-line */}
       <ul
         className={narrowNavShown ? 'nav-menu show' : 'nav-menu'}
         onClick={hideNarrowMenu}

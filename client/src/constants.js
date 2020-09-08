@@ -37,8 +37,8 @@ const imdbPersonSearch = (
       rel="noopener noreferrer"
     >
       Search IMDB
-    </a> for the entry associated with this person, then copy and paste the full
-    URL here.
+    </a>
+    {' for the entry associated with this person, then copy and paste the full URL here.'}
   </Fragment>
 );
 const imdbTitleSearch = (
@@ -49,8 +49,8 @@ const imdbTitleSearch = (
       rel="noopener noreferrer"
     >
       Search IMDB
-    </a> for the entry associated with this item, then copy and paste the full
-    URL here.
+    </a>
+    {' for the entry associated with this item, then copy and paste the full URL here.'}
   </Fragment>
 );
 const includeBirthAndDeathDates = 'If possible, include birth and death dates even if not included in the LC authority version.';
@@ -58,34 +58,40 @@ const includeProtocol = 'Include http:// or https://.';
 const lcAuthorityName = 'Always use LC authority version of name if available.';
 const MaterialFormatsListLink = (
   <Fragment>
-    Material format of the resource. See <Link
+    {'Material format of the resource. See '}
+    <Link
       to="/dashboard/material-formats"
       target="_blank"
     >
       descriptions of material formats
-    </Link>.
+    </Link>
+    .
   </Fragment>
 );
 const MediaTypesListLink = (
   <Fragment>
-    Media type of work. See <Link
+    {'Media type of work. See '}
+    <Link
       to="/dashboard/media-types"
       target="_blank"
     >
-    descriptions of media types
-    </Link>.
+      descriptions of media types
+    </Link>
+    .
   </Fragment>
 );
 const noImdbPage = 'If no associated IMDB page exists, leave blank.';
 const passwordSemantics = (
   <Fragment>
-    Choose or <a
+    {'Choose or '}
+    <a
       href="https://www.lastpass.com/password-generator"
       target="_blank"
       rel="noopener noreferrer"
     >
       generate
-    </a> a strong password that is only used on this site.
+    </a>
+    {' a strong password that is only used on this site.'}
   </Fragment>
 );
 const shortestLink = 'Use shortest link possible.';

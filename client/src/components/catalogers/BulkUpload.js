@@ -21,10 +21,10 @@ const BulkUpload = () => {
   const [mutate] = useMutation(UPLOAD_CSV);
   const mutationName = 'bulkUpload';
 
-  const modelsForUpload = MODEL_NAMES.filter(name => (
+  const modelsForUpload = MODEL_NAMES.filter((name) => (
     !['material_format', 'media_type'].includes(name)
   ));
-  const modelOptions = modelsForUpload.map(m => ({ label: m, value: m }));
+  const modelOptions = modelsForUpload.map((m) => ({ label: m, value: m }));
 
   const initialValues = {
     model: '',
@@ -115,9 +115,9 @@ const BulkUpload = () => {
                     fieldName="model"
                     id="model"
                     onBlur={() => touchedOnBlur('model')}
-                    onChange={evt => selectOnChange(evt, 'model')}
+                    onChange={(evt) => selectOnChange(evt, 'model')}
                     options={modelOptions}
-                    value={modelOptions.find(opt => opt.value === values.model) || null}
+                    value={modelOptions.find((opt) => opt.value === values.model) || null}
                   />
                 </label>
                 <label htmlFor="file">

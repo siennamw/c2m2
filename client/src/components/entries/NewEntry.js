@@ -103,7 +103,7 @@ NewEntry.propTypes = {
   mutationName: PropTypes.string.isRequired,
   successCallback: PropTypes.func,
   title: PropTypes.string.isRequired,
-  yupSchema: PropTypes.object.isRequired,
+  yupSchema: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 };
 
 export default NewEntry;

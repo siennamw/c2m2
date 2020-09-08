@@ -8,11 +8,11 @@ import * as queries from '../../queries';
 const QueryWrap = ({
   children,
   filter,
+  id,
   limit,
   pagination,
   query,
   queryName,
-  variables,
 }) => {
   const [moreResults, setMoreResults] = useState(true);
   const [loadingResults, setLoadingResults] = useState(false);
@@ -32,7 +32,7 @@ const QueryWrap = ({
   }, [filter]);
 
   const vars = {
-    ...variables,
+    id,
     filter,
     first: limit,
     skip: 0,
@@ -126,19 +126,22 @@ const QueryWrap = ({
 
 QueryWrap.defaultProps = {
   filter: {},
+  id: undefined,
   limit: 25,
   pagination: false,
-  variables: {},
 };
 
 QueryWrap.propTypes = {
   children: PropTypes.func.isRequired,
-  filter: PropTypes.object,
+  filter: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  id: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   limit: PropTypes.number,
   query: PropTypes.oneOf(Object.values(queries)).isRequired,
   queryName: PropTypes.string.isRequired,
   pagination: PropTypes.bool,
-  variables: PropTypes.object,
 };
 
 export default QueryWrap;

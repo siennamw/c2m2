@@ -14,13 +14,13 @@ const WorksList = ({ filter }) => (
     queryName="allWorks"
   >
     {
-      works => (
+      (works) => (
         <table
           id="works-list-table"
           className="u-full-width"
         >
           {
-            works.map(work => (
+            works.map((work) => (
               <tbody key={work.id}>
                 <tr>
                   <td colSpan="4">
@@ -73,7 +73,7 @@ WorksList.defaultProps = {
 };
 
 WorksList.propTypes = {
-  filter: PropTypes.object,
+  filter: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 export default WorksList;

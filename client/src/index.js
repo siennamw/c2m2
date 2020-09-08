@@ -63,6 +63,7 @@ ReactDOM.render(
       <App />
     </Router>
   </ApolloProvider>,
+  // eslint-disable-next-line no-undef
   document.getElementById('root'),
 );
 registerServiceWorker();

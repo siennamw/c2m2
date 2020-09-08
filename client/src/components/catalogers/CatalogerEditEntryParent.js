@@ -35,6 +35,7 @@ const CatalogerEditEntryParent = ({ match }) => (
 
 CatalogerEditEntryParent.propTypes = {
   match: PropTypes.shape({
+    path: PropTypes.string,
     params: PropTypes.shape({
       id: PropTypes.string,
     }),

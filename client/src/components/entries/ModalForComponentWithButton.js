@@ -14,6 +14,7 @@ const ModalForComponentWithButton = ({
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
+  // eslint-disable-next-line no-undef
   const modalRoot = document.getElementById('root');
 
   const Component = component;

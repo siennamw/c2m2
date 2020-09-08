@@ -15,11 +15,11 @@ const MediaTypesList = ({ filter }) => (
       queryName="allMediaTypes"
     >
       {
-        allMediaTypes => (
+        (allMediaTypes) => (
           <table className="u-full-width">
             <tbody>
               {
-                allMediaTypes.map(mediaType => (
+                allMediaTypes.map((mediaType) => (
                   <tr key={mediaType.id}>
                     <th>
                       <LinkToEntry entry={mediaType} model="media_type" />
@@ -43,7 +43,7 @@ MediaTypesList.defaultProps = {
 };
 
 MediaTypesList.propTypes = {
-  filter: PropTypes.object,
+  filter: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 export default MediaTypesList;

@@ -15,7 +15,7 @@ const ComposersList = ({ filter }) => (
       queryName="allComposers"
     >
       {
-        allComposers => (
+        (allComposers) => (
           <table className="u-full-width">
             <tbody>
               <tr>
@@ -23,7 +23,7 @@ const ComposersList = ({ filter }) => (
                 <th>IMDB Link</th>
               </tr>
               {
-                allComposers.map(composer => (
+                allComposers.map((composer) => (
                   <tr>
                     <td>
                       <LinkToEntry entry={composer} model="composer" />
@@ -53,7 +53,7 @@ ComposersList.defaultProps = {
 };
 
 ComposersList.propTypes = {
-  filter: PropTypes.object,
+  filter: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 export default ComposersList;

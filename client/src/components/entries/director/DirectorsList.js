@@ -15,7 +15,7 @@ const DirectorsList = ({ filter }) => (
       queryName="allDirectors"
     >
       {
-        allDirectors => (
+        (allDirectors) => (
           <table className="u-full-width">
             <tbody>
               <tr>
@@ -23,7 +23,7 @@ const DirectorsList = ({ filter }) => (
                 <th>IMDB Link</th>
               </tr>
               {
-                allDirectors.map(composer => (
+                allDirectors.map((composer) => (
                   <tr>
                     <td>
                       <LinkToEntry entry={composer} model="composer" />
@@ -53,7 +53,7 @@ DirectorsList.defaultProps = {
 };
 
 DirectorsList.propTypes = {
-  filter: PropTypes.object,
+  filter: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 export default DirectorsList;

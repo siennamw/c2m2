@@ -70,7 +70,7 @@ const SelectFieldWithQuery = ({
           ...selected,
           modalData.id,
         ];
-        onChange(vals.map(itemId => ({ value: itemId })), fieldName);
+        onChange(vals.map((itemId) => ({ value: itemId })), fieldName);
       } else {
         onChange({ value: modalData.id }, fieldName);
       }

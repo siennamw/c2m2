@@ -20,7 +20,7 @@ const EntryListWithLinks = ({
     : sortByField(items, displayFieldName);
 
   return (
-    itemList.map(item => (
+    itemList.map((item) => (
       <LinkToEntry
         displayField={displayFieldName}
         entry={item}

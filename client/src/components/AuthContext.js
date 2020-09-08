@@ -1,4 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+
 import { getAuthorizationTokenData, isAuthenticated } from '../utils';
 
 export const AuthContext = createContext();
@@ -28,6 +30,13 @@ const AuthContextProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
+};
+
+AuthContextProvider.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
 };
 
 export default AuthContextProvider;

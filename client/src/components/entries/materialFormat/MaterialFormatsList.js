@@ -15,11 +15,11 @@ const MaterialFormatsList = ({ filter }) => (
       queryName="allMaterialFormats"
     >
       {
-        allMaterialFormats => (
+        (allMaterialFormats) => (
           <table className="u-full-width">
             <tbody>
               {
-                allMaterialFormats.map(materialFormat => (
+                allMaterialFormats.map((materialFormat) => (
                   <tr key={materialFormat.id}>
                     <th>
                       <LinkToEntry
@@ -46,7 +46,7 @@ MaterialFormatsList.defaultProps = {
 };
 
 MaterialFormatsList.propTypes = {
-  filter: PropTypes.object,
+  filter: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 export default MaterialFormatsList;

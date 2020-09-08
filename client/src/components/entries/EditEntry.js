@@ -19,9 +19,9 @@ const EditEntry = ({
   yupSchema,
 }) => (
   <QueryWrap
+    id={id}
     query={gqlQuery}
     queryName={queryName}
-    variables={{ id }}
   >
     {
       (data) => {
@@ -100,7 +100,7 @@ EditEntry.propTypes = {
   mutationName: PropTypes.string,
   queryName: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  yupSchema: PropTypes.object.isRequired,
+  yupSchema: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 };
 
 export default EditEntry;

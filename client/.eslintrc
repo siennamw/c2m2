@@ -2,6 +2,11 @@
   "extends": "airbnb",
   "parser": "babel-eslint",
   "rules": {
+    "jsx-a11y/label-has-associated-control": [ 2, {
+      "assert": "both",
+      "controlComponents": ["Field", "StyledSelect"],
+      "depth": 3
+    }],
     "react/jsx-filename-extension": "off",
     "react/jsx-fragments": "off"
   }

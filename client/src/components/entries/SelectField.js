@@ -15,38 +15,36 @@ export const StyledSelect = ({
   onBlur,
   onChange,
   value,
-}) => {
-  return (
-    <Select
-      name={fieldName}
-      className="react-select"
-      isDisabled={disabled}
-      id={id}
-      isMulti={isMulti}
-      onBlur={onBlur}
-      onChange={onChange}
-      options={options}
-      styles={{
-        container: provided => ({
-          ...provided,
-          borderWidth: '1px',
-        }),
-      }}
-      theme={theme => ({
-        ...theme,
-        colors: {
-          ...theme.colors,
-          primary: '#0099F6',
-          primary25: '#BBBBBB',
-          primary50: '#999999',
-          primary75: '#777777',
-          neutral50: '#333333', // placeholder; darkened for contrast ratio
-        },
-      })}
-      value={value}
-    />
-  );
-};
+}) => (
+  <Select
+    name={fieldName}
+    className="react-select"
+    isDisabled={disabled}
+    id={id}
+    isMulti={isMulti}
+    onBlur={onBlur}
+    onChange={onChange}
+    options={options}
+    styles={{
+      container: (provided) => ({
+        ...provided,
+        borderWidth: '1px',
+      }),
+    }}
+    theme={(theme) => ({
+      ...theme,
+      colors: {
+        ...theme.colors,
+        primary: '#0099F6',
+        primary25: '#BBBBBB',
+        primary50: '#999999',
+        primary75: '#777777',
+        neutral50: '#333333', // placeholder; darkened for contrast ratio
+      },
+    })}
+    value={value}
+  />
+);
 
 StyledSelect.propTypes = {
   disabled: PropTypes.bool,
@@ -104,7 +102,7 @@ const SelectField = ({
   options,
   selected,
 }) => {
-  const items = options.map(i => ({ value: i.id, label: i.name || i.title }));
+  const items = options.map((i) => ({ value: i.id, label: i.name || i.title }));
 
   if (!isMulti) {
     // placeholder & empty value for reset
@@ -112,8 +110,8 @@ const SelectField = ({
   }
 
   const selectedItems = Array.isArray(selected)
-    ? items.filter(i => selected.includes(i.value))
-    : items.find(i => i.value === selected);
+    ? items.filter((i) => selected.includes(i.value))
+    : items.find((i) => i.value === selected);
 
   const content = (
     <Fragment>
@@ -140,7 +138,7 @@ const SelectField = ({
         id={fieldName}
         isMulti={isMulti}
         onBlur={() => onBlur(fieldName)}
-        onChange={evt => onChange(evt, fieldName)}
+        onChange={(evt) => onChange(evt, fieldName)}
         options={items}
         value={selectedItems}
       />
@@ -192,15 +190,17 @@ SelectField.propTypes = {
 
       if (!idIsValid) {
         return new Error(
-          `Invalid ID in ${propFullName} supplied to ${componentName}. Validation failed.`
+          `Invalid ID in ${propFullName} supplied to ${componentName}. Validation failed.`,
         );
       }
 
       if (!nameIsValid) {
         return new Error(
-          `Invalid name in ${propFullName} supplied to ${componentName}. Validation failed.`
+          `Invalid name in ${propFullName} supplied to ${componentName}. Validation failed.`,
         );
       }
+
+      return true;
     },
   ).isRequired,
   selected: PropTypes.oneOfType([

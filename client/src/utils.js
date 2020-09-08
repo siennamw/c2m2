@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from 'react';
 import jwtDecode from 'jwt-decode';
 
@@ -47,7 +48,7 @@ export const reactSelectOnChange = (evt, name, setFieldValue) => {
     // multiselect
     setFieldValue(
       name,
-      evt ? evt.map(option => option.value) : [],
+      evt ? evt.map((option) => option.value) : [],
     );
   } else {
     setFieldValue(

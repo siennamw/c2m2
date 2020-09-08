@@ -74,6 +74,7 @@ const CatalogerResetPasswordForm = () => {
 const ResetPassword = ({ match }) => {
   const [resetPasswordMutation] = useMutation(RESET_PASSWORD);
 
+  // eslint-disable-next-line camelcase
   const handleSubmit = async ({ email, new_password }, setSubmitting, setStatus) => {
     setStatus(null);
 
