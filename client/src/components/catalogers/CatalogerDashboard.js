@@ -25,7 +25,7 @@ const CatalogerDashboard = ({ match }) => {
     <div>
       <h2>Cataloger Dashboard</h2>
       <Nav ariaLabel="Cataloger dashboard">
-        <NavLink to={`${match.path}/home`}>Home</NavLink>
+        <NavLink to={`${match.path}/home`}>Cataloger Home</NavLink>
         <NavLink to={`${match.path}/new`}>New Entry</NavLink>
         {
           admin
