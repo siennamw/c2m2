@@ -9,6 +9,6 @@
     "heroku-postbuild": "npm run build && npm run deploy && echo 'Client built!'"
   },
   "dependencies": {
-    "yarn": "^1.13.0"
+    "yarn": "^1.22.0"
   }
 }
