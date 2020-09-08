@@ -27,7 +27,7 @@ const Home = () => (
           Michael W. Harris, Ph.D.
         </h2>
         <p>
-          {'Michael is a librarian, archivist, and musicologist. C2M2 is Michael&apos;s brainchild. For more about Michael, '}
+          {'Michael is a librarian, archivist, and musicologist. C2M2 is Michael\'s brainchild. For more about Michael, '}
           <a
             href="http://www.michaelwharris.net/"
             target="_blank"
