@@ -8,10 +8,10 @@ const NavSubMenu = ({ children, name }) => {
 
   return (
     <Fragment>
-      <a href aria-haspopup="menu">
+      <button aria-haspopup="menu" id={`${name}-label`} type="button">
         {name}
-      </a>
-      <ul>
+      </button>
+      <ul aria-labelledby={`${name}-label`}>
         {items}
       </ul>
     </Fragment>
