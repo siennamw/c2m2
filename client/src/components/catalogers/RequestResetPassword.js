@@ -95,8 +95,9 @@ const RequestResetPassword = () => {
         onSubmit={(values, { setSubmitting, setStatus }) => (
           handleSubmit(values, setSubmitting, setStatus)
         )}
-        render={RequestResetPasswordForm}
-      />
+      >
+        <RequestResetPasswordForm />
+      </Formik>
     </div>
   );
 };

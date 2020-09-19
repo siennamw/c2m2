@@ -122,8 +122,9 @@ const ResetPassword = ({ match }) => {
         onSubmit={(values, { setSubmitting, setStatus }) => (
           handleSubmit(values, setSubmitting, setStatus)
         )}
-        render={CatalogerResetPasswordForm}
-      />
+      >
+        <CatalogerResetPasswordForm />
+      </Formik>
     </div>
   );
 };

@@ -71,8 +71,9 @@ const BasicSearch = () => {
         }}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => handleSubmit(values.title, setSubmitting)}
-        render={InnerBasicSearchForm}
-      />
+      >
+        <InnerBasicSearchForm />
+      </Formik>
       {
         showResults
           ? <WorksList filter={filter} />

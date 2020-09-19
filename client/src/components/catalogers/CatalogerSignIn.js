@@ -142,8 +142,9 @@ const CatalogerSignIn = ({ location }) => {
         onSubmit={(values, { setSubmitting, setStatus }) => (
           handleSubmit(values, setSubmitting, setStatus)
         )}
-        render={CatalogerSignInForm}
-      />
+      >
+        <CatalogerSignInForm />
+      </Formik>
       <div className="center-text">
         <Link to="request-reset-password">
           Forgot your password? Click here to reset it.
