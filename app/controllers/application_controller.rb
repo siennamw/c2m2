@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
-  # TODO: this is temporary for development
-  # protect_from_forgery with: :exception
+  # because we're using JWTs in auth headers on each request from the client,
+  # no further protection from CSRF attacks is needed
   protect_from_forgery with: :null_session
 
   def fallback_index_html
