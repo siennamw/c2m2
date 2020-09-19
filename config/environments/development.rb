@@ -34,6 +34,9 @@ Rails.application.configure do
   # Disable email delivery in development
   config.action_mailer.perform_deliveries = false
 
+  # Define asset host (staging environment) for mailer so images can be served to emails
+  config.action_mailer.asset_host = 'https://c2m2-dev.herokuapp.com'
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 

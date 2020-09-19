@@ -1,3 +1,5 @@
+# see https://emaxime.com/2014/adding-a-staging-environment-to-rails.html
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -54,7 +56,7 @@ Rails.application.configure do
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
 
-  # Use a different cache store in production.
+  # Use a different cache store in staging.
   # config.cache_store = :mem_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
@@ -66,8 +68,12 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
+  # Disable email delivery in staging
+  # (alternatively, could sanitize using https://github.com/pboling/sanitize_email)
+  config.action_mailer.perform_deliveries = false
+
   # Define asset host for mailer so images can be served to emails
-  config.action_mailer.asset_host = 'https://c2m2.herokuapp.com'
+  config.action_mailer.asset_host = 'https://c2m2-dev.herokuapp.com'
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).

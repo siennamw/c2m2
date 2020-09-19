@@ -13,7 +13,7 @@ class ContactMailerTest < ActionMailer::TestCase
     # Test the body of the sent email contains what we expect it to
     assert_equal [email_address], email.from
     assert_equal [ENV['CONTACT_TO_EMAIL']], email.to
-    assert_equal 'Contact Form Submission from C2M2 Dev', email.subject
+    assert_equal 'Contact Form Submission from C2M2', email.subject
 
     # TODO: implement more tests when email body is finalized
     # assert_match(/<h1>Welcome to example.com, #{user.name}<\/h1>/, email.encoded)
@@ -35,7 +35,7 @@ class ContactMailerTest < ActionMailer::TestCase
     # Test the body of the sent email contains what we expect it to
     assert_equal [email_address], email.from
     assert_equal [ENV['CONTACT_TO_EMAIL']], email.to
-    assert_equal 'Suggestion Form Submission from C2M2 Dev', email.subject
+    assert_equal 'Suggestion Form Submission from C2M2', email.subject
 
     fields.each_pair do |k, v|
       text_string = "#{k.capitalize}: #{v}\r\n"

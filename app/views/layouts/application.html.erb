@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>C2M2-Dev</title>
+    <title>C2M2<%= Rails.env.production? ? '' : "-#{Rails.env}" %></title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag 'application', media: 'all' %>

@@ -12,7 +12,7 @@ class UserMailerTest < ActionMailer::TestCase
 
     # Test the body of the sent email contains what we expect it to
     assert_equal [@cataloger.email], email.to
-    assert_equal 'Welcome to C2M2 Dev', email.subject
+    assert_equal 'Welcome to C2M2', email.subject
 
     # TODO: implement more tests when email body is finalized
     # assert_match(/<h1>Welcome to example.com, #{user.name}<\/h1>/, email.encoded)

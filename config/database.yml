@@ -15,6 +15,10 @@ test:
   <<: *default
   database: db/test
 
+staging:
+  <<: *default
+  database: db/staging
+
 production:
   <<: *default
   database: db/production

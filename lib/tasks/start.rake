@@ -3,6 +3,11 @@ namespace :start do
     exec 'foreman start -f Procfile.dev'
   end
 
+  desc 'Start staging server'
+  task :staging do
+    exec 'NPM_CONFIG_PRODUCTION=true && foreman start'
+  end
+
   desc 'Start production server'
   task :production do
     exec 'NPM_CONFIG_PRODUCTION=true && foreman start'
