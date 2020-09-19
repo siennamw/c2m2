@@ -20,7 +20,7 @@ module C2m2Backend
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins '*'
+        origins ENV['DOMAIN'] || 'localhost:3001'
         resource '*', headers: :any, methods: [:get, :post, :put, :patch, :delete, :options]
       end
     end
