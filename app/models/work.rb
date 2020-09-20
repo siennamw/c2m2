@@ -8,8 +8,8 @@ class Work < ApplicationRecord
   has_and_belongs_to_many :orchestrators,
     class_name: 'Composer',
     join_table: 'orchestrators_works',
-    foreign_key: 'composer_id',
-    association_foreign_key: 'work_id'
+    foreign_key: 'work_id',
+    association_foreign_key: 'composer_id'
   has_and_belongs_to_many :directors
   has_and_belongs_to_many :production_companies
 

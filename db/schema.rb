@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200217234534) do
+ActiveRecord::Schema.define(version: 20200920181547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -222,6 +222,8 @@ ActiveRecord::Schema.define(version: 20200217234534) do
   add_foreign_key "material_formats", "catalogers", column: "updated_by_id"
   add_foreign_key "media_types", "catalogers", column: "created_by_id"
   add_foreign_key "media_types", "catalogers", column: "updated_by_id"
+  add_foreign_key "orchestrators_works", "composers"
+  add_foreign_key "orchestrators_works", "works"
   add_foreign_key "production_companies", "catalogers", column: "created_by_id"
   add_foreign_key "production_companies", "catalogers", column: "updated_by_id"
   add_foreign_key "production_companies_works", "production_companies"
