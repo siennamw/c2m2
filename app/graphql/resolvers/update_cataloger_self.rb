@@ -19,7 +19,7 @@ class Resolvers::UpdateCatalogerSelf < GraphQL::Function
 
     cataloger = Cataloger.find_by(id: args[:id])
 
-    # only admins and the cataloger concerned can update cataloger entries
+    # this path for updating own cataloger information only
     unless cataloger == ctx[:current_user]
       raise GraphQL::ExecutionError.new("You do not have permission to edit account information for this cataloger")
     end
@@ -38,9 +38,8 @@ class Resolvers::UpdateCatalogerSelf < GraphQL::Function
       updated_by: ctx[:current_user],
     )
 
-    # TODO: implement user info change email
     # Tell the UserMailer to send a user info change email asynchronously
-    # UserMailer.info_change_email(cataloger).deliver_later
+    UserMailer.info_change_email(cataloger, false).deliver_later
 
     # Return updated cataloger
     Cataloger.find(args[:id])
