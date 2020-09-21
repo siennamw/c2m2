@@ -66,7 +66,7 @@ Types::QueryType = GraphQL::ObjectType.define do
     resolve ->(obj, args, ctx) { Director.find(args[:id]) }
   end
 
-  field :allWorks, function: Resolvers::WorksSearch
+  field :allWorks, function: Resolvers::SearchWorks
 
   field :work do
     type Types::WorkType

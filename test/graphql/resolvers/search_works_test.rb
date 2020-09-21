@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class Resolvers::WorksSearchTest < ActiveSupport::TestCase
+class Resolvers::SearchWorksTest < ActiveSupport::TestCase
   def find(args)
-    Resolvers::WorksSearch.call(nil, args, nil)
+    Resolvers::SearchWorks.call(nil, args, nil)
   end
 
   setup do

@@ -1,6 +1,6 @@
 require 'search_object/plugin/graphql'
 
-class Resolvers::WorksSearch
+class Resolvers::SearchWorks
   # include SearchObject for GraphQL
   include SearchObject.module(:graphql)
 
