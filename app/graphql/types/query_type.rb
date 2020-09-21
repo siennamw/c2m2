@@ -14,11 +14,7 @@ Types::QueryType = GraphQL::ObjectType.define do
     resolve ->(obj, args, ctx) { Cataloger.find(args[:id]) }
   end
 
-  field :allCollections do
-    type types[Types::CollectionType]
-    description "A list of all collections"
-    resolve ->(obj, args, ctx) { Collection.order(name: :asc).all }
-  end
+  field :allCollections, function: Resolvers::SearchCollections
 
   field :collection do
     type Types::CollectionType
@@ -27,11 +23,7 @@ Types::QueryType = GraphQL::ObjectType.define do
     resolve ->(obj, args, ctx) { Collection.find(args[:id]) }
   end
 
-  field :allComposers do
-    type types[Types::ComposerType]
-    description "A list of all composers"
-    resolve ->(obj, args, ctx) { Composer.order(name: :asc).all }
-  end
+  field :allComposers, function: Resolvers::SearchComposers
 
   field :composer do
     type Types::ComposerType
@@ -40,11 +32,7 @@ Types::QueryType = GraphQL::ObjectType.define do
     resolve ->(obj, args, ctx) { Composer.find(args[:id]) }
   end
 
-  field :allCountries do
-    type types[Types::CountryType]
-    description "A list of all countries"
-    resolve ->(obj, args, ctx) { Country.order(name: :asc).all }
-  end
+  field :allCountries, function: Resolvers::SearchCountries
 
   field :country do
     type Types::CountryType
@@ -53,11 +41,7 @@ Types::QueryType = GraphQL::ObjectType.define do
     resolve ->(obj, args, ctx) { Country.find(args[:id]) }
   end
 
-  field :allDirectors do
-    type types[Types::DirectorType]
-    description "A list of all directors"
-    resolve ->(obj, args, ctx) { Director.order(name: :asc).all }
-  end
+  field :allDirectors, function: Resolvers::SearchDirectors
 
   field :director do
     type Types::DirectorType
@@ -101,11 +85,7 @@ Types::QueryType = GraphQL::ObjectType.define do
     resolve ->(obj, args, ctx) { MediaType.find(args[:id]) }
   end
 
-  field :allProductionCompanies do
-    type types[Types::ProductionCompanyType]
-    description "A list of all production companies"
-    resolve ->(obj, args, ctx) { ProductionCompany.order(name: :asc).all }
-  end
+  field :allProductionCompanies, function: Resolvers::SearchProductionCompanies
 
   field :production_company do
     type Types::ProductionCompanyType
@@ -114,11 +94,7 @@ Types::QueryType = GraphQL::ObjectType.define do
     resolve ->(obj, args, ctx) { ProductionCompany.find(args[:id]) }
   end
 
-  field :allRepositories do
-    type types[Types::RepositoryType]
-    description "A list of all repositories"
-    resolve ->(obj, args, ctx) { Repository.order(name: :asc).all }
-  end
+  field :allRepositories, function: Resolvers::SearchRepositories
 
   field :repository do
     type Types::RepositoryType
