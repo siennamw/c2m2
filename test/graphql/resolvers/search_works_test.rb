@@ -15,12 +15,9 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
       name: 'a media type',
       created_by: @cataloger
     )
-  end
-
-  test 'filter option' do
-    works = []
+    @works = []
     4.times do |n|
-      works << Work.create!(
+      @works << Work.create!(
         created_by: @cataloger,
         title: "title#{n}",
         secondary_title: "secondary#{n}",
@@ -29,7 +26,9 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
         media_type: @media_type,
       )
     end
+  end
 
+  test 'filter option' do
     result = find(
       filter: {
         'title_contains' => 'title1',
@@ -43,22 +42,10 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
       }
     )
 
-    assert_equal [works[1], works[2], works[3]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@works[1], @works[2], @works[3]].map(&:id).sort, result.map(&:id).sort
   end
 
   test 'filter option is case insensitive' do
-    works = []
-    4.times do |n|
-      works << Work.create!(
-        created_by: @cataloger,
-        title: "TITLE#{n}",
-        secondary_title: "Secondary#{n}",
-        alias_alternates: "aLiAs#{n}",
-        year: 2018,
-        media_type: @media_type,
-      )
-    end
-
     result = find(
       filter: {
         'title_contains' => 'title1',
@@ -72,6 +59,49 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
       }
     )
 
-    assert_equal [works[1], works[2], works[3]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@works[1], @works[2], @works[3]].map(&:id).sort, result.map(&:id).sort
+  end
+
+  test 'first (limit) determines number of items returned' do
+    first = 2
+
+    result = find(
+      filter: {
+        'title_contains' => 'title',
+      },
+      first: first
+    )
+
+    assert_equal result.length, first
+    assert_equal [@works[0], @works[1]].map(&:id).sort, result.map(&:id).sort
+  end
+
+  test 'skip (offset) determines number of items skipped for pagination' do
+    skip = 1
+
+    result = find(
+      filter: {
+        'title_contains' => 'title',
+      },
+      skip: skip,
+    )
+
+    assert_equal [@works[1], @works[2], @works[3]].map(&:id).sort, result.map(&:id).sort
+  end
+
+  test 'skip and limit work together as expected' do
+    first = 2
+    skip = 1
+
+    result = find(
+      filter: {
+        'title_contains' => 'title',
+      },
+      first: first,
+      skip: skip
+    )
+
+    assert_equal result.length, first
+    assert_equal [@works[1], @works[2]].map(&:id).sort, result.map(&:id).sort
   end
 end
