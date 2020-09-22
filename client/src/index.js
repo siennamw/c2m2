@@ -13,6 +13,7 @@ import registerServiceWorker from './registerServiceWorker';
 
 import './styles/index.css';
 import App from './components/App';
+import ScrollToTop from './components/ScrollToTop';
 import { getAuthorizationToken, signOut } from './utils';
 
 const httpLink = createUploadLink({
@@ -60,6 +61,7 @@ const client = new ApolloClient({
 ReactDOM.render(
   <ApolloProvider client={client}>
     <Router>
+      <ScrollToTop />
       <App />
     </Router>
   </ApolloProvider>,
