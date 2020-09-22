@@ -18,7 +18,7 @@ const CatalogersList = () => (
             </tr>
             {
               allCatalogers.map((cataloger) => (
-                <tr>
+                <tr key={cataloger.id}>
                   <td>
                     <LinkToEntry entry={cataloger} model="cataloger" />
                   </td>
