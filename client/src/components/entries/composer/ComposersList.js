@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 import LinkToEntry from '../LinkToEntry';
 import QueryWrap from '../QueryWrap';
 
-import { LIST_ALL_COMPOSERS } from '../../../queries';
+import { SEARCH_COMPOSERS } from '../../../queries';
 
 const ComposersList = ({ filter }) => (
   <Fragment>
     <h3>Composers</h3>
     <QueryWrap
       filter={filter}
-      query={LIST_ALL_COMPOSERS}
+      query={SEARCH_COMPOSERS}
       queryName="allComposers"
     >
       {
@@ -24,7 +24,7 @@ const ComposersList = ({ filter }) => (
               </tr>
               {
                 allComposers.map((composer) => (
-                  <tr>
+                  <tr key={composer.id}>
                     <td>
                       <LinkToEntry entry={composer} model="composer" />
                     </td>

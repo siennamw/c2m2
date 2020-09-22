@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import EntryListWithLinks from '../EntryListWithLinks';
 import QueryWrap from '../QueryWrap';
 
-import { WORKS_SEARCH } from '../../../queries';
+import { SEARCH_WORKS } from '../../../queries';
 
 const WorksList = ({ filter }) => (
   <QueryWrap
     filter={filter}
     pagination
-    query={WORKS_SEARCH}
+    query={SEARCH_WORKS}
     queryName="allWorks"
   >
     {

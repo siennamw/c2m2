@@ -542,7 +542,66 @@ export const WORK_BY_ID = gql`
   }
 `;
 
-export const WORKS_SEARCH = gql`
+export const SEARCH_COLLECTIONS = gql`
+  query searchCollections($filter: CollectionFilter, $first: Int, $skip: Int){
+    allCollections(filter: $filter, first: $first, skip: $skip) {
+      id
+      name
+      description
+    }
+  }
+`;
+
+export const SEARCH_COMPOSERS = gql`
+  query searchComposers($filter: ComposerFilter, $first: Int, $skip: Int){
+    allComposers(filter: $filter, first: $first, skip: $skip) {
+      id
+      name
+      imdb_link
+    }
+  }
+`;
+
+export const SEARCH_COUNTRIES = gql`
+  query searchCountries($filter: CountryFilter, $first: Int, $skip: Int){
+    allCountries(filter: $filter, first: $first, skip: $skip) {
+      id
+      name
+      description
+    }
+  }
+`;
+
+export const SEARCH_DIRECTORS = gql`
+  query searchDirectors($filter: DirectorFilter, $first: Int, $skip: Int){
+    allDirectors(filter: $filter, first: $first, skip: $skip) {
+      id
+      name
+      imdb_link
+    }
+  }
+`;
+
+export const SEARCH_PRODUCTION_COMPANIES = gql`
+  query searchProductionCompanies($filter: ProductionCompanyFilter, $first: Int, $skip: Int){
+    allProductionCompanies(filter: $filter, first: $first, skip: $skip) {
+      id
+      name
+    }
+  }
+`;
+
+export const SEARCH_REPOSITORIES = gql`
+  query searchRepositories($filter: RepositoryFilter, $first: Int, $skip: Int){
+    allRepositories(filter: $filter, first: $first, skip: $skip) {
+      id
+      name
+      location
+    }
+  }
+`;
+
+export const SEARCH_WORKS = gql`
   query searchWorks($filter: WorkFilter, $first: Int, $skip: Int){
     allWorks(filter: $filter, first: $first, skip: $skip) {
       id

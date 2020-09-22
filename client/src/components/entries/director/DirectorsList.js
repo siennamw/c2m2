@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 import LinkToEntry from '../LinkToEntry';
 import QueryWrap from '../QueryWrap';
 
-import { LIST_ALL_DIRECTORS } from '../../../queries';
+import { SEARCH_DIRECTORS } from '../../../queries';
 
 const DirectorsList = ({ filter }) => (
   <Fragment>
     <h3>Directors</h3>
     <QueryWrap
       filter={filter}
-      query={LIST_ALL_DIRECTORS}
+      query={SEARCH_DIRECTORS}
       queryName="allDirectors"
     >
       {
@@ -23,18 +23,18 @@ const DirectorsList = ({ filter }) => (
                 <th>IMDB Link</th>
               </tr>
               {
-                allDirectors.map((composer) => (
-                  <tr>
+                allDirectors.map((director) => (
+                  <tr key={director.id}>
                     <td>
-                      <LinkToEntry entry={composer} model="composer" />
+                      <LinkToEntry entry={director} model="director" />
                     </td>
                     <td>
                       <a
-                        href={composer.imdb_link}
+                        href={director.imdb_link}
                         rel="noopener noreferrer"
                         target="_blank"
                       >
-                        {composer.imdb_link}
+                        {director.imdb_link}
                       </a>
                     </td>
                   </tr>

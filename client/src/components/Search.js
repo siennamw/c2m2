@@ -1,84 +1,71 @@
 import React, { useState } from 'react';
-import {
-  Formik,
-  Form,
-  Field,
-  ErrorMessage,
-  useFormikContext,
-} from 'formik';
-import * as Yup from 'yup';
 
-import WorksList from './entries/work/WorksList';
+import { StyledSelect } from './entries/SelectField';
+import { MODEL_NAMES } from '../constants';
 
-const validationSchema = Yup.object().shape({
-  title: Yup.string()
-    .required('Title is required'),
-});
-
-const InnerBasicSearchForm = () => {
-  const { handleSubmit, isSubmitting } = useFormikContext();
-
-  return (
-    <Form>
-      <label htmlFor="title">
-        Title
-        <ErrorMessage
-          className="status-message form-message error"
-          component="div"
-          name="title"
-        />
-        <Field
-          className="u-full-width"
-          id="title"
-          name="title"
-          type="text"
-        />
-      </label>
-      <button
-        className="button-primary u-full-width"
-        disabled={isSubmitting}
-        onClick={handleSubmit}
-        type="submit"
-      >
-        Submit
-      </button>
-    </Form>
-  );
-};
+import SearchWorks from './entries/work/SearchWorks';
+import SearchComposers from './entries/composer/SearchComposers';
+import SearchCollections from './entries/collection/SearchCollections';
+import SearchCountries from './entries/country/SearchCountries';
+import SearchDirectors from './entries/director/SearchDirectors';
+import SearchProductionCompanies
+  from './entries/productionCompany/SearchProductionCompanies';
+import SearchRepositories from './entries/repository/SearchRepositories';
 
 const BasicSearch = () => {
-  const [showResults, setShowResults] = useState(false);
-  const [filter, setFilter] = useState({});
+  const models = MODEL_NAMES
+    .filter((model) => (
+      model !== 'cataloger'
+      && model !== 'material_format'
+      && model !== 'media_type'
+      && model !== 'resource'
+    ))
+    .map((model) => ({
+      label: model.replace('_', ' '),
+      value: model,
+    }));
 
-  const handleSubmit = (title, setSubmitting) => {
-    setFilter({
-      title_contains: title,
-      OR: {
-        secondary_title_contains: title,
-        OR: { alias_alternates_contains: title },
-      },
-    });
-    setShowResults(true);
-    setSubmitting(false);
+  const [selectedModel, setSelectedModel] = useState({ value: '', label: 'Select...' });
+
+  const getComponentForModelSearch = () => {
+    switch (selectedModel.value) {
+      case 'collection':
+        return <SearchCollections />;
+      case 'composer':
+        return <SearchComposers />;
+      case 'country':
+        return <SearchCountries />;
+      case 'director':
+        return <SearchDirectors />;
+      case 'production_company':
+        return <SearchProductionCompanies />;
+      case 'repository':
+        return <SearchRepositories />;
+      case 'work':
+        return <SearchWorks />;
+      default:
+        return null;
+    }
   };
 
   return (
     <div>
-      <h2>Basic Work Search</h2>
-      <Formik
-        initialValues={{
-          title: '',
-        }}
-        validationSchema={validationSchema}
-        onSubmit={(values, { setSubmitting }) => handleSubmit(values.title, setSubmitting)}
-      >
-        <InnerBasicSearchForm />
-      </Formik>
-      {
-        showResults
-          ? <WorksList filter={filter} />
-          : undefined
-      }
+      <h2>Simple Search</h2>
+      <p>Select an entry type to search by title or name.</p>
+      <form>
+        <label htmlFor="entryType">
+          Select Entry Type
+          <StyledSelect
+            fieldName="entryType"
+            id="entryType"
+            onBlur={() => {}}
+            onChange={(value) => setSelectedModel(value)}
+            options={models}
+            value={selectedModel}
+          />
+        </label>
+      </form>
+      { getComponentForModelSearch() }
     </div>
   );
 };
