@@ -116,10 +116,17 @@ const SelectField = ({
   const content = (
     <Fragment>
       {displayName}
-      <FieldInfoTooltip
-        field={fieldName}
-        model={modelName}
-      />
+      {
+        modelName
+          ? (
+            <FieldInfoTooltip
+              field={fieldName}
+              model={modelName}
+            />
+          )
+          : null
+      }
+
       <ErrorMessage
         name={fieldName}
         component="div"
@@ -158,6 +165,7 @@ SelectField.defaultProps = {
   addNewItemText: false,
   isMulti: false,
   labelDisabled: false,
+  modelName: null,
   disabled: false,
   selected: null,
 };
@@ -169,7 +177,7 @@ SelectField.propTypes = {
   fieldName: PropTypes.string.isRequired,
   isMulti: PropTypes.bool,
   labelDisabled: PropTypes.bool,
-  modelName: PropTypes.oneOf(MODEL_NAMES).isRequired,
+  modelName: PropTypes.oneOf(MODEL_NAMES),
   onBlur: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   options: PropTypes.arrayOf(
