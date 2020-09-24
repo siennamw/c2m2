@@ -17,9 +17,14 @@ class Resolvers::SearchWorks
     name 'WorkFilter'
 
     argument :OR, -> { types[WorkFilter] }
-    argument :title_contains, types.String
-    argument :secondary_title_contains, types.String
-    argument :alias_alternates_contains, types.String
+    argument :composer, types.String
+    argument :country, types.String
+    argument :dateRangeEnd, types.Int
+    argument :dateRangeStart, types.Int
+    argument :director, types.String
+    argument :keyword, types.String
+    argument :productionCompany, types.String
+    argument :title, types.String
   end
 
   option :filter, type: WorkFilter, with: :apply_filter
@@ -27,14 +32,52 @@ class Resolvers::SearchWorks
   option :skip, type: types.Int, with: :apply_skip
 
   def normalize_filters(value, branches = [])
-    scope = Work.all
+    if value.keys.length == 1 && value['OR'].present?
+      # OR is only value in this scope, do nothing
+    else
+      scope = Work.all.joins(:composers, :country, :directors, :production_companies)
 
-    # add like SQL conditions
-    scope = scope.where('title ILIKE ?', "%#{value['title_contains']}%") if value['title_contains']
-    scope = scope.where('secondary_title ILIKE ?', "%#{value['secondary_title_contains']}%") if value['secondary_title_contains']
-    scope = scope.where('alias_alternates ILIKE ?', "%#{value['alias_alternates_contains']}%") if value['alias_alternates_contains']
+      # add ilike SQL conditions
+      if value['composer'] && !value['composer'].blank?
+        scope = scope.where('composers.name ILIKE ?', "%#{value['composer']}%")
+      end
 
-    branches << scope
+      if value['country'] && !value['country'].blank?
+        scope = scope.where('countries.name ILIKE ?', "%#{value['country']}%")
+      end
+
+      if value['dateRangeEnd'] && !value['dateRangeEnd'].blank?
+        scope = scope.where('year <= ?', value['dateRangeEnd'])
+      end
+
+      if value['dateRangeStart'] && !value['dateRangeStart'].blank?
+        scope = scope.where('year >= ?', value['dateRangeStart'])
+      end
+
+      if value['director'] && !value['director'].blank?
+        scope = scope.where('directors.name ILIKE ?', "%#{value['director']}%")
+      end
+
+      if value['productionCompany'] && !value['productionCompany'].blank?
+        scope = scope.where('production_companies.name ILIKE ?', "%#{value['productionCompany']}%")
+      end
+
+      if value['title'] && !value['title'].blank?
+        scope = scope.where('title ILIKE ? OR secondary_title ILIKE ? OR alias_alternates ILIKE ?', "%#{value['title']}%", "%#{value['title']}%", "%#{value['title']}%")
+      end
+
+      if value['keyword'] && !value['keyword'].blank?
+        keyword = "%#{value['keyword']}%"
+        # keyword always OR
+        scope = scope.where('title ILIKE ? OR secondary_title ILIKE ? OR alias_alternates ILIKE ?', keyword, keyword, keyword)
+        .or(scope.where('composers.name ILIKE ?', keyword))
+        .or(scope.where('countries.name ILIKE ?', keyword))
+        .or(scope.where('directors.name ILIKE ?', keyword))
+        .or(scope.where('production_companies.name ILIKE ?', keyword))
+      end
+
+      branches << scope
+    end
 
     # continue to normalize down
     value['OR'].reduce(branches) { |s, v| normalize_filters(v, s) } if value['OR'].present?

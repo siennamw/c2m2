@@ -15,50 +15,141 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
       name: 'a media type',
       created_by: @cataloger
     )
+
     @works = []
-    4.times do |n|
+    @composers = []
+    @countries = []
+    @directors = []
+    @production_companies = []
+
+    @count = 5
+
+    @count.times do |n|
+      @composers << Composer.create!(
+        name: "composer#{n}",
+        imdb_link: "example.com/composer#{n}",
+        created_by: @cataloger
+      )
+      @countries << Country.create!(
+        name: "country#{n}",
+        created_by: @cataloger
+      )
+      @directors << Director.create!(
+        name: "director#{n}",
+        imdb_link: "example.com/director#{n}",
+        created_by: @cataloger
+      )
+      @production_companies << ProductionCompany.create!(
+        name: "production_company#{n}",
+        contact_info: 'company.com',
+        created_by: @cataloger
+      )
+
       @works << Work.create!(
-        created_by: @cataloger,
-        title: "title#{n}",
-        secondary_title: "secondary#{n}",
         alias_alternates: "alias#{n}",
-        year: 2018,
+        created_by: @cataloger,
+        composers: [@composers[n]],
+        directors: [@directors[n]],
+        country: @countries[n],
         media_type: @media_type,
+        production_companies: [@production_companies[n]],
+        secondary_title: "secondary#{n}",
+        title: "title#{n}",
+        year: 2000 + n,
       )
     end
   end
 
-  test 'filter option' do
+  test 'filter option without OR clauses (expecting all)' do
     result = find(
       filter: {
-        'title_contains' => 'title1',
+        'dateRangeEnd' => 2020,
+        'dateRangeStart' => '2000',
+        'director' => 'director',
+        'title' => 'title',
+      }
+    )
+
+    assert result.length, @count
+    assert_equal @works.map(&:id).sort, result.map(&:id).sort
+  end
+
+  test 'filter option without OR clauses (expecting one)' do
+    result = find(
+      filter: {
+        'country' => '3',
+        'director' => '3',
+        'title' => '3',
+      }
+    )
+
+    assert result.length, 1
+    assert_equal [@works[3]].map(&:id).sort, result.map(&:id).sort
+  end
+
+  test 'filter option with OR clauses' do
+    result = find(
+      filter: {
+        'title' => '1',
         'OR' => [
           {
-            'secondary_title_contains' => 'secondary2',
-            'OR' => [{ 'alias_alternates_contains' => 'alias3' }]
+            'composer' => '2',
+            'OR' => [{ 'productionCompany' => '3' }]
           },
-          { 'title_contains' => 'title2' }
+          { 'director' => '4' }
         ]
       }
     )
 
+    assert result.length, 4
+    assert_equal [@works[1], @works[2], @works[3], @works[4]].map(&:id).sort, result.map(&:id).sort
+  end
+
+  test 'title field looks at secondary title and aliases too; no duplicates in return' do
+    result = find(
+      filter: {
+        'title' => 'title1',
+        'OR' => [
+          {
+            'title' => 'secondary2',
+            'OR' => [{ 'title' => 'alias3' }]
+          },
+          { 'title' => 'title2' }
+        ]
+      }
+    )
+
+    assert result.length, 3
+    assert_equal [@works[1], @works[2], @works[3]].map(&:id).sort, result.map(&:id).sort
+  end
+
+  test 'date range parameters select works within the range defined' do
+    result = find(
+      filter: {
+        'dateRangeEnd' => 2003,
+        'dateRangeStart' => 2001,
+      }
+    )
+
+    assert result.length, 3
     assert_equal [@works[1], @works[2], @works[3]].map(&:id).sort, result.map(&:id).sort
   end
 
   test 'filter option is case insensitive' do
     result = find(
       filter: {
-        'title_contains' => 'title1',
+        'title' => 'TITLE1',
         'OR' => [
           {
-            'secondary_title_contains' => 'secondary2',
-            'OR' => [{ 'alias_alternates_contains' => 'alias3' }]
+            'title' => 'Secondary2',
+            'OR' => [{ 'title' => 'AlIAs3' }]
           },
-          { 'title_contains' => 'title2' }
+          { 'title' => 'tITLe2' }
         ]
       }
     )
 
+    assert result.length, 3
     assert_equal [@works[1], @works[2], @works[3]].map(&:id).sort, result.map(&:id).sort
   end
 
@@ -67,13 +158,19 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
 
     result = find(
       filter: {
-        'title_contains' => 'title',
+        'title' => 'title',
       },
-      first: first
     )
 
-    assert_equal result.length, first
-    assert_equal [@works[0], @works[1]].map(&:id).sort, result.map(&:id).sort
+    result_with_first = find(
+      filter: {
+        'title' => 'title',
+      },
+      first: first,
+    )
+
+    assert result_with_first.length, first
+    assert_equal result_with_first.map(&:id), result.map(&:id).take(first)
   end
 
   test 'skip (offset) determines number of items skipped for pagination' do
@@ -81,12 +178,19 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
 
     result = find(
       filter: {
-        'title_contains' => 'title',
+        'title' => 'title',
+      },
+    )
+
+    result_with_skip = find(
+      filter: {
+        'title' => 'title',
       },
       skip: skip,
     )
 
-    assert_equal [@works[1], @works[2], @works[3]].map(&:id).sort, result.map(&:id).sort
+    assert result_with_skip.length, @count - skip
+    assert_equal result_with_skip.map(&:id), result.map(&:id).drop(skip)
   end
 
   test 'skip and limit work together as expected' do
@@ -95,13 +199,19 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
 
     result = find(
       filter: {
-        'title_contains' => 'title',
+        'title' => 'title',
+      },
+    )
+
+    result_with_skip_and_limit = find(
+      filter: {
+        'title' => 'title',
       },
       first: first,
       skip: skip
     )
 
-    assert_equal result.length, first
-    assert_equal [@works[1], @works[2]].map(&:id).sort, result.map(&:id).sort
+    assert_equal result_with_skip_and_limit.length, first
+    assert_equal result_with_skip_and_limit.map(&:id), result.map(&:id).drop(skip).take(first)
   end
 end

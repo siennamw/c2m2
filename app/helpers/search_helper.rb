@@ -14,6 +14,6 @@ module SearchHelper
   def apply_filter(scope, value)
     # normalize filters from nested OR structure to flat scope list
     branches = normalize_filters(value).reduce { |a, b| a.or(b) }
-    scope.merge(branches)
+    scope.merge(branches).distinct
   end
 end

@@ -11,11 +11,7 @@ const SearchWorks = () => {
   });
 
   const filterBuilder = (title) => ({
-    title_contains: title,
-    OR: {
-      secondary_title_contains: title,
-      OR: { alias_alternates_contains: title },
-    },
+    title,
   });
 
   return (
