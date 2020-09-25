@@ -7725,9 +7725,9 @@ side-channel@^1.0.2:
     es-abstract "^1.17.0-next.1"
     object-inspect "^1.7.0"
 
-"sienna-boilerplate@github:siennamw/sienna-boilerplate#13445d099839f31f317ced43ffe7baaeb1b7c156":
+"sienna-boilerplate@github:siennamw/sienna-boilerplate#198d555":
   version "0.0.1"
-  resolved "https://codeload.github.com/siennamw/sienna-boilerplate/tar.gz/13445d099839f31f317ced43ffe7baaeb1b7c156"
+  resolved "https://codeload.github.com/siennamw/sienna-boilerplate/tar.gz/198d555c743c7d0b20969fbc3696482e329a32b7"
   dependencies:
     jquery "^3.2.1"
     normalize.css "^4.1.1"

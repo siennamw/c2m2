@@ -30,7 +30,7 @@
     "react-scripts": "1.1.4",
     "react-select": "^3.0.4",
     "serve": "^10.1.1",
-    "sienna-boilerplate": "github:siennamw/sienna-boilerplate#13445d099839f31f317ced43ffe7baaeb1b7c156",
+    "sienna-boilerplate": "github:siennamw/sienna-boilerplate#198d555",
     "yup": "^0.26.6"
   },
   "devDependencies": {
