@@ -21,7 +21,10 @@ const Header = () => (
     <Nav ariaLabel="Main">
       <NavLink exact to="/">Home</NavLink>
       <NavLink to="/works">Browse</NavLink>
-      <NavLink to="/search">Search</NavLink>
+      <NavSubMenu name="Search">
+        <NavLink to="/search">Simple Search</NavLink>
+        <NavLink to="/search-advanced">Advanced Search</NavLink>
+      </NavSubMenu>
       <NavSubMenu name="Contact">
         <NavLink to="/contact">Contact Us</NavLink>
         <NavLink to="/suggest">Suggest a Resource</NavLink>

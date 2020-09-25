@@ -183,6 +183,8 @@ const SearchAdvanced = () => {
 
   return (
     <Fragment>
+      <h2>Advanced Search</h2>
+      <p>Search for a specific work using more detailed information.</p>
       <Formik
         initialValues={{
           allOrAny: 'all',

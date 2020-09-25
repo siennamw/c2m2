@@ -14,7 +14,8 @@ import Home from './Home';
 import RequestResetPassword from './catalogers/RequestResetPassword';
 import ResetPassword from './catalogers/ResetPassword';
 import ResourceSuggestion from './contact/ResourceSuggestion';
-import SimpleSearch from './Search';
+import SearchAdvanced from './entries/SearchAdvanced';
+import SearchSimple from './entries/SearchSimple';
 import Vision from './Vision';
 
 import DetailedCataloger from './entries/cataloger/DetailedCataloger';
@@ -79,8 +80,13 @@ const App = () => (
           />
           <Route
             exact
+            path="/search-advanced"
+            component={SearchAdvanced}
+          />
+          <Route
+            exact
             path="/search"
-            component={SimpleSearch}
+            component={SearchSimple}
           />
 
           {/* detailed entry routes */}

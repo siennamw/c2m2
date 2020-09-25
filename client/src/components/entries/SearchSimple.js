@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 
-import { StyledSelect } from './entries/SelectField';
-import { MODEL_NAMES } from '../constants';
+import { StyledSelect } from './SelectField';
+import { MODEL_NAMES } from '../../constants';
 
-import SearchWorks from './entries/work/SearchWorks';
-import SearchComposers from './entries/composer/SearchComposers';
-import SearchCollections from './entries/collection/SearchCollections';
-import SearchCountries from './entries/country/SearchCountries';
-import SearchDirectors from './entries/director/SearchDirectors';
-import SearchProductionCompanies from './entries/productionCompany/SearchProductionCompanies';
-import SearchRepositories from './entries/repository/SearchRepositories';
-import SearchAdvanced from './entries/SearchAdvanced';
+import SearchCollections from './collection/SearchCollections';
+import SearchComposers from './composer/SearchComposers';
+import SearchCountries from './country/SearchCountries';
+import SearchDirectors from './director/SearchDirectors';
+import SearchProductionCompanies from './productionCompany/SearchProductionCompanies';
+import SearchRepositories from './repository/SearchRepositories';
+import SearchWorks from './work/SearchWorks';
 
 const BasicSearch = () => {
   const models = MODEL_NAMES
@@ -21,7 +20,9 @@ const BasicSearch = () => {
       && model !== 'resource'
     ))
     .map((model) => ({
-      label: model.replace('_', ' '),
+      label: model === 'composer'
+        ? 'composer/orchestrator'
+        : model.replace('_', ' '),
       value: model,
     }));
 
@@ -66,9 +67,6 @@ const BasicSearch = () => {
         </label>
       </form>
       { getComponentForModelSearch() }
-      <h2>Advanced Search</h2>
-      <p>Search for a specific work with more information.</p>
-      <SearchAdvanced />
     </div>
   );
 };
