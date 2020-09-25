@@ -2,7 +2,24 @@ import React from 'react';
 
 const About = () => (
   <div>
-    <h2>Why C2M2?</h2>
+    <h2>About this Project</h2>
+    <p>
+      {'Collections of Cinema and Media Music, or '}
+      <b>C2M2</b>
+      , seeks to provide scholars working with music in film, television, video
+      game, and other types of media with an easy way to locate archival
+      materials relevant to their research. This website hosts a database
+      searchable by composer, title of a work, production company, etc. This
+      information is being gathered by working with both scholars and archivists
+      active in the field.
+    </p>
+    <p>
+      As this project matures, C2M2 hopes to foster communication between
+      scholars, archivists, and practitioners in order to build a robust
+      archival record of cinema and media music.
+    </p>
+
+    <h3>Why C2M2?</h3>
     <p>
       Prior to starting his library career, C2M2 mad scientist and creator Michael
       Harris completed a doctorate in musicology with a dissertation on Japanese

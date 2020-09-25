@@ -16,7 +16,6 @@ import ResetPassword from './catalogers/ResetPassword';
 import ResourceSuggestion from './contact/ResourceSuggestion';
 import SearchAdvanced from './entries/SearchAdvanced';
 import SearchSimple from './entries/SearchSimple';
-import Vision from './Vision';
 
 import DetailedCataloger from './entries/cataloger/DetailedCataloger';
 import DetailedCollection from './entries/collection/DetailedCollection';
@@ -53,11 +52,6 @@ const App = () => (
             exact
             path="/about"
             component={About}
-          />
-          <Route
-            exact
-            path="/vision"
-            component={Vision}
           />
 
           {/* contact and suggestion routes */}

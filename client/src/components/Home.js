@@ -6,7 +6,7 @@ const Home = () => (
     <p>
       {'Welcome to Collections of Cinema and Media Music, or '}
       <b>C2M2</b>
-      {', a guide to archival collections of film and media music. C2M2 is currently in development and we welcome '}
+      {', a guide to archival collections of film and media music. C2M2 is an ongoing project and we welcome '}
       <Link to="/suggest">
         suggestions for resources to be included in the database
       </Link>
@@ -15,7 +15,7 @@ const Home = () => (
         contact us with general questions or comments
       </Link>
       {' or '}
-      <Link to="/vision">
+      <Link to="/about">
         read more about our plans for C2M2
       </Link>
       .

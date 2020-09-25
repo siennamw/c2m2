@@ -42,16 +42,24 @@ const FooterLinks = () => {
         </ul>
       </div>
       <div className="three columns">
-        <h1 className="h5">About</h1>
+        <h1 className="h5">Search</h1>
         <ul>
           <li>
-            <NavLink to="/vision">
-              Vision &amp; Design
+            <NavLink to="/search">
+              Simple Search
             </NavLink>
           </li>
           <li>
+            <NavLink to="/search-advanced">
+              Advanced Search
+            </NavLink>
+          </li>
+        </ul>
+        <h1 className="h5">About</h1>
+        <ul>
+          <li>
             <NavLink to="/about">
-              Why C2M2?
+              About C2M2
             </NavLink>
           </li>
         </ul>
