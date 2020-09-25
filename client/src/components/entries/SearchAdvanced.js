@@ -54,7 +54,7 @@ const InnerAdvancedSearchForm = () => {
         fieldName="composer"
       />
       <InputField
-        displayName="Film Title"
+        displayName="Title"
         fieldName="title"
       />
       <InputField
@@ -135,7 +135,7 @@ const SearchAdvanced = () => {
       .label('Director')
       .trim(),
     title: Yup.string()
-      .label('Film Title')
+      .label('Title')
       .trim(),
     keyword: Yup.string()
       .label('Keyword')
