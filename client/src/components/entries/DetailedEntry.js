@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import QueryWrap from './QueryWrap';
+import PublicationStatusBanner from './PublicationStatusBanner';
 
 import { AuthContext } from '../AuthContext';
 import * as queries from '../../queries';
@@ -41,40 +42,12 @@ const DetailedEntry = ({
             return null;
           };
 
-          const pubStatus = (status) => {
-            if (!['draft', 'provisional', 'approved'].includes(status)) {
-              return null;
-            }
-
-            let description = '';
-
-            switch (status) {
-              case 'approved':
-                description = 'This entry has been reviewed and approved by a project administrator.';
-                break;
-              case 'provisional':
-                description = 'This entry has not yet been reviewed by a project administrator.';
-                break;
-              case 'draft':
-              default:
-                description = 'This entry is a draft and can only be viewed by catalogers.';
-                break;
-            }
-
-            return (
-              <div className={`publication-status bar ${status}`}>
-                <span className="h3">
-                  {`${status}:`}
-                </span>
-                <span>{description}</span>
-              </div>
-            );
-          };
-
           return (
             <div className="detailed-entry">
               <div>
-                {pubStatus()}
+                <PublicationStatusBanner
+                  publicationStatus={values.publication_status}
+                />
                 <div className="entry-type">
                   {`${entryTypeForDisplay}:`}
                 </div>
