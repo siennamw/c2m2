@@ -9,7 +9,6 @@ import { SEARCH_WORKS } from '../../../queries';
 const WorksList = ({ filter }) => (
   <QueryWrap
     filter={filter}
-    pagination
     query={SEARCH_WORKS}
     queryName="allWorks"
   >

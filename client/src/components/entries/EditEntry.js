@@ -20,6 +20,8 @@ const EditEntry = ({
 }) => (
   <QueryWrap
     id={id}
+    limit={1}
+    pagination={false}
     query={gqlQuery}
     queryName={queryName}
   >

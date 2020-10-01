@@ -14,6 +14,20 @@ const QueryWrap = ({
   query,
   queryName,
 }) => {
+  const variables = {
+    id,
+    filter,
+    first: limit,
+    skip: 0,
+  };
+
+  const {
+    data,
+    error,
+    fetchMore,
+    loading,
+  } = useQuery(query, { variables });
+
   const [moreResults, setMoreResults] = useState(true);
   const [loadingResults, setLoadingResults] = useState(false);
 
@@ -31,19 +45,12 @@ const QueryWrap = ({
     setLoadingResults(false);
   }, [filter]);
 
-  const vars = {
-    id,
-    filter,
-    first: limit,
-    skip: 0,
-  };
-
-  const {
-    data,
-    error,
-    fetchMore,
-    loading,
-  } = useQuery(query, { variables: vars });
+  useEffect(() => {
+    // if no more results after initial query, set moreResults accordingly
+    if (data && data[queryName] && data[queryName].length < limit) {
+      setMoreResults(false);
+    }
+  }, [data]);
 
   const loadMore = () => {
     setLoadingResults(true);
@@ -70,7 +77,8 @@ const QueryWrap = ({
             },
           };
           setLoadingResults(false);
-          setMoreResults(true);
+          // if number of results is same as limit, there are probably more results
+          setMoreResults(limit > 0 && fetchMoreResult[queryName].length === limit);
         }
         return result;
       },
@@ -128,7 +136,7 @@ QueryWrap.defaultProps = {
   filter: {},
   id: undefined,
   limit: 25,
-  pagination: false,
+  pagination: true,
 };
 
 QueryWrap.propTypes = {
