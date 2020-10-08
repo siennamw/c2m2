@@ -5059,7 +5059,7 @@ jest@20.0.4:
   dependencies:
     jest-cli "^20.0.4"
 
-jquery@^3.2.1:
+jquery@^3.5.0:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.5.1.tgz#d7b4d08e1bfdb86ad2f1a3d039ea17304717abb5"
   integrity sha512-XwIBPqcMn57FxfT+Go5pzySnm4KWkT1Tv7gjrpT1srtf8Weynl6R273VJ5GjkRb51IzMp5nbaPjJXMWeju2MKg==
@@ -7722,11 +7722,11 @@ side-channel@^1.0.2:
     es-abstract "^1.17.0-next.1"
     object-inspect "^1.7.0"
 
-"sienna-boilerplate@github:siennamw/sienna-boilerplate#198d555":
+"sienna-boilerplate@github:siennamw/sienna-boilerplate#cb121f10ccdec91af24d8e9b35fb5ab1552ec76c":
   version "0.0.1"
-  resolved "https://codeload.github.com/siennamw/sienna-boilerplate/tar.gz/198d555c743c7d0b20969fbc3696482e329a32b7"
+  resolved "https://codeload.github.com/siennamw/sienna-boilerplate/tar.gz/cb121f10ccdec91af24d8e9b35fb5ab1552ec76c"
   dependencies:
-    jquery "^3.2.1"
+    jquery "^3.5.0"
     normalize.css "^4.1.1"
 
 signal-exit@^3.0.0, signal-exit@^3.0.2:
