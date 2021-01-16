@@ -58,9 +58,22 @@ const Home = () => (
 
     <dt>Heather Fisher</dt>
     <dd>
-      {'Heather is the Metadata/Catalog Librarian at Saginaw Valley State University. She holds degrees in music performance, musicology (with an emphasis on film, television, and radio music from 1930-1960), and library and information science. Her thesis studied Max Steiner’s score for '}
+      {'Heather is the Metadata/Catalog Librarian at Saginaw Valley State University. She holds degrees in music performance, musicology (with an emphasis on film, television, and radio music from 1930-1960), and library and information science. Her thesis studied Max Steiner\'s score for '}
       <i>Gone with the Wind</i>
-      , particularly the influence of traditional music on the film’s narrative.
+      {', particularly the influence of traditional music on the film\'s narrative.'}
+    </dd>
+
+    <dt>Jeff Lyon</dt>
+    <dd>
+      {'Jeff is a music cataloger at Brigham Young University whose professional assignment focuses on rare music cataloging from the 18th through 20th centuries. Jeff is involved actively in committees of the Music Library Association and the American Library Association. Current research includes a collaborative project with Dr. Brent Yorgason analyzing the film music of the prolific film composer, Max Steiner. '}
+      <a
+        href="http://maxsteinerinstitute.org/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        The Max Steiner Digital Thematic Catalog
+      </a>
+      {' provides a detailed analysis of all of Steiner\'s film scores.'}
     </dd>
 
     <dt>Joshua A. Henry, M.M.</dt>
@@ -69,8 +82,6 @@ const Home = () => (
       of the Music Library Association, Josh has been assisting with data
       structure and input for C2M2.
     </dd>
-
-    {/*<dt>Jeff Lyon</dt>*/}
   </div>
 );
 
