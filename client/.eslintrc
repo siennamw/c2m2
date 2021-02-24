@@ -1,6 +1,5 @@
 {
-  "extends": "airbnb",
-  "parser": "babel-eslint",
+  "extends": "react-app",
   "rules": {
     "jsx-a11y/label-has-associated-control": [ 2, {
       "assert": "both",
