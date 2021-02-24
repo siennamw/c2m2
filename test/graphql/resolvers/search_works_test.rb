@@ -17,6 +17,7 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
     )
 
     @works = []
+    @works_minimum = []
     @composers = []
     @countries = []
     @directors = []
@@ -57,10 +58,27 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
         title: "title#{n}",
         year: 2000 + n,
       )
+
+      # works with minimum required fields
+      @works_minimum << Work.create!(
+        created_by: @cataloger,
+        media_type: @media_type,
+        title: "minimum#{n}",
+        year: 1900 + n,
+      )
     end
   end
 
-  test 'filter option without OR clauses (expecting all)' do
+  test 'no filter (expecting all)' do
+    result = find(
+      filter: {}
+    )
+
+    assert result.length, @count
+    assert_equal [@works, @works_minimum].flatten.map(&:id).sort, result.map(&:id).sort
+  end
+
+  test 'filter option without OR clauses (expecting all @works)' do
     result = find(
       filter: {
         'dateRangeEnd' => 2020,
@@ -90,7 +108,7 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
   test 'filter option with OR clauses' do
     result = find(
       filter: {
-        'title' => '1',
+        'title' => 'title1',
         'OR' => [
           {
             'composer' => '2',
