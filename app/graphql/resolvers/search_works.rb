@@ -35,7 +35,8 @@ class Resolvers::SearchWorks
     if value.keys.length == 1 && value['OR'].present?
       # OR is only value in this scope, do nothing
     else
-      scope = Work.all.joins(:composers, :country, :directors, :production_companies)
+      # left join to keep all records even if they lack connections to the joined tables
+      scope = Work.all.left_joins(:composers, :country, :directors, :production_companies)
 
       # add ilike SQL conditions
       if value['composer'] && !value['composer'].blank?
