@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:3000",
+  "engines": {
+    "node": "10.24.0"
+  },
   "dependencies": {
     "@apollo/react-components": "^3.0.1",
     "@apollo/react-hooks": "^3.0.1",
@@ -27,21 +30,14 @@
     "react-google-recaptcha": "^1.0.0",
     "react-modal": "^3.8.1",
     "react-router-dom": "5.2.0",
-    "react-scripts": "1.1.4",
+    "react-scripts": "4.0.3",
     "react-select": "^3.0.4",
     "serve": "^10.1.1",
     "sienna-boilerplate": "github:siennamw/sienna-boilerplate#cb121f10ccdec91af24d8e9b35fb5ab1552ec76c",
     "yup": "^0.26.6"
   },
   "devDependencies": {
-    "@apollo/react-testing": "^3.0.1",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb": "^18.1.0",
-    "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.19.0",
-    "eslint-plugin-react-hooks": "^2.5.0"
+    "@apollo/react-testing": "^3.0.1"
   },
   "scripts": {
     "build-css": "less-watch-compiler --run-once --main-file=index.less src/styles src/styles",
@@ -53,5 +49,17 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "serve": "serve -s build"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
