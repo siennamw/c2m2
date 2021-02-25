@@ -7,16 +7,16 @@ jobs:
   build:
     docker:
     # specify the version you desire here
-    - image: circleci/ruby:2.5.5-node-browsers
+    - image: circleci/ruby:2.7.2-node-browsers
       environment:
         PGHOST: localhost
         PGUSER: c2m2-test
         RAILS_ENV: test
-    - image: circleci/postgres:12.1
+    - image: circleci/postgres:13.2
       environment:
         POSTGRES_USER: c2m2-test
         POSTGRES_DB: c2m2-test_test
-        POSTGRES_PASSWORD: ""
+        POSTGRES_PASSWORD: password
 
     working_directory: ~/c2m2
 
