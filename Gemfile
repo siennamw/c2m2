@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '2.5.5'
+ruby '2.7.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.7'
@@ -16,9 +16,9 @@ gem 'puma', '~> 3.12'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 # Use JSON web tokens for authentication
-gem "json_web_token", "~> 0.3.5"
+gem 'json_web_token', '~> 0.3.5'
 # For CORS
-gem "rack-cors", require: "rack/cors"
+gem 'rack-cors', require: 'rack/cors'
 # For JS uglification
 gem 'uglifier'
 
@@ -29,7 +29,7 @@ group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
   # Manage environment variables
-  gem "dotenv-rails", "~> 2.5"
+  gem 'dotenv-rails', '~> 2.5'
 end
 
 group :development do
