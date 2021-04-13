@@ -23,4 +23,34 @@ class Resolvers::CreateDirectorTest < ActiveSupport::TestCase
     assert_equal director.imdb_link, imdb_link
     assert_equal director.created_by, @cataloger
   end
+
+  test 'duplicate imdb_link returns expected error' do
+    imdb_link = 'https://www.imdb.com/name/nm0718645/'
+
+    perform(
+      name: 'Ivan Reitman',
+      imdb_link: imdb_link,
+    )
+
+    result = perform(
+      name: 'Not Ivan Reitman',
+      imdb_link: imdb_link,
+    )
+
+    assert_instance_of GraphQL::ExecutionError, result
+    assert_equal 'Invalid input: Imdb link has already been taken', result.message
+  end
+
+  test 'query params are stripped from imdb_link' do
+    imdb_link = 'https://www.imdb.com/name/nm0898288/?ref_=tt_ov_dr'
+    name = 'Denis Villeneuve'
+
+    director = perform(
+      name: name,
+      imdb_link: imdb_link,
+    )
+
+    assert director.persisted?
+    assert_equal 'https://www.imdb.com/name/nm0898288/', director.imdb_link
+  end
 end

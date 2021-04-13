@@ -85,4 +85,38 @@ class Resolvers::CreateWorkTest < ActiveSupport::TestCase
 
     assert_equal work.created_by, @cataloger
   end
+
+  test 'duplicate imdb_link returns expected error' do
+    title = 'Princess Bride'
+    year = 1987
+
+    perform(
+      title: title,
+      year: year,
+      media_type_id: @media_type.id,
+      imdb_link: 'https://www.imdb.com/title/tt0093779/',
+    )
+
+    result = perform(
+      title: 'Not Princess Bride',
+      year: year,
+      media_type_id: @media_type.id,
+      imdb_link: 'https://www.imdb.com/title/tt0093779/',
+    )
+
+    assert_instance_of GraphQL::ExecutionError, result
+    assert_equal 'Invalid input: Imdb link has already been taken', result.message
+  end
+
+  test 'query params are stripped from imdb_link' do
+    work = perform(
+      title: 'Ghostbusters',
+      year: 1984,
+      media_type_id: @media_type.id,
+      imdb_link: 'https://www.imdb.com/title/tt0087332/?ref_=fn_al_tt_1',
+    )
+
+    assert work.persisted?
+    assert_equal 'https://www.imdb.com/title/tt0087332/', work.imdb_link
+  end
 end
