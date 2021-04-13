@@ -103,4 +103,18 @@ class Resolvers::SearchCollectionsTest < ActiveSupport::TestCase
     assert_equal result.length, first
     assert_equal [@collections[2], @collections[3], @collections[4]].map(&:id).sort, result.map(&:id).sort
   end
+
+  test 'sorting attributes work as expected' do
+    field = 'name'
+    is_ascending = false
+
+    result = find(
+      sorting: {
+        'field' => field,
+        'is_ascending' => is_ascending,
+      },
+    )
+
+    assert_equal @collections.map(&:id).reverse, result.map(&:id)
+  end
 end

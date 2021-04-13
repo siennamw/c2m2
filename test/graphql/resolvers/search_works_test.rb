@@ -232,4 +232,18 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
     assert_equal result_with_skip_and_limit.length, first
     assert_equal result_with_skip_and_limit.map(&:id), result.map(&:id).drop(skip).take(first)
   end
+
+  test 'sorting attributes work as expected' do
+    field = 'title'
+    is_ascending = false
+
+    result = find(
+      sorting: {
+        'field' => field,
+        'is_ascending' => is_ascending,
+      },
+    )
+
+    assert_equal @works_minimum.concat(@works).map(&:id).reverse, result.map(&:id)
+  end
 end

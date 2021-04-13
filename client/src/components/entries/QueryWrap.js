@@ -9,7 +9,9 @@ const QueryWrap = ({
   children,
   filter,
   id,
+  sortAscending,
   limit,
+  sortBy,
   pagination,
   query,
   queryName,
@@ -18,18 +20,23 @@ const QueryWrap = ({
     id,
     filter,
     first: limit,
+    sorting: {
+      'is_ascending': sortAscending,
+      field: sortBy,
+    },
     skip: 0,
   };
+
+  const [moreResults, setMoreResults] = useState(true);
+  const [loadingResults, setLoadingResults] = useState(false);
 
   const {
     data,
     error,
     fetchMore,
     loading,
-  } = useQuery(query, { variables });
-
-  const [moreResults, setMoreResults] = useState(true);
-  const [loadingResults, setLoadingResults] = useState(false);
+    refetch,
+  } = useQuery(query, { variables, onCompleted: () => setLoadingResults(false) });
 
   let buttonText = 'Load More Results';
 
@@ -43,14 +50,20 @@ const QueryWrap = ({
     // make sure button is enabled for a new search
     setMoreResults(true);
     setLoadingResults(false);
-  }, [filter]);
+  }, [filter, sortAscending, sortBy]);
 
   useEffect(() => {
     // if no more results after initial query, set moreResults accordingly
     if (data && data[queryName] && data[queryName].length < limit) {
       setMoreResults(false);
     }
-  }, [data]);
+  }, [data, limit, queryName]);
+
+  useEffect(() => {
+    if (refetch) {
+      refetch();
+    }
+  }, [refetch, sortAscending, sortBy]);
 
   const loadMore = () => {
     setLoadingResults(true);
@@ -137,6 +150,8 @@ QueryWrap.defaultProps = {
   id: undefined,
   limit: 25,
   pagination: true,
+  sortAscending: true,
+  sortBy: 'id',
 };
 
 QueryWrap.propTypes = {
@@ -147,9 +162,11 @@ QueryWrap.propTypes = {
     PropTypes.number,
   ]),
   limit: PropTypes.number,
+  pagination: PropTypes.bool,
   query: PropTypes.oneOf(Object.values(queries)).isRequired,
   queryName: PropTypes.string.isRequired,
-  pagination: PropTypes.bool,
+  sortAscending: PropTypes.bool,
+  sortBy: PropTypes.string,
 };
 
 export default QueryWrap;

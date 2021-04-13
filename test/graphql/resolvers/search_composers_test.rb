@@ -97,4 +97,18 @@ class Resolvers::SearchComposersTest < ActiveSupport::TestCase
     assert_equal result.length, first
     assert_equal [@composers[2], @composers[3], @composers[4]].map(&:id).sort, result.map(&:id).sort
   end
+
+  test 'sorting attributes work as expected' do
+    field = 'name'
+    is_ascending = false
+
+    result = find(
+      sorting: {
+        'field' => field,
+        'is_ascending' => is_ascending,
+      },
+    )
+
+    assert_equal @composers.map(&:id).reverse, result.map(&:id)
+  end
 end

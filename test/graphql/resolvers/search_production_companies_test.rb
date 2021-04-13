@@ -97,4 +97,18 @@ class Resolvers::SearchProductionCompaniesTest < ActiveSupport::TestCase
     assert_equal result.length, first
     assert_equal [@production_companies[2], @production_companies[3], @production_companies[4]].map(&:id).sort, result.map(&:id).sort
   end
+
+  test 'sorting attributes work as expected' do
+    field = 'name'
+    is_ascending = false
+
+    result = find(
+      sorting: {
+        'field' => field,
+        'is_ascending' => is_ascending,
+      },
+    )
+
+    assert_equal @production_companies.map(&:id).reverse, result.map(&:id)
+  end
 end

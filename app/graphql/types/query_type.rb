@@ -1,11 +1,7 @@
 Types::QueryType = GraphQL::ObjectType.define do
   name 'Query'
 
-  field :allCatalogers do
-    type types[Types::CatalogerType]
-    description 'A list of all catalogers'
-    resolve ->(obj, args, ctx) { Cataloger.order(name: :asc).all }
-  end
+  field :allCatalogers, function: Resolvers::SearchCatalogers
 
   field :cataloger do
     type Types::CatalogerType

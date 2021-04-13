@@ -22,6 +22,11 @@ class Resolvers::SearchComposers
   option :filter, type: ComposerFilter, with: :apply_filter
   option :first, type: types.Int, with: :apply_first
   option :skip, type: types.Int, with: :apply_skip
+  option :sorting, type: Types::Inputs::SortingFilter, with: :apply_sorting
+
+  def sorting_valid?
+    Composer.column_names.include?(sorting['field'])
+  end
 
   def normalize_filters(value, branches = [])
     scope = Composer.all

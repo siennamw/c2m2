@@ -97,4 +97,18 @@ class Resolvers::SearchCountriesTest < ActiveSupport::TestCase
     assert_equal result.length, first
     assert_equal [@countries[2], @countries[3], @countries[4]].map(&:id).sort, result.map(&:id).sort
   end
+
+  test 'sorting attributes work as expected' do
+    field = 'name'
+    is_ascending = false
+
+    result = find(
+      sorting: {
+        'field' => field,
+        'is_ascending' => is_ascending,
+      },
+    )
+
+    assert_equal @countries.map(&:id).reverse, result.map(&:id)
+  end
 end

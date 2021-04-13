@@ -1,35 +1,35 @@
 require 'search_object/plugin/graphql'
 
-class Resolvers::SearchDirectors
+class Resolvers::SearchCatalogers
   # include SearchObject for GraphQL
   include SearchObject.module(:graphql)
-  # include search helpers (apply_filter, apply_first, and apply_skip)
+  # include search helpers (apply_filter, apply_first, apply_skip, apply_sorting)
   include SearchHelper
 
   # scope is starting point for search
-  scope { Director.all }
+  scope { Cataloger.all }
 
   # return type
-  type !types[Types::DirectorType]
+  type !types[Types::CatalogerType]
 
-  DirectorFilter = GraphQL::InputObjectType.define do
-    name 'DirectorFilter'
+  CatalogerFilter = GraphQL::InputObjectType.define do
+    name 'CatalogerFilter'
 
-    argument :OR, -> { types[DirectorFilter] }
+    argument :OR, -> { types[CatalogerFilter] }
     argument :name_contains, types.String
   end
 
-  option :filter, type: DirectorFilter, with: :apply_filter
+  option :filter, type: CatalogerFilter, with: :apply_filter
   option :first, type: types.Int, with: :apply_first
   option :skip, type: types.Int, with: :apply_skip
   option :sorting, type: Types::Inputs::SortingFilter, with: :apply_sorting
 
   def sorting_valid?
-    Director.column_names.include?(sorting['field'])
+    Cataloger.column_names.include?(sorting['field'])
   end
 
   def normalize_filters(value, branches = [])
-    scope = Director.all
+    scope = Cataloger.all
 
     # add like SQL conditions
     scope = scope.where('name ILIKE ?', "%#{value['name_contains']}%") if value['name_contains']

@@ -97,4 +97,18 @@ class Resolvers::SearchDirectorsTest < ActiveSupport::TestCase
     assert_equal result.length, first
     assert_equal [@directors[2], @directors[3], @directors[4]].map(&:id).sort, result.map(&:id).sort
   end
+
+  test 'sorting attributes work as expected' do
+    field = 'name'
+    is_ascending = false
+
+    result = find(
+      sorting: {
+        'field' => field,
+        'is_ascending' => is_ascending,
+      },
+    )
+
+    assert_equal @directors.map(&:id).reverse, result.map(&:id)
+  end
 end
