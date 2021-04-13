@@ -26,4 +26,21 @@ class Resolvers::CreateRepositoryTest < ActiveSupport::TestCase
     assert_equal repository.website, website
     assert_equal repository.created_by, @cataloger
   end
+
+  test 'duplicate name returns expected error' do
+    name = 'Repository Yihuwefbqyeganx'
+
+    perform(
+      name: name,
+      location: 'Madagascar',
+    )
+
+    result = perform(
+      name: name,
+      location: 'Peru',
+    )
+
+    assert_instance_of GraphQL::ExecutionError, result
+    assert_equal 'Invalid input: Name has already been taken', result.message
+  end
 end

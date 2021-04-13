@@ -24,6 +24,19 @@ class Resolvers::CreateDirectorTest < ActiveSupport::TestCase
     assert_equal director.created_by, @cataloger
   end
 
+  test 'duplicate name returns expected error' do
+    perform(
+      name: 'Clark Kent',
+    )
+
+    result = perform(
+      name: 'Clark Kent',
+    )
+
+    assert_instance_of GraphQL::ExecutionError, result
+    assert_equal 'Invalid input: Name has already been taken', result.message
+  end
+
   test 'duplicate imdb_link returns expected error' do
     imdb_link = 'https://www.imdb.com/name/nm0718645/'
 

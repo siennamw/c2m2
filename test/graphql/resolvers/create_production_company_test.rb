@@ -23,4 +23,19 @@ class Resolvers::CreateProductionCompanyTest < ActiveSupport::TestCase
     assert_equal production_co.contact_info, contact_info
     assert_equal production_co.created_by, @cataloger
   end
+
+  test 'duplicate name returns expected error' do
+    name = 'Production Co Rvfiuhmlqwekdkjn'
+
+    perform(
+      name: name,
+    )
+
+    result = perform(
+      name: name,
+    )
+
+    assert_instance_of GraphQL::ExecutionError, result
+    assert_equal 'Invalid input: Name has already been taken', result.message
+  end
 end

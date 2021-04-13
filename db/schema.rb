@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_13_155238) do
+ActiveRecord::Schema.define(version: 2021_04_13_165234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 2021_04_13_155238) do
     t.bigint "updated_by_id"
     t.string "finding_aid_link"
     t.index ["created_by_id"], name: "index_collections_on_created_by_id"
+    t.index ["name"], name: "index_collections_on_name", unique: true
     t.index ["repository_id"], name: "index_collections_on_repository_id"
     t.index ["updated_by_id"], name: "index_collections_on_updated_by_id"
   end
@@ -91,7 +92,7 @@ ActiveRecord::Schema.define(version: 2021_04_13_155238) do
     t.bigint "updated_by_id"
     t.index ["created_by_id"], name: "index_composers_on_created_by_id"
     t.index ["imdb_link"], name: "index_composers_on_imdb_link", unique: true
-    t.index ["name"], name: "index_composers_on_name"
+    t.index ["name"], name: "index_composers_on_name", unique: true
     t.index ["updated_by_id"], name: "index_composers_on_updated_by_id"
   end
 
@@ -123,7 +124,7 @@ ActiveRecord::Schema.define(version: 2021_04_13_155238) do
     t.bigint "updated_by_id"
     t.index ["created_by_id"], name: "index_directors_on_created_by_id"
     t.index ["imdb_link"], name: "index_directors_on_imdb_link", unique: true
-    t.index ["name"], name: "index_directors_on_name"
+    t.index ["name"], name: "index_directors_on_name", unique: true
     t.index ["updated_by_id"], name: "index_directors_on_updated_by_id"
   end
 
@@ -173,6 +174,7 @@ ActiveRecord::Schema.define(version: 2021_04_13_155238) do
     t.bigint "created_by_id"
     t.bigint "updated_by_id"
     t.index ["created_by_id"], name: "index_production_companies_on_created_by_id"
+    t.index ["name"], name: "index_production_companies_on_name", unique: true
     t.index ["updated_by_id"], name: "index_production_companies_on_updated_by_id"
   end
 
@@ -192,6 +194,7 @@ ActiveRecord::Schema.define(version: 2021_04_13_155238) do
     t.bigint "created_by_id"
     t.bigint "updated_by_id"
     t.index ["created_by_id"], name: "index_repositories_on_created_by_id"
+    t.index ["name"], name: "index_repositories_on_name", unique: true
     t.index ["updated_by_id"], name: "index_repositories_on_updated_by_id"
   end
 

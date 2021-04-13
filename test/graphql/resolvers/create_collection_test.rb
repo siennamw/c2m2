@@ -29,4 +29,21 @@ class Resolvers::CreateCollectionTest < ActiveSupport::TestCase
     assert_equal collection.repository, @repository
     assert_equal collection.created_by, @cataloger
   end
+
+  test 'duplicate name returns expected error' do
+    name = 'Collection Djfgiuhewmpbeo'
+
+    perform(
+      name: name,
+      repository_id: @repository.id,
+    )
+
+    result = perform(
+      name: name,
+      repository_id: @repository.id,
+    )
+
+    assert_instance_of GraphQL::ExecutionError, result
+    assert_equal 'Invalid input: Name has already been taken', result.message
+  end
 end
