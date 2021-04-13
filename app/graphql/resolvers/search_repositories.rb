@@ -22,6 +22,11 @@ class Resolvers::SearchRepositories
   option :filter, type: RepositoryFilter, with: :apply_filter
   option :first, type: types.Int, with: :apply_first
   option :skip, type: types.Int, with: :apply_skip
+  option :sorting, type: Types::Inputs::SortingFilter, with: :apply_sorting
+
+  def sorting_valid?
+    Repository.column_names.include?(sorting['field'])
+  end
 
   def normalize_filters(value, branches = [])
     scope = Repository.all

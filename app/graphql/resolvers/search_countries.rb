@@ -22,6 +22,11 @@ class Resolvers::SearchCountries
   option :filter, type: CountryFilter, with: :apply_filter
   option :first, type: types.Int, with: :apply_first
   option :skip, type: types.Int, with: :apply_skip
+  option :sorting, type: Types::Inputs::SortingFilter, with: :apply_sorting
+
+  def sorting_valid?
+    Country.column_names.include?(sorting['field'])
+  end
 
   def normalize_filters(value, branches = [])
     scope = Country.all
