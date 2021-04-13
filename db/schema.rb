@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_25_150319) do
+ActiveRecord::Schema.define(version: 2021_04_13_155238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 2021_02_25_150319) do
     t.bigint "created_by_id"
     t.bigint "updated_by_id"
     t.index ["created_by_id"], name: "index_composers_on_created_by_id"
+    t.index ["imdb_link"], name: "index_composers_on_imdb_link", unique: true
     t.index ["name"], name: "index_composers_on_name"
     t.index ["updated_by_id"], name: "index_composers_on_updated_by_id"
   end
@@ -121,6 +122,7 @@ ActiveRecord::Schema.define(version: 2021_02_25_150319) do
     t.bigint "created_by_id"
     t.bigint "updated_by_id"
     t.index ["created_by_id"], name: "index_directors_on_created_by_id"
+    t.index ["imdb_link"], name: "index_directors_on_imdb_link", unique: true
     t.index ["name"], name: "index_directors_on_name"
     t.index ["updated_by_id"], name: "index_directors_on_updated_by_id"
   end
@@ -225,6 +227,7 @@ ActiveRecord::Schema.define(version: 2021_02_25_150319) do
     t.datetime "updated_at", null: false
     t.index ["country_id"], name: "index_works_on_country_id"
     t.index ["created_by_id"], name: "index_works_on_created_by_id"
+    t.index ["imdb_link"], name: "index_works_on_imdb_link", unique: true
     t.index ["media_type_id"], name: "index_works_on_media_type_id"
     t.index ["updated_by_id"], name: "index_works_on_updated_by_id"
   end
