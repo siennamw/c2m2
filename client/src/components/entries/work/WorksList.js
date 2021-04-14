@@ -6,9 +6,9 @@ import QueryWrap from '../QueryWrap';
 
 import { SEARCH_WORKS } from '../../../queries';
 
-const WorksList = ({ filter }) => {
-  const [sortAscending, setSortAscending] = useState(true);
-  const [sortBy, setSortBy] = useState('title');
+const WorksList = ({ initialSortField, initialSortAscending, filter }) => {
+  const [sortAscending, setSortAscending] = useState(initialSortAscending);
+  const [sortBy, setSortBy] = useState(initialSortField);
 
   return (
     <QueryWrap
@@ -65,10 +65,14 @@ const WorksList = ({ filter }) => {
 };
 
 WorksList.defaultProps = {
+  initialSortAscending: true,
+  initialSortField: 'title',
   filter: {},
 };
 
 WorksList.propTypes = {
+  initialSortAscending: PropTypes.bool,
+  initialSortField: PropTypes.string,
   filter: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
