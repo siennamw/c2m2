@@ -1,46 +1,52 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import LinkToEntry from '../LinkToEntry';
+import EnhancedTable from '../EnhancedTable';
 import QueryWrap from '../QueryWrap';
 
 import { SEARCH_REPOSITORIES } from '../../../queries';
 
-const RepositoriesList = ({ filter }) => (
-  <Fragment>
-    <h3>Repositories</h3>
-    <QueryWrap
-      filter={filter}
-      query={SEARCH_REPOSITORIES}
-      queryName="allRepositories"
-    >
-      {
-        (allRepositories) => (
-          <table className="u-full-width">
-            <tbody>
-              <tr>
-                <th>Name</th>
-                <th>Location</th>
-              </tr>
-              {
-                allRepositories.map((repository) => (
-                  <tr key={repository.id}>
-                    <td>
-                      <LinkToEntry entry={repository} model="repository" />
-                    </td>
-                    <td>
-                      {repository.location}
-                    </td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
-        )
-      }
-    </QueryWrap>
-  </Fragment>
-);
+const RepositoriesList = ({ filter }) => {
+  const [sortAscending, setSortAscending] = useState(true);
+  const [sortBy, setSortBy] = useState('name');
+
+  return (
+    <Fragment>
+      <h3>Repositories</h3>
+      <QueryWrap
+        filter={filter}
+        sortAscending={sortAscending}
+        sortBy={sortBy}
+        query={SEARCH_REPOSITORIES}
+        queryName="allRepositories"
+      >
+        {
+          (allRepositories) => (
+            <EnhancedTable
+              columnData={[
+                {
+                  label: 'Name',
+                  field: 'name',
+                },
+                {
+                  label: 'Location',
+                  field: 'location',
+                },
+              ]}
+              linkToEntryDisplayField="name"
+              model="repository"
+              rowData={allRepositories}
+              setSortAscending={setSortAscending}
+              setSortBy={setSortBy}
+              sortAscending={sortAscending}
+              sortBy={sortBy}
+            />
+          )
+        }
+      </QueryWrap>
+    </Fragment>
+  );
+};
 
 RepositoriesList.defaultProps = {
   filter: {},

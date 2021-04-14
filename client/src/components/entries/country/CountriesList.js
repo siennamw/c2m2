@@ -1,46 +1,53 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import LinkToEntry from '../LinkToEntry';
+import EnhancedTable from '../EnhancedTable';
 import QueryWrap from '../QueryWrap';
 
 import { SEARCH_COUNTRIES } from '../../../queries';
 
-const CountriesList = ({ filter }) => (
-  <Fragment>
-    <h3>Countries</h3>
-    <QueryWrap
-      filter={filter}
-      query={SEARCH_COUNTRIES}
-      queryName="allCountries"
-    >
-      {
-        (allCountries) => (
-          <table className="u-full-width">
-            <tbody>
-              <tr>
-                <th>Name</th>
-                <th>Description</th>
-              </tr>
-              {
-                allCountries.map((country) => (
-                  <tr key={country.id}>
-                    <td>
-                      <LinkToEntry entry={country} model="country" />
-                    </td>
-                    <td>
-                      {country.description}
-                    </td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
-        )
-      }
-    </QueryWrap>
-  </Fragment>
-);
+const CountriesList = ({ filter }) => {
+  const [sortAscending, setSortAscending] = useState(true);
+  const [sortBy, setSortBy] = useState('name');
+
+  return (
+    <Fragment>
+      <h3>Countries</h3>
+      <QueryWrap
+        filter={filter}
+        sortAscending={sortAscending}
+        sortBy={sortBy}
+        query={SEARCH_COUNTRIES}
+        queryName="allCountries"
+      >
+        {
+          (allCountries) => (
+            <EnhancedTable
+              columnData={[
+                {
+                  label: 'Name',
+                  field: 'name',
+                },
+                {
+                  label: 'Description',
+                  field: 'description',
+                },
+              ]}
+              linkToEntryDisplayField="name"
+              model="country"
+              rowData={allCountries}
+              setSortAscending={setSortAscending}
+              setSortBy={setSortBy}
+              sortAscending={sortAscending}
+              sortBy={sortBy}
+            />
+
+          )
+        }
+      </QueryWrap>
+    </Fragment>
+  );
+};
 
 CountriesList.defaultProps = {
   filter: {},

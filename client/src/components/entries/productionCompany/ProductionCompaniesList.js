@@ -1,42 +1,53 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import LinkToEntry from '../LinkToEntry';
+import EnhancedTable from '../EnhancedTable';
 import QueryWrap from '../QueryWrap';
 
 import { SEARCH_PRODUCTION_COMPANIES } from '../../../queries';
 
-const ProductionCompaniesList = ({ filter }) => (
-  <Fragment>
-    <h3>Production Companies</h3>
-    <QueryWrap
-      filter={filter}
-      query={SEARCH_PRODUCTION_COMPANIES}
-      queryName="allProductionCompanies"
-    >
-      {
-        (allProductionCompanies) => (
-          <table className="u-full-width">
-            <tbody>
-              <tr>
-                <th>Name</th>
-              </tr>
-              {
-                allProductionCompanies.map((productionCompany) => (
-                  <tr key={productionCompany.id}>
-                    <td>
-                      <LinkToEntry entry={productionCompany} model="production_company" />
-                    </td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
-        )
-      }
-    </QueryWrap>
-  </Fragment>
-);
+const ProductionCompaniesList = ({ filter }) => {
+  const [sortAscending, setSortAscending] = useState(true);
+  const [sortBy, setSortBy] = useState('name');
+
+  return (
+    <Fragment>
+      <h3>Production Companies</h3>
+      <QueryWrap
+        filter={filter}
+        sortAscending={sortAscending}
+        sortBy={sortBy}
+        query={SEARCH_PRODUCTION_COMPANIES}
+        queryName="allProductionCompanies"
+      >
+        {
+          (allProductionCompanies) => (
+            <EnhancedTable
+              columnData={[
+                {
+                  label: 'Name',
+                  field: 'name',
+                },
+                {
+                  label: 'IMDB Link',
+                  field: 'imdb_link',
+                },
+              ]}
+              linkToEntryDisplayField="name"
+              model="production_company"
+              rowData={allProductionCompanies}
+              setSortAscending={setSortAscending}
+              setSortBy={setSortBy}
+              sortAscending={sortAscending}
+              sortBy={sortBy}
+            />
+
+          )
+        }
+      </QueryWrap>
+    </Fragment>
+  );
+};
 
 ProductionCompaniesList.defaultProps = {
   filter: {},

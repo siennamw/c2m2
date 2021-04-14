@@ -1,71 +1,68 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import EntryListWithLinks from '../EntryListWithLinks';
+import EnhancedTable from '../EnhancedTable';
 import QueryWrap from '../QueryWrap';
 
 import { SEARCH_WORKS } from '../../../queries';
 
-const WorksList = ({ filter }) => (
-  <QueryWrap
-    filter={filter}
-    query={SEARCH_WORKS}
-    queryName="allWorks"
-  >
-    {
-      (works) => (
-        <table
-          id="works-list-table"
-          className="u-full-width"
-        >
-          {
-            works.map((work) => (
-              <tbody key={work.id}>
-                <tr>
-                  <td colSpan="4">
-                    <h4>
-                      <a href={`/work/${work.id}`}>
-                        {work.title}
-                        {work.secondary_title ? `: ${work.secondary_title}` : ''}
-                      </a>
-                    </h4>
-                  </td>
-                </tr>
-                <tr>
-                  <th>Year</th>
-                  <th>Composer</th>
-                  <th>Director</th>
-                  <th>Production Companies</th>
-                </tr>
-                <tr>
-                  <td>{work.year}</td>
-                  <td>
-                    <EntryListWithLinks
-                      items={work.composers}
-                      model="composer"
-                    />
-                  </td>
-                  <td>
-                    <EntryListWithLinks
-                      items={work.directors}
-                      model="director"
-                    />
-                  </td>
-                  <td>
-                    <EntryListWithLinks
-                      items={work.production_companies}
-                      model="production_company"
-                    />
-                  </td>
-                </tr>
-              </tbody>
-            ))
-          }
-        </table>
-      )
-    }
-  </QueryWrap>
-);
+const WorksList = ({ filter }) => {
+  const [sortAscending, setSortAscending] = useState(true);
+  const [sortBy, setSortBy] = useState('title');
+
+  return (
+    <QueryWrap
+      filter={filter}
+      query={SEARCH_WORKS}
+      queryName="allWorks"
+      sortAscending={sortAscending}
+      sortBy={sortBy}
+    >
+      {
+        (works) => (
+          <EnhancedTable
+            columnData={[
+              {
+                field: 'title',
+                label: 'Title',
+              },
+              {
+                field: 'secondary_title',
+                label: 'Secondary Title',
+              },
+              {
+                field: 'year',
+                label: 'Year',
+              },
+              {
+                disableSorting: true,
+                field: 'composers',
+                label: 'Composer(s)',
+              },
+              {
+                disableSorting: true,
+                field: 'directors',
+                label: 'Director(s)',
+              },
+              {
+                disableSorting: true,
+                field: 'production_companies',
+                label: 'Production Companies',
+              },
+            ]}
+            linkToEntryDisplayField="title"
+            model="work"
+            rowData={works}
+            setSortAscending={setSortAscending}
+            setSortBy={setSortBy}
+            sortAscending={sortAscending}
+            sortBy={sortBy}
+          />
+        )
+      }
+    </QueryWrap>
+  );
+};
 
 WorksList.defaultProps = {
   filter: {},

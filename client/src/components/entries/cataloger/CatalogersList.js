@@ -1,43 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import LinkToEntry from '../LinkToEntry';
+import EnhancedTable from '../EnhancedTable';
 import QueryWrap from '../QueryWrap';
 
-import { LIST_ALL_CATALOGERS } from '../../../queries';
+import { SEARCH_CATALOGERS } from '../../../queries';
 
-const CatalogersList = () => (
-  <QueryWrap query={LIST_ALL_CATALOGERS} queryName="allCatalogers">
-    {
-      (allCatalogers) => (
-        <table className="u-full-width">
-          <tbody>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Admin</th>
-            </tr>
-            {
-              allCatalogers.map((cataloger) => (
-                <tr key={cataloger.id}>
-                  <td>
-                    <LinkToEntry entry={cataloger} model="cataloger" />
-                  </td>
-                  <td>
-                    <a href={`mailto:${cataloger.email}`}>
-                      {cataloger.email}
-                    </a>
-                  </td>
-                  <td>
-                    {cataloger.admin ? 'Yes' : 'No'}
-                  </td>
-                </tr>
-              ))
-            }
-          </tbody>
-        </table>
-      )
-    }
-  </QueryWrap>
-);
+const CatalogersList = () => {
+  const [sortAscending, setSortAscending] = useState(true);
+  const [sortBy, setSortBy] = useState('name');
+
+  return (
+    <QueryWrap
+      sortAscending={sortAscending}
+      sortBy={sortBy}
+      query={SEARCH_CATALOGERS}
+      queryName="allCatalogers"
+    >
+      {
+        (allCatalogers) => (
+          <EnhancedTable
+            columnData={[
+              {
+                label: 'Name',
+                field: 'name',
+              },
+              {
+                label: 'Email',
+                field: 'email',
+              },
+              {
+                label: 'Admin?',
+                field: 'admin',
+              },
+            ]}
+            linkToEntryDisplayField="name"
+            model="composer"
+            rowData={allCatalogers}
+            setSortAscending={setSortAscending}
+            setSortBy={setSortBy}
+            sortAscending={sortAscending}
+            sortBy={sortBy}
+          />
+        )
+      }
+    </QueryWrap>
+  );
+};
 
 export default CatalogersList;

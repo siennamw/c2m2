@@ -1,52 +1,52 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import LinkToEntry from '../LinkToEntry';
+import EnhancedTable from '../EnhancedTable';
 import QueryWrap from '../QueryWrap';
 
 import { SEARCH_COMPOSERS } from '../../../queries';
 
-const ComposersList = ({ filter }) => (
-  <Fragment>
-    <h3>Composers</h3>
-    <QueryWrap
-      filter={filter}
-      query={SEARCH_COMPOSERS}
-      queryName="allComposers"
-    >
-      {
-        (allComposers) => (
-          <table className="u-full-width">
-            <tbody>
-              <tr>
-                <th>Name</th>
-                <th>IMDB Link</th>
-              </tr>
-              {
-                allComposers.map((composer) => (
-                  <tr key={composer.id}>
-                    <td>
-                      <LinkToEntry entry={composer} model="composer" />
-                    </td>
-                    <td>
-                      <a
-                        href={composer.imdb_link}
-                        rel="noopener noreferrer"
-                        target="_blank"
-                      >
-                        {composer.imdb_link}
-                      </a>
-                    </td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
-        )
-      }
-    </QueryWrap>
-  </Fragment>
-);
+const ComposersList = ({ filter }) => {
+  const [sortAscending, setSortAscending] = useState(true);
+  const [sortBy, setSortBy] = useState('name');
+
+  return (
+    <Fragment>
+      <h3>Composers</h3>
+      <QueryWrap
+        filter={filter}
+        sortAscending={sortAscending}
+        sortBy={sortBy}
+        query={SEARCH_COMPOSERS}
+        queryName="allComposers"
+      >
+        {
+          (allComposers) => (
+            <EnhancedTable
+              columnData={[
+                {
+                  label: 'Name',
+                  field: 'name',
+                },
+                {
+                  label: 'IMDB Link',
+                  field: 'imdb_link',
+                },
+              ]}
+              linkToEntryDisplayField="name"
+              model="composer"
+              rowData={allComposers}
+              setSortAscending={setSortAscending}
+              setSortBy={setSortBy}
+              sortAscending={sortAscending}
+              sortBy={sortBy}
+            />
+          )
+        }
+      </QueryWrap>
+    </Fragment>
+  );
+};
 
 ComposersList.defaultProps = {
   filter: {},
