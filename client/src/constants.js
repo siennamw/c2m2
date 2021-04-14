@@ -9,6 +9,12 @@ export const FIELD_TO_PLURAL = {
   production_company: 'production_companies',
   repository: 'repositories',
 };
+// for field names that cannot be changed to singular by stripping final 's'
+export const FIELD_TO_SINGULAR = {
+  countries: 'country',
+  production_companies: 'production_company',
+  repositories: 'repository',
+};
 
 export const MODEL_NAMES = [
   'cataloger',

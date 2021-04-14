@@ -3,6 +3,7 @@ import React from 'react';
 import jwtDecode from 'jwt-decode';
 
 import * as constants from './constants';
+import { FIELD_TO_PLURAL, FIELD_TO_SINGULAR, MODEL_NAMES } from './constants';
 
 export const isAuthenticated = () => !!localStorage.getItem(constants.LOCAL_STORAGE_KEY);
 
@@ -56,4 +57,25 @@ export const reactSelectOnChange = (evt, name, setFieldValue) => {
       evt ? evt.value : '',
     );
   }
+};
+
+export const fieldNameToPlural = (field) => {
+  if (!MODEL_NAMES.includes(field)) {
+    console.warn('fieldNameToPlural called with unknown value', field);
+    return field;
+  }
+  return FIELD_TO_PLURAL[field] || `${field}s`
+};
+
+export const fieldNameToSingular = (field) => {
+  if (field.substr(field.length - 1) !== 's' && !FIELD_TO_SINGULAR[field]) {
+    console.warn('fieldNameToSingular called with singular or unknown value', field);
+    return field;
+  }
+  const result = FIELD_TO_SINGULAR[field] || field.substr(0, field.length - 1);
+  if (!MODEL_NAMES.includes(result)) {
+    console.warn('fieldNameToSingular called with unknown value', field);
+    return field;
+  }
+  return result;
 };
