@@ -1,46 +1,52 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import LinkToEntry from '../LinkToEntry';
+import EnhancedTable from '../EnhancedTable';
 import QueryWrap from '../QueryWrap';
 
 import { SEARCH_COLLECTIONS } from '../../../queries';
 
-const CollectionsList = ({ filter }) => (
-  <Fragment>
-    <h3>Collections</h3>
-    <QueryWrap
-      filter={filter}
-      query={SEARCH_COLLECTIONS}
-      queryName="allCollections"
-    >
-      {
-        (allCollections) => (
-          <table className="u-full-width">
-            <tbody>
-              <tr>
-                <th>Name</th>
-                <th>Description</th>
-              </tr>
-              {
-                allCollections.map((collection) => (
-                  <tr key={collection.id}>
-                    <td>
-                      <LinkToEntry entry={collection} model="collection" />
-                    </td>
-                    <td>
-                      {collection.description}
-                    </td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
-        )
-      }
-    </QueryWrap>
-  </Fragment>
-);
+const CollectionsList = ({ filter }) => {
+  const [sortAscending, setSortAscending] = useState(true);
+  const [sortBy, setSortBy] = useState('name');
+
+  return (
+    <Fragment>
+      <h3>Collections</h3>
+      <QueryWrap
+        filter={filter}
+        sortAscending={sortAscending}
+        sortBy={sortBy}
+        query={SEARCH_COLLECTIONS}
+        queryName="allCollections"
+      >
+        {
+          (allCollections) => (
+            <EnhancedTable
+              columnData={[
+                {
+                  label: 'Name',
+                  field: 'name',
+                },
+                {
+                  label: 'Description',
+                  field: 'description',
+                },
+              ]}
+              linkToEntryDisplayField="name"
+              model="collection"
+              rowData={allCollections}
+              setSortAscending={setSortAscending}
+              setSortBy={setSortBy}
+              sortAscending={sortAscending}
+              sortBy={sortBy}
+            />
+          )
+        }
+      </QueryWrap>
+    </Fragment>
+  );
+};
 
 CollectionsList.defaultProps = {
   filter: {},

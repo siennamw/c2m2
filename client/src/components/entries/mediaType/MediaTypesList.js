@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import LinkToEntry from '../LinkToEntry';
+import EnhancedTable from '../EnhancedTable';
 import QueryWrap from '../QueryWrap';
 
 import { LIST_ALL_MEDIA_TYPES } from '../../../queries';
@@ -16,22 +16,22 @@ const MediaTypesList = ({ filter }) => (
     >
       {
         (allMediaTypes) => (
-          <table className="u-full-width">
-            <tbody>
+          <EnhancedTable
+            columnData={[
               {
-                allMediaTypes.map((mediaType) => (
-                  <tr key={mediaType.id}>
-                    <th>
-                      <LinkToEntry entry={mediaType} model="media_type" />
-                    </th>
-                    <td>
-                      {mediaType.description}
-                    </td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
+                label: 'Name',
+                field: 'name',
+              },
+              {
+                label: 'Description',
+                field: 'description',
+              },
+            ]}
+            disableSorting
+            linkToEntryDisplayField="name"
+            model="media_type"
+            rowData={allMediaTypes}
+          />
         )
       }
     </QueryWrap>

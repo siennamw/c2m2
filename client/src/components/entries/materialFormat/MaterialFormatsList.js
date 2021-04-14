@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import LinkToEntry from '../LinkToEntry';
+import EnhancedTable from '../EnhancedTable';
 import QueryWrap from '../QueryWrap';
 
 import { LIST_ALL_MATERIAL_FORMATS } from '../../../queries';
@@ -16,25 +16,22 @@ const MaterialFormatsList = ({ filter }) => (
     >
       {
         (allMaterialFormats) => (
-          <table className="u-full-width">
-            <tbody>
+          <EnhancedTable
+            columnData={[
               {
-                allMaterialFormats.map((materialFormat) => (
-                  <tr key={materialFormat.id}>
-                    <th>
-                      <LinkToEntry
-                        entry={materialFormat}
-                        model="material_format"
-                      />
-                    </th>
-                    <td>
-                      {materialFormat.description}
-                    </td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
+                label: 'Name',
+                field: 'name',
+              },
+              {
+                label: 'Description',
+                field: 'description',
+              },
+            ]}
+            disableSorting
+            linkToEntryDisplayField="name"
+            model="material_format"
+            rowData={allMaterialFormats}
+          />
         )
       }
     </QueryWrap>
