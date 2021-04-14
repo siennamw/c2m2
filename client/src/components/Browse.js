@@ -7,7 +7,11 @@ const Browse = () => {
   return (
     <div>
       <h2>Browse Works</h2>
-      <WorksList filter={filter} />
+      <WorksList
+        initialSortAscending={false}
+        initialSortField="created_at"
+        filter={filter}
+      />
     </div>
   );
 };
