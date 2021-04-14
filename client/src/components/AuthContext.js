@@ -14,8 +14,8 @@ const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     const authTokenData = getAuthorizationTokenData();
-    setAdmin(tokenData ? authTokenData.admin : false);
-    setId(tokenData ? authTokenData.id : false);
+    setAdmin(authTokenData ? authTokenData.admin : false);
+    setId(authTokenData ? authTokenData.id : false);
   }, [authenticated]);
 
   return (

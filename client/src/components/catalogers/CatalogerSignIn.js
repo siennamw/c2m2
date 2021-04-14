@@ -118,13 +118,9 @@ const CatalogerSignIn = ({ location }) => {
     }
   };
 
-  const from = (
-    location.state
-    && location.state.from
-    && location.state.from.pathname !== '/sign-out'
-  )
+  const from = location.state && location.state.from !== '/sign-out'
     ? location.state.from
-    : { pathname: '/dashboard/home' };
+    : '/dashboard/home';
 
   if (redirect) {
     return <Redirect to={from} />;
@@ -157,9 +153,7 @@ const CatalogerSignIn = ({ location }) => {
 CatalogerSignIn.propTypes = {
   location: PropTypes.shape({
     state: PropTypes.shape({
-      from: PropTypes.shape({
-        pathname: PropTypes.string,
-      }),
+      from: PropTypes.string,
     }),
   }).isRequired,
 };
