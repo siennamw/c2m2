@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import * as Yup from 'yup';
-import { FIELD_TO_PLURAL } from './constants';
+
+import { fieldNameToPlural } from './utils';
 
 const stringOfDigitsRegex = /^\d+$/;
 
@@ -25,7 +26,7 @@ export const getInitialFormValuesForSchema = (schema, values) => {
     if (key.includes('_ids')) {
       // extract array of ids from array of objects
       [k] = key.split('_ids');
-      k = FIELD_TO_PLURAL[k] ? FIELD_TO_PLURAL[k] : `${k}s`;
+      k = fieldNameToPlural(k);
 
       result[key] = vals[k]
         ? vals[k].reduce((a, i) => {
