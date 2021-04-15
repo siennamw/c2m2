@@ -34,7 +34,7 @@ const CatalogersList = () => {
               },
             ]}
             linkToEntryDisplayField="name"
-            model="composer"
+            model="cataloger"
             rowData={allCatalogers}
             setSortAscending={setSortAscending}
             setSortBy={setSortBy}
