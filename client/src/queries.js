@@ -616,6 +616,10 @@ export const SEARCH_RESOURCES = gql`
   query searchResources($first: Int, $skip: Int, $sorting: SortingFilter){
     allResources(first: $first, skip: $skip, sorting: $sorting) {
       id
+      collection {
+        id
+        name
+      }
       material_format {
         id
         name
