@@ -76,6 +76,7 @@ const DisplayWork = ({ values }) => {
             country
               ? (
                 <LinkToEntry
+                  displayField="name"
                   entry={country}
                   model="country"
                 />
@@ -91,6 +92,7 @@ const DisplayWork = ({ values }) => {
             media_type
               ? (
                 <LinkToEntry
+                  displayField="name"
                   entry={media_type}
                   model="media_type"
                 />
