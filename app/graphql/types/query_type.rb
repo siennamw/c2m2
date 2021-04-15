@@ -90,11 +90,7 @@ Types::QueryType = GraphQL::ObjectType.define do
     resolve ->(obj, args, ctx) { Repository.find(args[:id]) }
   end
 
-  field :allResources do
-    type types[Types::ResourceType]
-    description 'A list of all resources'
-    resolve ->(obj, args, ctx) { Resource.order(material_format: :asc).all }
-  end
+  field :allResources, function: Resolvers::SearchResources
 
   field :resource do
     type Types::ResourceType

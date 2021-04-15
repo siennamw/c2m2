@@ -612,6 +612,24 @@ export const SEARCH_REPOSITORIES = gql`
   }
 `;
 
+export const SEARCH_RESOURCES = gql`
+  query searchResources($first: Int, $skip: Int, $sorting: SortingFilter){
+    allResources(first: $first, skip: $skip, sorting: $sorting) {
+      id
+      material_format {
+        id
+        name
+      }
+      publication_status
+      work {
+        id
+        title
+        year
+      }
+    }
+  }
+`;
+
 export const SEARCH_WORKS = gql`
   query searchWorks($filter: WorkFilter, $first: Int, $skip: Int, $sorting: SortingFilter){
     allWorks(filter: $filter, first: $first, skip: $skip, sorting: $sorting) {
