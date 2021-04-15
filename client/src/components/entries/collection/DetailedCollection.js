@@ -51,6 +51,7 @@ const DisplayCollection = ({ values }) => {
         <th>Repository</th>
         <td>
           <LinkToEntry
+            displayField="name"
             entry={repository}
             model="repository"
           />

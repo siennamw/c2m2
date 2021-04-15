@@ -34,6 +34,7 @@ const DisplayResource = ({ values }) => {
         <th>Material Format</th>
         <td>
           <LinkToEntry
+            displayField="name"
             entry={material_format}
             model="material_format"
           />

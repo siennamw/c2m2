@@ -9,19 +9,23 @@ const LinkToEntry = ({
   entry,
   model,
 }) => {
-  if (!model || !entry || !entry.id || !entry[displayField]) {
+  if (!model || !entry || !entry.id) {
     return null;
   }
 
+  const label = displayField && entry[displayField]
+    ? entry[displayField]
+    : 'View';
+
   return (
     <div key={entry.id}>
-      {wrapWithLink(entry[displayField], entry.id, model)}
+      {wrapWithLink(label, entry.id, model)}
     </div>
   );
 };
 
 LinkToEntry.defaultProps = {
-  displayField: 'name',
+  displayField: null,
   entry: null,
   model: null,
 };
