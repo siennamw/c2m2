@@ -244,6 +244,8 @@ export const COLLECTION_BY_ID = gql`
       name
       finding_aid_link
       description
+      deleted
+      deletable
       repository {
         id
         name
@@ -278,6 +280,8 @@ export const COMPOSER_BY_ID = gql`
       id
       name
       imdb_link
+      deleted
+      deletable
       works {
         id
         title
@@ -306,6 +310,8 @@ export const COUNTRY_BY_ID = gql`
       id
       name
       description
+      deleted
+      deletable
       works {
         id
         title
@@ -330,6 +336,8 @@ export const DIRECTOR_BY_ID = gql`
       id
       name
       imdb_link
+      deleted
+      deletable
       works {
         id
         title
@@ -354,6 +362,8 @@ export const MATERIAL_FORMAT_BY_ID = gql`
       id
       name
       description
+      deleted
+      deletable
       resources {
         id
         publication_status
@@ -381,6 +391,8 @@ export const MEDIA_TYPE_BY_ID = gql`
       id
       name
       description
+      deleted
+      deletable
       works {
         id
         title
@@ -405,6 +417,8 @@ export const PRODUCTION_COMPANY_BY_ID = gql`
       id
       name
       contact_info
+      deleted
+      deletable
       works {
         id
         title
@@ -430,6 +444,8 @@ export const REPOSITORY_BY_ID = gql`
       name
       location
       website
+      deleted
+      deletable
       collections {
         id
         name
@@ -456,6 +472,8 @@ export const RESOURCE_BY_ID = gql`
       citation_source
       cataloging_notes
       publication_status
+      deleted
+      deletable
       work {
         id
         title
@@ -491,6 +509,8 @@ export const WORK_BY_ID = gql`
       alias_alternates
       imdb_link
       year
+      deleted
+      deletable
       country {
         id
         name
@@ -543,8 +563,18 @@ export const WORK_BY_ID = gql`
 `;
 
 export const SEARCH_CATALOGERS = gql`
-  query searchCatalogers($filter: CatalogerFilter, $first: Int, $skip: Int, $sorting: SortingFilter){
-    allCatalogers(filter: $filter, first: $first, skip: $skip, sorting: $sorting) {
+  query searchCatalogers(
+    $filter: CatalogerFilter,
+    $first: Int,
+    $skip: Int,
+    $sorting: SortingFilter,
+  ){
+    allCatalogers(
+      filter: $filter,
+      first: $first,
+      skip: $skip,
+      sorting: $sorting,
+    ) {
       id
       admin
       email
@@ -554,8 +584,18 @@ export const SEARCH_CATALOGERS = gql`
 `;
 
 export const SEARCH_COLLECTIONS = gql`
-  query searchCollections($filter: CollectionFilter, $first: Int, $skip: Int, $sorting: SortingFilter){
-    allCollections(filter: $filter, first: $first, skip: $skip, sorting: $sorting) {
+  query searchCollections(
+    $filter: CollectionFilter,
+    $first: Int,
+    $skip: Int,
+    $sorting: SortingFilter,
+  ){
+    allCollections(
+      filter: $filter,
+      first: $first,
+      skip: $skip,
+      sorting: $sorting,
+    ) {
       id
       name
       description
@@ -564,8 +604,18 @@ export const SEARCH_COLLECTIONS = gql`
 `;
 
 export const SEARCH_COMPOSERS = gql`
-  query searchComposers($filter: ComposerFilter, $first: Int, $skip: Int, $sorting: SortingFilter){
-    allComposers(filter: $filter, first: $first, skip: $skip, sorting: $sorting) {
+  query searchComposers(
+    $filter: ComposerFilter,
+    $first: Int,
+    $skip: Int,
+    $sorting: SortingFilter,
+  ){
+    allComposers(
+      filter: $filter,
+      first: $first,
+      skip: $skip,
+      sorting: $sorting,
+    ) {
       id
       name
       imdb_link
@@ -574,8 +624,18 @@ export const SEARCH_COMPOSERS = gql`
 `;
 
 export const SEARCH_COUNTRIES = gql`
-  query searchCountries($filter: CountryFilter, $first: Int, $skip: Int, $sorting: SortingFilter){
-    allCountries(filter: $filter, first: $first, skip: $skip, sorting: $sorting) {
+  query searchCountries(
+    $filter: CountryFilter,
+    $first: Int,
+    $skip: Int,
+    $sorting: SortingFilter,
+  ){
+    allCountries(
+      filter: $filter,
+      first: $first,
+      skip: $skip,
+      sorting: $sorting,
+    ) {
       id
       name
       description
@@ -584,8 +644,17 @@ export const SEARCH_COUNTRIES = gql`
 `;
 
 export const SEARCH_DIRECTORS = gql`
-  query searchDirectors($filter: DirectorFilter, $first: Int, $skip: Int, $sorting: SortingFilter){
-    allDirectors(filter: $filter, first: $first, skip: $skip, sorting: $sorting) {
+  query searchDirectors($filter: DirectorFilter,
+    $first: Int,
+    $skip: Int,
+    $sorting: SortingFilter,
+  ){
+    allDirectors(
+      filter: $filter,
+      first: $first,
+      skip: $skip,
+      sorting: $sorting,
+    ) {
       id
       name
       imdb_link
@@ -594,8 +663,18 @@ export const SEARCH_DIRECTORS = gql`
 `;
 
 export const SEARCH_PRODUCTION_COMPANIES = gql`
-  query searchProductionCompanies($filter: ProductionCompanyFilter, $first: Int, $skip: Int, $sorting: SortingFilter){
-    allProductionCompanies(filter: $filter, first: $first, skip: $skip, sorting: $sorting) {
+  query searchProductionCompanies(
+    $filter: ProductionCompanyFilter,
+    $first: Int,
+    $skip: Int,
+    $sorting: SortingFilter,
+  ){
+    allProductionCompanies(
+      filter: $filter,
+      first: $first,
+      skip: $skip,
+      sorting: $sorting,
+    ) {
       id
       name
     }
@@ -603,8 +682,18 @@ export const SEARCH_PRODUCTION_COMPANIES = gql`
 `;
 
 export const SEARCH_REPOSITORIES = gql`
-  query searchRepositories($filter: RepositoryFilter, $first: Int, $skip: Int, $sorting: SortingFilter){
-    allRepositories(filter: $filter, first: $first, skip: $skip, sorting: $sorting) {
+  query searchRepositories(
+    $filter: RepositoryFilter,
+    $first: Int,
+    $skip: Int,
+    $sorting: SortingFilter,
+  ){
+    allRepositories(
+      filter: $filter,
+      first: $first,
+      skip: $skip,
+      sorting: $sorting,
+    ) {
       id
       name
       location
@@ -613,8 +702,16 @@ export const SEARCH_REPOSITORIES = gql`
 `;
 
 export const SEARCH_RESOURCES = gql`
-  query searchResources($first: Int, $skip: Int, $sorting: SortingFilter){
-    allResources(first: $first, skip: $skip, sorting: $sorting) {
+  query searchResources(
+    $first: Int,
+    $skip: Int,
+    $sorting: SortingFilter,
+  ){
+    allResources(
+      first: $first,
+      skip: $skip,
+      sorting: $sorting,
+    ) {
       id
       collection {
         id
@@ -635,8 +732,17 @@ export const SEARCH_RESOURCES = gql`
 `;
 
 export const SEARCH_WORKS = gql`
-  query searchWorks($filter: WorkFilter, $first: Int, $skip: Int, $sorting: SortingFilter){
-    allWorks(filter: $filter, first: $first, skip: $skip, sorting: $sorting) {
+  query searchWorks($filter: WorkFilter,
+    $first: Int,
+    $skip: Int,
+    $sorting: SortingFilter,
+  ){
+    allWorks(
+      filter: $filter,
+      first: $first,
+      skip: $skip,
+      sorting: $sorting,
+    ) {
       id
       title
       secondary_title
