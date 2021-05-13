@@ -25,12 +25,24 @@ export const CREATE_CATALOGER = gql`
 `;
 
 export const CREATE_COLLECTION = gql`
-  mutation CreateCollection($name: String!, $finding_aid_link: String, $description: String, $repository_id: ID!){
-    createCollection(name: $name, finding_aid_link: $finding_aid_link, description: $description, repository_id: $repository_id) {
+  mutation CreateCollection(
+    $name: String!,
+    $finding_aid_link: String,
+    $description: String,
+    $repository_id: ID!,
+  ){
+    createCollection(
+      name: $name,
+      finding_aid_link: $finding_aid_link,
+      description: $description,
+      repository_id: $repository_id,
+    ) {
       id
       name
       finding_aid_link
       description
+      deletable
+      deleted
       repository {
         id
       }
@@ -39,72 +51,130 @@ export const CREATE_COLLECTION = gql`
 `;
 
 export const CREATE_COMPOSER = gql`
-  mutation CreateComposer($name: String!, $imdb_link: String){
-    createComposer(name: $name, imdb_link: $imdb_link) {
+  mutation CreateComposer(
+    $name: String!,
+    $imdb_link: String,
+  ){
+    createComposer(
+      name: $name,
+      imdb_link: $imdb_link,
+    ) {
       id
       name
       imdb_link
+      deletable
+      deleted
     }
   }
 `;
 
 export const CREATE_COUNTRY = gql`
-  mutation CreateCountry($name: String!, $description: String){
-    createCountry(name: $name, description: $description) {
+  mutation CreateCountry(
+    $name: String!,
+    $description: String,
+  ){
+    createCountry(
+      name: $name,
+      description: $description,
+    ) {
       id
       name
       description
+      deletable
+      deleted
     }
   }
 `;
 
 export const CREATE_DIRECTOR = gql`
-  mutation CreateDirector($name: String!, $imdb_link: String){
-    createDirector(name: $name, imdb_link: $imdb_link) {
+  mutation CreateDirector(
+    $name: String!,
+    $imdb_link: String,
+  ){
+    createDirector(
+      name: $name,
+      imdb_link: $imdb_link,
+    ) {
       id
       name
       imdb_link
+      deletable
+      deleted
     }
   }
 `;
 
 export const CREATE_MATERIAL_FORMAT = gql`
-  mutation CreateMaterialFormat($name: String!, $description: String){
-    createMaterialFormat(name: $name, description: $description) {
+  mutation CreateMaterialFormat(
+    $name: String!,
+    $description: String,
+  ){
+    createMaterialFormat(
+      name: $name,
+      description: $description,
+    ) {
       id
       name
       description
+      deletable
+      deleted
     }
   }
 `;
 
 export const CREATE_MEDIA_TYPE = gql`
-  mutation CreateMediaType($name: String!, $description: String){
-    createMediaType(name: $name, description: $description) {
+  mutation CreateMediaType(
+    $name: String!,
+    $description: String,
+  ){
+    createMediaType(
+      name: $name,
+      description: $description,
+    ) {
       id
       name
       description
+      deletable
+      deleted
     }
   }
 `;
 
 export const CREATE_PRODUCTION_COMPANY = gql`
-  mutation CreateProductionCompany($name: String!, $contact_info: String){
-    createProductionCompany(name: $name, contact_info: $contact_info) {
+  mutation CreateProductionCompany(
+    $name: String!,
+    $contact_info: String,
+  ){
+    createProductionCompany(
+      name: $name,
+      contact_info: $contact_info,
+    ) {
       id
       name
       contact_info
+      deletable
+      deleted
     }
   }
 `;
 
 export const CREATE_REPOSITORY = gql`
-  mutation CreateRepository($name: String!, $location: String!, $website: String){
-    createRepository(name: $name, location: $location, website: $website) {
+  mutation CreateRepository(
+    $name: String!,
+    $location: String!,
+    $website: String,
+  ){
+    createRepository(
+      name: $name,
+      location: $location,
+      website: $website,
+    ) {
       id
       name
       location
       website
+      deletable
+      deleted
     }
   }
 `;
@@ -130,6 +200,8 @@ export const CREATE_RESOURCE = gql`
       digital_copy_link
       citation_source
       cataloging_notes
+      deletable
+      deleted
       work {
         id
       }
@@ -176,6 +248,8 @@ export const CREATE_WORK = gql`
       alias_alternates
       imdb_link
       year
+      deletable
+      deleted
       country {
         id
       }
@@ -206,14 +280,14 @@ export const UPDATE_CATALOGER_ADMIN = gql`
     $name: String!,
     $email: String!,
     $admin: Boolean,
-    $description: String
+    $description: String,
   ){
     updateCatalogerAdmin(
       id: $id,
       name: $name,
       email: $email,
       admin: $admin,
-      description: $description
+      description: $description,
     ) {
       id
       name
@@ -242,7 +316,7 @@ export const UPDATE_CATALOGER_SELF = gql`
     $password: String!,
     $new_password: String,
     $admin: Boolean,
-    $description: String
+    $description: String,
   ){
     updateCatalogerSelf(
       id: $id,
@@ -251,7 +325,7 @@ export const UPDATE_CATALOGER_SELF = gql`
       password: $password,
       new_password: $new_password,
       admin: $admin,
-      description: $description
+      description: $description,
     ) {
       id
       name
@@ -278,19 +352,21 @@ export const UPDATE_COLLECTION = gql`
     $name: String!,
     $finding_aid_link: String,
     $description: String,
-    $repository_id: ID!
+    $repository_id: ID!,
   ){
     updateCollection(
       id: $id,
       name: $name,
       finding_aid_link: $finding_aid_link,
       description: $description,
-      repository_id: $repository_id
+      repository_id: $repository_id,
     ) {
       id
       name
       finding_aid_link
       description
+      deletable
+      deleted
       repository {
         id
       }
@@ -309,11 +385,21 @@ export const UPDATE_COLLECTION = gql`
 `;
 
 export const UPDATE_COMPOSER = gql`
-  mutation UpdateComposer($id: ID!, $name: String!, $imdb_link: String){
-    updateComposer(id: $id, name: $name, imdb_link: $imdb_link) {
+  mutation UpdateComposer(
+    $id: ID!,
+    $name: String!,
+    $imdb_link: String,
+  ){
+    updateComposer(
+      id: $id,
+      name: $name,
+      imdb_link: $imdb_link,
+    ) {
       id
       name
       imdb_link
+      deletable
+      deleted
       created_at
       created_by {
         id
@@ -329,11 +415,21 @@ export const UPDATE_COMPOSER = gql`
 `;
 
 export const UPDATE_COUNTRY = gql`
-  mutation UpdateCountry($id: ID!, $name: String!, $description: String){
-    updateCountry(id: $id, name: $name, description: $description) {
+  mutation UpdateCountry(
+    $id: ID!,
+    $name: String!,
+    $description: String,
+  ){
+    updateCountry(
+      id: $id,
+      name: $name,
+      description: $description,
+    ) {
       id
       name
       description
+      deletable
+      deleted
       created_at
       created_by {
         id
@@ -349,11 +445,21 @@ export const UPDATE_COUNTRY = gql`
 `;
 
 export const UPDATE_DIRECTOR = gql`
-  mutation UpdateDirector($id: ID!, $name: String!, $imdb_link: String){
-    updateDirector(id: $id, name: $name, imdb_link: $imdb_link) {
+  mutation UpdateDirector(
+    $id: ID!,
+    $name: String!,
+    $imdb_link: String,
+  ){
+    updateDirector(
+      id: $id,
+      name: $name,
+      imdb_link: $imdb_link,
+    ) {
       id
       name
       imdb_link
+      deletable
+      deleted
       created_at
       created_by {
         id
@@ -369,11 +475,21 @@ export const UPDATE_DIRECTOR = gql`
 `;
 
 export const UPDATE_MATERIAL_FORMAT = gql`
-  mutation UpdateMaterialFormat($id: ID!, $name: String!, $description: String){
-    updateMaterialFormat(id: $id, name: $name, description: $description) {
+  mutation UpdateMaterialFormat(
+    $id: ID!,
+    $name: String!,
+    $description: String,
+  ){
+    updateMaterialFormat(
+      id: $id,
+      name: $name,
+      description: $description,
+    ) {
       id
       name
       description
+      deletable
+      deleted
       created_at
       created_by {
         id
@@ -389,11 +505,21 @@ export const UPDATE_MATERIAL_FORMAT = gql`
 `;
 
 export const UPDATE_MEDIA_TYPE = gql`
-  mutation UpdateMediaType($id: ID!, $name: String!, $description: String){
-    updateMediaType(id: $id, name: $name, description: $description) {
+  mutation UpdateMediaType(
+    $id: ID!,
+    $name: String!,
+    $description: String,
+  ){
+    updateMediaType(
+      id: $id,
+      name: $name,
+      description: $description,
+    ) {
       id
       name
       description
+      deletable
+      deleted
       created_at
       created_by {
         id
@@ -409,11 +535,21 @@ export const UPDATE_MEDIA_TYPE = gql`
 `;
 
 export const UPDATE_PRODUCTION_COMPANY = gql`
-  mutation UpdateProductionCompany($id: ID!, $name: String!, $contact_info: String){
-    updateProductionCompany(id: $id, name: $name, contact_info: $contact_info) {
+  mutation UpdateProductionCompany(
+    $id: ID!,
+    $name: String!,
+    $contact_info: String,
+  ){
+    updateProductionCompany(
+      id: $id,
+      name: $name,
+      contact_info: $contact_info,
+    ) {
       id
       name
       contact_info
+      deletable
+      deleted
       created_at
       created_by {
         id
@@ -429,12 +565,24 @@ export const UPDATE_PRODUCTION_COMPANY = gql`
 `;
 
 export const UPDATE_REPOSITORY = gql`
-  mutation UpdateRepository($id: ID!, $name: String!, $location: String!, $website: String){
-    updateRepository(id: $id, name: $name, location: $location, website: $website) {
+  mutation UpdateRepository(
+    $id: ID!,
+    $name: String!,
+    $location: String!,
+    $website: String,
+  ){
+    updateRepository(
+      id: $id,
+      name: $name,
+      location: $location,
+      website: $website,
+    ) {
       id
       name
       location
       website
+      deletable
+      deleted
       created_at
       created_by {
         id
@@ -475,6 +623,8 @@ export const UPDATE_RESOURCE = gql`
       citation_source
       cataloging_notes
       publication_status
+      deletable
+      deleted
       work {
         id
       }
@@ -533,6 +683,8 @@ export const UPDATE_WORK = gql`
       alias_alternates
       imdb_link
       year
+      deletable
+      deleted
       country {
         id
       }
