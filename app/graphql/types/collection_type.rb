@@ -6,6 +6,9 @@ Types::CollectionType = GraphQL::ObjectType.define do
   field :finding_aid_link, types.String
   field :description, types.String
 
+  field :deleted, types.Boolean
+  field :deletable, types.Boolean # calls object.deletable
+
   field :repository, (-> { Types::RepositoryType })
   field :resources, ( -> { !types[Types::ResourceType] })
 

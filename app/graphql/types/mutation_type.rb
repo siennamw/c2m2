@@ -13,6 +13,17 @@ Types::MutationType = GraphQL::ObjectType.define do
   field :createRepository, function: Resolvers::CreateRepository.new
   field :createResource, function: Resolvers::CreateResource.new
 
+  field :toggleDeleteCollection, function: Resolvers::ToggleDeleteCollection.new
+  field :toggleDeleteComposer, function: Resolvers::ToggleDeleteComposer.new
+  field :toggleDeleteCountry, function: Resolvers::ToggleDeleteCountry.new
+  field :toggleDeleteDirector, function: Resolvers::ToggleDeleteDirector.new
+  field :toggleDeleteMaterialFormat, function: Resolvers::ToggleDeleteMaterialFormat.new
+  field :toggleDeleteMediaType, function: Resolvers::ToggleDeleteMediaType.new
+  field :toggleDeleteProductionCompany, function: Resolvers::ToggleDeleteProductionCompany.new
+  field :toggleDeleteRepository, function: Resolvers::ToggleDeleteRepository.new
+  field :toggleDeleteResource, function: Resolvers::ToggleDeleteResource.new
+  field :toggleDeleteWork, function: Resolvers::ToggleDeleteWork.new
+
   field :updateCatalogerAdmin, function: Resolvers::UpdateCatalogerAdmin.new
   field :updateCatalogerSelf, function: Resolvers::UpdateCatalogerSelf.new
   field :updateCollection, function: Resolvers::UpdateCollection.new

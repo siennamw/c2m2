@@ -1,4 +1,6 @@
 class Repository < ApplicationRecord
+  scope :active, -> { where(deleted: false) }
+
   has_many :collections
   has_many :resources, through: :collections
 
@@ -7,4 +9,17 @@ class Repository < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
   validates_presence_of :location
+  validate :check_delete
+
+  def deletable
+    collections.empty?
+  end
+
+  private
+
+  def check_delete
+    if deleted && !deletable
+      errors.add(:base, 'Record has associated collections and cannot be deleted')
+    end
+  end
 end

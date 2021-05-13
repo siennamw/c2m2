@@ -1,4 +1,6 @@
 class Composer < ApplicationRecord
+  scope :active, -> { where(deleted: false) }
+
   has_and_belongs_to_many :works
   has_and_belongs_to_many :works_as_orchestrator,
     class_name: 'Work',
@@ -14,11 +16,23 @@ class Composer < ApplicationRecord
 
   before_validation :strip_imdb_link_query_string
 
+  validate :check_delete
+
+  def deletable
+    (works.empty? && works_as_orchestrator.empty?)
+  end
+
   private
 
+  def check_delete
+    if deleted && !deletable
+      errors.add(:base, 'Record has associated works and cannot be deleted')
+    end
+  end
+
   def strip_imdb_link_query_string
-    if self.imdb_link
-      self.imdb_link = self.imdb_link.split('?').first
+    if imdb_link
+      self.imdb_link = imdb_link.split('?').first
     end
   end
 end
