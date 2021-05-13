@@ -272,6 +272,305 @@ export const CREATE_WORK = gql`
   }
 `;
 
+// toggle (soft) delete entry
+
+export const DELETE_COLLECTION = gql`
+  mutation DeleteCollection(
+    $id: ID!,
+  ){
+    toggleDeleteCollection(
+      id: $id,
+    ) {
+      id
+      name
+      finding_aid_link
+      description
+      deletable
+      deleted
+      repository {
+        id
+      }
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const DELETE_COMPOSER = gql`
+  mutation DeleteComposer(
+    $id: ID!,
+  ){
+    toggleDeleteComposer(
+      id: $id,
+    ) {
+      id
+      name
+      imdb_link
+      deletable
+      deleted
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const DELETE_COUNTRY = gql`
+  mutation DeleteCountry(
+    $id: ID!,
+  ){
+    toggleDeleteCountry(
+      id: $id,
+    ) {
+      id
+      name
+      description
+      deletable
+      deleted
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const DELETE_DIRECTOR = gql`
+  mutation DeleteDirector(
+    $id: ID!,
+  ){
+    toggleDeleteDirector(
+      id: $id,
+    ) {
+      id
+      name
+      imdb_link
+      deletable
+      deleted
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const DELETE_MATERIAL_FORMAT = gql`
+  mutation DeleteMaterialFormat(
+    $id: ID!,
+  ){
+    toggleDeleteMaterialFormat(
+      id: $id,
+    ) {
+      id
+      name
+      description
+      deletable
+      deleted
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const DELETE_MEDIA_TYPE = gql`
+  mutation DeleteMediaType(
+    $id: ID!,
+  ){
+    toggleDeleteMediaType(
+      id: $id,
+    ) {
+      id
+      name
+      description
+      deletable
+      deleted
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const DELETE_PRODUCTION_COMPANY = gql`
+  mutation DeleteProductionCompany(
+    $id: ID!,
+  ){
+    toggleDeleteProductionCompany(
+      id: $id,
+    ) {
+      id
+      name
+      contact_info
+      deletable
+      deleted
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const DELETE_REPOSITORY = gql`
+  mutation DeleteRepository(
+    $id: ID!,
+  ){
+    toggleDeleteRepository(
+      id: $id,
+    ) {
+      id
+      name
+      location
+      website
+      deletable
+      deleted
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const DELETE_RESOURCE = gql`
+  mutation DeleteWork(
+    $id: ID!,
+  ){
+    toggleDeleteResource(
+      id: $id,
+    ) {
+      id
+      digital_copy_link
+      citation_source
+      cataloging_notes
+      publication_status
+      deletable
+      deleted
+      work {
+        id
+      }
+      material_format {
+        id
+      }
+      collections {
+        id
+      }
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const DELETE_WORK = gql`
+  mutation DeleteWork(
+    $id: ID!,
+  ){
+    toggleDeleteWork(
+      id: $id,
+    ) {
+      id
+      title
+      secondary_title
+      alias_alternates
+      imdb_link
+      year
+      deletable
+      deleted
+      country {
+        id
+      }
+      media_type {
+        id
+      }
+      composers {
+        id
+      }
+      directors {
+        id
+      }
+      orchestrators {
+        id
+      }
+      production_companies {
+        id
+      }
+      created_at
+      created_by {
+        id
+        name
+      }
+      updated_at
+      updated_by {
+        id
+        name
+      }
+    }
+  }
+`;
+
 // update entry
 
 export const UPDATE_CATALOGER_ADMIN = gql`
