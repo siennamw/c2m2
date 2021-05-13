@@ -60,7 +60,7 @@ export const reactSelectOnChange = (evt, name, setFieldValue) => {
 };
 
 export const fieldNameToPlural = (field) => {
-  if (!MODEL_NAMES.includes(field)) {
+  if (!MODEL_NAMES.includes(field) && field !== 'orchestrator') {
     console.warn('fieldNameToPlural called with unknown value', field);
     return field;
   }
@@ -73,7 +73,7 @@ export const fieldNameToSingular = (field) => {
     return field;
   }
   const result = FIELD_TO_SINGULAR[field] || field.substr(0, field.length - 1);
-  if (!MODEL_NAMES.includes(result)) {
+  if (!MODEL_NAMES.includes(result) && field !== 'orchestrator') {
     console.warn('fieldNameToSingular called with unknown value', field);
     return field;
   }
