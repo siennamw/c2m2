@@ -5,6 +5,10 @@ Types::ProductionCompanyType = GraphQL::ObjectType.define do
   field :name, !types.String
   field :contact_info, types.String
 
+  field :deletable, types.Boolean # calls object.deletable
+  field :deleted, types.Boolean
+
+
   field :works, ( -> { !types[Types::WorkType] })
 
   field :created_by, (-> { Types::CatalogerType })

@@ -5,6 +5,9 @@ Types::MaterialFormatType = GraphQL::ObjectType.define do
   field :name, !types.String
   field :description, types.String
 
+  field :deleted, types.Boolean
+  field :deletable, types.Boolean # calls object.deletable
+
   field :resources, ( -> { !types[Types::ResourceType] })
 
   field :created_by, (-> { Types::CatalogerType })

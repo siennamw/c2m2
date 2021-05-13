@@ -1,4 +1,6 @@
 class Work < ApplicationRecord
+  scope :active, -> { where(deleted: false) }
+
   belongs_to :country, optional: true
   belongs_to :media_type
 
@@ -19,10 +21,21 @@ class Work < ApplicationRecord
   validates_presence_of :title
   validates_presence_of :year
   validates :imdb_link, uniqueness: true, if: -> { imdb_link.present? }
+  validate :check_delete
 
   before_validation :strip_imdb_link_query_string
 
+  def deletable
+    resources.empty?
+  end
+
   private
+
+  def check_delete
+    if deleted && !deletable
+      errors.add(:base, 'Record has associated resources and cannot be deleted')
+    end
+  end
 
   def strip_imdb_link_query_string
     if self.imdb_link

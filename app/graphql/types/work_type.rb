@@ -6,8 +6,10 @@ Types::WorkType = GraphQL::ObjectType.define do
   field :secondary_title, types.String
   field :alias_alternates, types.String
   field :imdb_link, types.String
-
   field :year, !types.Int
+
+  field :deleted, types.Boolean
+  field :deletable, types.Boolean # calls object.deletable
 
   field :country, (-> { Types::CountryType })
   field :media_type, (-> { Types::MediaTypeType })

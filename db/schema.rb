@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_13_165234) do
+ActiveRecord::Schema.define(version: 2021_04_15_212106) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,7 +70,9 @@ ActiveRecord::Schema.define(version: 2021_04_13_165234) do
     t.bigint "created_by_id"
     t.bigint "updated_by_id"
     t.string "finding_aid_link"
+    t.boolean "deleted", default: false, null: false
     t.index ["created_by_id"], name: "index_collections_on_created_by_id"
+    t.index ["deleted"], name: "index_collections_on_deleted"
     t.index ["name"], name: "index_collections_on_name", unique: true
     t.index ["repository_id"], name: "index_collections_on_repository_id"
     t.index ["updated_by_id"], name: "index_collections_on_updated_by_id"
@@ -90,7 +92,9 @@ ActiveRecord::Schema.define(version: 2021_04_13_165234) do
     t.datetime "updated_at", null: false
     t.bigint "created_by_id"
     t.bigint "updated_by_id"
+    t.boolean "deleted", default: false, null: false
     t.index ["created_by_id"], name: "index_composers_on_created_by_id"
+    t.index ["deleted"], name: "index_composers_on_deleted"
     t.index ["imdb_link"], name: "index_composers_on_imdb_link", unique: true
     t.index ["name"], name: "index_composers_on_name", unique: true
     t.index ["updated_by_id"], name: "index_composers_on_updated_by_id"
@@ -110,7 +114,9 @@ ActiveRecord::Schema.define(version: 2021_04_13_165234) do
     t.datetime "updated_at", null: false
     t.bigint "created_by_id"
     t.bigint "updated_by_id"
+    t.boolean "deleted", default: false, null: false
     t.index ["created_by_id"], name: "index_countries_on_created_by_id"
+    t.index ["deleted"], name: "index_countries_on_deleted"
     t.index ["name"], name: "index_countries_on_name", unique: true
     t.index ["updated_by_id"], name: "index_countries_on_updated_by_id"
   end
@@ -122,7 +128,9 @@ ActiveRecord::Schema.define(version: 2021_04_13_165234) do
     t.datetime "updated_at", null: false
     t.bigint "created_by_id"
     t.bigint "updated_by_id"
+    t.boolean "deleted", default: false, null: false
     t.index ["created_by_id"], name: "index_directors_on_created_by_id"
+    t.index ["deleted"], name: "index_directors_on_deleted"
     t.index ["imdb_link"], name: "index_directors_on_imdb_link", unique: true
     t.index ["name"], name: "index_directors_on_name", unique: true
     t.index ["updated_by_id"], name: "index_directors_on_updated_by_id"
@@ -142,7 +150,9 @@ ActiveRecord::Schema.define(version: 2021_04_13_165234) do
     t.datetime "updated_at", null: false
     t.bigint "created_by_id"
     t.bigint "updated_by_id"
+    t.boolean "deleted", default: false, null: false
     t.index ["created_by_id"], name: "index_material_formats_on_created_by_id"
+    t.index ["deleted"], name: "index_material_formats_on_deleted"
     t.index ["name"], name: "index_material_formats_on_name", unique: true
     t.index ["updated_by_id"], name: "index_material_formats_on_updated_by_id"
   end
@@ -154,7 +164,9 @@ ActiveRecord::Schema.define(version: 2021_04_13_165234) do
     t.datetime "updated_at", null: false
     t.bigint "created_by_id"
     t.bigint "updated_by_id"
+    t.boolean "deleted", default: false, null: false
     t.index ["created_by_id"], name: "index_media_types_on_created_by_id"
+    t.index ["deleted"], name: "index_media_types_on_deleted"
     t.index ["name"], name: "index_media_types_on_name", unique: true
     t.index ["updated_by_id"], name: "index_media_types_on_updated_by_id"
   end
@@ -173,7 +185,9 @@ ActiveRecord::Schema.define(version: 2021_04_13_165234) do
     t.datetime "updated_at", null: false
     t.bigint "created_by_id"
     t.bigint "updated_by_id"
+    t.boolean "deleted", default: false, null: false
     t.index ["created_by_id"], name: "index_production_companies_on_created_by_id"
+    t.index ["deleted"], name: "index_production_companies_on_deleted"
     t.index ["name"], name: "index_production_companies_on_name", unique: true
     t.index ["updated_by_id"], name: "index_production_companies_on_updated_by_id"
   end
@@ -193,7 +207,9 @@ ActiveRecord::Schema.define(version: 2021_04_13_165234) do
     t.datetime "updated_at", null: false
     t.bigint "created_by_id"
     t.bigint "updated_by_id"
+    t.boolean "deleted", default: false, null: false
     t.index ["created_by_id"], name: "index_repositories_on_created_by_id"
+    t.index ["deleted"], name: "index_repositories_on_deleted"
     t.index ["name"], name: "index_repositories_on_name", unique: true
     t.index ["updated_by_id"], name: "index_repositories_on_updated_by_id"
   end
@@ -209,7 +225,9 @@ ActiveRecord::Schema.define(version: 2021_04_13_165234) do
     t.string "publication_status", default: "draft", null: false
     t.bigint "updated_by_id"
     t.bigint "work_id"
+    t.boolean "deleted", default: false, null: false
     t.index ["created_by_id"], name: "index_resources_on_created_by_id"
+    t.index ["deleted"], name: "index_resources_on_deleted"
     t.index ["material_format_id"], name: "index_resources_on_material_format_id"
     t.index ["publication_status"], name: "index_resources_on_publication_status"
     t.index ["updated_by_id"], name: "index_resources_on_updated_by_id"
@@ -228,8 +246,10 @@ ActiveRecord::Schema.define(version: 2021_04_13_165234) do
     t.bigint "updated_by_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "deleted", default: false, null: false
     t.index ["country_id"], name: "index_works_on_country_id"
     t.index ["created_by_id"], name: "index_works_on_created_by_id"
+    t.index ["deleted"], name: "index_works_on_deleted"
     t.index ["imdb_link"], name: "index_works_on_imdb_link", unique: true
     t.index ["media_type_id"], name: "index_works_on_media_type_id"
     t.index ["updated_by_id"], name: "index_works_on_updated_by_id"
