@@ -15,7 +15,7 @@ class Resolvers::UpdateComposer < GraphQL::Function
     end
 
     composer = Composer.find(args[:id])
-    new_composer = composer.update!(
+    composer.update!(
       name: args[:name],
       imdb_link: args[:imdb_link],
       updated_by: ctx[:current_user],
