@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import InputField from '../InputField';
 
-const RepositoryForm = () => {
-  const model = 'repository';
+const MediaTypeFormFields = () => {
+  const model = 'media_type';
   return (
     <Fragment>
       <InputField
@@ -11,18 +11,13 @@ const RepositoryForm = () => {
         modelName={model}
       />
       <InputField
-        displayName="Location"
-        fieldName="location"
-        modelName={model}
-      />
-      <InputField
-        displayName="Website"
-        fieldName="website"
-        fieldType="url"
+        component="textarea"
+        displayName="Description"
+        fieldName="description"
         modelName={model}
       />
     </Fragment>
   );
 };
 
-export default RepositoryForm;
+export default MediaTypeFormFields;

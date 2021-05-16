@@ -1,58 +1,95 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Formik, useFormikContext } from 'formik';
+import { Form, Formik } from 'formik';
+import { isEmpty } from 'lodash';
 
-import { getInitialFormValuesForSchema } from '../../validationSchemas';
+import {
+  getInitialFormValuesForSchema,
+  getNormalizedSubmissionValuesForSchema
+} from '../../validationSchemas';
 
 import FormStatus from '../FormStatus';
 
-const SubmitButton = () => {
-  const { isSubmitting, dirty } = useFormikContext();
+const EntryFormWrapper = ({
+  children,
+  clearAfterSubmit,
+  initialValues,
+  mutation,
+  mutationName,
+  successCallback,
+  yupSchema,
+}) => {
+  const handleSubmit = async (values, setSubmitting, setStatus, resetForm) => {
+    setStatus(null);
+
+    try {
+      const variables = getNormalizedSubmissionValuesForSchema(yupSchema, values);
+      const payload = { variables };
+      const { data, errors } = await mutation(payload);
+
+      if (!errors && data && !isEmpty(data)) {
+        if (clearAfterSubmit) {
+          resetForm(getInitialFormValuesForSchema(yupSchema));
+        } else if (data[mutationName]) {
+          resetForm(getInitialFormValuesForSchema(yupSchema, data[mutationName]));
+        }
+
+        setStatus({
+          type: 'success',
+          message: 'Success!',
+        });
+
+        if (successCallback && data[mutationName]) {
+          successCallback(data[mutationName]);
+        }
+      } else {
+        setStatus({
+          type: 'error',
+          message: errors
+            ? errors.map(({ message }) => message).join('; ')
+            : 'Failed. Please try again later.',
+        });
+      }
+    } catch (err) {
+      setStatus({
+        type: 'error',
+        message: err.message,
+      });
+    }
+
+    setSubmitting(false);
+  };
 
   return (
-    <button
-      type="submit"
-      className="button-primary u-full-width"
-      disabled={isSubmitting || !dirty}
+    <Formik
+      enableReinitialize // solves old values being shown after form submit
+      initialValues={initialValues}
+      onSubmit={(values, { setSubmitting, setStatus, resetForm }) => (
+        handleSubmit(values, setSubmitting, setStatus, resetForm)
+      )}
+      validationSchema={yupSchema}
     >
-      Submit
-    </button>
+      <Form>
+        {children}
+        <FormStatus />
+      </Form>
+    </Formik>
   );
 };
 
-const EntryFormWrapper = ({
-  FormComponent,
-  handleSubmit,
-  initialValues,
-  validationSchema,
-}) => (
-  <Formik
-    initialValues={getInitialFormValuesForSchema(validationSchema, initialValues)}
-    validationSchema={validationSchema}
-    onSubmit={(values, { setSubmitting, setStatus, resetForm }) => (
-      handleSubmit(values, setSubmitting, setStatus, resetForm)
-    )}
-  >
-    <Form>
-      <FormComponent />
-      <SubmitButton />
-      <FormStatus />
-    </Form>
-  </Formik>
-);
-
 EntryFormWrapper.defaultProps = {
-  initialValues: null,
+  clearAfterSubmit: false,
+  successCallback: null,
 };
 
 EntryFormWrapper.propTypes = {
-  FormComponent: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.element,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
   ]).isRequired,
-  handleSubmit: PropTypes.func.isRequired,
+  clearAfterSubmit: PropTypes.bool,
   initialValues: (props, propName, componentName) => {
-    props.validationSchema
+    props.yupSchema
       .isValid(props[propName])
       .then((valid) => {
         if (!valid) {
@@ -61,7 +98,10 @@ EntryFormWrapper.propTypes = {
         return true;
       });
   },
-  validationSchema: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  mutation: PropTypes.func.isRequired,
+  mutationName: PropTypes.string.isRequired,
+  successCallback: PropTypes.func,
+  yupSchema: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 };
 
 export default EntryFormWrapper;

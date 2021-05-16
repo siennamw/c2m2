@@ -8,7 +8,7 @@ import Nav from '../nav/Nav';
 
 import BulkUpload from './BulkUpload';
 import CatalogerDirectory from './CatalogerDirectory';
-import CatalogerEditAccount from './CatalogerEditAccount';
+import CatalogerForm from '../entries/cataloger/CatalogerForm';
 import CatalogerHome from './CatalogerHome';
 import CatalogerNewEntryParent from './CatalogerNewEntryParent';
 import CatalogerEditEntryParent from './CatalogerEditEntryParent';
@@ -37,7 +37,7 @@ const CatalogerDashboard = ({ match }) => {
         <NavLink to="/sign-out">Sign Out</NavLink>
       </Nav>
       <Switch>
-        <Route path={`${match.path}/account`} component={CatalogerEditAccount} />
+        <Route path={`${match.path}/account`} component={CatalogerForm} />
         <Route path={`${match.path}/bulk-upload`} component={BulkUpload} />
         <Route path={`${match.path}/directory`} component={CatalogerDirectory} />
         <Route path={`${match.path}/edit`} component={CatalogerEditEntryParent} />

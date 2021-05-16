@@ -5,15 +5,15 @@ import InputField from '../InputField';
 import SelectField from '../SelectField';
 import SelectFieldWithQuery from '../SelectFieldWithQuery';
 
-import NewCollection from '../collection/NewCollection';
-import NewWork from '../work/NewWork';
+import CollectionForm from '../collection/CollectionForm';
+import WorkForm from '../work/WorkForm';
 
 import { AuthContext } from '../../AuthContext';
 
 import { reactSelectOnChange } from '../../../utils';
 import * as queries from '../../../queries';
 
-const ResourceForm = () => {
+const ResourceFormFields = () => {
   const {
     setFieldTouched,
     setFieldValue,
@@ -41,7 +41,7 @@ const ResourceForm = () => {
   return (
     <Fragment>
       <SelectFieldWithQuery
-        componentForModal={NewWork}
+        componentForModal={WorkForm}
         displayName="Work"
         fieldName="work_id"
         modelName={model}
@@ -74,7 +74,7 @@ const ResourceForm = () => {
         selected={values.material_format_id}
       />
       <SelectFieldWithQuery
-        componentForModal={NewCollection}
+        componentForModal={CollectionForm}
         displayName="Collection(s)"
         fieldName="collection_ids"
         isMulti
@@ -103,4 +103,4 @@ const ResourceForm = () => {
   );
 };
 
-export default ResourceForm;
+export default ResourceFormFields;

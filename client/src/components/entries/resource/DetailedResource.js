@@ -109,7 +109,9 @@ DisplayResource.propTypes = {
 };
 
 const DetailedResource = ({ match }) => {
-  const id = Number(match.params.id);
+  const id = match && match.params && match.params.id
+    ? Number(match.params.id)
+    : null;
 
   return (
     <DetailedEntry

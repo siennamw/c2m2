@@ -3,12 +3,12 @@ import { useFormikContext } from 'formik';
 
 import InputField from '../InputField';
 import SelectFieldWithQuery from '../SelectFieldWithQuery';
-import NewRepository from '../repository/NewRepository';
+import RepositoryForm from '../repository/RepositoryForm';
 
 import { LIST_ALL_REPOSITORIES } from '../../../queries';
 import { reactSelectOnChange } from '../../../utils';
 
-const CollectionForm = () => {
+const CollectionFormFields = () => {
   const {
     setFieldTouched,
     setFieldValue,
@@ -33,7 +33,7 @@ const CollectionForm = () => {
         modelName={model}
       />
       <SelectFieldWithQuery
-        componentForModal={NewRepository}
+        componentForModal={RepositoryForm}
         displayName="Repository"
         fieldName="repository_id"
         modelName={model}
@@ -59,4 +59,4 @@ const CollectionForm = () => {
   );
 };
 
-export default CollectionForm;
+export default CollectionFormFields;

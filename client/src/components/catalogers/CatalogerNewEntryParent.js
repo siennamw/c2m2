@@ -9,17 +9,17 @@ import {
 
 import { AuthContext } from '../AuthContext';
 
-import NewCataloger from '../entries/cataloger/NewCataloger';
-import NewCollection from '../entries/collection/NewCollection';
-import NewComposer from '../entries/composer/NewComposer';
-import NewCountry from '../entries/country/NewCountry';
-import NewDirector from '../entries/director/NewDirector';
-import NewMaterialFormat from '../entries/materialFormat/NewMaterialFormat';
-import NewMediaType from '../entries/mediaType/NewMediaType';
-import NewProductionCompany from '../entries/productionCompany/NewProductionCompany';
-import NewRepository from '../entries/repository/NewRepository';
-import NewResource from '../entries/resource/NewResource';
-import NewWork from '../entries/work/NewWork';
+import CatalogerForm from '../entries/cataloger/CatalogerForm';
+import CollectionForm from '../entries/collection/CollectionForm';
+import ComposerForm from '../entries/composer/ComposerForm';
+import CountryForm from '../entries/country/CountryForm';
+import DirectorForm from '../entries/director/DirectorForm';
+import MaterialFormatForm from '../entries/materialFormat/MaterialFormatForm';
+import MediaTypeForm from '../entries/mediaType/MediaTypeForm';
+import ProductionCompanyForm from '../entries/productionCompany/ProductionCompanyForm';
+import RepositoryForm from '../entries/repository/RepositoryForm';
+import ResourceForm from '../entries/resource/ResourceForm';
+import WorkForm from '../entries/work/WorkForm';
 
 const CatalogerNewEntryParent = ({ match }) => {
   const location = useLocation();
@@ -34,17 +34,17 @@ const CatalogerNewEntryParent = ({ match }) => {
           : null
       }
       <Switch>
-        <Route exact path={`${match.path}/cataloger`} component={NewCataloger} />
-        <Route exact path={`${match.path}/collection`} component={NewCollection} />
-        <Route exact path={`${match.path}/composer`} component={NewComposer} />
-        <Route exact path={`${match.path}/country`} component={NewCountry} />
-        <Route exact path={`${match.path}/director`} component={NewDirector} />
-        <Route exact path={`${match.path}/material_format`} component={NewMaterialFormat} />
-        <Route exact path={`${match.path}/media_type`} component={NewMediaType} />
-        <Route exact path={`${match.path}/production_company`} component={NewProductionCompany} />
-        <Route exact path={`${match.path}/repository`} component={NewRepository} />
-        <Route exact path={`${match.path}/resource`} component={NewResource} />
-        <Route exact path={`${match.path}/work`} component={NewWork} />
+        <Route exact path={`${match.path}/cataloger`} component={CatalogerForm} />
+        <Route exact path={`${match.path}/collection`} component={CollectionForm} />
+        <Route exact path={`${match.path}/composer`} component={ComposerForm} />
+        <Route exact path={`${match.path}/country`} component={CountryForm} />
+        <Route exact path={`${match.path}/director`} component={DirectorForm} />
+        <Route exact path={`${match.path}/material_format`} component={MaterialFormatForm} />
+        <Route exact path={`${match.path}/media_type`} component={MediaTypeForm} />
+        <Route exact path={`${match.path}/production_company`} component={ProductionCompanyForm} />
+        <Route exact path={`${match.path}/repository`} component={RepositoryForm} />
+        <Route exact path={`${match.path}/resource`} component={ResourceForm} />
+        <Route exact path={`${match.path}/work`} component={WorkForm} />
         <Route
           render={() => (
             <div>
