@@ -7,12 +7,12 @@ import InputField from '../InputField';
 import * as queries from '../../../queries';
 import { reactSelectOnChange } from '../../../utils';
 
-import NewComposer from '../composer/NewComposer';
-import NewCountry from '../country/NewCountry';
-import NewDirector from '../director/NewDirector';
-import NewProductionCompany from '../productionCompany/NewProductionCompany';
+import ComposerForm from '../composer/ComposerForm';
+import CountryForm from '../country/CountryForm';
+import DirectorForm from '../director/DirectorForm';
+import ProductionCompanyForm from '../productionCompany/ProductionCompanyForm';
 
-const WorkForm = () => {
+const WorkFormFields = () => {
   const {
     setFieldTouched,
     setFieldValue,
@@ -58,7 +58,7 @@ const WorkForm = () => {
         modelName={model}
       />
       <SelectFieldWithQuery
-        componentForModal={NewCountry}
+        componentForModal={CountryForm}
         displayName="Country"
         fieldName="country_id"
         modelName={model}
@@ -80,7 +80,7 @@ const WorkForm = () => {
         selected={values.media_type_id}
       />
       <SelectFieldWithQuery
-        componentForModal={NewComposer}
+        componentForModal={ComposerForm}
         displayName="Composer(s)"
         fieldName="composer_ids"
         isMulti
@@ -92,7 +92,7 @@ const WorkForm = () => {
         selected={values.composer_ids}
       />
       <SelectFieldWithQuery
-        componentForModal={NewComposer}
+        componentForModal={ComposerForm}
         displayName="Orchestrator(s)"
         fieldName="orchestrator_ids"
         isMulti
@@ -104,7 +104,7 @@ const WorkForm = () => {
         selected={values.orchestrator_ids}
       />
       <SelectFieldWithQuery
-        componentForModal={NewDirector}
+        componentForModal={DirectorForm}
         displayName="Director(s)"
         fieldName="director_ids"
         isMulti
@@ -116,7 +116,7 @@ const WorkForm = () => {
         selected={values.director_ids}
       />
       <SelectFieldWithQuery
-        componentForModal={NewProductionCompany}
+        componentForModal={ProductionCompanyForm}
         displayName="Production Company or Companies"
         fieldName="production_company_ids"
         isMulti
@@ -131,4 +131,4 @@ const WorkForm = () => {
   );
 };
 
-export default WorkForm;
+export default WorkFormFields;

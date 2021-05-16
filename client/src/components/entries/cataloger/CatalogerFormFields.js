@@ -7,7 +7,7 @@ import SelectField from '../SelectField';
 import { reactSelectOnChange } from '../../../utils';
 import { AuthContext } from '../../AuthContext';
 
-const CatalogerForm = ({ hidePasswordFields }) => {
+const CatalogerFormFields = ({ hidePasswordFields }) => {
   const {
     setFieldTouched,
     setFieldValue,
@@ -89,16 +89,16 @@ const CatalogerForm = ({ hidePasswordFields }) => {
   );
 };
 
-CatalogerForm.propTypes = {
+CatalogerFormFields.propTypes = {
   hidePasswordFields: PropTypes.bool,
 };
 
-CatalogerForm.defaultProps = {
+CatalogerFormFields.defaultProps = {
   hidePasswordFields: false,
 };
 
-export const CatalogerFormNoPasswords = () => (
-  <CatalogerForm hidePasswordFields />
+export const CatalogerFormFieldsNoPasswords = () => (
+  <CatalogerFormFields hidePasswordFields />
 );
 
-export default CatalogerForm;
+export default CatalogerFormFields;

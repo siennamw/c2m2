@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import InputField from '../InputField';
 
-const ComposerForm = () => {
+const ComposerFormFields = () => {
   const model = 'composer';
   return (
     <Fragment>
@@ -20,4 +20,4 @@ const ComposerForm = () => {
   );
 };
 
-export default ComposerForm;
+export default ComposerFormFields;

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import InputField from '../InputField';
 
-const CountryForm = () => {
+const CountryFormFields = () => {
   const model = 'country';
   return (
     <Fragment>
@@ -20,4 +20,4 @@ const CountryForm = () => {
   );
 };
 
-export default CountryForm;
+export default CountryFormFields;

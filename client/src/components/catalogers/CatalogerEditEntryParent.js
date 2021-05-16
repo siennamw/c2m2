@@ -2,33 +2,33 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 
-import EditCataloger from '../entries/cataloger/EditCataloger';
-import EditCollection from '../entries/collection/EditCollection';
-import EditComposer from '../entries/composer/EditComposer';
-import EditCountry from '../entries/country/EditCountry';
-import EditDirector from '../entries/director/EditDirector';
-import EditMaterialFormat from '../entries/materialFormat/EditMaterialFormat';
-import EditMediaType from '../entries/mediaType/EditMediaType';
-import EditProductionCompany from '../entries/productionCompany/EditProductionCompany';
-import EditRepository from '../entries/repository/EditRepository';
-import EditResource from '../entries/resource/EditResource';
-import EditWork from '../entries/work/EditWork';
+import CatalogerForm from '../entries/cataloger/CatalogerForm';
+import CollectionForm from '../entries/collection/CollectionForm';
+import ComposerForm from '../entries/composer/ComposerForm';
+import CountryForm from '../entries/country/CountryForm';
+import DirectorForm from '../entries/director/DirectorForm';
+import MaterialFormatForm from '../entries/materialFormat/MaterialFormatForm';
+import MediaTypeForm from '../entries/mediaType/MediaTypeForm';
+import ProductionCompanyForm from '../entries/productionCompany/ProductionCompanyForm';
+import RepositoryForm from '../entries/repository/RepositoryForm';
+import ResourceForm from '../entries/resource/ResourceForm';
+import WorkForm from '../entries/work/WorkForm';
 
 import UnknownRoute from '../UnknownRoute';
 
 const CatalogerEditEntryParent = ({ match }) => (
   <Switch>
-    <Route exact path={`${match.path}/cataloger/:id`} component={EditCataloger} />
-    <Route exact path={`${match.path}/collection/:id`} component={EditCollection} />
-    <Route exact path={`${match.path}/composer/:id`} component={EditComposer} />
-    <Route exact path={`${match.path}/country/:id`} component={EditCountry} />
-    <Route exact path={`${match.path}/director/:id`} component={EditDirector} />
-    <Route exact path={`${match.path}/material_format/:id`} component={EditMaterialFormat} />
-    <Route exact path={`${match.path}/media_type/:id`} component={EditMediaType} />
-    <Route exact path={`${match.path}/production_company/:id`} component={EditProductionCompany} />
-    <Route exact path={`${match.path}/repository/:id`} component={EditRepository} />
-    <Route exact path={`${match.path}/resource/:id`} component={EditResource} />
-    <Route exact path={`${match.path}/work/:id`} component={EditWork} />
+    <Route exact path={`${match.path}/cataloger/:id`} component={CatalogerForm} />
+    <Route exact path={`${match.path}/collection/:id`} component={CollectionForm} />
+    <Route exact path={`${match.path}/composer/:id`} component={ComposerForm} />
+    <Route exact path={`${match.path}/country/:id`} component={CountryForm} />
+    <Route exact path={`${match.path}/director/:id`} component={DirectorForm} />
+    <Route exact path={`${match.path}/material_format/:id`} component={MaterialFormatForm} />
+    <Route exact path={`${match.path}/media_type/:id`} component={MediaTypeForm} />
+    <Route exact path={`${match.path}/production_company/:id`} component={ProductionCompanyForm} />
+    <Route exact path={`${match.path}/repository/:id`} component={RepositoryForm} />
+    <Route exact path={`${match.path}/resource/:id`} component={ResourceForm} />
+    <Route exact path={`${match.path}/work/:id`} component={WorkForm} />
     <Route component={UnknownRoute} />
   </Switch>
 );

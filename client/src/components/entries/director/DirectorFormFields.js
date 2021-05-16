@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import InputField from '../InputField';
 
-const MaterialFormatForm = () => {
-  const model = 'material_format';
+const DirectorFormFields = () => {
+  const model = 'director';
   return (
     <Fragment>
       <InputField
@@ -11,13 +11,13 @@ const MaterialFormatForm = () => {
         modelName={model}
       />
       <InputField
-        component="textarea"
-        displayName="Description"
-        fieldName="description"
+        displayName="IMDB Link"
+        fieldName="imdb_link"
+        fieldType="url"
         modelName={model}
       />
     </Fragment>
   );
 };
 
-export default MaterialFormatForm;
+export default DirectorFormFields;

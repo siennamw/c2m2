@@ -107,6 +107,35 @@ form {
     }
   }
 
+  // form buttons
+  .buttons-parent {
+    display: flex;
+
+    & > * {
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+
+    & > *:first-child {
+      margin-left: 0;
+    }
+
+    & > *:last-child {
+      margin-right: 0;
+    }
+
+    button:hover {
+      &.button-delete {
+        background-color: @error;
+        color: @white;
+      }
+      &.button-un-delete {
+        background-color: @success;
+        color: @white;
+      }
+    }
+  }
+
   .help-text {
     font-size: 80%;
     color: @gray;
@@ -151,6 +180,10 @@ form {
   margin-bottom: 1rem;
   text-align: center;
   color: @gray;
+
+  nav + & {
+    padding-top: 3.5rem;
+  }
 
   &.fade {
     animation-delay: 7s;

@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import InputField from '../InputField';
 
-const ProductionCompanyForm = () => {
-  const model = 'production_company';
+const MaterialFormatFormFields = () => {
+  const model = 'material_format';
   return (
     <Fragment>
       <InputField
@@ -11,12 +11,13 @@ const ProductionCompanyForm = () => {
         modelName={model}
       />
       <InputField
-        displayName="Contact Information"
-        fieldName="contact_info"
+        component="textarea"
+        displayName="Description"
+        fieldName="description"
         modelName={model}
       />
     </Fragment>
   );
 };
 
-export default ProductionCompanyForm;
+export default MaterialFormatFormFields;
