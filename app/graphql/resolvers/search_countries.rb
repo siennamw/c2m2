@@ -7,7 +7,7 @@ class Resolvers::SearchCountries
   include SearchHelper
 
   # scope is starting point for search
-  scope { Country.all }
+  scope { context && context[:current_user] ? Country.all : Country.active }
 
   # return type
   type !types[Types::CountryType]
@@ -21,6 +21,7 @@ class Resolvers::SearchCountries
 
   option :filter, type: CountryFilter, with: :apply_filter
   option :first, type: types.Int, with: :apply_first
+  option :include_deleted, type: types.Boolean, default: false, with: :apply_include_deleted
   option :skip, type: types.Int, with: :apply_skip
   option :sorting, type: Types::Inputs::SortingFilter, with: :apply_sorting
 

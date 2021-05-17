@@ -1,8 +1,8 @@
 require 'test_helper'
 
 class Resolvers::SearchWorksTest < ActiveSupport::TestCase
-  def find(args)
-    Resolvers::SearchWorks.call(nil, args, nil)
+  def find(args = {}, current_user = nil)
+    Resolvers::SearchWorks.call(nil, args, { current_user: current_user })
   end
 
   setup do
@@ -18,6 +18,7 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
 
     @works = []
     @works_minimum = []
+    @deleted_works = []
     @composers = []
     @countries = []
     @directors = []
@@ -65,6 +66,14 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
         media_type: @media_type,
         title: "minimum#{n}",
         year: 1900 + n,
+      )
+
+      @deleted_works << Work.create!(
+        created_by: @cataloger,
+        media_type: @media_type,
+        title: "deleted#{n}",
+        year: 1950 + n,
+        deleted: true,
       )
     end
   end
@@ -245,5 +254,37 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
     )
 
     assert_equal @works_minimum.concat(@works).map(&:id).reverse, result.map(&:id)
+  end
+
+  test 'sorting, skip, and limit work together as expected' do
+    field = 'title'
+    is_ascending = false
+    first = 3
+    skip = 2
+
+    result = find(
+      sorting: {
+        'field' => field,
+        'is_ascending' => is_ascending,
+      },
+      first: first,
+      skip: skip,
+    )
+
+    assert_equal @works.reverse[skip, first].map(&:id), result.map(&:id)
+  end
+
+  test 'deleted records included for authenticated user when include_deleted arg is true' do
+    result = find(
+      { include_deleted: true },
+      @cataloger
+    )
+
+    assert_equal @works_minimum.concat(@works).concat(@deleted_works).map(&:id).sort, result.map(&:id).sort
+  end
+
+  test 'deleted records not included for unauthenticated user even if include_deleted arg is true' do
+    result = find(include_deleted: true)
+    assert_equal @works_minimum.concat(@works).map(&:id).sort, result.map(&:id).sort
   end
 end
