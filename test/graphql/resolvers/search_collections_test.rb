@@ -1,8 +1,8 @@
 require 'test_helper'
 
 class Resolvers::SearchCollectionsTest < ActiveSupport::TestCase
-  def find(args)
-    Resolvers::SearchCollections.call(nil, args, nil)
+  def find(args = {}, current_user = nil)
+    Resolvers::SearchCollections.call(nil, args, { current_user: current_user })
   end
 
   setup do
@@ -25,6 +25,15 @@ class Resolvers::SearchCollectionsTest < ActiveSupport::TestCase
       )
     end
 
+    @deleted_collections = []
+    2.times do |n|
+      @deleted_collections << Collection.create!(
+        created_by: @cataloger,
+        name: "deleted#{n}",
+        repository: @repository,
+        deleted: true,
+      )
+    end
   end
 
   test 'filter option' do
@@ -116,5 +125,38 @@ class Resolvers::SearchCollectionsTest < ActiveSupport::TestCase
     )
 
     assert_equal @collections.map(&:id).reverse, result.map(&:id)
+  end
+
+  test 'sorting, skip, and limit work together as expected' do
+    field = 'name'
+    is_ascending = false
+    first = 3
+    skip = 2
+
+    result = find(
+      sorting: {
+        'field' => field,
+        'is_ascending' => is_ascending,
+      },
+      first: first,
+      skip: skip,
+    )
+
+    assert_equal @collections.reverse[skip, first].map(&:id), result.map(&:id)
+  end
+
+  test 'deleted records included for authenticated user when include_deleted arg is true' do
+    result = find(
+      { include_deleted: true },
+      @cataloger
+    )
+
+    expected = @collections.map(&:id).concat(@deleted_collections.map(&:id)).sort
+    assert_equal expected, result.map(&:id).sort
+  end
+
+  test 'deleted records not included for unauthenticated user even if include_deleted arg is true' do
+    result = find(include_deleted: true)
+    assert_equal @collections.map(&:id).sort, result.map(&:id).sort
   end
 end

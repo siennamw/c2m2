@@ -587,12 +587,14 @@ export const SEARCH_COLLECTIONS = gql`
   query searchCollections(
     $filter: CollectionFilter,
     $first: Int,
+    $includeDeleted: Boolean,
     $skip: Int,
     $sorting: SortingFilter,
   ){
     allCollections(
       filter: $filter,
       first: $first,
+      include_deleted: $includeDeleted,
       skip: $skip,
       sorting: $sorting,
     ) {
@@ -607,12 +609,14 @@ export const SEARCH_COMPOSERS = gql`
   query searchComposers(
     $filter: ComposerFilter,
     $first: Int,
+    $includeDeleted: Boolean,
     $skip: Int,
     $sorting: SortingFilter,
   ){
     allComposers(
       filter: $filter,
       first: $first,
+      include_deleted: $includeDeleted,
       skip: $skip,
       sorting: $sorting,
     ) {
@@ -627,12 +631,14 @@ export const SEARCH_COUNTRIES = gql`
   query searchCountries(
     $filter: CountryFilter,
     $first: Int,
+    $includeDeleted: Boolean,
     $skip: Int,
     $sorting: SortingFilter,
   ){
     allCountries(
       filter: $filter,
       first: $first,
+      include_deleted: $includeDeleted,
       skip: $skip,
       sorting: $sorting,
     ) {
@@ -644,14 +650,17 @@ export const SEARCH_COUNTRIES = gql`
 `;
 
 export const SEARCH_DIRECTORS = gql`
-  query searchDirectors($filter: DirectorFilter,
+  query searchDirectors(
+    $filter: DirectorFilter,
     $first: Int,
+    $includeDeleted: Boolean,
     $skip: Int,
     $sorting: SortingFilter,
   ){
     allDirectors(
       filter: $filter,
       first: $first,
+      include_deleted: $includeDeleted,
       skip: $skip,
       sorting: $sorting,
     ) {
@@ -662,16 +671,62 @@ export const SEARCH_DIRECTORS = gql`
   }
 `;
 
+export const SEARCH_MATERIAL_FORMATS = gql`
+  query searchMaterialFormats(
+    $filter: MaterialFormatFilter,
+    $first: Int,
+    $includeDeleted: Boolean,
+    $skip: Int,
+    $sorting: SortingFilter,
+  ){
+    allMaterialFormats(
+      filter: $filter,
+      first: $first,
+      include_deleted: $includeDeleted,
+      skip: $skip,
+      sorting: $sorting,
+    ) {
+      id
+      name
+      description
+    }
+  }
+`;
+
+export const SEARCH_MEDIA_TYPES = gql`
+  query searchMediaTypes(
+    $filter: MediaTypeFilter,
+    $first: Int,
+    $includeDeleted: Boolean,
+    $skip: Int,
+    $sorting: SortingFilter,
+  ){
+    allMediaTypes(
+      filter: $filter,
+      first: $first,
+      include_deleted: $includeDeleted,
+      skip: $skip,
+      sorting: $sorting,
+    ) {
+      id
+      name
+      description
+    }
+  }
+`;
+
 export const SEARCH_PRODUCTION_COMPANIES = gql`
   query searchProductionCompanies(
     $filter: ProductionCompanyFilter,
     $first: Int,
+    $includeDeleted: Boolean,
     $skip: Int,
     $sorting: SortingFilter,
   ){
     allProductionCompanies(
       filter: $filter,
       first: $first,
+      include_deleted: $includeDeleted,
       skip: $skip,
       sorting: $sorting,
     ) {
@@ -685,12 +740,14 @@ export const SEARCH_REPOSITORIES = gql`
   query searchRepositories(
     $filter: RepositoryFilter,
     $first: Int,
+    $includeDeleted: Boolean,
     $skip: Int,
     $sorting: SortingFilter,
   ){
     allRepositories(
       filter: $filter,
       first: $first,
+      include_deleted: $includeDeleted,
       skip: $skip,
       sorting: $sorting,
     ) {
@@ -704,11 +761,13 @@ export const SEARCH_REPOSITORIES = gql`
 export const SEARCH_RESOURCES = gql`
   query searchResources(
     $first: Int,
+    $includeDeleted: Boolean,
     $skip: Int,
     $sorting: SortingFilter,
   ){
     allResources(
       first: $first,
+      include_deleted: $includeDeleted,
       skip: $skip,
       sorting: $sorting,
     ) {
@@ -732,14 +791,17 @@ export const SEARCH_RESOURCES = gql`
 `;
 
 export const SEARCH_WORKS = gql`
-  query searchWorks($filter: WorkFilter,
+  query searchWorks(
+    $filter: WorkFilter,
     $first: Int,
+    $includeDeleted: Boolean,
     $skip: Int,
     $sorting: SortingFilter,
   ){
     allWorks(
       filter: $filter,
       first: $first,
+      include_deleted: $includeDeleted,
       skip: $skip,
       sorting: $sorting,
     ) {

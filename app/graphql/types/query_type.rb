@@ -2,118 +2,35 @@ Types::QueryType = GraphQL::ObjectType.define do
   name 'Query'
 
   field :allCatalogers, function: Resolvers::SearchCatalogers
-
-  field :cataloger do
-    type Types::CatalogerType
-    description 'Cataloger by ID'
-    argument :id, !types.ID
-    resolve ->(obj, args, ctx) { Cataloger.find(args[:id]) }
-  end
+  field :cataloger, function: Resolvers::FetchCatalogerById.new
 
   field :allCollections, function: Resolvers::SearchCollections
-
-  field :collection do
-    type Types::CollectionType
-    description 'Collection by ID'
-    argument :id, !types.ID
-    resolve ->(obj, args, ctx) { Collection.find(args[:id]) }
-  end
+  field :collection, function: Resolvers::FetchCollectionById.new
 
   field :allComposers, function: Resolvers::SearchComposers
-
-  field :composer do
-    type Types::ComposerType
-    description 'Composer by ID'
-    argument :id, !types.ID
-    resolve ->(obj, args, ctx) { Composer.find(args[:id]) }
-  end
+  field :composer, function: Resolvers::FetchComposerById.new
 
   field :allCountries, function: Resolvers::SearchCountries
-
-  field :country do
-    type Types::CountryType
-    description 'Country by ID'
-    argument :id, !types.ID
-    resolve ->(obj, args, ctx) { Country.find(args[:id]) }
-  end
+  field :country, function: Resolvers::FetchCountryById.new
 
   field :allDirectors, function: Resolvers::SearchDirectors
+  field :director, function: Resolvers::FetchDirectorById.new
 
-  field :director do
-    type Types::DirectorType
-    description 'Director by ID'
-    argument :id, !types.ID
-    resolve ->(obj, args, ctx) { Director.find(args[:id]) }
-  end
+  field :allMaterialFormats, function: Resolvers::SearchMaterialFormats
+  field :material_format, function: Resolvers::FetchMaterialFormatById.new
 
-  field :allMaterialFormats do
-    type types[Types::MaterialFormatType]
-    description 'A list of all material formats'
-    resolve ->(obj, args, ctx) { MaterialFormat.order(name: :asc).all }
-  end
-
-  field :material_format do
-    type Types::MaterialFormatType
-    description 'Material format by ID'
-    argument :id, !types.ID
-    resolve ->(obj, args, ctx) { MaterialFormat.find(args[:id]) }
-  end
-
-  field :allMediaTypes do
-    type types[Types::MediaTypeType]
-    description 'A list of all media types'
-    resolve ->(obj, args, ctx) { MediaType.order(name: :asc).all }
-  end
-
-  field :media_type do
-    type Types::MediaTypeType
-    description 'Media type by ID'
-    argument :id, !types.ID
-    resolve ->(obj, args, ctx) { MediaType.find(args[:id]) }
-  end
+  field :allMediaTypes, function: Resolvers::SearchMediaTypes
+  field :media_type, function: Resolvers::FetchMediaTypeById.new
 
   field :allProductionCompanies, function: Resolvers::SearchProductionCompanies
-
-  field :production_company do
-    type Types::ProductionCompanyType
-    description 'Production company by ID'
-    argument :id, !types.ID
-    resolve ->(obj, args, ctx) { ProductionCompany.find(args[:id]) }
-  end
+  field :production_company, function: Resolvers::FetchProductionCompanyById.new
 
   field :allRepositories, function: Resolvers::SearchRepositories
-
-  field :repository do
-    type Types::RepositoryType
-    description 'Repository by ID'
-    argument :id, !types.ID
-    resolve ->(obj, args, ctx) { Repository.find(args[:id]) }
-  end
+  field :repository, function: Resolvers::FetchRepositoryById.new
 
   field :allResources, function: Resolvers::SearchResources
-
-  field :resource do
-    type Types::ResourceType
-    description 'Resource by ID'
-    argument :id, !types.ID
-    resolve ->(obj, args, ctx) {
-      resource = Resource.find(args[:id])
-
-      # filter out draft entries if user not authenticated
-      if resource.publication_status === 'draft' && !ctx[:current_user]
-        raise ActiveRecord::RecordNotFound
-      end
-
-      resource
-    }
-  end
+  field :resource, function: Resolvers::FetchResourceById.new
 
   field :allWorks, function: Resolvers::SearchWorks
-
-  field :work do
-    type Types::WorkType
-    description 'Work by ID'
-    argument :id, !types.ID
-    resolve ->(obj, args, ctx) { Work.find(args[:id]) }
-  end
+  field :work, function: Resolvers::FetchWorkById.new
 end

@@ -1,8 +1,8 @@
 require 'test_helper'
 
 class Resolvers::SearchComposersTest < ActiveSupport::TestCase
-  def find(args)
-    Resolvers::SearchComposers.call(nil, args, nil)
+  def find(args = {}, current_user = nil)
+    Resolvers::SearchComposers.call(nil, args, { current_user: current_user })
   end
 
   setup do
@@ -17,6 +17,15 @@ class Resolvers::SearchComposersTest < ActiveSupport::TestCase
       @composers << Composer.create!(
         created_by: @cataloger,
         name: "name#{n}",
+      )
+    end
+
+    @deleted_composers = []
+    2.times do |n|
+      @deleted_composers << Composer.create!(
+        created_by: @cataloger,
+        name: "deleted#{n}",
+        deleted: true,
       )
     end
   end
@@ -110,5 +119,38 @@ class Resolvers::SearchComposersTest < ActiveSupport::TestCase
     )
 
     assert_equal @composers.map(&:id).reverse, result.map(&:id)
+  end
+
+  test 'sorting, skip, and limit work together as expected' do
+    field = 'name'
+    is_ascending = false
+    first = 3
+    skip = 2
+
+    result = find(
+      sorting: {
+        'field' => field,
+        'is_ascending' => is_ascending,
+      },
+      first: first,
+      skip: skip,
+    )
+
+    assert_equal @composers.reverse[skip, first].map(&:id), result.map(&:id)
+  end
+
+  test 'deleted records included for authenticated user when include_deleted arg is true' do
+    result = find(
+      { include_deleted: true },
+      @cataloger
+    )
+
+    expected = @composers.map(&:id).concat(@deleted_composers.map(&:id)).sort
+    assert_equal expected, result.map(&:id).sort
+  end
+
+  test 'deleted records not included for unauthenticated user even if include_deleted arg is true' do
+    result = find(include_deleted: true)
+    assert_equal @composers.map(&:id).sort, result.map(&:id).sort
   end
 end

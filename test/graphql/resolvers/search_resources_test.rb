@@ -1,8 +1,8 @@
 require 'test_helper'
 
 class Resolvers::SearchResourcesTest < ActiveSupport::TestCase
-  def find(args)
-    Resolvers::SearchResources.call(nil, args, nil)
+  def find(args = {}, current_user = nil)
+    Resolvers::SearchResources.call(nil, args, { current_user: current_user })
   end
 
   setup do
@@ -25,6 +25,17 @@ class Resolvers::SearchResourcesTest < ActiveSupport::TestCase
         work: @work,
         material_format: @material_formats[n],
         publication_status: %w(draft provisional approved).sample
+      )
+    end
+
+    @deleted_resources = []
+    2.times do |n|
+      @deleted_resources << Resource.create!(
+        created_by: @cataloger,
+        work: @work,
+        material_format: @material_formats[n],
+        publication_status: %w(draft provisional approved).sample,
+        deleted: true,
       )
     end
   end
@@ -75,5 +86,38 @@ class Resolvers::SearchResourcesTest < ActiveSupport::TestCase
     )
 
     assert_equal @resources.map(&:publication_status).sort.reverse, result.map(&:publication_status)
+  end
+
+  test 'sorting, skip, and limit work together as expected' do
+    field = 'created_at'
+    is_ascending = false
+    first = 3
+    skip = 2
+
+    result = find(
+      sorting: {
+        'field' => field,
+        'is_ascending' => is_ascending,
+      },
+      first: first,
+      skip: skip,
+    )
+
+    assert_equal @resources.reverse[skip, first].map(&:id), result.map(&:id)
+  end
+
+  test 'deleted records included for authenticated user when include_deleted arg is true' do
+    result = find(
+      { include_deleted: true },
+      @cataloger
+    )
+
+    expected = @resources.map(&:id).concat(@deleted_resources.map(&:id)).sort
+    assert_equal expected, result.map(&:id).sort
+  end
+
+  test 'deleted records not included for unauthenticated user even if include_deleted arg is true' do
+    result = find(include_deleted: true)
+    assert_equal @resources.map(&:id).sort, result.map(&:id).sort
   end
 end

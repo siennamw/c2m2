@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class Resolvers::SearchDirectorsTest < ActiveSupport::TestCase
+class Resolvers::SearchMediaTypesTest < ActiveSupport::TestCase
   def find(args = {}, current_user = nil)
-    Resolvers::SearchDirectors.call(nil, args, { current_user: current_user })
+    Resolvers::SearchMediaTypes.call(nil, args, { current_user: current_user })
   end
 
   setup do
@@ -12,22 +12,27 @@ class Resolvers::SearchDirectorsTest < ActiveSupport::TestCase
       password: '12345678',
     )
 
-    @directors = []
+    @media_types = []
     6.times do |n|
-      @directors << Director.create!(
+      @media_types << MediaType.create!(
         created_by: @cataloger,
         name: "name#{n}",
       )
     end
 
-    @deleted_directors = []
+    @deleted_media_types = []
     2.times do |n|
-      @deleted_directors << Director.create!(
+      @deleted_media_types << MediaType.create!(
         created_by: @cataloger,
         name: "deleted#{n}",
         deleted: true,
       )
     end
+  end
+
+  test 'no arguments returns undeleted records in ascending order by name' do
+    result = find()
+    assert_equal @media_types, result
   end
 
   test 'filter option' do
@@ -44,7 +49,7 @@ class Resolvers::SearchDirectorsTest < ActiveSupport::TestCase
       },
     )
 
-    assert_equal [@directors[1], @directors[2], @directors[3], @directors[4]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@media_types[1], @media_types[2], @media_types[3], @media_types[4]].map(&:id).sort, result.map(&:id).sort
   end
 
   test 'filter option is case insensitive' do
@@ -61,34 +66,28 @@ class Resolvers::SearchDirectorsTest < ActiveSupport::TestCase
       },
     )
 
-    assert_equal [@directors[1], @directors[2], @directors[3], @directors[4]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@media_types[1], @media_types[2], @media_types[3], @media_types[4]].map(&:id).sort, result.map(&:id).sort
   end
 
   test 'first (limit) determines number of items returned' do
     first = 2
 
     result = find(
-      filter: {
-        'name_contains' => 'NAME',
-      },
       first: first,
     )
 
     assert_equal result.length, first
-    assert_equal [@directors[0], @directors[1]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@media_types[0], @media_types[1]].map(&:id).sort, result.map(&:id).sort
   end
 
   test 'skip (offset) determines number of items skipped for pagination' do
     skip = 3
 
     result = find(
-      filter: {
-        'name_contains' => 'NAME',
-      },
       skip: skip,
     )
 
-    assert_equal [@directors[3], @directors[4], @directors[5]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@media_types[3], @media_types[4], @media_types[5]].map(&:name).sort, result.map(&:name).sort
   end
 
   test 'skip and limit work together as expected' do
@@ -96,15 +95,12 @@ class Resolvers::SearchDirectorsTest < ActiveSupport::TestCase
     skip = 2
 
     result = find(
-      filter: {
-        'name_contains' => 'NAME',
-      },
       first: first,
       skip: skip,
     )
 
     assert_equal result.length, first
-    assert_equal [@directors[2], @directors[3], @directors[4]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@media_types[2], @media_types[3], @media_types[4]].map(&:id).sort, result.map(&:id).sort
   end
 
   test 'sorting attributes work as expected' do
@@ -118,7 +114,7 @@ class Resolvers::SearchDirectorsTest < ActiveSupport::TestCase
       },
     )
 
-    assert_equal @directors.map(&:id).reverse, result.map(&:id)
+    assert_equal @media_types.map(&:id).reverse, result.map(&:id)
   end
 
   test 'sorting, skip, and limit work together as expected' do
@@ -136,7 +132,7 @@ class Resolvers::SearchDirectorsTest < ActiveSupport::TestCase
       skip: skip,
     )
 
-    assert_equal @directors.reverse[skip, first].map(&:id), result.map(&:id)
+    assert_equal @media_types.reverse[skip, first].map(&:id), result.map(&:id)
   end
 
   test 'deleted records included for authenticated user when include_deleted arg is true' do
@@ -145,12 +141,12 @@ class Resolvers::SearchDirectorsTest < ActiveSupport::TestCase
       @cataloger
     )
 
-    expected = @directors.map(&:id).concat(@deleted_directors.map(&:id)).sort
+    expected = @media_types.map(&:id).concat(@deleted_media_types.map(&:id)).sort
     assert_equal expected, result.map(&:id).sort
   end
 
   test 'deleted records not included for unauthenticated user even if include_deleted arg is true' do
     result = find(include_deleted: true)
-    assert_equal @directors.map(&:id).sort, result.map(&:id).sort
+    assert_equal @media_types.map(&:id).sort, result.map(&:id).sort
   end
 end
