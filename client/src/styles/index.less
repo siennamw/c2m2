@@ -250,7 +250,7 @@ footer {
   }
 }
 
-.publication-status {
+.publication-status, .deletion-status {
   color: white;
   background-color: @gray;
 
@@ -260,6 +260,10 @@ footer {
 
   &.provisional {
     background-color: @warn;
+  }
+
+  &.deleted {
+    background-color: @error;
   }
 
   &.bar { // for detailed resource view
