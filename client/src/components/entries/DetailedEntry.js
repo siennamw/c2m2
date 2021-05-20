@@ -88,7 +88,10 @@ DetailedEntry.propTypes = {
   ]).isRequired,
   entryTypeForDisplay: PropTypes.string,
   gqlQuery: PropTypes.oneOf(Object.values(queries)).isRequired,
-  id: PropTypes.number.isRequired,
+  id: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]).isRequired,
   queryName: PropTypes.string.isRequired,
 };
 

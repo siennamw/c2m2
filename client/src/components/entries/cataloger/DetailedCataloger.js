@@ -436,7 +436,7 @@ DisplayCataloger.propTypes = {
 
 const DetailedCataloger = ({ match }) => {
   const id = match && match.params && match.params.id
-    ? Number(match.params.id)
+    ? match.params.id
     : null;
 
   return (
