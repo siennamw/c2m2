@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_20_013951) do
+ActiveRecord::Schema.define(version: 2021_05_20_025900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -77,6 +77,8 @@ ActiveRecord::Schema.define(version: 2021_05_20_013951) do
     t.boolean "deleted", default: false, null: false
     t.uuid "created_by_id", null: false
     t.uuid "updated_by_id"
+    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
+    t.uuid "repository_uuid", null: false
     t.index ["created_by_id_integer"], name: "index_collections_on_created_by_id_integer"
     t.index ["deleted"], name: "index_collections_on_deleted"
     t.index ["name"], name: "index_collections_on_name", unique: true
@@ -87,6 +89,8 @@ ActiveRecord::Schema.define(version: 2021_05_20_013951) do
   create_table "collections_resources", id: false, force: :cascade do |t|
     t.bigint "resource_id", null: false
     t.bigint "collection_id", null: false
+    t.uuid "collection_uuid", null: false
+    t.uuid "resource_uuid", null: false
     t.index ["collection_id", "resource_id"], name: "index_collections_resources_on_collection_id_and_resource_id", unique: true
     t.index ["resource_id", "collection_id"], name: "index_collections_resources_on_resource_id_and_collection_id", unique: true
   end
@@ -101,6 +105,7 @@ ActiveRecord::Schema.define(version: 2021_05_20_013951) do
     t.boolean "deleted", default: false, null: false
     t.uuid "created_by_id", null: false
     t.uuid "updated_by_id"
+    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
     t.index ["created_by_id_integer"], name: "index_composers_on_created_by_id_integer"
     t.index ["deleted"], name: "index_composers_on_deleted"
     t.index ["imdb_link"], name: "index_composers_on_imdb_link", unique: true
@@ -111,6 +116,8 @@ ActiveRecord::Schema.define(version: 2021_05_20_013951) do
   create_table "composers_works", id: false, force: :cascade do |t|
     t.bigint "composer_id", null: false
     t.bigint "work_id", null: false
+    t.uuid "composer_uuid", null: false
+    t.uuid "work_uuid", null: false
     t.index ["composer_id", "work_id"], name: "index_composers_works_on_composer_id_and_work_id", unique: true
     t.index ["work_id", "composer_id"], name: "index_composers_works_on_work_id_and_composer_id", unique: true
   end
@@ -125,6 +132,7 @@ ActiveRecord::Schema.define(version: 2021_05_20_013951) do
     t.boolean "deleted", default: false, null: false
     t.uuid "created_by_id", null: false
     t.uuid "updated_by_id"
+    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
     t.index ["created_by_id_integer"], name: "index_countries_on_created_by_id_integer"
     t.index ["deleted"], name: "index_countries_on_deleted"
     t.index ["name"], name: "index_countries_on_name", unique: true
@@ -141,6 +149,7 @@ ActiveRecord::Schema.define(version: 2021_05_20_013951) do
     t.boolean "deleted", default: false, null: false
     t.uuid "created_by_id", null: false
     t.uuid "updated_by_id"
+    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
     t.index ["created_by_id_integer"], name: "index_directors_on_created_by_id_integer"
     t.index ["deleted"], name: "index_directors_on_deleted"
     t.index ["imdb_link"], name: "index_directors_on_imdb_link", unique: true
@@ -151,6 +160,8 @@ ActiveRecord::Schema.define(version: 2021_05_20_013951) do
   create_table "directors_works", id: false, force: :cascade do |t|
     t.bigint "director_id", null: false
     t.bigint "work_id", null: false
+    t.uuid "director_uuid", null: false
+    t.uuid "work_uuid", null: false
     t.index ["director_id", "work_id"], name: "index_directors_works_on_director_id_and_work_id", unique: true
     t.index ["work_id", "director_id"], name: "index_directors_works_on_work_id_and_director_id", unique: true
   end
@@ -165,6 +176,7 @@ ActiveRecord::Schema.define(version: 2021_05_20_013951) do
     t.boolean "deleted", default: false, null: false
     t.uuid "created_by_id", null: false
     t.uuid "updated_by_id"
+    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
     t.index ["created_by_id_integer"], name: "index_material_formats_on_created_by_id_integer"
     t.index ["deleted"], name: "index_material_formats_on_deleted"
     t.index ["name"], name: "index_material_formats_on_name", unique: true
@@ -181,6 +193,7 @@ ActiveRecord::Schema.define(version: 2021_05_20_013951) do
     t.boolean "deleted", default: false, null: false
     t.uuid "created_by_id", null: false
     t.uuid "updated_by_id"
+    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
     t.index ["created_by_id_integer"], name: "index_media_types_on_created_by_id_integer"
     t.index ["deleted"], name: "index_media_types_on_deleted"
     t.index ["name"], name: "index_media_types_on_name", unique: true
@@ -190,6 +203,8 @@ ActiveRecord::Schema.define(version: 2021_05_20_013951) do
   create_table "orchestrators_works", id: false, force: :cascade do |t|
     t.bigint "composer_id", null: false
     t.bigint "work_id", null: false
+    t.uuid "composer_uuid", null: false
+    t.uuid "work_uuid", null: false
     t.index ["composer_id", "work_id"], name: "index_orch_films_on_orch_id_and_film_id", unique: true
     t.index ["work_id", "composer_id"], name: "index_orch_films_on_film_id_and_orch_id", unique: true
   end
@@ -204,6 +219,7 @@ ActiveRecord::Schema.define(version: 2021_05_20_013951) do
     t.boolean "deleted", default: false, null: false
     t.uuid "created_by_id", null: false
     t.uuid "updated_by_id"
+    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
     t.index ["created_by_id_integer"], name: "index_production_companies_on_created_by_id_integer"
     t.index ["deleted"], name: "index_production_companies_on_deleted"
     t.index ["name"], name: "index_production_companies_on_name", unique: true
@@ -213,6 +229,8 @@ ActiveRecord::Schema.define(version: 2021_05_20_013951) do
   create_table "production_companies_works", id: false, force: :cascade do |t|
     t.bigint "production_company_id", null: false
     t.bigint "work_id", null: false
+    t.uuid "production_company_uuid", null: false
+    t.uuid "work_uuid", null: false
     t.index ["production_company_id", "work_id"], name: "index_pcs_films_on_pc_id_and_film_id", unique: true
     t.index ["work_id", "production_company_id"], name: "index_pcs_films_on_film_id_and_pc_id", unique: true
   end
@@ -228,6 +246,7 @@ ActiveRecord::Schema.define(version: 2021_05_20_013951) do
     t.boolean "deleted", default: false, null: false
     t.uuid "created_by_id", null: false
     t.uuid "updated_by_id"
+    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
     t.index ["created_by_id_integer"], name: "index_repositories_on_created_by_id_integer"
     t.index ["deleted"], name: "index_repositories_on_deleted"
     t.index ["name"], name: "index_repositories_on_name", unique: true
@@ -248,6 +267,9 @@ ActiveRecord::Schema.define(version: 2021_05_20_013951) do
     t.boolean "deleted", default: false, null: false
     t.uuid "created_by_id", null: false
     t.uuid "updated_by_id"
+    t.uuid "material_format_uuid", null: false
+    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
+    t.uuid "work_uuid", null: false
     t.index ["created_by_id_integer"], name: "index_resources_on_created_by_id_integer"
     t.index ["deleted"], name: "index_resources_on_deleted"
     t.index ["material_format_id"], name: "index_resources_on_material_format_id"
@@ -271,6 +293,9 @@ ActiveRecord::Schema.define(version: 2021_05_20_013951) do
     t.boolean "deleted", default: false, null: false
     t.uuid "created_by_id", null: false
     t.uuid "updated_by_id"
+    t.uuid "country_uuid"
+    t.uuid "media_type_uuid", null: false
+    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
     t.index ["country_id"], name: "index_works_on_country_id"
     t.index ["created_by_id_integer"], name: "index_works_on_created_by_id_integer"
     t.index ["deleted"], name: "index_works_on_deleted"
