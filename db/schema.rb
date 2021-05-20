@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_20_005212) do
+ActiveRecord::Schema.define(version: 2021_05_20_013951) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -44,23 +44,25 @@ ActiveRecord::Schema.define(version: 2021_05_20_005212) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "catalogers", force: :cascade do |t|
+  create_table "catalogers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.bigint "id_integer"
     t.string "name", null: false
     t.string "email", null: false
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
-    t.bigint "created_by_id"
+    t.bigint "created_by_id_integer"
     t.boolean "admin", default: false, null: false
-    t.bigint "updated_by_id"
+    t.bigint "updated_by_id_integer"
     t.string "reset_password_token"
     t.datetime "reset_password_token_expires_at"
-    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
+    t.uuid "created_by_id"
+    t.uuid "updated_by_id"
     t.index ["admin"], name: "index_catalogers_on_admin"
-    t.index ["created_by_id"], name: "index_catalogers_on_created_by_id"
+    t.index ["created_by_id_integer"], name: "index_catalogers_on_created_by_id_integer"
     t.index ["email"], name: "index_catalogers_on_email", unique: true
-    t.index ["updated_by_id"], name: "index_catalogers_on_updated_by_id"
+    t.index ["updated_by_id_integer"], name: "index_catalogers_on_updated_by_id_integer"
   end
 
   create_table "collections", force: :cascade do |t|
@@ -69,17 +71,17 @@ ActiveRecord::Schema.define(version: 2021_05_20_005212) do
     t.bigint "repository_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "created_by_id"
-    t.bigint "updated_by_id"
+    t.bigint "created_by_id_integer"
+    t.bigint "updated_by_id_integer"
     t.string "finding_aid_link"
     t.boolean "deleted", default: false, null: false
-    t.uuid "created_by_uuid", null: false
-    t.uuid "updated_by_uuid"
-    t.index ["created_by_id"], name: "index_collections_on_created_by_id"
+    t.uuid "created_by_id", null: false
+    t.uuid "updated_by_id"
+    t.index ["created_by_id_integer"], name: "index_collections_on_created_by_id_integer"
     t.index ["deleted"], name: "index_collections_on_deleted"
     t.index ["name"], name: "index_collections_on_name", unique: true
     t.index ["repository_id"], name: "index_collections_on_repository_id"
-    t.index ["updated_by_id"], name: "index_collections_on_updated_by_id"
+    t.index ["updated_by_id_integer"], name: "index_collections_on_updated_by_id_integer"
   end
 
   create_table "collections_resources", id: false, force: :cascade do |t|
@@ -94,16 +96,16 @@ ActiveRecord::Schema.define(version: 2021_05_20_005212) do
     t.string "imdb_link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "created_by_id"
-    t.bigint "updated_by_id"
+    t.bigint "created_by_id_integer"
+    t.bigint "updated_by_id_integer"
     t.boolean "deleted", default: false, null: false
-    t.uuid "created_by_uuid", null: false
-    t.uuid "updated_by_uuid"
-    t.index ["created_by_id"], name: "index_composers_on_created_by_id"
+    t.uuid "created_by_id", null: false
+    t.uuid "updated_by_id"
+    t.index ["created_by_id_integer"], name: "index_composers_on_created_by_id_integer"
     t.index ["deleted"], name: "index_composers_on_deleted"
     t.index ["imdb_link"], name: "index_composers_on_imdb_link", unique: true
     t.index ["name"], name: "index_composers_on_name", unique: true
-    t.index ["updated_by_id"], name: "index_composers_on_updated_by_id"
+    t.index ["updated_by_id_integer"], name: "index_composers_on_updated_by_id_integer"
   end
 
   create_table "composers_works", id: false, force: :cascade do |t|
@@ -118,15 +120,15 @@ ActiveRecord::Schema.define(version: 2021_05_20_005212) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "created_by_id"
-    t.bigint "updated_by_id"
+    t.bigint "created_by_id_integer"
+    t.bigint "updated_by_id_integer"
     t.boolean "deleted", default: false, null: false
-    t.uuid "created_by_uuid", null: false
-    t.uuid "updated_by_uuid"
-    t.index ["created_by_id"], name: "index_countries_on_created_by_id"
+    t.uuid "created_by_id", null: false
+    t.uuid "updated_by_id"
+    t.index ["created_by_id_integer"], name: "index_countries_on_created_by_id_integer"
     t.index ["deleted"], name: "index_countries_on_deleted"
     t.index ["name"], name: "index_countries_on_name", unique: true
-    t.index ["updated_by_id"], name: "index_countries_on_updated_by_id"
+    t.index ["updated_by_id_integer"], name: "index_countries_on_updated_by_id_integer"
   end
 
   create_table "directors", force: :cascade do |t|
@@ -134,16 +136,16 @@ ActiveRecord::Schema.define(version: 2021_05_20_005212) do
     t.string "imdb_link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "created_by_id"
-    t.bigint "updated_by_id"
+    t.bigint "created_by_id_integer"
+    t.bigint "updated_by_id_integer"
     t.boolean "deleted", default: false, null: false
-    t.uuid "created_by_uuid", null: false
-    t.uuid "updated_by_uuid"
-    t.index ["created_by_id"], name: "index_directors_on_created_by_id"
+    t.uuid "created_by_id", null: false
+    t.uuid "updated_by_id"
+    t.index ["created_by_id_integer"], name: "index_directors_on_created_by_id_integer"
     t.index ["deleted"], name: "index_directors_on_deleted"
     t.index ["imdb_link"], name: "index_directors_on_imdb_link", unique: true
     t.index ["name"], name: "index_directors_on_name", unique: true
-    t.index ["updated_by_id"], name: "index_directors_on_updated_by_id"
+    t.index ["updated_by_id_integer"], name: "index_directors_on_updated_by_id_integer"
   end
 
   create_table "directors_works", id: false, force: :cascade do |t|
@@ -158,15 +160,15 @@ ActiveRecord::Schema.define(version: 2021_05_20_005212) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "created_by_id"
-    t.bigint "updated_by_id"
+    t.bigint "created_by_id_integer"
+    t.bigint "updated_by_id_integer"
     t.boolean "deleted", default: false, null: false
-    t.uuid "created_by_uuid", null: false
-    t.uuid "updated_by_uuid"
-    t.index ["created_by_id"], name: "index_material_formats_on_created_by_id"
+    t.uuid "created_by_id", null: false
+    t.uuid "updated_by_id"
+    t.index ["created_by_id_integer"], name: "index_material_formats_on_created_by_id_integer"
     t.index ["deleted"], name: "index_material_formats_on_deleted"
     t.index ["name"], name: "index_material_formats_on_name", unique: true
-    t.index ["updated_by_id"], name: "index_material_formats_on_updated_by_id"
+    t.index ["updated_by_id_integer"], name: "index_material_formats_on_updated_by_id_integer"
   end
 
   create_table "media_types", force: :cascade do |t|
@@ -174,15 +176,15 @@ ActiveRecord::Schema.define(version: 2021_05_20_005212) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "created_by_id"
-    t.bigint "updated_by_id"
+    t.bigint "created_by_id_integer"
+    t.bigint "updated_by_id_integer"
     t.boolean "deleted", default: false, null: false
-    t.uuid "created_by_uuid", null: false
-    t.uuid "updated_by_uuid"
-    t.index ["created_by_id"], name: "index_media_types_on_created_by_id"
+    t.uuid "created_by_id", null: false
+    t.uuid "updated_by_id"
+    t.index ["created_by_id_integer"], name: "index_media_types_on_created_by_id_integer"
     t.index ["deleted"], name: "index_media_types_on_deleted"
     t.index ["name"], name: "index_media_types_on_name", unique: true
-    t.index ["updated_by_id"], name: "index_media_types_on_updated_by_id"
+    t.index ["updated_by_id_integer"], name: "index_media_types_on_updated_by_id_integer"
   end
 
   create_table "orchestrators_works", id: false, force: :cascade do |t|
@@ -197,15 +199,15 @@ ActiveRecord::Schema.define(version: 2021_05_20_005212) do
     t.text "contact_info"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "created_by_id"
-    t.bigint "updated_by_id"
+    t.bigint "created_by_id_integer"
+    t.bigint "updated_by_id_integer"
     t.boolean "deleted", default: false, null: false
-    t.uuid "created_by_uuid", null: false
-    t.uuid "updated_by_uuid"
-    t.index ["created_by_id"], name: "index_production_companies_on_created_by_id"
+    t.uuid "created_by_id", null: false
+    t.uuid "updated_by_id"
+    t.index ["created_by_id_integer"], name: "index_production_companies_on_created_by_id_integer"
     t.index ["deleted"], name: "index_production_companies_on_deleted"
     t.index ["name"], name: "index_production_companies_on_name", unique: true
-    t.index ["updated_by_id"], name: "index_production_companies_on_updated_by_id"
+    t.index ["updated_by_id_integer"], name: "index_production_companies_on_updated_by_id_integer"
   end
 
   create_table "production_companies_works", id: false, force: :cascade do |t|
@@ -221,15 +223,15 @@ ActiveRecord::Schema.define(version: 2021_05_20_005212) do
     t.string "website"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "created_by_id"
-    t.bigint "updated_by_id"
+    t.bigint "created_by_id_integer"
+    t.bigint "updated_by_id_integer"
     t.boolean "deleted", default: false, null: false
-    t.uuid "created_by_uuid", null: false
-    t.uuid "updated_by_uuid"
-    t.index ["created_by_id"], name: "index_repositories_on_created_by_id"
+    t.uuid "created_by_id", null: false
+    t.uuid "updated_by_id"
+    t.index ["created_by_id_integer"], name: "index_repositories_on_created_by_id_integer"
     t.index ["deleted"], name: "index_repositories_on_deleted"
     t.index ["name"], name: "index_repositories_on_name", unique: true
-    t.index ["updated_by_id"], name: "index_repositories_on_updated_by_id"
+    t.index ["updated_by_id_integer"], name: "index_repositories_on_updated_by_id_integer"
   end
 
   create_table "resources", force: :cascade do |t|
@@ -237,20 +239,20 @@ ActiveRecord::Schema.define(version: 2021_05_20_005212) do
     t.text "citation_source"
     t.text "cataloging_notes"
     t.bigint "material_format_id", null: false
-    t.bigint "created_by_id"
+    t.bigint "created_by_id_integer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "publication_status", default: "draft", null: false
-    t.bigint "updated_by_id"
+    t.bigint "updated_by_id_integer"
     t.bigint "work_id"
     t.boolean "deleted", default: false, null: false
-    t.uuid "created_by_uuid", null: false
-    t.uuid "updated_by_uuid"
-    t.index ["created_by_id"], name: "index_resources_on_created_by_id"
+    t.uuid "created_by_id", null: false
+    t.uuid "updated_by_id"
+    t.index ["created_by_id_integer"], name: "index_resources_on_created_by_id_integer"
     t.index ["deleted"], name: "index_resources_on_deleted"
     t.index ["material_format_id"], name: "index_resources_on_material_format_id"
     t.index ["publication_status"], name: "index_resources_on_publication_status"
-    t.index ["updated_by_id"], name: "index_resources_on_updated_by_id"
+    t.index ["updated_by_id_integer"], name: "index_resources_on_updated_by_id_integer"
     t.index ["work_id"], name: "index_resources_on_work_id"
   end
 
@@ -262,19 +264,19 @@ ActiveRecord::Schema.define(version: 2021_05_20_005212) do
     t.integer "year", null: false
     t.bigint "country_id"
     t.bigint "media_type_id"
-    t.bigint "created_by_id"
-    t.bigint "updated_by_id"
+    t.bigint "created_by_id_integer"
+    t.bigint "updated_by_id_integer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "deleted", default: false, null: false
-    t.uuid "created_by_uuid", null: false
-    t.uuid "updated_by_uuid"
+    t.uuid "created_by_id", null: false
+    t.uuid "updated_by_id"
     t.index ["country_id"], name: "index_works_on_country_id"
-    t.index ["created_by_id"], name: "index_works_on_created_by_id"
+    t.index ["created_by_id_integer"], name: "index_works_on_created_by_id_integer"
     t.index ["deleted"], name: "index_works_on_deleted"
     t.index ["imdb_link"], name: "index_works_on_imdb_link", unique: true
     t.index ["media_type_id"], name: "index_works_on_media_type_id"
-    t.index ["updated_by_id"], name: "index_works_on_updated_by_id"
+    t.index ["updated_by_id_integer"], name: "index_works_on_updated_by_id_integer"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
