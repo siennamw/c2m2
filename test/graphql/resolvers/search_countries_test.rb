@@ -5,6 +5,10 @@ class Resolvers::SearchCountriesTest < ActiveSupport::TestCase
     Resolvers::SearchCountries.call(nil, args, { current_user: current_user })
   end
 
+  def default_sort(items)
+    items.sort { |a, b| a.name <=> b.name }
+  end
+
   setup do
     @cataloger = Cataloger.create!(
       name: 'test',
@@ -28,6 +32,14 @@ class Resolvers::SearchCountriesTest < ActiveSupport::TestCase
         deleted: true,
       )
     end
+
+    @countries = default_sort(@countries)
+    @deleted_countries = default_sort(@deleted_countries)
+  end
+
+  test 'no arguments returns undeleted records in ascending order by name' do
+    result = find()
+    assert_equal @countries.map(&:id), result.map(&:id)
   end
 
   test 'filter option' do
@@ -44,7 +56,7 @@ class Resolvers::SearchCountriesTest < ActiveSupport::TestCase
       },
     )
 
-    assert_equal [@countries[1], @countries[2], @countries[3], @countries[4]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@countries[1], @countries[2], @countries[3], @countries[4]].map(&:id), result.map(&:id)
   end
 
   test 'filter option is case insensitive' do
@@ -61,7 +73,7 @@ class Resolvers::SearchCountriesTest < ActiveSupport::TestCase
       },
     )
 
-    assert_equal [@countries[1], @countries[2], @countries[3], @countries[4]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@countries[1], @countries[2], @countries[3], @countries[4]].map(&:id), result.map(&:id)
   end
 
   test 'first (limit) determines number of items returned' do
@@ -75,7 +87,7 @@ class Resolvers::SearchCountriesTest < ActiveSupport::TestCase
     )
 
     assert_equal result.length, first
-    assert_equal [@countries[0], @countries[1]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@countries[0], @countries[1]].map(&:id), result.map(&:id)
   end
 
   test 'skip (offset) determines number of items skipped for pagination' do
@@ -88,7 +100,7 @@ class Resolvers::SearchCountriesTest < ActiveSupport::TestCase
       skip: skip,
     )
 
-    assert_equal [@countries[3], @countries[4], @countries[5]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@countries[3], @countries[4], @countries[5]].map(&:id), result.map(&:id)
   end
 
   test 'skip and limit work together as expected' do
@@ -104,11 +116,11 @@ class Resolvers::SearchCountriesTest < ActiveSupport::TestCase
     )
 
     assert_equal result.length, first
-    assert_equal [@countries[2], @countries[3], @countries[4]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@countries[2], @countries[3], @countries[4]].map(&:id), result.map(&:id)
   end
 
   test 'sorting attributes work as expected' do
-    field = 'name'
+    field = 'id'
     is_ascending = false
 
     result = find(
@@ -118,11 +130,11 @@ class Resolvers::SearchCountriesTest < ActiveSupport::TestCase
       },
     )
 
-    assert_equal @countries.map(&:id).reverse, result.map(&:id)
+    assert_equal @countries.map(&:id).sort.reverse, result.map(&:id)
   end
 
   test 'sorting, skip, and limit work together as expected' do
-    field = 'name'
+    field = 'id'
     is_ascending = false
     first = 3
     skip = 2
@@ -136,7 +148,7 @@ class Resolvers::SearchCountriesTest < ActiveSupport::TestCase
       skip: skip,
     )
 
-    assert_equal @countries.reverse[skip, first].map(&:id), result.map(&:id)
+    assert_equal @countries.map(&:id).sort.reverse[skip, first], result.map(&:id)
   end
 
   test 'deleted records included for authenticated user when include_deleted arg is true' do
@@ -145,12 +157,12 @@ class Resolvers::SearchCountriesTest < ActiveSupport::TestCase
       @cataloger
     )
 
-    expected = @countries.map(&:id).concat(@deleted_countries.map(&:id)).sort
-    assert_equal expected, result.map(&:id).sort
+    expected = default_sort([@countries, @deleted_countries].flatten).map(&:id)
+    assert_equal expected, result.map(&:id)
   end
 
   test 'deleted records not included for unauthenticated user even if include_deleted arg is true' do
     result = find(include_deleted: true)
-    assert_equal @countries.map(&:id).sort, result.map(&:id).sort
+    assert_equal @countries.map(&:id), result.map(&:id)
   end
 end

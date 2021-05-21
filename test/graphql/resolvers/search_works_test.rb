@@ -5,6 +5,10 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
     Resolvers::SearchWorks.call(nil, args, { current_user: current_user })
   end
 
+  def default_sort(items)
+    items.sort { |a, b| a.title <=> b.title }
+  end
+
   setup do
     @cataloger = Cataloger.create!(
       name: 'test',
@@ -76,6 +80,11 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
         deleted: true,
       )
     end
+
+    # default sort order is title ascending
+    @works = default_sort(@works)
+    @works_minimum = default_sort(@works_minimum)
+    @deleted_works = default_sort(@deleted_works)
   end
 
   test 'no filter (expecting all)' do
@@ -84,7 +93,7 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
     )
 
     assert result.length, @count
-    assert_equal [@works, @works_minimum].flatten.map(&:id).sort, result.map(&:id).sort
+    assert_equal default_sort([@works, @works_minimum].flatten).map(&:id), result.map(&:id)
   end
 
   test 'filter option without OR clauses (expecting all @works)' do
@@ -98,7 +107,7 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
     )
 
     assert result.length, @count
-    assert_equal @works.map(&:id).sort, result.map(&:id).sort
+    assert_equal @works.map(&:id), result.map(&:id)
   end
 
   test 'filter option without OR clauses (expecting one)' do
@@ -111,7 +120,7 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
     )
 
     assert result.length, 1
-    assert_equal [@works[3]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@works[3]].map(&:id), result.map(&:id)
   end
 
   test 'filter option with OR clauses' do
@@ -129,7 +138,7 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
     )
 
     assert result.length, 4
-    assert_equal [@works[1], @works[2], @works[3], @works[4]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@works[1], @works[2], @works[3], @works[4]].map(&:id), result.map(&:id)
   end
 
   test 'title field looks at secondary title and aliases too; no duplicates in return' do
@@ -147,7 +156,7 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
     )
 
     assert result.length, 3
-    assert_equal [@works[1], @works[2], @works[3]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@works[1], @works[2], @works[3]].map(&:id), result.map(&:id)
   end
 
   test 'date range parameters select works within the range defined' do
@@ -159,7 +168,7 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
     )
 
     assert result.length, 3
-    assert_equal [@works[1], @works[2], @works[3]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@works[1], @works[2], @works[3]].map(&:id), result.map(&:id)
   end
 
   test 'filter option is case insensitive' do
@@ -177,47 +186,29 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
     )
 
     assert result.length, 3
-    assert_equal [@works[1], @works[2], @works[3]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@works[1], @works[2], @works[3]].map(&:id), result.map(&:id)
   end
 
   test 'first (limit) determines number of items returned' do
     first = 2
 
     result = find(
-      filter: {
-        'title' => 'title',
-      },
-    )
-
-    result_with_first = find(
-      filter: {
-        'title' => 'title',
-      },
       first: first,
     )
 
-    assert result_with_first.length, first
-    assert_equal result_with_first.map(&:id), result.map(&:id).take(first)
+    assert result.length, first
+    assert_equal default_sort([@works, @works_minimum].flatten).take(first).map(&:id), result.map(&:id)
   end
 
   test 'skip (offset) determines number of items skipped for pagination' do
     skip = 1
 
     result = find(
-      filter: {
-        'title' => 'title',
-      },
-    )
-
-    result_with_skip = find(
-      filter: {
-        'title' => 'title',
-      },
       skip: skip,
     )
 
-    assert result_with_skip.length, @count - skip
-    assert_equal result_with_skip.map(&:id), result.map(&:id).drop(skip)
+    assert result.length, @count - skip
+    assert_equal default_sort([@works, @works_minimum].flatten).drop(skip).map(&:id), result.map(&:id)
   end
 
   test 'skip and limit work together as expected' do
@@ -225,25 +216,16 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
     skip = 1
 
     result = find(
-      filter: {
-        'title' => 'title',
-      },
-    )
-
-    result_with_skip_and_limit = find(
-      filter: {
-        'title' => 'title',
-      },
       first: first,
       skip: skip
     )
 
-    assert_equal result_with_skip_and_limit.length, first
-    assert_equal result_with_skip_and_limit.map(&:id), result.map(&:id).drop(skip).take(first)
+    assert result.length, first
+    assert_equal default_sort([@works, @works_minimum].flatten)[skip, first].map(&:id), result.map(&:id)
   end
 
   test 'sorting attributes work as expected' do
-    field = 'title'
+    field = 'id'
     is_ascending = false
 
     result = find(
@@ -253,11 +235,11 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
       },
     )
 
-    assert_equal @works_minimum.concat(@works).map(&:id).reverse, result.map(&:id)
+    assert_equal [@works, @works_minimum].flatten.map(&:id).sort.reverse, result.map(&:id)
   end
 
   test 'sorting, skip, and limit work together as expected' do
-    field = 'title'
+    field = 'id'
     is_ascending = false
     first = 3
     skip = 2
@@ -271,7 +253,7 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
       skip: skip,
     )
 
-    assert_equal @works.reverse[skip, first].map(&:id), result.map(&:id)
+    assert_equal [@works, @works_minimum].flatten.map(&:id).sort.reverse[skip, first], result.map(&:id)
   end
 
   test 'deleted records included for authenticated user when include_deleted arg is true' do
@@ -280,11 +262,11 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
       @cataloger
     )
 
-    assert_equal @works_minimum.concat(@works).concat(@deleted_works).map(&:id).sort, result.map(&:id).sort
+    assert_equal default_sort([@works, @works_minimum, @deleted_works].flatten).map(&:id), result.map(&:id)
   end
 
   test 'deleted records not included for unauthenticated user even if include_deleted arg is true' do
     result = find(include_deleted: true)
-    assert_equal @works_minimum.concat(@works).map(&:id).sort, result.map(&:id).sort
+    assert_equal default_sort([@works, @works_minimum].flatten).map(&:id), result.map(&:id)
   end
 end

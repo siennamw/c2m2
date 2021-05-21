@@ -5,6 +5,10 @@ class Resolvers::SearchMediaTypesTest < ActiveSupport::TestCase
     Resolvers::SearchMediaTypes.call(nil, args, { current_user: current_user })
   end
 
+  def default_sort(items)
+    items.sort { |a, b| a.name <=> b.name }
+  end
+
   setup do
     @cataloger = Cataloger.create!(
       name: 'test',
@@ -28,11 +32,14 @@ class Resolvers::SearchMediaTypesTest < ActiveSupport::TestCase
         deleted: true,
       )
     end
+
+    @media_types = default_sort(@media_types)
+    @deleted_media_types = default_sort(@deleted_media_types)
   end
 
   test 'no arguments returns undeleted records in ascending order by name' do
     result = find()
-    assert_equal @media_types, result
+    assert_equal @media_types.map(&:id), result.map(&:id)
   end
 
   test 'filter option' do
@@ -49,7 +56,7 @@ class Resolvers::SearchMediaTypesTest < ActiveSupport::TestCase
       },
     )
 
-    assert_equal [@media_types[1], @media_types[2], @media_types[3], @media_types[4]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@media_types[1], @media_types[2], @media_types[3], @media_types[4]].map(&:id), result.map(&:id)
   end
 
   test 'filter option is case insensitive' do
@@ -66,7 +73,7 @@ class Resolvers::SearchMediaTypesTest < ActiveSupport::TestCase
       },
     )
 
-    assert_equal [@media_types[1], @media_types[2], @media_types[3], @media_types[4]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@media_types[1], @media_types[2], @media_types[3], @media_types[4]].map(&:id), result.map(&:id)
   end
 
   test 'first (limit) determines number of items returned' do
@@ -77,7 +84,7 @@ class Resolvers::SearchMediaTypesTest < ActiveSupport::TestCase
     )
 
     assert_equal result.length, first
-    assert_equal [@media_types[0], @media_types[1]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@media_types[0], @media_types[1]].map(&:id), result.map(&:id)
   end
 
   test 'skip (offset) determines number of items skipped for pagination' do
@@ -87,7 +94,7 @@ class Resolvers::SearchMediaTypesTest < ActiveSupport::TestCase
       skip: skip,
     )
 
-    assert_equal [@media_types[3], @media_types[4], @media_types[5]].map(&:name).sort, result.map(&:name).sort
+    assert_equal [@media_types[3], @media_types[4], @media_types[5]].map(&:id), result.map(&:id)
   end
 
   test 'skip and limit work together as expected' do
@@ -100,11 +107,11 @@ class Resolvers::SearchMediaTypesTest < ActiveSupport::TestCase
     )
 
     assert_equal result.length, first
-    assert_equal [@media_types[2], @media_types[3], @media_types[4]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@media_types[2], @media_types[3], @media_types[4]].map(&:id), result.map(&:id)
   end
 
   test 'sorting attributes work as expected' do
-    field = 'name'
+    field = 'id'
     is_ascending = false
 
     result = find(
@@ -114,11 +121,11 @@ class Resolvers::SearchMediaTypesTest < ActiveSupport::TestCase
       },
     )
 
-    assert_equal @media_types.map(&:id).reverse, result.map(&:id)
+    assert_equal @media_types.map(&:id).sort.reverse, result.map(&:id)
   end
 
   test 'sorting, skip, and limit work together as expected' do
-    field = 'name'
+    field = 'id'
     is_ascending = false
     first = 3
     skip = 2
@@ -132,7 +139,7 @@ class Resolvers::SearchMediaTypesTest < ActiveSupport::TestCase
       skip: skip,
     )
 
-    assert_equal @media_types.reverse[skip, first].map(&:id), result.map(&:id)
+    assert_equal @media_types.map(&:id).sort.reverse[skip, first], result.map(&:id)
   end
 
   test 'deleted records included for authenticated user when include_deleted arg is true' do
@@ -141,12 +148,12 @@ class Resolvers::SearchMediaTypesTest < ActiveSupport::TestCase
       @cataloger
     )
 
-    expected = @media_types.map(&:id).concat(@deleted_media_types.map(&:id)).sort
-    assert_equal expected, result.map(&:id).sort
+    expected = default_sort([@media_types, @deleted_media_types].flatten).map(&:id)
+    assert_equal expected, result.map(&:id)
   end
 
   test 'deleted records not included for unauthenticated user even if include_deleted arg is true' do
     result = find(include_deleted: true)
-    assert_equal @media_types.map(&:id).sort, result.map(&:id).sort
+    assert_equal @media_types.map(&:id), result.map(&:id)
   end
 end

@@ -5,6 +5,10 @@ class Resolvers::SearchProductionCompaniesTest < ActiveSupport::TestCase
     Resolvers::SearchProductionCompanies.call(nil, args, { current_user: current_user })
   end
 
+  def default_sort(items)
+    items.sort { |a, b| a.name <=> b.name }
+  end
+
   setup do
     @cataloger = Cataloger.create!(
       name: 'test',
@@ -28,6 +32,15 @@ class Resolvers::SearchProductionCompaniesTest < ActiveSupport::TestCase
         deleted: true,
       )
     end
+
+    #  default sort order is name ascending
+    @production_companies = default_sort(@production_companies)
+    @deleted_production_companies = default_sort(@deleted_production_companies)
+  end
+
+  test 'no arguments returns undeleted records in ascending order by name' do
+    result = find()
+    assert_equal @production_companies.map(&:id), result.map(&:id)
   end
 
   test 'filter option' do
@@ -44,7 +57,7 @@ class Resolvers::SearchProductionCompaniesTest < ActiveSupport::TestCase
       },
     )
 
-    assert_equal [@production_companies[1], @production_companies[2], @production_companies[3], @production_companies[4]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@production_companies[1], @production_companies[2], @production_companies[3], @production_companies[4]].map(&:id), result.map(&:id)
   end
 
   test 'filter option is case insensitive' do
@@ -61,7 +74,7 @@ class Resolvers::SearchProductionCompaniesTest < ActiveSupport::TestCase
       },
     )
 
-    assert_equal [@production_companies[1], @production_companies[2], @production_companies[3], @production_companies[4]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@production_companies[1], @production_companies[2], @production_companies[3], @production_companies[4]].map(&:id), result.map(&:id)
   end
 
   test 'first (limit) determines number of items returned' do
@@ -75,7 +88,7 @@ class Resolvers::SearchProductionCompaniesTest < ActiveSupport::TestCase
     )
 
     assert_equal result.length, first
-    assert_equal [@production_companies[0], @production_companies[1]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@production_companies[0], @production_companies[1]].map(&:id), result.map(&:id)
   end
 
   test 'skip (offset) determines number of items skipped for pagination' do
@@ -88,7 +101,7 @@ class Resolvers::SearchProductionCompaniesTest < ActiveSupport::TestCase
       skip: skip,
     )
 
-    assert_equal [@production_companies[3], @production_companies[4], @production_companies[5]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@production_companies[3], @production_companies[4], @production_companies[5]].map(&:id), result.map(&:id)
   end
 
   test 'skip and limit work together as expected' do
@@ -104,11 +117,11 @@ class Resolvers::SearchProductionCompaniesTest < ActiveSupport::TestCase
     )
 
     assert_equal result.length, first
-    assert_equal [@production_companies[2], @production_companies[3], @production_companies[4]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@production_companies[2], @production_companies[3], @production_companies[4]].map(&:id), result.map(&:id)
   end
 
   test 'sorting attributes work as expected' do
-    field = 'name'
+    field = 'id'
     is_ascending = false
 
     result = find(
@@ -118,11 +131,11 @@ class Resolvers::SearchProductionCompaniesTest < ActiveSupport::TestCase
       },
     )
 
-    assert_equal @production_companies.map(&:id).reverse, result.map(&:id)
+    assert_equal @production_companies.map(&:id).sort.reverse, result.map(&:id)
   end
 
   test 'sorting, skip, and limit work together as expected' do
-    field = 'name'
+    field = 'id'
     is_ascending = false
     first = 3
     skip = 2
@@ -136,7 +149,7 @@ class Resolvers::SearchProductionCompaniesTest < ActiveSupport::TestCase
       skip: skip,
     )
 
-    assert_equal @production_companies.reverse[skip, first].map(&:id), result.map(&:id)
+    assert_equal @production_companies.map(&:id).sort.reverse[skip, first], result.map(&:id)
   end
 
   test 'deleted records included for authenticated user when include_deleted arg is true' do
@@ -145,12 +158,12 @@ class Resolvers::SearchProductionCompaniesTest < ActiveSupport::TestCase
       @cataloger
     )
 
-    expected = @production_companies.map(&:id).concat(@deleted_production_companies.map(&:id)).sort
-    assert_equal expected, result.map(&:id).sort
+    expected = default_sort([@production_companies, @deleted_production_companies].flatten).map(&:id)
+    assert_equal expected, result.map(&:id)
   end
 
   test 'deleted records not included for unauthenticated user even if include_deleted arg is true' do
     result = find(include_deleted: true)
-    assert_equal @production_companies.map(&:id).sort, result.map(&:id).sort
+    assert_equal @production_companies.map(&:id), result.map(&:id)
   end
 end

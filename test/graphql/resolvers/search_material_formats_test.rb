@@ -5,6 +5,10 @@ class Resolvers::SearchMaterialFormatsTest < ActiveSupport::TestCase
     Resolvers::SearchMaterialFormats.call(nil, args, { current_user: current_user })
   end
 
+  def default_sort(items)
+    items.sort { |a, b| a.name <=> b.name }
+  end
+
   setup do
     @cataloger = Cataloger.create!(
       name: 'test',
@@ -28,11 +32,14 @@ class Resolvers::SearchMaterialFormatsTest < ActiveSupport::TestCase
         deleted: true,
       )
     end
+
+    @material_formats = default_sort(@material_formats)
+    @deleted_material_formats = default_sort(@deleted_material_formats)
   end
 
   test 'no arguments returns undeleted records in ascending order by name' do
     result = find()
-    assert_equal @material_formats, result
+    assert_equal @material_formats.map(&:id), result.map(&:id)
   end
 
   test 'filter option' do
@@ -49,7 +56,7 @@ class Resolvers::SearchMaterialFormatsTest < ActiveSupport::TestCase
       },
     )
 
-    assert_equal [@material_formats[1], @material_formats[2], @material_formats[3], @material_formats[4]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@material_formats[1], @material_formats[2], @material_formats[3], @material_formats[4]].map(&:id), result.map(&:id)
   end
 
   test 'filter option is case insensitive' do
@@ -66,7 +73,7 @@ class Resolvers::SearchMaterialFormatsTest < ActiveSupport::TestCase
       },
     )
 
-    assert_equal [@material_formats[1], @material_formats[2], @material_formats[3], @material_formats[4]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@material_formats[1], @material_formats[2], @material_formats[3], @material_formats[4]].map(&:id), result.map(&:id)
   end
 
   test 'first (limit) determines number of items returned' do
@@ -80,7 +87,7 @@ class Resolvers::SearchMaterialFormatsTest < ActiveSupport::TestCase
     )
 
     assert_equal result.length, first
-    assert_equal [@material_formats[0], @material_formats[1]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@material_formats[0], @material_formats[1]].map(&:id), result.map(&:id)
   end
 
   test 'skip (offset) determines number of items skipped for pagination' do
@@ -93,7 +100,7 @@ class Resolvers::SearchMaterialFormatsTest < ActiveSupport::TestCase
       skip: skip,
     )
 
-    assert_equal [@material_formats[3], @material_formats[4], @material_formats[5]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@material_formats[3], @material_formats[4], @material_formats[5]].map(&:id), result.map(&:id)
   end
 
   test 'skip and limit work together as expected' do
@@ -109,11 +116,11 @@ class Resolvers::SearchMaterialFormatsTest < ActiveSupport::TestCase
     )
 
     assert_equal result.length, first
-    assert_equal [@material_formats[2], @material_formats[3], @material_formats[4]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@material_formats[2], @material_formats[3], @material_formats[4]].map(&:id), result.map(&:id)
   end
 
   test 'sorting attributes work as expected' do
-    field = 'name'
+    field = 'id'
     is_ascending = false
 
     result = find(
@@ -123,11 +130,11 @@ class Resolvers::SearchMaterialFormatsTest < ActiveSupport::TestCase
       },
     )
 
-    assert_equal @material_formats.map(&:id).reverse, result.map(&:id)
+    assert_equal @material_formats.map(&:id).sort.reverse, result.map(&:id)
   end
 
   test 'sorting, skip, and limit work together as expected' do
-    field = 'name'
+    field = 'id'
     is_ascending = false
     first = 3
     skip = 2
@@ -141,7 +148,7 @@ class Resolvers::SearchMaterialFormatsTest < ActiveSupport::TestCase
       skip: skip,
     )
 
-    assert_equal @material_formats.reverse[skip, first].map(&:id), result.map(&:id)
+    assert_equal @material_formats.map(&:id).sort.reverse[skip, first], result.map(&:id)
   end
 
   test 'deleted records included for authenticated user when include_deleted arg is true' do
@@ -150,12 +157,12 @@ class Resolvers::SearchMaterialFormatsTest < ActiveSupport::TestCase
       @cataloger
     )
 
-    expected = @material_formats.map(&:id).concat(@deleted_material_formats.map(&:id)).sort
-    assert_equal expected, result.map(&:id).sort
+    expected = default_sort([@material_formats, @deleted_material_formats].flatten).map(&:id)
+    assert_equal expected, result.map(&:id)
   end
 
   test 'deleted records not included for unauthenticated user even if include_deleted arg is true' do
     result = find(include_deleted: true)
-    assert_equal @material_formats.map(&:id).sort, result.map(&:id).sort
+    assert_equal @material_formats.map(&:id), result.map(&:id)
   end
 end

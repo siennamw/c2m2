@@ -5,6 +5,10 @@ class Resolvers::SearchComposersTest < ActiveSupport::TestCase
     Resolvers::SearchComposers.call(nil, args, { current_user: current_user })
   end
 
+  def default_sort(items)
+    items.sort { |a, b| a.name <=> b.name }
+  end
+
   setup do
     @cataloger = Cataloger.create!(
       name: 'test',
@@ -28,6 +32,14 @@ class Resolvers::SearchComposersTest < ActiveSupport::TestCase
         deleted: true,
       )
     end
+
+    @composers = default_sort(@composers)
+    @deleted_composers = default_sort(@deleted_composers)
+  end
+
+  test 'no arguments returns undeleted records in ascending order by name' do
+    result = find()
+    assert_equal @composers.map(&:id), result.map(&:id)
   end
 
   test 'filter option' do
@@ -44,7 +56,7 @@ class Resolvers::SearchComposersTest < ActiveSupport::TestCase
       },
     )
 
-    assert_equal [@composers[1], @composers[2], @composers[3], @composers[4]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@composers[1], @composers[2], @composers[3], @composers[4]].map(&:id), result.map(&:id)
   end
 
   test 'filter option is case insensitive' do
@@ -61,7 +73,7 @@ class Resolvers::SearchComposersTest < ActiveSupport::TestCase
       },
     )
 
-    assert_equal [@composers[1], @composers[2], @composers[3], @composers[4]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@composers[1], @composers[2], @composers[3], @composers[4]].map(&:id), result.map(&:id)
   end
 
   test 'first (limit) determines number of items returned' do
@@ -75,7 +87,7 @@ class Resolvers::SearchComposersTest < ActiveSupport::TestCase
     )
 
     assert_equal result.length, first
-    assert_equal [@composers[0], @composers[1]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@composers[0], @composers[1]].map(&:id), result.map(&:id)
   end
 
   test 'skip (offset) determines number of items skipped for pagination' do
@@ -88,7 +100,7 @@ class Resolvers::SearchComposersTest < ActiveSupport::TestCase
       skip: skip,
     )
 
-    assert_equal [@composers[3], @composers[4], @composers[5]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@composers[3], @composers[4], @composers[5]].map(&:id), result.map(&:id)
   end
 
   test 'skip and limit work together as expected' do
@@ -104,11 +116,11 @@ class Resolvers::SearchComposersTest < ActiveSupport::TestCase
     )
 
     assert_equal result.length, first
-    assert_equal [@composers[2], @composers[3], @composers[4]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@composers[2], @composers[3], @composers[4]].map(&:id), result.map(&:id)
   end
 
   test 'sorting attributes work as expected' do
-    field = 'name'
+    field = 'id'
     is_ascending = false
 
     result = find(
@@ -118,11 +130,11 @@ class Resolvers::SearchComposersTest < ActiveSupport::TestCase
       },
     )
 
-    assert_equal @composers.map(&:id).reverse, result.map(&:id)
+    assert_equal @composers.map(&:id).sort.reverse, result.map(&:id)
   end
 
   test 'sorting, skip, and limit work together as expected' do
-    field = 'name'
+    field = 'id'
     is_ascending = false
     first = 3
     skip = 2
@@ -136,7 +148,7 @@ class Resolvers::SearchComposersTest < ActiveSupport::TestCase
       skip: skip,
     )
 
-    assert_equal @composers.reverse[skip, first].map(&:id), result.map(&:id)
+    assert_equal @composers.map(&:id).sort.reverse[skip, first], result.map(&:id)
   end
 
   test 'deleted records included for authenticated user when include_deleted arg is true' do
@@ -145,12 +157,12 @@ class Resolvers::SearchComposersTest < ActiveSupport::TestCase
       @cataloger
     )
 
-    expected = @composers.map(&:id).concat(@deleted_composers.map(&:id)).sort
-    assert_equal expected, result.map(&:id).sort
+    expected = default_sort([@composers, @deleted_composers].flatten).map(&:id)
+    assert_equal expected, result.map(&:id)
   end
 
   test 'deleted records not included for unauthenticated user even if include_deleted arg is true' do
     result = find(include_deleted: true)
-    assert_equal @composers.map(&:id).sort, result.map(&:id).sort
+    assert_equal @composers.map(&:id), result.map(&:id)
   end
 end
