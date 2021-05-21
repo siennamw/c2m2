@@ -223,174 +223,117 @@ DisplayCataloger.propTypes = {
   values: PropTypes.shape({
     catalogers: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
+        id: PropTypes.string,
         name: PropTypes.string,
       }),
     ),
     catalogers_as_updater: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
+        id: PropTypes.string,
         name: PropTypes.string,
       }),
     ),
     collections: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
+        id: PropTypes.string,
         name: PropTypes.string,
       }),
     ),
     collections_as_updater: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
+        id: PropTypes.string,
         name: PropTypes.string,
       }),
     ),
     composers: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
+        id: PropTypes.string,
         name: PropTypes.string,
       }),
     ),
     composers_as_updater: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
+        id: PropTypes.string,
         name: PropTypes.string,
       }),
     ),
     countries: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
+        id: PropTypes.string,
         name: PropTypes.string,
       }),
     ),
     countries_as_updater: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
+        id: PropTypes.string,
         name: PropTypes.string,
       }),
     ),
     description: PropTypes.string,
     directors: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
+        id: PropTypes.string,
         name: PropTypes.string,
       }),
     ),
     directors_as_updater: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
+        id: PropTypes.string,
         name: PropTypes.string,
       }),
     ),
     email: PropTypes.string,
     material_formats: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
+        id: PropTypes.string,
         name: PropTypes.string,
       }),
     ),
     material_formats_as_updater: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
+        id: PropTypes.string,
         name: PropTypes.string,
       }),
     ),
     media_types: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
+        id: PropTypes.string,
         name: PropTypes.string,
       }),
     ),
     media_types_as_updater: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
+        id: PropTypes.string,
         name: PropTypes.string,
       }),
     ),
     production_companies: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
+        id: PropTypes.string,
         name: PropTypes.string,
       }),
     ),
     production_companies_as_updater: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
+        id: PropTypes.string,
         name: PropTypes.string,
       }),
     ),
     repositories: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
+        id: PropTypes.string,
         name: PropTypes.string,
       }),
     ),
     repositories_as_updater: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
+        id: PropTypes.string,
         name: PropTypes.string,
       }),
     ),
     resources: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
+        id: PropTypes.string,
         material_format: PropTypes.shape({
           name: PropTypes.string,
         }),
@@ -401,10 +344,7 @@ DisplayCataloger.propTypes = {
     ),
     resources_as_updater: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
+        id: PropTypes.string,
         material_format: PropTypes.shape({
           name: PropTypes.string,
         }),
@@ -415,19 +355,13 @@ DisplayCataloger.propTypes = {
     ),
     works: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
+        id: PropTypes.string,
         title: PropTypes.string,
       }),
     ),
     works_as_updater: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
+        id: PropTypes.string,
         title: PropTypes.string,
       }),
     ),

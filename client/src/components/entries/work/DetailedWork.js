@@ -160,61 +160,40 @@ DisplayWork.propTypes = {
     alias_alternates: PropTypes.string,
     composers: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
+        id: PropTypes.string,
         name: PropTypes.string,
       }),
     ),
     country: PropTypes.shape({
-      id: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-      ]),
+      id: PropTypes.string,
       name: PropTypes.string,
     }),
     directors: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
+        id: PropTypes.string,
         name: PropTypes.string,
       }),
     ),
     imdb_link: PropTypes.string,
     media_type: PropTypes.shape({
-      id: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-      ]),
+      id: PropTypes.string,
       name: PropTypes.string,
     }),
     orchestrators: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
+        id: PropTypes.string,
         name: PropTypes.string,
       }),
     ),
     production_companies: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
+        id: PropTypes.string,
         name: PropTypes.string,
       }),
     ),
     resources: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
+        id: PropTypes.string,
         material_format: PropTypes.shape({
           name: PropTypes.string,
         }),
@@ -227,7 +206,7 @@ DisplayWork.propTypes = {
 
 const DetailedWork = ({ match }) => {
   const id = match && match.params && match.params.id
-    ? Number(match.params.id)
+    ? match.params.id
     : null;
 
   return (

@@ -81,10 +81,7 @@ DisplayCollection.propTypes = {
     finding_aid_link: PropTypes.string,
     repository: PropTypes.shape({
       name: PropTypes.string,
-      id: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-      ]),
+      id: PropTypes.string,
     }),
     resources: PropTypes.arrayOf(
       PropTypes.shape({
@@ -101,7 +98,7 @@ DisplayCollection.propTypes = {
 
 const DetailedCollection = ({ match }) => {
   const id = match && match.params && match.params.id
-    ? Number(match.params.id)
+    ? match.params.id
     : null;
 
   return (
