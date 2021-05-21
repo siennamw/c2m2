@@ -81,7 +81,7 @@ const CatalogerForm = ({ match, location, successCallback }) => {
   }
 
   const id = match && match.params && match.params.id
-    ? Number(match.params.id)
+    ? match.params.id
     : null;
 
   if (id) {

@@ -51,10 +51,7 @@ DisplayMaterialFormat.propTypes = {
     description: PropTypes.string,
     resources: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
+        id: PropTypes.string,
         work: PropTypes.shape({
           title: PropTypes.string,
         }),
@@ -65,7 +62,7 @@ DisplayMaterialFormat.propTypes = {
 
 const DetailedMaterialFormat = ({ match }) => {
   const id = match && match.params && match.params.id
-    ? Number(match.params.id)
+    ? match.params.id
     : null;
 
   return (

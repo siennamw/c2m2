@@ -83,26 +83,17 @@ DisplayResource.propTypes = {
     citation_source: PropTypes.string,
     collections: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
+        id: PropTypes.string,
         name: PropTypes.string,
       }),
     ),
     digital_copy_link: PropTypes.string,
     material_format: PropTypes.shape({
-      id: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-      ]),
+      id: PropTypes.string,
       name: PropTypes.string,
     }),
     work: PropTypes.shape({
-      id: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-      ]),
+      id: PropTypes.string,
       title: PropTypes.string,
     }),
   }),
@@ -110,7 +101,7 @@ DisplayResource.propTypes = {
 
 const DetailedResource = ({ match }) => {
   const id = match && match.params && match.params.id
-    ? Number(match.params.id)
+    ? match.params.id
     : null;
 
   return (

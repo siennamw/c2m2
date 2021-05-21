@@ -34,7 +34,7 @@
     "react-select": "^3.0.4",
     "serve": "^10.1.1",
     "sienna-boilerplate": "github:siennamw/sienna-boilerplate#cb121f10ccdec91af24d8e9b35fb5ab1552ec76c",
-    "yup": "^0.26.6"
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@apollo/react-testing": "^3.0.1"

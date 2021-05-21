@@ -21,7 +21,7 @@ const ComposerForm = ({ match, successCallback }) => {
   const [deleteMutation] = useMutation(DELETE_COMPOSER);
 
   const id = match && match.params && match.params.id
-    ? Number(match.params.id)
+    ? match.params.id
     : null;
 
   const schema = id

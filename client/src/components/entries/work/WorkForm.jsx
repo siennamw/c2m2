@@ -17,7 +17,7 @@ import WorkFormFields from './WorkFormFields';
 
 const WorkForm = ({ match, successCallback }) => {
   const id = match && match.params && match.params.id
-    ? Number(match.params.id)
+    ? match.params.id
     : null;
 
   const [createMutation] = useMutation(CREATE_WORK);

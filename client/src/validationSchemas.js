@@ -3,8 +3,6 @@ import * as Yup from 'yup';
 
 import { fieldNameToPlural } from './utils';
 
-const stringOfDigitsRegex = /^\d+$/;
-
 export const getNormalizedSubmissionValuesForSchema = (schema, values) => {
   // strip empty strings
   const normalizedValues = Object.keys(values).reduce((result, key) => {
@@ -76,7 +74,7 @@ export const collectionValidationSchema = Yup.object().shape({
   finding_aid_link: Yup.string()
     .url('Finding aid link is not a valid URL'),
   repository_id: Yup.string()
-    .matches(stringOfDigitsRegex)
+    .uuid('Repository ID is invalid')
     .required('Repository is required'),
 });
 
@@ -120,22 +118,22 @@ export const workValidationSchema = Yup.object().shape({
     .min(1900, 'Year must be 1900 or after')
     .required('Year is required'),
   country_id: Yup.string()
-    .matches(stringOfDigitsRegex),
+    .uuid('Country ID is invalid'),
   media_type_id: Yup.string()
-    .matches(stringOfDigitsRegex)
+    .uuid('Media type ID is invalid')
     .required('Media type is required'),
   composer_ids: Yup.array()
     .default([])
-    .of(Yup.string().matches(stringOfDigitsRegex)),
+    .of(Yup.string().uuid('Composer ID is invalid')),
   director_ids: Yup.array()
     .default([])
-    .of(Yup.string().matches(stringOfDigitsRegex)),
+    .of(Yup.string().uuid('Director ID is invalid')),
   orchestrator_ids: Yup.array()
     .default([])
-    .of(Yup.string().matches(stringOfDigitsRegex)),
+    .of(Yup.string().uuid('Orchestrator ID is invalid')),
   production_company_ids: Yup.array()
     .default([])
-    .of(Yup.string().matches(stringOfDigitsRegex)),
+    .of(Yup.string().uuid('Production company ID is invalid')),
 });
 
 export const materialFormatValidationSchema = Yup.object().shape({
@@ -181,13 +179,13 @@ export const resourceValidationSchema = Yup.object().shape({
   cataloging_notes: Yup.string()
     .trim(),
   work_id: Yup.string()
-    .matches(stringOfDigitsRegex)
+    .uuid('Work ID is invalid')
     .required('Work is required'),
   material_format_id: Yup.string()
-    .matches(stringOfDigitsRegex)
+    .uuid('Material format ID is invalid')
     .required('Material format is required'),
   collection_ids: Yup.array()
-    .of(Yup.string().matches(stringOfDigitsRegex))
+    .of(Yup.string().uuid('Collection ID is invalid'))
     .required('Collection is required'),
   publication_status: Yup.string()
     .oneOf(['draft', 'provisional', 'approved'])
@@ -197,9 +195,8 @@ export const resourceValidationSchema = Yup.object().shape({
 
 export const addIdToSchema = (baseSchema) => (
   baseSchema.shape({
-    id: Yup.number()
-      .integer('ID is invalid')
-      .positive('ID is invalid')
+    id: Yup.string()
+      .uuid('ID is not valid')
       .required('ID is required'),
   })
 );
