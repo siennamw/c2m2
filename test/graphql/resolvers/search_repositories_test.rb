@@ -5,6 +5,10 @@ class Resolvers::SearchRepositoriesTest < ActiveSupport::TestCase
     Resolvers::SearchRepositories.call(nil, args, { current_user: current_user })
   end
 
+  def default_sort(items)
+    items.sort { |a, b| a.name <=> b.name }
+  end
+
   setup do
     @cataloger = Cataloger.create!(
       name: 'test',
@@ -30,6 +34,15 @@ class Resolvers::SearchRepositoriesTest < ActiveSupport::TestCase
         deleted: true,
       )
     end
+
+    #  default sort order is name ascending
+    @repositories = default_sort(@repositories)
+    @deleted_repositories = default_sort(@deleted_repositories)
+  end
+
+  test 'no arguments returns undeleted records in ascending order by name' do
+    result = find()
+    assert_equal @repositories.map(&:id), result.map(&:id)
   end
 
   test 'filter option' do
@@ -46,7 +59,7 @@ class Resolvers::SearchRepositoriesTest < ActiveSupport::TestCase
       },
     )
 
-    assert_equal [@repositories[1], @repositories[2], @repositories[3], @repositories[4]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@repositories[1], @repositories[2], @repositories[3], @repositories[4]].map(&:id), result.map(&:id)
   end
 
   test 'filter option is case insensitive' do
@@ -63,7 +76,7 @@ class Resolvers::SearchRepositoriesTest < ActiveSupport::TestCase
       },
     )
 
-    assert_equal [@repositories[1], @repositories[2], @repositories[3], @repositories[4]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@repositories[1], @repositories[2], @repositories[3], @repositories[4]].map(&:id), result.map(&:id)
   end
 
   test 'first (limit) determines number of items returned' do
@@ -77,7 +90,7 @@ class Resolvers::SearchRepositoriesTest < ActiveSupport::TestCase
     )
 
     assert_equal result.length, first
-    assert_equal [@repositories[0], @repositories[1]].map(&:id).sort, result.map(&:id).sort
+    assert_equal [@repositories[0], @repositories[1]].map(&:id), result.map(&:id)
   end
 
   test 'skip (offset) determines number of items skipped for pagination' do
@@ -90,7 +103,7 @@ class Resolvers::SearchRepositoriesTest < ActiveSupport::TestCase
       skip: skip,
     )
 
-    assert_equal [@repositories[3], @repositories[4], @repositories[5]].map(&:id).sort, result.map(&:id).sort
+    assert_equal @repositories.drop(skip).map(&:id), result.map(&:id)
   end
 
   test 'skip and limit work together as expected' do
@@ -106,11 +119,11 @@ class Resolvers::SearchRepositoriesTest < ActiveSupport::TestCase
     )
 
     assert_equal result.length, first
-    assert_equal [@repositories[2], @repositories[3], @repositories[4]].map(&:id).sort, result.map(&:id).sort
+    assert_equal @repositories[skip, first].map(&:id), result.map(&:id)
   end
 
   test 'sorting attributes work as expected' do
-    field = 'name'
+    field = 'id'
     is_ascending = false
 
     result = find(
@@ -120,7 +133,7 @@ class Resolvers::SearchRepositoriesTest < ActiveSupport::TestCase
       },
     )
 
-    assert_equal @repositories.map(&:id).reverse, result.map(&:id)
+    assert_equal @repositories.map(&:id).sort.reverse, result.map(&:id)
   end
 
   test 'sorting, skip, and limit work together as expected' do
@@ -138,7 +151,7 @@ class Resolvers::SearchRepositoriesTest < ActiveSupport::TestCase
       skip: skip,
     )
 
-    assert_equal @repositories.reverse[skip, first].map(&:id), result.map(&:id)
+    assert_equal @repositories.map(&:id).sort.reverse[skip, first], result.map(&:id)
   end
 
   test 'deleted records included for authenticated user when include_deleted arg is true' do
@@ -147,12 +160,12 @@ class Resolvers::SearchRepositoriesTest < ActiveSupport::TestCase
       @cataloger
     )
 
-    expected = @repositories.map(&:id).concat(@deleted_repositories.map(&:id)).sort
-    assert_equal expected, result.map(&:id).sort
+    expected = default_sort([@repositories, @deleted_repositories].flatten).map(&:id)
+    assert_equal expected, result.map(&:id)
   end
 
   test 'deleted records not included for unauthenticated user even if include_deleted arg is true' do
     result = find(include_deleted: true)
-    assert_equal @repositories.map(&:id).sort, result.map(&:id).sort
+    assert_equal @repositories.map(&:id), result.map(&:id)
   end
 end

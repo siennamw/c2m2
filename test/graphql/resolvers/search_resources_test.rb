@@ -4,6 +4,10 @@ class Resolvers::SearchResourcesTest < ActiveSupport::TestCase
   def find(args = {}, current_user = nil)
     Resolvers::SearchResources.call(nil, args, { current_user: current_user })
   end
+  
+  def default_sort(items)
+    items.sort { |a, b| b.created_at <=> a.created_at }
+  end
 
   setup do
     @cataloger = Cataloger.create!(admin: true, name: 'test', email: 'test@email.com', password: 'test_test')
@@ -38,6 +42,15 @@ class Resolvers::SearchResourcesTest < ActiveSupport::TestCase
         deleted: true,
       )
     end
+
+    #  default sort order is created_at descending
+    @resources = default_sort(@resources)
+    @deleted_resources = default_sort(@deleted_resources)
+  end
+
+  test 'no arguments returns undeleted records in descending order by created_at' do
+    result = find()
+    assert_equal @resources.map(&:id), result.map(&:id)
   end
 
   test 'first (limit) determines number of items returned' do
@@ -48,7 +61,7 @@ class Resolvers::SearchResourcesTest < ActiveSupport::TestCase
     )
 
     assert_equal result.length, first
-    assert_equal [@resources[0], @resources[1]].map(&:id).sort, result.map(&:id).sort
+    assert_equal @resources.map(&:id).take(first), result.map(&:id)
   end
 
   test 'skip (offset) determines number of items skipped for pagination' do
@@ -58,7 +71,7 @@ class Resolvers::SearchResourcesTest < ActiveSupport::TestCase
       skip: skip,
     )
 
-    assert_equal [@resources[3], @resources[4], @resources[5]].map(&:id).sort, result.map(&:id).sort
+    assert_equal @resources.map(&:id).drop(skip), result.map(&:id)
   end
 
   test 'skip and limit work together as expected' do
@@ -71,11 +84,11 @@ class Resolvers::SearchResourcesTest < ActiveSupport::TestCase
     )
 
     assert_equal result.length, first
-    assert_equal [@resources[2], @resources[3], @resources[4]].map(&:id).sort, result.map(&:id).sort
+    assert_equal @resources.map(&:id)[skip, first], result.map(&:id)
   end
 
   test 'sorting attributes work as expected' do
-    field = 'publication_status'
+    field = 'id'
     is_ascending = false
 
     result = find(
@@ -85,11 +98,11 @@ class Resolvers::SearchResourcesTest < ActiveSupport::TestCase
       },
     )
 
-    assert_equal @resources.map(&:publication_status).sort.reverse, result.map(&:publication_status)
+    assert_equal @resources.map(&:id).sort.reverse, result.map(&:id)
   end
 
   test 'sorting, skip, and limit work together as expected' do
-    field = 'created_at'
+    field = 'id'
     is_ascending = false
     first = 3
     skip = 2
@@ -103,7 +116,7 @@ class Resolvers::SearchResourcesTest < ActiveSupport::TestCase
       skip: skip,
     )
 
-    assert_equal @resources.reverse[skip, first].map(&:id), result.map(&:id)
+    assert_equal @resources.map(&:id).sort.reverse[skip, first], result.map(&:id)
   end
 
   test 'deleted records included for authenticated user when include_deleted arg is true' do
@@ -112,12 +125,12 @@ class Resolvers::SearchResourcesTest < ActiveSupport::TestCase
       @cataloger
     )
 
-    expected = @resources.map(&:id).concat(@deleted_resources.map(&:id)).sort
-    assert_equal expected, result.map(&:id).sort
+    expected = default_sort([@resources, @deleted_resources].flatten).map(&:id)
+    assert_equal expected, result.map(&:id)
   end
 
   test 'deleted records not included for unauthenticated user even if include_deleted arg is true' do
     result = find(include_deleted: true)
-    assert_equal @resources.map(&:id).sort, result.map(&:id).sort
+    assert_equal @resources.map(&:id), result.map(&:id)
   end
 end
