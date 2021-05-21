@@ -7,7 +7,12 @@ class Resolvers::SearchCatalogers
   include SearchHelper
 
   # scope is starting point for search
-  scope { Cataloger.all }
+  scope do
+    if context[:current_user].blank?
+      raise GraphQL::ExecutionError.new("Authentication required")
+    end
+    Cataloger.all
+  end
 
   # return type
   type !types[Types::CatalogerType]
@@ -22,7 +27,7 @@ class Resolvers::SearchCatalogers
   option :filter, type: CatalogerFilter, with: :apply_filter
   option :first, type: types.Int, with: :apply_first
   option :skip, type: types.Int, with: :apply_skip
-  option :sorting, type: Types::Inputs::SortingFilter, with: :apply_sorting
+  option :sorting, type: Types::Inputs::SortingFilter, default: { 'field' => 'name', 'is_ascending' => true }, with: :apply_sorting
 
   def sorting_valid?
     Cataloger.column_names.include?(sorting['field'])
