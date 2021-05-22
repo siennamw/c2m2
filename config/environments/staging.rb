@@ -73,7 +73,7 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = false
 
   # Define asset host for mailer so images can be served to emails
-  config.action_mailer.asset_host = 'https://c2m2-dev.herokuapp.com'
+  config.action_mailer.asset_host = 'https://c2m2.herokuapp.com'
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
