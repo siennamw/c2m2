@@ -137,7 +137,7 @@ class Resolvers::SearchRepositoriesTest < ActiveSupport::TestCase
   end
 
   test 'sorting, skip, and limit work together as expected' do
-    field = 'name'
+    field = 'id'
     is_ascending = false
     first = 3
     skip = 2
