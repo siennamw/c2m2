@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_20_134004) do
+ActiveRecord::Schema.define(version: 2021_05_24_234154) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -75,12 +75,10 @@ ActiveRecord::Schema.define(version: 2021_05_20_134004) do
     t.bigint "created_by_id_integer"
     t.bigint "updated_by_id_integer"
     t.string "finding_aid_link"
-    t.boolean "deleted", default: false, null: false
     t.uuid "created_by_id", null: false
     t.uuid "updated_by_id"
     t.uuid "repository_id", null: false
     t.index ["created_by_id_integer"], name: "index_collections_on_created_by_id_integer"
-    t.index ["deleted"], name: "index_collections_on_deleted"
     t.index ["name"], name: "index_collections_on_name", unique: true
     t.index ["repository_id_int"], name: "index_collections_on_repository_id_int"
     t.index ["updated_by_id_integer"], name: "index_collections_on_updated_by_id_integer"
@@ -103,11 +101,9 @@ ActiveRecord::Schema.define(version: 2021_05_20_134004) do
     t.datetime "updated_at", null: false
     t.bigint "created_by_id_integer"
     t.bigint "updated_by_id_integer"
-    t.boolean "deleted", default: false, null: false
     t.uuid "created_by_id", null: false
     t.uuid "updated_by_id"
     t.index ["created_by_id_integer"], name: "index_composers_on_created_by_id_integer"
-    t.index ["deleted"], name: "index_composers_on_deleted"
     t.index ["imdb_link"], name: "index_composers_on_imdb_link", unique: true
     t.index ["name"], name: "index_composers_on_name", unique: true
     t.index ["updated_by_id_integer"], name: "index_composers_on_updated_by_id_integer"
@@ -130,11 +126,9 @@ ActiveRecord::Schema.define(version: 2021_05_20_134004) do
     t.datetime "updated_at", null: false
     t.bigint "created_by_id_integer"
     t.bigint "updated_by_id_integer"
-    t.boolean "deleted", default: false, null: false
     t.uuid "created_by_id", null: false
     t.uuid "updated_by_id"
     t.index ["created_by_id_integer"], name: "index_countries_on_created_by_id_integer"
-    t.index ["deleted"], name: "index_countries_on_deleted"
     t.index ["name"], name: "index_countries_on_name", unique: true
     t.index ["updated_by_id_integer"], name: "index_countries_on_updated_by_id_integer"
   end
@@ -147,11 +141,9 @@ ActiveRecord::Schema.define(version: 2021_05_20_134004) do
     t.datetime "updated_at", null: false
     t.bigint "created_by_id_integer"
     t.bigint "updated_by_id_integer"
-    t.boolean "deleted", default: false, null: false
     t.uuid "created_by_id", null: false
     t.uuid "updated_by_id"
     t.index ["created_by_id_integer"], name: "index_directors_on_created_by_id_integer"
-    t.index ["deleted"], name: "index_directors_on_deleted"
     t.index ["imdb_link"], name: "index_directors_on_imdb_link", unique: true
     t.index ["name"], name: "index_directors_on_name", unique: true
     t.index ["updated_by_id_integer"], name: "index_directors_on_updated_by_id_integer"
@@ -174,11 +166,9 @@ ActiveRecord::Schema.define(version: 2021_05_20_134004) do
     t.datetime "updated_at", null: false
     t.bigint "created_by_id_integer"
     t.bigint "updated_by_id_integer"
-    t.boolean "deleted", default: false, null: false
     t.uuid "created_by_id", null: false
     t.uuid "updated_by_id"
     t.index ["created_by_id_integer"], name: "index_material_formats_on_created_by_id_integer"
-    t.index ["deleted"], name: "index_material_formats_on_deleted"
     t.index ["name"], name: "index_material_formats_on_name", unique: true
     t.index ["updated_by_id_integer"], name: "index_material_formats_on_updated_by_id_integer"
   end
@@ -191,11 +181,9 @@ ActiveRecord::Schema.define(version: 2021_05_20_134004) do
     t.datetime "updated_at", null: false
     t.bigint "created_by_id_integer"
     t.bigint "updated_by_id_integer"
-    t.boolean "deleted", default: false, null: false
     t.uuid "created_by_id", null: false
     t.uuid "updated_by_id"
     t.index ["created_by_id_integer"], name: "index_media_types_on_created_by_id_integer"
-    t.index ["deleted"], name: "index_media_types_on_deleted"
     t.index ["name"], name: "index_media_types_on_name", unique: true
     t.index ["updated_by_id_integer"], name: "index_media_types_on_updated_by_id_integer"
   end
@@ -217,11 +205,9 @@ ActiveRecord::Schema.define(version: 2021_05_20_134004) do
     t.datetime "updated_at", null: false
     t.bigint "created_by_id_integer"
     t.bigint "updated_by_id_integer"
-    t.boolean "deleted", default: false, null: false
     t.uuid "created_by_id", null: false
     t.uuid "updated_by_id"
     t.index ["created_by_id_integer"], name: "index_production_companies_on_created_by_id_integer"
-    t.index ["deleted"], name: "index_production_companies_on_deleted"
     t.index ["name"], name: "index_production_companies_on_name", unique: true
     t.index ["updated_by_id_integer"], name: "index_production_companies_on_updated_by_id_integer"
   end
@@ -244,11 +230,9 @@ ActiveRecord::Schema.define(version: 2021_05_20_134004) do
     t.datetime "updated_at", null: false
     t.bigint "created_by_id_integer"
     t.bigint "updated_by_id_integer"
-    t.boolean "deleted", default: false, null: false
     t.uuid "created_by_id", null: false
     t.uuid "updated_by_id"
     t.index ["created_by_id_integer"], name: "index_repositories_on_created_by_id_integer"
-    t.index ["deleted"], name: "index_repositories_on_deleted"
     t.index ["name"], name: "index_repositories_on_name", unique: true
     t.index ["updated_by_id_integer"], name: "index_repositories_on_updated_by_id_integer"
   end
@@ -265,13 +249,11 @@ ActiveRecord::Schema.define(version: 2021_05_20_134004) do
     t.string "publication_status", default: "draft", null: false
     t.bigint "updated_by_id_integer"
     t.bigint "work_id_int"
-    t.boolean "deleted", default: false, null: false
     t.uuid "created_by_id", null: false
     t.uuid "updated_by_id"
     t.uuid "material_format_id", null: false
     t.uuid "work_id", null: false
     t.index ["created_by_id_integer"], name: "index_resources_on_created_by_id_integer"
-    t.index ["deleted"], name: "index_resources_on_deleted"
     t.index ["material_format_id_int"], name: "index_resources_on_material_format_id_int"
     t.index ["publication_status"], name: "index_resources_on_publication_status"
     t.index ["updated_by_id_integer"], name: "index_resources_on_updated_by_id_integer"
@@ -291,14 +273,12 @@ ActiveRecord::Schema.define(version: 2021_05_20_134004) do
     t.bigint "updated_by_id_integer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "deleted", default: false, null: false
     t.uuid "created_by_id", null: false
     t.uuid "updated_by_id"
     t.uuid "country_id"
     t.uuid "media_type_id", null: false
     t.index ["country_id_int"], name: "index_works_on_country_id_int"
     t.index ["created_by_id_integer"], name: "index_works_on_created_by_id_integer"
-    t.index ["deleted"], name: "index_works_on_deleted"
     t.index ["imdb_link"], name: "index_works_on_imdb_link", unique: true
     t.index ["media_type_id_int"], name: "index_works_on_media_type_id_int"
     t.index ["updated_by_id_integer"], name: "index_works_on_updated_by_id_integer"
