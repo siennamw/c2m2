@@ -25,22 +25,11 @@ class Resolvers::SearchRepositoriesTest < ActiveSupport::TestCase
       )
     end
 
-    @deleted_repositories = []
-    2.times do |n|
-      @deleted_repositories << Repository.create!(
-        created_by: @cataloger,
-        name: "deleted#{n}",
-        location: "location#{n}",
-        deleted: true,
-      )
-    end
-
     #  default sort order is name ascending
     @repositories = default_sort(@repositories)
-    @deleted_repositories = default_sort(@deleted_repositories)
   end
 
-  test 'no arguments returns undeleted records in ascending order by name' do
+  test 'no arguments returns all records in ascending order by name' do
     result = find()
     assert_equal @repositories.map(&:id), result.map(&:id)
   end
@@ -152,20 +141,5 @@ class Resolvers::SearchRepositoriesTest < ActiveSupport::TestCase
     )
 
     assert_equal @repositories.map(&:id).sort.reverse[skip, first], result.map(&:id)
-  end
-
-  test 'deleted records included for authenticated user when include_deleted arg is true' do
-    result = find(
-      { include_deleted: true },
-      @cataloger
-    )
-
-    expected = default_sort([@repositories, @deleted_repositories].flatten).map(&:id)
-    assert_equal expected, result.map(&:id)
-  end
-
-  test 'deleted records not included for unauthenticated user even if include_deleted arg is true' do
-    result = find(include_deleted: true)
-    assert_equal @repositories.map(&:id), result.map(&:id)
   end
 end

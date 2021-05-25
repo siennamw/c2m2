@@ -24,20 +24,10 @@ class Resolvers::SearchCountriesTest < ActiveSupport::TestCase
       )
     end
 
-    @deleted_countries = []
-    2.times do |n|
-      @deleted_countries << Country.create!(
-        created_by: @cataloger,
-        name: "deleted#{n}",
-        deleted: true,
-      )
-    end
-
     @countries = default_sort(@countries)
-    @deleted_countries = default_sort(@deleted_countries)
   end
 
-  test 'no arguments returns undeleted records in ascending order by name' do
+  test 'no arguments returns all records in ascending order by name' do
     result = find()
     assert_equal @countries.map(&:id), result.map(&:id)
   end
@@ -149,20 +139,5 @@ class Resolvers::SearchCountriesTest < ActiveSupport::TestCase
     )
 
     assert_equal @countries.map(&:id).sort.reverse[skip, first], result.map(&:id)
-  end
-
-  test 'deleted records included for authenticated user when include_deleted arg is true' do
-    result = find(
-      { include_deleted: true },
-      @cataloger
-    )
-
-    expected = default_sort([@countries, @deleted_countries].flatten).map(&:id)
-    assert_equal expected, result.map(&:id)
-  end
-
-  test 'deleted records not included for unauthenticated user even if include_deleted arg is true' do
-    result = find(include_deleted: true)
-    assert_equal @countries.map(&:id), result.map(&:id)
   end
 end

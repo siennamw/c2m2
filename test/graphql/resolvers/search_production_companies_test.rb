@@ -24,21 +24,11 @@ class Resolvers::SearchProductionCompaniesTest < ActiveSupport::TestCase
       )
     end
 
-    @deleted_production_companies = []
-    2.times do |n|
-      @deleted_production_companies << ProductionCompany.create!(
-        created_by: @cataloger,
-        name: "deleted#{n}",
-        deleted: true,
-      )
-    end
-
     #  default sort order is name ascending
     @production_companies = default_sort(@production_companies)
-    @deleted_production_companies = default_sort(@deleted_production_companies)
   end
 
-  test 'no arguments returns undeleted records in ascending order by name' do
+  test 'no arguments returns all records in ascending order by name' do
     result = find()
     assert_equal @production_companies.map(&:id), result.map(&:id)
   end
@@ -150,20 +140,5 @@ class Resolvers::SearchProductionCompaniesTest < ActiveSupport::TestCase
     )
 
     assert_equal @production_companies.map(&:id).sort.reverse[skip, first], result.map(&:id)
-  end
-
-  test 'deleted records included for authenticated user when include_deleted arg is true' do
-    result = find(
-      { include_deleted: true },
-      @cataloger
-    )
-
-    expected = default_sort([@production_companies, @deleted_production_companies].flatten).map(&:id)
-    assert_equal expected, result.map(&:id)
-  end
-
-  test 'deleted records not included for unauthenticated user even if include_deleted arg is true' do
-    result = find(include_deleted: true)
-    assert_equal @production_companies.map(&:id), result.map(&:id)
   end
 end

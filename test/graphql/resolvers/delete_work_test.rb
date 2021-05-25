@@ -1,11 +1,11 @@
 require 'test_helper'
 
-class Resolvers::ToggleDeleteWorkTest < ActiveSupport::TestCase
-  def perform(args = {})
-    Resolvers::ToggleDeleteWork.new.call(
+class Resolvers::DeleteWorkTest < ActiveSupport::TestCase
+  def perform(args = {}, current_user = @new_cataloger)
+    Resolvers::DeleteWork.new.call(
       nil,
       args,
-      { current_user: @new_cataloger }
+      { current_user: current_user }
     )
   end
 
@@ -36,13 +36,6 @@ class Resolvers::ToggleDeleteWorkTest < ActiveSupport::TestCase
       media_type: media_type,
       created_by: @cataloger,
     )
-    @deleted_work = Work.create!(
-      title: 'Deleted Work 1',
-      year: 1998,
-      media_type: media_type,
-      created_by: @cataloger,
-      deleted: true,
-    )
     @work_with_resources = Work.create!(
       title: 'Work with work',
       year: 1998,
@@ -69,32 +62,28 @@ class Resolvers::ToggleDeleteWorkTest < ActiveSupport::TestCase
     )
   end
 
-  test 'deleting a work without resources' do
-    result = perform(
-      id: @work.id,
-    )
+  test 'unauthenticated user attempting to delete a work' do
+    assert_raises GraphQL::ExecutionError do
+      result = perform({ id: @work.id }, nil)
+      assert_equal 'Authentication required', result.message
+    end
 
-    assert_equal result.deleted, true
-    assert_equal result.updated_by, @new_cataloger
+    assert Work.exists?(@work.id), true
   end
 
-  test 'un-deleting a deleted work' do
-    result = perform(
-      id: @deleted_work.id,
-    )
-
-    assert_equal result.deleted, false
-    assert_equal result.updated_by, @new_cataloger
+  test 'deleting a work without resources' do
+    result = perform(id: @work.id)
+    assert result, true
+    assert_raises ActiveRecord::RecordNotFound do
+      Work.find(@work.id)
+    end
   end
 
   test 'attempting to delete a work with resources fails and returns expected error' do
-    result = perform(
-      id: @work_with_resources.id,
-    )
-
-    assert_instance_of GraphQL::ExecutionError, result
-    assert_equal 'Invalid input: Record has associated resources and cannot be deleted', result.message
-
-    assert_equal Work.find(@work_with_resources.id).deleted, false
+    assert_raises GraphQL::ExecutionError do
+      result = perform(id: @work_with_resources.id)
+      assert_equal 'Invalid input: Record has associated resources and cannot be deleted', result.message
+      assert Work.exists?(@work_with_resources.id), true
+    end
   end
 end

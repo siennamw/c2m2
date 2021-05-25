@@ -21,27 +21,16 @@ class Resolvers::FetchCollectionByIdTest < ActiveSupport::TestCase
       name: 'name',
       repository: @repository,
     )
-    @deleted_collection = Collection.create!(
-      created_by: @cataloger,
-      name: 'deleted',
-      repository: @repository,
-      deleted: true,
-    )
   end
 
-  test 'returns expected record if not deleted' do
+  test 'returns expected record' do
     result = find(id: @collection.id)
     assert_equal @collection, result
   end
 
-  test 'if user not authenticated and record is deleted, raises RecordNotFound error' do
-    assert_raises ActiveRecord::RecordNotFound do
-      find(id: @deleted_collection.id)
-    end
-  end
-
-  test 'if user authenticated, returns expected record even if deleted' do
-    result = find({ id: @deleted_collection.id }, @cataloger)
-    assert_equal @deleted_collection, result
+  test 'if no matching record, returns GraphQL::ExecutionError error with expected message' do
+    result = find(id: 'nonsense')
+    assert_instance_of GraphQL::ExecutionError, result
+    assert_equal 'Entry not found', result.message
   end
 end

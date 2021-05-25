@@ -32,23 +32,11 @@ class Resolvers::SearchResourcesTest < ActiveSupport::TestCase
       )
     end
 
-    @deleted_resources = []
-    2.times do |n|
-      @deleted_resources << Resource.create!(
-        created_by: @cataloger,
-        work: @work,
-        material_format: @material_formats[n],
-        publication_status: %w(draft provisional approved).sample,
-        deleted: true,
-      )
-    end
-
     #  default sort order is created_at descending
     @resources = default_sort(@resources)
-    @deleted_resources = default_sort(@deleted_resources)
   end
 
-  test 'no arguments returns undeleted records in descending order by created_at' do
+  test 'no arguments returns all records in descending order by created_at' do
     result = find()
     assert_equal @resources.map(&:id), result.map(&:id)
   end
@@ -117,20 +105,5 @@ class Resolvers::SearchResourcesTest < ActiveSupport::TestCase
     )
 
     assert_equal @resources.map(&:id).sort.reverse[skip, first], result.map(&:id)
-  end
-
-  test 'deleted records included for authenticated user when include_deleted arg is true' do
-    result = find(
-      { include_deleted: true },
-      @cataloger
-    )
-
-    expected = default_sort([@resources, @deleted_resources].flatten).map(&:id)
-    assert_equal expected, result.map(&:id)
-  end
-
-  test 'deleted records not included for unauthenticated user even if include_deleted arg is true' do
-    result = find(include_deleted: true)
-    assert_equal @resources.map(&:id), result.map(&:id)
   end
 end

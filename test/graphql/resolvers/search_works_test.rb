@@ -22,7 +22,6 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
 
     @works = []
     @works_minimum = []
-    @deleted_works = []
     @composers = []
     @countries = []
     @directors = []
@@ -71,20 +70,11 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
         title: "minimum#{n}",
         year: 1900 + n,
       )
-
-      @deleted_works << Work.create!(
-        created_by: @cataloger,
-        media_type: @media_type,
-        title: "deleted#{n}",
-        year: 1950 + n,
-        deleted: true,
-      )
     end
 
     # default sort order is title ascending
     @works = default_sort(@works)
     @works_minimum = default_sort(@works_minimum)
-    @deleted_works = default_sort(@deleted_works)
   end
 
   test 'no filter (expecting all)' do
@@ -254,19 +244,5 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
     )
 
     assert_equal [@works, @works_minimum].flatten.map(&:id).sort.reverse[skip, first], result.map(&:id)
-  end
-
-  test 'deleted records included for authenticated user when include_deleted arg is true' do
-    result = find(
-      { include_deleted: true },
-      @cataloger
-    )
-
-    assert_equal default_sort([@works, @works_minimum, @deleted_works].flatten).map(&:id), result.map(&:id)
-  end
-
-  test 'deleted records not included for unauthenticated user even if include_deleted arg is true' do
-    result = find(include_deleted: true)
-    assert_equal default_sort([@works, @works_minimum].flatten).map(&:id), result.map(&:id)
   end
 end

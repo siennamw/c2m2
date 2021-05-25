@@ -29,21 +29,10 @@ class Resolvers::SearchCollectionsTest < ActiveSupport::TestCase
       )
     end
 
-    @deleted_collections = []
-    2.times do |n|
-      @deleted_collections << Collection.create!(
-        created_by: @cataloger,
-        name: "deleted#{n}",
-        repository: @repository,
-        deleted: true,
-      )
-    end
-
     @collections = default_sort(@collections)
-    @deleted_collections = default_sort(@deleted_collections)
   end
 
-  test 'no arguments returns undeleted records in ascending order by name' do
+  test 'no arguments returns all records in ascending order by name' do
     result = find()
     assert_equal @collections.map(&:id), result.map(&:id)
   end
@@ -155,20 +144,5 @@ class Resolvers::SearchCollectionsTest < ActiveSupport::TestCase
     )
 
     assert_equal @collections.map(&:id).sort.reverse[skip, first], result.map(&:id)
-  end
-
-  test 'deleted records included for authenticated user when include_deleted arg is true' do
-    result = find(
-      { include_deleted: true },
-      @cataloger
-    )
-
-    expected = default_sort([@collections, @deleted_collections].flatten).map(&:id)
-    assert_equal expected, result.map(&:id)
-  end
-
-  test 'deleted records not included for unauthenticated user even if include_deleted arg is true' do
-    result = find(include_deleted: true)
-    assert_equal @collections.map(&:id), result.map(&:id)
   end
 end

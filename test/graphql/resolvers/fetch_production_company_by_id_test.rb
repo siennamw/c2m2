@@ -16,26 +16,16 @@ class Resolvers::FetchProductionCompanyByIdTest < ActiveSupport::TestCase
       name: 'name',
 
     )
-    @deleted_production_company = ProductionCompany.create!(
-      created_by: @cataloger,
-      name: 'deleted',
-      deleted: true,
-    )
   end
 
-  test 'returns expected record if not deleted' do
+  test 'returns expected record' do
     result = find(id: @production_company.id)
     assert_equal @production_company, result
   end
 
-  test 'if user not authenticated and record is deleted, raises RecordNotFound error' do
-    assert_raises ActiveRecord::RecordNotFound do
-      find(id: @deleted_production_company.id)
-    end
-  end
-
-  test 'if user authenticated, returns expected record even if deleted' do
-    result = find({ id: @deleted_production_company.id }, @cataloger)
-    assert_equal @deleted_production_company, result
+  test 'if no matching record, returns GraphQL::ExecutionError error with expected message' do
+    result = find(id: 'nonsense')
+    assert_instance_of GraphQL::ExecutionError, result
+    assert_equal 'Entry not found', result.message
   end
 end

@@ -24,20 +24,10 @@ class Resolvers::SearchMaterialFormatsTest < ActiveSupport::TestCase
       )
     end
 
-    @deleted_material_formats = []
-    2.times do |n|
-      @deleted_material_formats << MaterialFormat.create!(
-        created_by: @cataloger,
-        name: "deleted#{n}",
-        deleted: true,
-      )
-    end
-
     @material_formats = default_sort(@material_formats)
-    @deleted_material_formats = default_sort(@deleted_material_formats)
   end
 
-  test 'no arguments returns undeleted records in ascending order by name' do
+  test 'no arguments returns all records in ascending order by name' do
     result = find()
     assert_equal @material_formats.map(&:id), result.map(&:id)
   end
@@ -149,20 +139,5 @@ class Resolvers::SearchMaterialFormatsTest < ActiveSupport::TestCase
     )
 
     assert_equal @material_formats.map(&:id).sort.reverse[skip, first], result.map(&:id)
-  end
-
-  test 'deleted records included for authenticated user when include_deleted arg is true' do
-    result = find(
-      { include_deleted: true },
-      @cataloger
-    )
-
-    expected = default_sort([@material_formats, @deleted_material_formats].flatten).map(&:id)
-    assert_equal expected, result.map(&:id)
-  end
-
-  test 'deleted records not included for unauthenticated user even if include_deleted arg is true' do
-    result = find(include_deleted: true)
-    assert_equal @material_formats.map(&:id), result.map(&:id)
   end
 end

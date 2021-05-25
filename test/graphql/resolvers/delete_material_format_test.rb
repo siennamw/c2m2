@@ -1,11 +1,11 @@
 require 'test_helper'
 
-class Resolvers::ToggleDeleteMaterialFormatTest < ActiveSupport::TestCase
-  def perform(args = {})
-    Resolvers::ToggleDeleteMaterialFormat.new.call(
+class Resolvers::DeleteMaterialFormatTest < ActiveSupport::TestCase
+  def perform(args = {}, current_user = @new_cataloger)
+    Resolvers::DeleteMaterialFormat.new.call(
       nil,
       args,
-      { current_user: @new_cataloger }
+      { current_user: current_user }
     )
   end
 
@@ -24,11 +24,6 @@ class Resolvers::ToggleDeleteMaterialFormatTest < ActiveSupport::TestCase
     @material_format = MaterialFormat.create!(
       name: 'MaterialFormat 1',
       created_by: @cataloger,
-    )
-    @deleted_material_format = MaterialFormat.create!(
-      name: 'Deleted MaterialFormat 1',
-      created_by: @cataloger,
-      deleted: true,
     )
     @material_format_with_resources = MaterialFormat.create!(
       name: 'MaterialFormat with work',
@@ -64,32 +59,28 @@ class Resolvers::ToggleDeleteMaterialFormatTest < ActiveSupport::TestCase
     )
   end
 
-  test 'deleting a material_format without works' do
-    result = perform(
-      id: @material_format.id,
-    )
+  test 'unauthenticated user attempting to delete a material format' do
+    assert_raises GraphQL::ExecutionError do
+      result = perform({ id: @material_format.id }, nil)
+      assert_equal 'Authentication required', result.message
+    end
 
-    assert_equal result.deleted, true
-    assert_equal result.updated_by, @new_cataloger
+    assert MaterialFormat.exists?(@material_format.id), true
   end
 
-  test 'un-deleting a deleted material_format' do
-    result = perform(
-      id: @deleted_material_format.id,
-    )
-
-    assert_equal result.deleted, false
-    assert_equal result.updated_by, @new_cataloger
+  test 'deleting a material format without resources' do
+    result = perform(id: @material_format.id)
+    assert result, true
+    assert_raises ActiveRecord::RecordNotFound do
+      MaterialFormat.find(@material_format.id)
+    end
   end
 
-  test 'attempting to delete a material_format with resources fails and returns expected error' do
-    result = perform(
-      id: @material_format_with_resources.id,
-    )
-
-    assert_instance_of GraphQL::ExecutionError, result
-    assert_equal 'Invalid input: Record has associated resources and cannot be deleted', result.message
-
-    assert_equal MaterialFormat.find(@material_format_with_resources.id).deleted, false
+  test 'attempting to delete a material format with resources fails and returns expected error' do
+    assert_raises GraphQL::ExecutionError do
+      result = perform(id: @material_format_with_resources.id)
+      assert_equal 'Invalid input: Record has associated resources and cannot be deleted', result.message
+      assert MaterialFormat.exists?(@material_format_with_resources.id), true
+    end
   end
 end

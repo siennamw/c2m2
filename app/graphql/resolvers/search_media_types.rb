@@ -7,7 +7,7 @@ class Resolvers::SearchMediaTypes
   include SearchHelper
 
   # scope is starting point for search
-  scope { context && context[:current_user] ? MediaType.all : MediaType.active }
+  scope { MediaType.all }
 
   # return type
   type !types[Types::MediaTypeType]
@@ -21,7 +21,6 @@ class Resolvers::SearchMediaTypes
 
   option :filter, type: MediaTypeFilter, with: :apply_filter
   option :first, type: types.Int, with: :apply_first
-  option :include_deleted, type: types.Boolean, default: false, with: :apply_include_deleted
   option :skip, type: types.Int, with: :apply_skip
   option :sorting, type: Types::Inputs::SortingFilter, default: { 'field' => 'name', 'is_ascending' => true },  with: :apply_sorting
 

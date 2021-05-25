@@ -17,4 +17,10 @@ class Resolvers::FetchCatalogerByIdTest < ActiveSupport::TestCase
     result = find(id: @cataloger.id)
     assert_equal @cataloger, result
   end
+
+  test 'if no matching record, returns GraphQL::ExecutionError error with expected message' do
+    result = find(id: 'nonsense')
+    assert_instance_of GraphQL::ExecutionError, result
+    assert_equal 'Entry not found', result.message
+  end
 end

@@ -18,28 +18,16 @@ class Resolvers::FetchWorkByIdTest < ActiveSupport::TestCase
       year: 1990,
       created_by: @cataloger,
     )
-    @deleted_work = Work.create!(
-      title: 'a deleted film',
-      media_type: media_type,
-      year: 1990,
-      created_by: @cataloger,
-      deleted: true,
-    )
   end
 
-  test 'returns expected record if not deleted' do
+  test 'returns expected record' do
     result = find(id: @work.id)
     assert_equal @work, result
   end
 
-  test 'if user not authenticated and record is deleted, raises RecordNotFound error' do
-    assert_raises ActiveRecord::RecordNotFound do
-      find(id: @deleted_work.id)
-    end
-  end
-
-  test 'if user authenticated, returns expected record even if deleted' do
-    result = find({ id: @deleted_work.id }, @cataloger)
-    assert_equal @deleted_work, result
+  test 'if no matching record, returns GraphQL::ExecutionError error with expected message' do
+    result = find(id: 'nonsense')
+    assert_instance_of GraphQL::ExecutionError, result
+    assert_equal 'Entry not found', result.message
   end
 end

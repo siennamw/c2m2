@@ -4,7 +4,9 @@ class Resolvers::FetchWorkById < GraphQL::Function
   argument :id, !types.ID
 
   def call(_obj, args, ctx)
-    scope = ctx[:current_user] ? Work.all : Work.active
+    scope = Work.all
     scope.find(args[:id])
+  rescue ActiveRecord::RecordNotFound
+    GraphQL::ExecutionError.new('Entry not found')
   end
 end

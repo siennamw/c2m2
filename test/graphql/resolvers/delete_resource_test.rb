@@ -1,11 +1,11 @@
 require 'test_helper'
 
-class Resolvers::ToggleDeleteResourceTest < ActiveSupport::TestCase
-  def perform(args = {})
-    Resolvers::ToggleDeleteResource.new.call(
+class Resolvers::DeleteResourceTest < ActiveSupport::TestCase
+  def perform(args = {}, current_user = @new_cataloger)
+    Resolvers::DeleteResource.new.call(
       nil,
       args,
-      { current_user: @new_cataloger }
+      { current_user: current_user }
     )
   end
 
@@ -53,30 +53,22 @@ class Resolvers::ToggleDeleteResourceTest < ActiveSupport::TestCase
       work: work,
       created_by: @cataloger,
     )
-    @deleted_resource = Resource.create!(
-      material_format: material_format,
-      collections: [collection],
-      work: work,
-      created_by: @cataloger,
-      deleted: true,
-    )
+  end
+
+  test 'unauthenticated user attempting to delete a resource' do
+    assert_raises GraphQL::ExecutionError do
+      result = perform({ id: @resource.id }, nil)
+      assert_equal 'Authentication required', result.message
+    end
+
+    assert Resource.exists?(@resource.id), true
   end
 
   test 'deleting a resource' do
-    result = perform(
-      id: @resource.id,
-    )
-
-    assert_equal result.deleted, true
-    assert_equal result.updated_by, @new_cataloger
-  end
-
-  test 'un-deleting a deleted resource' do
-    result = perform(
-      id: @deleted_resource.id,
-    )
-
-    assert_equal result.deleted, false
-    assert_equal result.updated_by, @new_cataloger
+    result = perform(id: @resource.id)
+    assert result, true
+    assert_raises ActiveRecord::RecordNotFound do
+      Resource.find(@resource.id)
+    end
   end
 end
