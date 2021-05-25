@@ -24,20 +24,10 @@ class Resolvers::SearchComposersTest < ActiveSupport::TestCase
       )
     end
 
-    @deleted_composers = []
-    2.times do |n|
-      @deleted_composers << Composer.create!(
-        created_by: @cataloger,
-        name: "deleted#{n}",
-        deleted: true,
-      )
-    end
-
     @composers = default_sort(@composers)
-    @deleted_composers = default_sort(@deleted_composers)
   end
 
-  test 'no arguments returns undeleted records in ascending order by name' do
+  test 'no arguments returns all records in ascending order by name' do
     result = find()
     assert_equal @composers.map(&:id), result.map(&:id)
   end
@@ -149,20 +139,5 @@ class Resolvers::SearchComposersTest < ActiveSupport::TestCase
     )
 
     assert_equal @composers.map(&:id).sort.reverse[skip, first], result.map(&:id)
-  end
-
-  test 'deleted records included for authenticated user when include_deleted arg is true' do
-    result = find(
-      { include_deleted: true },
-      @cataloger
-    )
-
-    expected = default_sort([@composers, @deleted_composers].flatten).map(&:id)
-    assert_equal expected, result.map(&:id)
-  end
-
-  test 'deleted records not included for unauthenticated user even if include_deleted arg is true' do
-    result = find(include_deleted: true)
-    assert_equal @composers.map(&:id), result.map(&:id)
   end
 end

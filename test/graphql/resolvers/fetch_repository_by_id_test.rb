@@ -16,27 +16,16 @@ class Resolvers::FetchRepositoryByIdTest < ActiveSupport::TestCase
       location: 'Paris, France',
       name: 'name',
     )
-    @deleted_repository = Repository.create!(
-      created_by: @cataloger,
-      location: 'Paris, France',
-      name: 'deleted',
-      deleted: true,
-    )
   end
 
-  test 'returns expected record if not deleted' do
+  test 'returns expected record' do
     result = find(id: @repository.id)
     assert_equal @repository, result
   end
 
-  test 'if user not authenticated and record is deleted, raises RecordNotFound error' do
-    assert_raises ActiveRecord::RecordNotFound do
-      find(id: @deleted_repository.id)
-    end
-  end
-
-  test 'if user authenticated, returns expected record even if deleted' do
-    result = find({ id: @deleted_repository.id }, @cataloger)
-    assert_equal @deleted_repository, result
+  test 'if no matching record, returns GraphQL::ExecutionError error with expected message' do
+    result = find(id: 'nonsense')
+    assert_instance_of GraphQL::ExecutionError, result
+    assert_equal 'Entry not found', result.message
   end
 end

@@ -15,26 +15,16 @@ class Resolvers::FetchCountryByIdTest < ActiveSupport::TestCase
       created_by: @cataloger,
       name: 'name',
     )
-    @deleted_country = Country.create!(
-      created_by: @cataloger,
-      name: 'deleted',
-      deleted: true,
-    )
   end
 
-  test 'returns expected record if not deleted' do
+  test 'returns expected record' do
     result = find(id: @country.id)
     assert_equal @country, result
   end
 
-  test 'if user not authenticated and record is deleted, raises RecordNotFound error' do
-    assert_raises ActiveRecord::RecordNotFound do
-      find(id: @deleted_country.id)
-    end
-  end
-
-  test 'if user authenticated, returns expected record even if deleted' do
-    result = find({ id: @deleted_country.id }, @cataloger)
-    assert_equal @deleted_country, result
+  test 'if no matching record, returns GraphQL::ExecutionError error with expected message' do
+    result = find(id: 'nonsense')
+    assert_instance_of GraphQL::ExecutionError, result
+    assert_equal 'Entry not found', result.message
   end
 end

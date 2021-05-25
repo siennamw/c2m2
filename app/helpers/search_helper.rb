@@ -27,9 +27,4 @@ module SearchHelper
     branches = normalize_filters(value).reduce { |a, b| a.or(b) }
     scope.merge(branches).distinct
   end
-
-  # excludes deleted records unless include_deleted is true
-  def apply_include_deleted(scope, include_deleted)
-    include_deleted ? scope : scope.active
-  end
 end

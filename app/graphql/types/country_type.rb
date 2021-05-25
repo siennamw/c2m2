@@ -5,7 +5,6 @@ Types::CountryType = GraphQL::ObjectType.define do
   field :name, !types.String
   field :description, types.String
 
-  field :deleted, types.Boolean
   field :deletable, types.Boolean # calls object.deletable
 
   field :works, ( -> { !types[Types::WorkType] })

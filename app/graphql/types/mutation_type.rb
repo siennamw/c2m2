@@ -13,16 +13,16 @@ Types::MutationType = GraphQL::ObjectType.define do
   field :createRepository, function: Resolvers::CreateRepository.new
   field :createResource, function: Resolvers::CreateResource.new
 
-  field :toggleDeleteCollection, function: Resolvers::ToggleDeleteCollection.new
-  field :toggleDeleteComposer, function: Resolvers::ToggleDeleteComposer.new
-  field :toggleDeleteCountry, function: Resolvers::ToggleDeleteCountry.new
-  field :toggleDeleteDirector, function: Resolvers::ToggleDeleteDirector.new
-  field :toggleDeleteMaterialFormat, function: Resolvers::ToggleDeleteMaterialFormat.new
-  field :toggleDeleteMediaType, function: Resolvers::ToggleDeleteMediaType.new
-  field :toggleDeleteProductionCompany, function: Resolvers::ToggleDeleteProductionCompany.new
-  field :toggleDeleteRepository, function: Resolvers::ToggleDeleteRepository.new
-  field :toggleDeleteResource, function: Resolvers::ToggleDeleteResource.new
-  field :toggleDeleteWork, function: Resolvers::ToggleDeleteWork.new
+  field :deleteCollection, function: Resolvers::DeleteCollection.new
+  field :deleteComposer, function: Resolvers::DeleteComposer.new
+  field :deleteCountry, function: Resolvers::DeleteCountry.new
+  field :deleteDirector, function: Resolvers::DeleteDirector.new
+  field :deleteMaterialFormat, function: Resolvers::DeleteMaterialFormat.new
+  field :deleteMediaType, function: Resolvers::DeleteMediaType.new
+  field :deleteProductionCompany, function: Resolvers::DeleteProductionCompany.new
+  field :deleteRepository, function: Resolvers::DeleteRepository.new
+  field :deleteResource, function: Resolvers::DeleteResource.new
+  field :deleteWork, function: Resolvers::DeleteWork.new
 
   field :updateCatalogerAdmin, function: Resolvers::UpdateCatalogerAdmin.new
   field :updateCatalogerSelf, function: Resolvers::UpdateCatalogerSelf.new

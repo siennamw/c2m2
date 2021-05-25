@@ -6,7 +6,6 @@ Types::RepositoryType = GraphQL::ObjectType.define do
   field :location, !types.String
   field :website, types.String
 
-  field :deleted, types.Boolean
   field :deletable, types.Boolean # calls object.deletable
   field :collections, ( -> { !types[Types::CollectionType] })
 

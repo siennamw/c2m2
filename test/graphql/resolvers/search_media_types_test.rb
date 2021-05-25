@@ -24,20 +24,10 @@ class Resolvers::SearchMediaTypesTest < ActiveSupport::TestCase
       )
     end
 
-    @deleted_media_types = []
-    2.times do |n|
-      @deleted_media_types << MediaType.create!(
-        created_by: @cataloger,
-        name: "deleted#{n}",
-        deleted: true,
-      )
-    end
-
     @media_types = default_sort(@media_types)
-    @deleted_media_types = default_sort(@deleted_media_types)
   end
 
-  test 'no arguments returns undeleted records in ascending order by name' do
+  test 'no arguments returns all records in ascending order by name' do
     result = find()
     assert_equal @media_types.map(&:id), result.map(&:id)
   end
@@ -140,20 +130,5 @@ class Resolvers::SearchMediaTypesTest < ActiveSupport::TestCase
     )
 
     assert_equal @media_types.map(&:id).sort.reverse[skip, first], result.map(&:id)
-  end
-
-  test 'deleted records included for authenticated user when include_deleted arg is true' do
-    result = find(
-      { include_deleted: true },
-      @cataloger
-    )
-
-    expected = default_sort([@media_types, @deleted_media_types].flatten).map(&:id)
-    assert_equal expected, result.map(&:id)
-  end
-
-  test 'deleted records not included for unauthenticated user even if include_deleted arg is true' do
-    result = find(include_deleted: true)
-    assert_equal @media_types.map(&:id), result.map(&:id)
   end
 end

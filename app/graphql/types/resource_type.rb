@@ -7,7 +7,6 @@ Types::ResourceType = GraphQL::ObjectType.define do
   field :cataloging_notes, types.String
   field :publication_status, types.String
 
-  field :deleted, types.Boolean
   field :deletable, types.Boolean # calls object.deletable
 
   field :work, (-> { !Types::WorkType })

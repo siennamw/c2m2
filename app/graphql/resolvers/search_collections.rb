@@ -7,7 +7,7 @@ class Resolvers::SearchCollections
   include SearchHelper
 
   # scope is starting point for search
-  scope { context && context[:current_user] ? Collection.all : Collection.active }
+  scope { Collection.all }
 
   # return type
   type !types[Types::CollectionType]
@@ -21,7 +21,6 @@ class Resolvers::SearchCollections
 
   option :filter, type: CollectionFilter, with: :apply_filter
   option :first, type: types.Int, with: :apply_first
-  option :include_deleted, type: types.Boolean, default: false, with: :apply_include_deleted
   option :skip, type: types.Int, with: :apply_skip
   option :sorting, type: Types::Inputs::SortingFilter, default: { 'field' => 'name', 'is_ascending' => true }, with: :apply_sorting
 

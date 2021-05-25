@@ -35,39 +35,22 @@ class Resolvers::FetchResourceByIdTest < ActiveSupport::TestCase
       publication_status: 'draft',
       work: work,
     )
-    @deleted_resource = Resource.create!(
-      created_by: @cataloger,
-      material_format: material_format,
-      publication_status: 'approved',
-      work: work,
-      deleted: true,
-    )
   end
 
-  test 'returns expected record if not deleted and not draft' do
+  test 'returns expected record if not draft' do
     result = find(id: @resource.id)
     assert_equal @resource, result
   end
 
-  test 'if user not authenticated and record is draft, raises RecordNotFound error' do
-    assert_raises ActiveRecord::RecordNotFound do
-      find(id: @draft_resource.id)
-    end
+  test 'if user not authenticated and record is draft, returns GraphQL::ExecutionError error with expected message' do
+    result = find(id: @draft_resource.id)
+    assert_instance_of GraphQL::ExecutionError, result
+    assert_equal 'Entry not found', result.message
   end
 
-  test 'if user not authenticated and record is deleted, raises RecordNotFound error' do
-    assert_raises ActiveRecord::RecordNotFound do
-      find(id: @deleted_resource.id)
-    end
-  end
-
-  test 'if user authenticated, returns expected record even if draft' do
-    result = find({ id: @draft_resource.id }, @cataloger)
-    assert_equal @draft_resource, result
-  end
-
-  test 'if user authenticated, returns expected record even if deleted' do
-    result = find({ id: @deleted_resource.id }, @cataloger)
-    assert_equal @deleted_resource, result
+  test 'if no matching record, returns GraphQL::ExecutionError error with expected message' do
+    result = find(id: 'nonsense')
+    assert_instance_of GraphQL::ExecutionError, result
+    assert_equal 'Entry not found', result.message
   end
 end

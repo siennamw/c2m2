@@ -7,7 +7,7 @@ class Resolvers::SearchDirectors
   include SearchHelper
 
   # scope is starting point for search
-  scope { context && context[:current_user] ? Director.all : Director.active }
+  scope { Director.all }
 
   # return type
   type !types[Types::DirectorType]
@@ -21,7 +21,6 @@ class Resolvers::SearchDirectors
 
   option :filter, type: DirectorFilter, with: :apply_filter
   option :first, type: types.Int, with: :apply_first
-  option :include_deleted, type: types.Boolean, default: false, with: :apply_include_deleted
   option :skip, type: types.Int, with: :apply_skip
   option :sorting, type: Types::Inputs::SortingFilter, default: { 'field' => 'name', 'is_ascending' => true }, with: :apply_sorting
 

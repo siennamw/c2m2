@@ -24,20 +24,10 @@ class Resolvers::SearchDirectorsTest < ActiveSupport::TestCase
       )
     end
 
-    @deleted_directors = []
-    2.times do |n|
-      @deleted_directors << Director.create!(
-        created_by: @cataloger,
-        name: "deleted#{n}",
-        deleted: true,
-      )
-    end
-
     @directors = default_sort(@directors)
-    @deleted_directors = default_sort(@deleted_directors)
   end
 
-  test 'no arguments returns undeleted records in ascending order by name' do
+  test 'no arguments returns all records in ascending order by name' do
     result = find()
     assert_equal @directors.map(&:id), result.map(&:id)
   end
@@ -149,20 +139,5 @@ class Resolvers::SearchDirectorsTest < ActiveSupport::TestCase
     )
 
     assert_equal @directors.map(&:id).sort.reverse[skip, first], result.map(&:id)
-  end
-
-  test 'deleted records included for authenticated user when include_deleted arg is true' do
-    result = find(
-      { include_deleted: true },
-      @cataloger
-    )
-
-    expected = default_sort([@directors, @deleted_directors].flatten).map(&:id)
-    assert_equal expected, result.map(&:id)
-  end
-
-  test 'deleted records not included for unauthenticated user even if include_deleted arg is true' do
-    result = find(include_deleted: true)
-    assert_equal @directors.map(&:id), result.map(&:id)
   end
 end

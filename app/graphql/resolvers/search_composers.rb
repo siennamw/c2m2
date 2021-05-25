@@ -7,7 +7,7 @@ class Resolvers::SearchComposers
   include SearchHelper
 
   # scope is starting point for search
-  scope { context && context[:current_user] ? Composer.all : Composer.active }
+  scope { Composer.all }
 
   # return type
   type !types[Types::ComposerType]
@@ -21,7 +21,6 @@ class Resolvers::SearchComposers
 
   option :filter, type: ComposerFilter, with: :apply_filter
   option :first, type: types.Int, with: :apply_first
-  option :include_deleted, type: types.Boolean, default: false, with: :apply_include_deleted
   option :skip, type: types.Int, with: :apply_skip
   option :sorting, type: Types::Inputs::SortingFilter, default: { 'field' => 'name', 'is_ascending' => true }, with: :apply_sorting
 

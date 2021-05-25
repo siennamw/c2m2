@@ -7,8 +7,10 @@ class Resolvers::FetchResourceById < GraphQL::Function
     if ctx[:current_user]
       Resource.find(args[:id])
     else
-      # filter out deleted and draft entries for unauthenticated users
-      Resource.active.where.not(publication_status: 'draft').find(args[:id])
+      # filter out draft entries for unauthenticated users
+      Resource.where.not(publication_status: 'draft').find(args[:id])
     end
+  rescue ActiveRecord::RecordNotFound
+    GraphQL::ExecutionError.new('Entry not found')
   end
 end
