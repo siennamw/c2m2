@@ -1,14 +1,12 @@
 import { useFormikContext } from 'formik';
 import React from 'react';
-import { isEmpty } from 'lodash';
 
-import { getInitialFormValuesForSchema } from '../../validationSchemas';
+import { useHistory } from 'react-router-dom';
 
 export const DeleteButton = ({
   data,
   deleteMutation,
   deleteMutationName,
-  yupSchema
 }) => {
   const {
     isSubmitting,
@@ -17,14 +15,14 @@ export const DeleteButton = ({
     resetForm,
     values,
   } = useFormikContext();
+  const history = useHistory();
 
-  if (!data || !data.id || !data.deletable) {
-    // new entry or entry cannot be deleted,
-    // suppress delete button
+  if (!data || !data.id) {
+    // suppress delete button for new entry
     return null;
   }
 
-  const handleDelete = async (values, setSubmitting, setStatus, resetForm) => {
+  const handleDelete = async (values, setSubmitting, setStatus) => {
     if (!deleteMutation) return;
 
     setStatus(null);
@@ -32,24 +30,19 @@ export const DeleteButton = ({
     try {
       const payload = { variables: { id: values.id } };
       const { data, errors } = await deleteMutation(payload);
+      const success = data[deleteMutationName];
 
-      if (!errors && data && !isEmpty(data)) {
-        if (data[deleteMutationName]) {
-          resetForm(getInitialFormValuesForSchema(yupSchema, data[deleteMutationName]));
-        }
-
-        setStatus({
-          type: 'success',
-          message: 'Success!',
-        });
-      } else {
-        setStatus({
-          type: 'error',
-          message: errors
-            ? errors.map(({ message }) => message).join('; ')
-            : 'Failed to delete record. Please try again later.',
-        });
+      if (success && !errors) {
+        history.push('/dashboard/edit/delete-successful');
+        return;
       }
+
+      setStatus({
+        type: 'error',
+        message: errors
+          ? errors.map(({ message }) => message).join('; ')
+          : 'Failed to delete record. Please try again later.',
+      });
     } catch (err) {
       setStatus({
         type: 'error',
@@ -60,17 +53,15 @@ export const DeleteButton = ({
     setSubmitting(false);
   };
 
-  const action = data.deleted ? 'un-delete' : 'delete';
-
   return (
     <button
-      className={`button-${action} u-full-width`}
-      disabled={isSubmitting}
+      className={`button-delete u-full-width`}
+      disabled={isSubmitting || !data.deletable}
       onClick={() => handleDelete(values, setSubmitting, setStatus, resetForm)}
-      title={`${action} this record`}
+      title={data.deletable ? 'delete this record' : 'record cannot be deleted'}
       type="button"
     >
-      {action}
+      Delete
     </button>
   );
 };

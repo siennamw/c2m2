@@ -56,8 +56,7 @@ const CollectionForm = ({ match, successCallback }) => {
                   <DeleteButton
                     data={data}
                     deleteMutation={deleteMutation}
-                    deleteMutationName="toggleDeleteCollection"
-                    yupSchema={schema}
+                    deleteMutationName="deleteCollection"
                   />
                 </EntryFormButtons>
               </EntryFormWrapper>

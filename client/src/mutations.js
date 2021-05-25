@@ -42,7 +42,6 @@ export const CREATE_COLLECTION = gql`
       finding_aid_link
       description
       deletable
-      deleted
       repository {
         id
       }
@@ -63,7 +62,6 @@ export const CREATE_COMPOSER = gql`
       name
       imdb_link
       deletable
-      deleted
     }
   }
 `;
@@ -81,7 +79,6 @@ export const CREATE_COUNTRY = gql`
       name
       description
       deletable
-      deleted
     }
   }
 `;
@@ -99,7 +96,6 @@ export const CREATE_DIRECTOR = gql`
       name
       imdb_link
       deletable
-      deleted
     }
   }
 `;
@@ -117,7 +113,6 @@ export const CREATE_MATERIAL_FORMAT = gql`
       name
       description
       deletable
-      deleted
     }
   }
 `;
@@ -135,7 +130,6 @@ export const CREATE_MEDIA_TYPE = gql`
       name
       description
       deletable
-      deleted
     }
   }
 `;
@@ -153,7 +147,6 @@ export const CREATE_PRODUCTION_COMPANY = gql`
       name
       contact_info
       deletable
-      deleted
     }
   }
 `;
@@ -174,7 +167,6 @@ export const CREATE_REPOSITORY = gql`
       location
       website
       deletable
-      deleted
     }
   }
 `;
@@ -201,7 +193,6 @@ export const CREATE_RESOURCE = gql`
       citation_source
       cataloging_notes
       deletable
-      deleted
       work {
         id
       }
@@ -249,7 +240,6 @@ export const CREATE_WORK = gql`
       imdb_link
       year
       deletable
-      deleted
       country {
         id
       }
@@ -272,35 +262,15 @@ export const CREATE_WORK = gql`
   }
 `;
 
-// toggle (soft) delete entry
+// delete entry
 
 export const DELETE_COLLECTION = gql`
   mutation DeleteCollection(
     $id: ID!,
   ){
-    toggleDeleteCollection(
+    deleteCollection(
       id: $id,
-    ) {
-      id
-      name
-      finding_aid_link
-      description
-      deletable
-      deleted
-      repository {
-        id
-      }
-      created_at
-      created_by {
-        id
-        name
-      }
-      updated_at
-      updated_by {
-        id
-        name
-      }
-    }
+    )
   }
 `;
 
@@ -308,25 +278,9 @@ export const DELETE_COMPOSER = gql`
   mutation DeleteComposer(
     $id: ID!,
   ){
-    toggleDeleteComposer(
+    deleteComposer(
       id: $id,
-    ) {
-      id
-      name
-      imdb_link
-      deletable
-      deleted
-      created_at
-      created_by {
-        id
-        name
-      }
-      updated_at
-      updated_by {
-        id
-        name
-      }
-    }
+    )
   }
 `;
 
@@ -334,25 +288,9 @@ export const DELETE_COUNTRY = gql`
   mutation DeleteCountry(
     $id: ID!,
   ){
-    toggleDeleteCountry(
+    deleteCountry(
       id: $id,
-    ) {
-      id
-      name
-      description
-      deletable
-      deleted
-      created_at
-      created_by {
-        id
-        name
-      }
-      updated_at
-      updated_by {
-        id
-        name
-      }
-    }
+    )
   }
 `;
 
@@ -360,25 +298,9 @@ export const DELETE_DIRECTOR = gql`
   mutation DeleteDirector(
     $id: ID!,
   ){
-    toggleDeleteDirector(
+    deleteDirector(
       id: $id,
-    ) {
-      id
-      name
-      imdb_link
-      deletable
-      deleted
-      created_at
-      created_by {
-        id
-        name
-      }
-      updated_at
-      updated_by {
-        id
-        name
-      }
-    }
+    )
   }
 `;
 
@@ -386,25 +308,9 @@ export const DELETE_MATERIAL_FORMAT = gql`
   mutation DeleteMaterialFormat(
     $id: ID!,
   ){
-    toggleDeleteMaterialFormat(
+    deleteMaterialFormat(
       id: $id,
-    ) {
-      id
-      name
-      description
-      deletable
-      deleted
-      created_at
-      created_by {
-        id
-        name
-      }
-      updated_at
-      updated_by {
-        id
-        name
-      }
-    }
+    )
   }
 `;
 
@@ -412,25 +318,9 @@ export const DELETE_MEDIA_TYPE = gql`
   mutation DeleteMediaType(
     $id: ID!,
   ){
-    toggleDeleteMediaType(
+    deleteMediaType(
       id: $id,
-    ) {
-      id
-      name
-      description
-      deletable
-      deleted
-      created_at
-      created_by {
-        id
-        name
-      }
-      updated_at
-      updated_by {
-        id
-        name
-      }
-    }
+    )
   }
 `;
 
@@ -438,25 +328,9 @@ export const DELETE_PRODUCTION_COMPANY = gql`
   mutation DeleteProductionCompany(
     $id: ID!,
   ){
-    toggleDeleteProductionCompany(
+    deleteProductionCompany(
       id: $id,
-    ) {
-      id
-      name
-      contact_info
-      deletable
-      deleted
-      created_at
-      created_by {
-        id
-        name
-      }
-      updated_at
-      updated_by {
-        id
-        name
-      }
-    }
+    )
   }
 `;
 
@@ -464,63 +338,19 @@ export const DELETE_REPOSITORY = gql`
   mutation DeleteRepository(
     $id: ID!,
   ){
-    toggleDeleteRepository(
+    deleteRepository(
       id: $id,
-    ) {
-      id
-      name
-      location
-      website
-      deletable
-      deleted
-      created_at
-      created_by {
-        id
-        name
-      }
-      updated_at
-      updated_by {
-        id
-        name
-      }
-    }
+    )
   }
 `;
 
 export const DELETE_RESOURCE = gql`
-  mutation DeleteWork(
+  mutation DeleteResource(
     $id: ID!,
   ){
-    toggleDeleteResource(
+    deleteResource(
       id: $id,
-    ) {
-      id
-      digital_copy_link
-      citation_source
-      cataloging_notes
-      publication_status
-      deletable
-      deleted
-      work {
-        id
-      }
-      material_format {
-        id
-      }
-      collections {
-        id
-      }
-      created_at
-      created_by {
-        id
-        name
-      }
-      updated_at
-      updated_by {
-        id
-        name
-      }
-    }
+    )
   }
 `;
 
@@ -528,46 +358,9 @@ export const DELETE_WORK = gql`
   mutation DeleteWork(
     $id: ID!,
   ){
-    toggleDeleteWork(
+    deleteWork(
       id: $id,
-    ) {
-      id
-      title
-      secondary_title
-      alias_alternates
-      imdb_link
-      year
-      deletable
-      deleted
-      country {
-        id
-      }
-      media_type {
-        id
-      }
-      composers {
-        id
-      }
-      directors {
-        id
-      }
-      orchestrators {
-        id
-      }
-      production_companies {
-        id
-      }
-      created_at
-      created_by {
-        id
-        name
-      }
-      updated_at
-      updated_by {
-        id
-        name
-      }
-    }
+    )
   }
 `;
 
@@ -665,7 +458,6 @@ export const UPDATE_COLLECTION = gql`
       finding_aid_link
       description
       deletable
-      deleted
       repository {
         id
       }
@@ -698,7 +490,6 @@ export const UPDATE_COMPOSER = gql`
       name
       imdb_link
       deletable
-      deleted
       created_at
       created_by {
         id
@@ -728,7 +519,6 @@ export const UPDATE_COUNTRY = gql`
       name
       description
       deletable
-      deleted
       created_at
       created_by {
         id
@@ -758,7 +548,6 @@ export const UPDATE_DIRECTOR = gql`
       name
       imdb_link
       deletable
-      deleted
       created_at
       created_by {
         id
@@ -788,7 +577,6 @@ export const UPDATE_MATERIAL_FORMAT = gql`
       name
       description
       deletable
-      deleted
       created_at
       created_by {
         id
@@ -818,7 +606,6 @@ export const UPDATE_MEDIA_TYPE = gql`
       name
       description
       deletable
-      deleted
       created_at
       created_by {
         id
@@ -848,7 +635,6 @@ export const UPDATE_PRODUCTION_COMPANY = gql`
       name
       contact_info
       deletable
-      deleted
       created_at
       created_by {
         id
@@ -881,7 +667,6 @@ export const UPDATE_REPOSITORY = gql`
       location
       website
       deletable
-      deleted
       created_at
       created_by {
         id
@@ -923,7 +708,6 @@ export const UPDATE_RESOURCE = gql`
       cataloging_notes
       publication_status
       deletable
-      deleted
       work {
         id
       }
@@ -983,7 +767,6 @@ export const UPDATE_WORK = gql`
       imdb_link
       year
       deletable
-      deleted
       country {
         id
       }

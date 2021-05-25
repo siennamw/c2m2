@@ -68,8 +68,7 @@ const MediaTypeForm = ({ match, successCallback }) => {
                   <DeleteButton
                     data={data}
                     deleteMutation={deleteMutation}
-                    deleteMutationName="toggleDeleteMediaType"
-                    yupSchema={schema}
+                    deleteMutationName="deleteMediaType"
                   />
                 </EntryFormButtons>
               </EntryFormWrapper>

@@ -56,8 +56,7 @@ const DirectorForm = ({ match, successCallback }) => {
                   <DeleteButton
                     data={data}
                     deleteMutation={deleteMutation}
-                    deleteMutationName="toggleDeleteDirector"
-                    yupSchema={schema}
+                    deleteMutationName="deleteDirector"
                   />
                 </EntryFormButtons>
               </EntryFormWrapper>

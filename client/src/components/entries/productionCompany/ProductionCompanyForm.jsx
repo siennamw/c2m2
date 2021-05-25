@@ -56,8 +56,7 @@ const ProductionCompanyForm = ({ match, successCallback }) => {
                   <DeleteButton
                     data={data}
                     deleteMutation={deleteMutation}
-                    deleteMutationName="toggleDeleteProductionCompany"
-                    yupSchema={schema}
+                    deleteMutationName="deleteProductionCompany"
                   />
                 </EntryFormButtons>
               </EntryFormWrapper>

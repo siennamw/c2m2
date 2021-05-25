@@ -124,15 +124,9 @@ form {
       margin-right: 0;
     }
 
-    button:hover {
-      &.button-delete {
-        background-color: @error;
-        color: @white;
-      }
-      &.button-un-delete {
-        background-color: @success;
-        color: @white;
-      }
+    button:not(:disabled):hover.button-delete {
+      background-color: @error;
+      color: @white;
     }
   }
 
@@ -250,7 +244,7 @@ footer {
   }
 }
 
-.publication-status, .deletion-status {
+.publication-status {
   color: white;
   background-color: @gray;
 
@@ -260,10 +254,6 @@ footer {
 
   &.provisional {
     background-color: @warn;
-  }
-
-  &.deleted {
-    background-color: @error;
   }
 
   &.bar { // for detailed resource view

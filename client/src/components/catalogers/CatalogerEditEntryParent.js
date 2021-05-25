@@ -14,6 +14,7 @@ import RepositoryForm from '../entries/repository/RepositoryForm';
 import ResourceForm from '../entries/resource/ResourceForm';
 import WorkForm from '../entries/work/WorkForm';
 
+import DeleteSuccessful from './DeleteSuccessful';
 import UnknownRoute from '../UnknownRoute';
 
 const CatalogerEditEntryParent = ({ match }) => (
@@ -29,6 +30,7 @@ const CatalogerEditEntryParent = ({ match }) => (
     <Route exact path={`${match.path}/repository/:id`} component={RepositoryForm} />
     <Route exact path={`${match.path}/resource/:id`} component={ResourceForm} />
     <Route exact path={`${match.path}/work/:id`} component={WorkForm} />
+    <Route exact path={`${match.path}/delete-successful`} component={DeleteSuccessful} />
     <Route component={UnknownRoute} />
   </Switch>
 );

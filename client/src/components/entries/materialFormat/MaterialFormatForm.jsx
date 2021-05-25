@@ -69,8 +69,7 @@ const MaterialFormatForm = ({ match, successCallback }) => {
                   <DeleteButton
                     data={data}
                     deleteMutation={deleteMutation}
-                    deleteMutationName="toggleDeleteMaterialFormat"
-                    yupSchema={schema}
+                    deleteMutationName="deleteMaterialFormat"
                   />
                 </EntryFormButtons>
               </EntryFormWrapper>

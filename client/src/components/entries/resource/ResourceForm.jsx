@@ -56,8 +56,7 @@ const ResourceForm = ({ match, successCallback }) => {
                   <DeleteButton
                     data={data}
                     deleteMutation={deleteMutation}
-                    deleteMutationName="toggleDeleteResource"
-                    yupSchema={schema}
+                    deleteMutationName="deleteResource"
                   />
                 </EntryFormButtons>
               </EntryFormWrapper>
