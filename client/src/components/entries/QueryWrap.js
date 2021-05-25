@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useQuery } from '@apollo/client';
 
-import DeletionStatusBanner from './DeletionStatusBanner';
 import StatusMessage from '../StatusMessage';
 import * as queries from '../../queries';
 
@@ -127,9 +126,6 @@ const QueryWrap = ({
 
   return (
     <Fragment>
-      <DeletionStatusBanner
-        deleted={data[queryName] && data[queryName].deleted}
-      />
       {children(data[queryName])}
       {
         pagination

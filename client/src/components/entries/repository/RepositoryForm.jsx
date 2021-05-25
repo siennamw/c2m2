@@ -56,8 +56,7 @@ const RepositoryForm = ({ match, successCallback }) => {
                   <DeleteButton
                     data={data}
                     deleteMutation={deleteMutation}
-                    deleteMutationName="toggleDeleteRepository"
-                    yupSchema={schema}
+                    deleteMutationName="deleteRepository"
                   />
                 </EntryFormButtons>
               </EntryFormWrapper>

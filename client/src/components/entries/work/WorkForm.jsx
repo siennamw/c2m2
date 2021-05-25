@@ -52,8 +52,7 @@ const WorkForm = ({ match, successCallback }) => {
                   <DeleteButton
                     data={data}
                     deleteMutation={deleteMutation}
-                    deleteMutationName="toggleDeleteWork"
-                    yupSchema={schema}
+                    deleteMutationName="deleteWork"
                   />
                 </EntryFormButtons>
               </EntryFormWrapper>

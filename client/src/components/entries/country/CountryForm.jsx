@@ -56,8 +56,7 @@ const CountryForm = ({ match, successCallback }) => {
                   <DeleteButton
                     data={data}
                     deleteMutation={deleteMutation}
-                    deleteMutationName="toggleDeleteCountry"
-                    yupSchema={schema}
+                    deleteMutationName="deleteCountry"
                   />
                 </EntryFormButtons>
               </EntryFormWrapper>

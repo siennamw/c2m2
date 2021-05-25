@@ -244,7 +244,6 @@ export const COLLECTION_BY_ID = gql`
       name
       finding_aid_link
       description
-      deleted
       deletable
       repository {
         id
@@ -280,7 +279,6 @@ export const COMPOSER_BY_ID = gql`
       id
       name
       imdb_link
-      deleted
       deletable
       works {
         id
@@ -310,7 +308,6 @@ export const COUNTRY_BY_ID = gql`
       id
       name
       description
-      deleted
       deletable
       works {
         id
@@ -336,7 +333,6 @@ export const DIRECTOR_BY_ID = gql`
       id
       name
       imdb_link
-      deleted
       deletable
       works {
         id
@@ -362,7 +358,6 @@ export const MATERIAL_FORMAT_BY_ID = gql`
       id
       name
       description
-      deleted
       deletable
       resources {
         id
@@ -391,7 +386,6 @@ export const MEDIA_TYPE_BY_ID = gql`
       id
       name
       description
-      deleted
       deletable
       works {
         id
@@ -417,7 +411,6 @@ export const PRODUCTION_COMPANY_BY_ID = gql`
       id
       name
       contact_info
-      deleted
       deletable
       works {
         id
@@ -444,7 +437,6 @@ export const REPOSITORY_BY_ID = gql`
       name
       location
       website
-      deleted
       deletable
       collections {
         id
@@ -472,7 +464,6 @@ export const RESOURCE_BY_ID = gql`
       citation_source
       cataloging_notes
       publication_status
-      deleted
       deletable
       work {
         id
@@ -509,7 +500,6 @@ export const WORK_BY_ID = gql`
       alias_alternates
       imdb_link
       year
-      deleted
       deletable
       country {
         id
@@ -587,14 +577,12 @@ export const SEARCH_COLLECTIONS = gql`
   query searchCollections(
     $filter: CollectionFilter,
     $first: Int,
-    $includeDeleted: Boolean,
     $skip: Int,
     $sorting: SortingFilter,
   ){
     allCollections(
       filter: $filter,
       first: $first,
-      include_deleted: $includeDeleted,
       skip: $skip,
       sorting: $sorting,
     ) {
@@ -609,14 +597,12 @@ export const SEARCH_COMPOSERS = gql`
   query searchComposers(
     $filter: ComposerFilter,
     $first: Int,
-    $includeDeleted: Boolean,
     $skip: Int,
     $sorting: SortingFilter,
   ){
     allComposers(
       filter: $filter,
       first: $first,
-      include_deleted: $includeDeleted,
       skip: $skip,
       sorting: $sorting,
     ) {
@@ -631,14 +617,12 @@ export const SEARCH_COUNTRIES = gql`
   query searchCountries(
     $filter: CountryFilter,
     $first: Int,
-    $includeDeleted: Boolean,
     $skip: Int,
     $sorting: SortingFilter,
   ){
     allCountries(
       filter: $filter,
       first: $first,
-      include_deleted: $includeDeleted,
       skip: $skip,
       sorting: $sorting,
     ) {
@@ -653,14 +637,12 @@ export const SEARCH_DIRECTORS = gql`
   query searchDirectors(
     $filter: DirectorFilter,
     $first: Int,
-    $includeDeleted: Boolean,
     $skip: Int,
     $sorting: SortingFilter,
   ){
     allDirectors(
       filter: $filter,
       first: $first,
-      include_deleted: $includeDeleted,
       skip: $skip,
       sorting: $sorting,
     ) {
@@ -675,14 +657,12 @@ export const SEARCH_MATERIAL_FORMATS = gql`
   query searchMaterialFormats(
     $filter: MaterialFormatFilter,
     $first: Int,
-    $includeDeleted: Boolean,
     $skip: Int,
     $sorting: SortingFilter,
   ){
     allMaterialFormats(
       filter: $filter,
       first: $first,
-      include_deleted: $includeDeleted,
       skip: $skip,
       sorting: $sorting,
     ) {
@@ -697,14 +677,12 @@ export const SEARCH_MEDIA_TYPES = gql`
   query searchMediaTypes(
     $filter: MediaTypeFilter,
     $first: Int,
-    $includeDeleted: Boolean,
     $skip: Int,
     $sorting: SortingFilter,
   ){
     allMediaTypes(
       filter: $filter,
       first: $first,
-      include_deleted: $includeDeleted,
       skip: $skip,
       sorting: $sorting,
     ) {
@@ -719,14 +697,12 @@ export const SEARCH_PRODUCTION_COMPANIES = gql`
   query searchProductionCompanies(
     $filter: ProductionCompanyFilter,
     $first: Int,
-    $includeDeleted: Boolean,
     $skip: Int,
     $sorting: SortingFilter,
   ){
     allProductionCompanies(
       filter: $filter,
       first: $first,
-      include_deleted: $includeDeleted,
       skip: $skip,
       sorting: $sorting,
     ) {
@@ -740,14 +716,12 @@ export const SEARCH_REPOSITORIES = gql`
   query searchRepositories(
     $filter: RepositoryFilter,
     $first: Int,
-    $includeDeleted: Boolean,
     $skip: Int,
     $sorting: SortingFilter,
   ){
     allRepositories(
       filter: $filter,
       first: $first,
-      include_deleted: $includeDeleted,
       skip: $skip,
       sorting: $sorting,
     ) {
@@ -761,13 +735,11 @@ export const SEARCH_REPOSITORIES = gql`
 export const SEARCH_RESOURCES = gql`
   query searchResources(
     $first: Int,
-    $includeDeleted: Boolean,
     $skip: Int,
     $sorting: SortingFilter,
   ){
     allResources(
       first: $first,
-      include_deleted: $includeDeleted,
       skip: $skip,
       sorting: $sorting,
     ) {
@@ -794,14 +766,12 @@ export const SEARCH_WORKS = gql`
   query searchWorks(
     $filter: WorkFilter,
     $first: Int,
-    $includeDeleted: Boolean,
     $skip: Int,
     $sorting: SortingFilter,
   ){
     allWorks(
       filter: $filter,
       first: $first,
-      include_deleted: $includeDeleted,
       skip: $skip,
       sorting: $sorting,
     ) {

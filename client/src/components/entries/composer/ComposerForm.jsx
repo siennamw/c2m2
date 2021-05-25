@@ -52,8 +52,7 @@ const ComposerForm = ({ match, successCallback }) => {
                   <DeleteButton
                     data={data}
                     deleteMutation={deleteMutation}
-                    deleteMutationName="toggleDeleteComposer"
-                    yupSchema={schema}
+                    deleteMutationName="deleteComposer"
                   />
                 </EntryFormButtons>
               </EntryFormWrapper>
