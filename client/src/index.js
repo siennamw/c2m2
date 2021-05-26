@@ -2,11 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import { ApolloProvider } from '@apollo/react-hooks';
-import { ApolloClient } from 'apollo-client';
-import { setContext } from 'apollo-link-context';
-import { onError } from 'apollo-link-error';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloClient, ApolloLink, InMemoryCache } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client/react';
+import { setContext } from '@apollo/client/link/context';
+import { onError } from '@apollo/client/link/error';
 import { createUploadLink } from 'apollo-upload-client';
 
 import registerServiceWorker from './registerServiceWorker';
@@ -16,7 +15,7 @@ import App from './components/App';
 import ScrollToTop from './components/ScrollToTop';
 import { getAuthorizationToken, signOut } from './utils';
 
-const httpLink = createUploadLink({
+const uploadLink = createUploadLink({
   uri: '/graphql',
 });
 
@@ -34,15 +33,16 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   let notAuthorized = false;
   if (graphQLErrors) {
     graphQLErrors.forEach(({ message, locations, path }) => {
-      if (message.toLowerCase().includes('authentication required')) {
-        notAuthorized = true;
-      }
       console.log(
         `[GraphQL error]: Message: ${message}, Location: ${JSON.stringify(locations)}, Path: ${path}`,
       );
+      if (message.toLowerCase().includes('authentication required')) {
+        notAuthorized = true;
+      }
     });
   }
   if (networkError) {
+    console.log(`[Network error]: ${networkError}`);
     if (networkError.statusCode === 401) {
       notAuthorized = true;
     }
@@ -50,12 +50,16 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (notAuthorized) signOut();
 });
 
+const link = ApolloLink.from([
+  errorLink,
+  authLink,
+  uploadLink,
+]);
+
 const client = new ApolloClient({
-  link: authLink.concat(errorLink.concat(httpLink)),
   cache: new InMemoryCache(),
   connectToDevTools: true,
-  token: 'apollo-token',
-  onError: errorLink,
+  link,
 });
 
 ReactDOM.render(
@@ -68,4 +72,5 @@ ReactDOM.render(
   // eslint-disable-next-line no-undef
   document.getElementById('root'),
 );
+
 registerServiceWorker();

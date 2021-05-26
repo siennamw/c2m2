@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import {
   ErrorMessage,
   Field,
