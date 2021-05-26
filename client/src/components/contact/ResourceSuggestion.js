@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mutation } from '@apollo/react-components';
+import { Mutation } from '@apollo/client/react/components';
 import {
   Formik,
   ErrorMessage,

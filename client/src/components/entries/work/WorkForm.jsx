@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 
 import { CREATE_WORK, DELETE_WORK, UPDATE_WORK } from '../../../mutations';
 import { WORK_BY_ID } from '../../../queries';

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient } from '@apollo/client';
 
 import { AuthContext } from '../AuthContext';
 import { signOut } from '../../utils';
