@@ -37,7 +37,7 @@ export const wrapWithLink = (itemName, itemID, itemType) => (
 );
 
 export const sortByField = (items = [], field) => (
-  items.sort((a, b) => {
+  [ ...items ].sort((a, b) => {
     const aTitle = a[field].toLowerCase();
     const bTitle = b[field].toLowerCase();
     return aTitle.localeCompare(bTitle);
