@@ -23,10 +23,21 @@ import StatusMessage from '../../StatusMessage';
 import { AuthContext } from '../../AuthContext';
 
 const MediaTypeForm = ({ match, successCallback }) => {
+  const id = match && match.params && match.params.id
+    ? match.params.id
+    : null;
+
   const { admin } = useContext(AuthContext);
+
   const [createMutation] = useMutation(CREATE_MEDIA_TYPE);
   const [updateMutation] = useMutation(UPDATE_MEDIA_TYPE);
-  const [deleteMutation] = useMutation(DELETE_MEDIA_TYPE);
+  const [deleteMutation] = useMutation(DELETE_MEDIA_TYPE, {
+    update(cache) {
+      const normalizedId = cache.identify({ id, __typename: 'MediaType' });
+      cache.evict({ id: normalizedId });
+      cache.gc();
+    }
+  });
 
   if (!admin) {
     return (
@@ -36,10 +47,6 @@ const MediaTypeForm = ({ match, successCallback }) => {
       />
     );
   }
-  const id = match && match.params && match.params.id
-    ? match.params.id
-    : null;
-
   const schema = id
     ? addIdToSchema(mediaTypeValidationSchema)
     : mediaTypeValidationSchema;

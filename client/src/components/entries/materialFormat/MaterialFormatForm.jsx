@@ -23,10 +23,21 @@ import StatusMessage from '../../StatusMessage';
 import { AuthContext } from '../../AuthContext';
 
 const MaterialFormatForm = ({ match, successCallback }) => {
+  const id = match && match.params && match.params.id
+    ? match.params.id
+    : null;
+
   const { admin } = useContext(AuthContext);
+
   const [createMutation] = useMutation(CREATE_MATERIAL_FORMAT);
   const [updateMutation] = useMutation(UPDATE_MATERIAL_FORMAT);
-  const [deleteMutation] = useMutation(DELETE_MATERIAL_FORMAT);
+  const [deleteMutation] = useMutation(DELETE_MATERIAL_FORMAT, {
+    update(cache) {
+      const normalizedId = cache.identify({ id, __typename: 'MaterialFormat' });
+      cache.evict({ id: normalizedId });
+      cache.gc();
+    }
+  });
 
   if (!admin) {
     return (
@@ -36,10 +47,6 @@ const MaterialFormatForm = ({ match, successCallback }) => {
       />
     );
   }
-
-  const id = match && match.params && match.params.id
-    ? match.params.id
-    : null;
 
   const schema = id
     ? addIdToSchema(materialFormatValidationSchema)

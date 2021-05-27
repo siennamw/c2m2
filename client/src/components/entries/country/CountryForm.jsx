@@ -20,13 +20,19 @@ import QueryWrap from '../QueryWrap';
 import CountryFormFields from './CountryFormFields';
 
 const CountryForm = ({ match, successCallback }) => {
-  const [createMutation] = useMutation(CREATE_COUNTRY);
-  const [updateMutation] = useMutation(UPDATE_COUNTRY);
-  const [deleteMutation] = useMutation(DELETE_COUNTRY);
-
   const id = match && match.params && match.params.id
     ? match.params.id
     : null;
+
+  const [createMutation] = useMutation(CREATE_COUNTRY);
+  const [updateMutation] = useMutation(UPDATE_COUNTRY);
+  const [deleteMutation] = useMutation(DELETE_COUNTRY, {
+    update(cache) {
+      const normalizedId = cache.identify({ id, __typename: 'Country' });
+      cache.evict({ id: normalizedId });
+      cache.gc();
+    }
+  });
 
   const schema = id
     ? addIdToSchema(countryValidationSchema)

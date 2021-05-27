@@ -2,7 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/client';
 
-import { CREATE_COMPOSER, DELETE_COMPOSER, UPDATE_COMPOSER } from '../../../mutations';
+import {
+  CREATE_COMPOSER,
+  DELETE_COMPOSER,
+  UPDATE_COMPOSER
+} from '../../../mutations';
 import { COMPOSER_BY_ID } from '../../../queries';
 import {
   addIdToSchema,
@@ -16,13 +20,19 @@ import QueryWrap from '../QueryWrap';
 import ComposerFormFields from './ComposerFormFields';
 
 const ComposerForm = ({ match, successCallback }) => {
-  const [createMutation] = useMutation(CREATE_COMPOSER);
-  const [updateMutation] = useMutation(UPDATE_COMPOSER);
-  const [deleteMutation] = useMutation(DELETE_COMPOSER);
-
   const id = match && match.params && match.params.id
     ? match.params.id
     : null;
+
+  const [createMutation] = useMutation(CREATE_COMPOSER);
+  const [updateMutation] = useMutation(UPDATE_COMPOSER);
+  const [deleteMutation] = useMutation(DELETE_COMPOSER, {
+    update(cache) {
+      const normalizedId = cache.identify({ id, __typename: 'Composer' });
+      cache.evict({ id: normalizedId });
+      cache.gc();
+    }
+  });
 
   const schema = id
     ? addIdToSchema(composerValidationSchema)

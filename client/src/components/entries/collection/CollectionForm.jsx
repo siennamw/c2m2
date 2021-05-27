@@ -20,13 +20,19 @@ import QueryWrap from '../QueryWrap';
 import CollectionFormFields from './CollectionFormFields';
 
 const CollectionForm = ({ match, successCallback }) => {
-  const [createMutation] = useMutation(CREATE_COLLECTION);
-  const [updateMutation] = useMutation(UPDATE_COLLECTION);
-  const [deleteMutation] = useMutation(DELETE_COLLECTION);
-
   const id = match && match.params && match.params.id
     ? match.params.id
     : null;
+
+  const [createMutation] = useMutation(CREATE_COLLECTION);
+  const [updateMutation] = useMutation(UPDATE_COLLECTION);
+  const [deleteMutation] = useMutation(DELETE_COLLECTION, {
+    update(cache) {
+      const normalizedId = cache.identify({ id, __typename: 'Collection' });
+      cache.evict({ id: normalizedId });
+      cache.gc();
+    }
+  });
 
   const schema = id
     ? addIdToSchema(collectionValidationSchema)

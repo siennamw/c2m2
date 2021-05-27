@@ -20,13 +20,19 @@ import QueryWrap from '../QueryWrap';
 import RepositoryFormFields from './RepositoryFormFields';
 
 const RepositoryForm = ({ match, successCallback }) => {
-  const [createMutation] = useMutation(CREATE_REPOSITORY);
-  const [updateMutation] = useMutation(UPDATE_REPOSITORY);
-  const [deleteMutation] = useMutation(DELETE_REPOSITORY);
-
   const id = match && match.params && match.params.id
     ? match.params.id
     : null;
+
+  const [createMutation] = useMutation(CREATE_REPOSITORY);
+  const [updateMutation] = useMutation(UPDATE_REPOSITORY);
+  const [deleteMutation] = useMutation(DELETE_REPOSITORY, {
+    update(cache) {
+      const normalizedId = cache.identify({ id, __typename: 'Repository' });
+      cache.evict({ id: normalizedId });
+      cache.gc();
+    }
+  });
 
   const schema = id
     ? addIdToSchema(repositoryValidationSchema)

@@ -20,13 +20,19 @@ import QueryWrap from '../QueryWrap';
 import ProductionCompanyFormFields from './ProductionCompanyFormFields';
 
 const ProductionCompanyForm = ({ match, successCallback }) => {
-  const [createMutation] = useMutation(CREATE_PRODUCTION_COMPANY);
-  const [updateMutation] = useMutation(UPDATE_PRODUCTION_COMPANY);
-  const [deleteMutation] = useMutation(DELETE_PRODUCTION_COMPANY);
-
   const id = match && match.params && match.params.id
     ? match.params.id
     : null;
+
+  const [createMutation] = useMutation(CREATE_PRODUCTION_COMPANY);
+  const [updateMutation] = useMutation(UPDATE_PRODUCTION_COMPANY);
+  const [deleteMutation] = useMutation(DELETE_PRODUCTION_COMPANY, {
+    update(cache) {
+      const normalizedId = cache.identify({ id, __typename: 'ProductionCompany' });
+      cache.evict({ id: normalizedId });
+      cache.gc();
+    }
+  });
 
   const schema = id
     ? addIdToSchema(productionCompanyValidationSchema)
