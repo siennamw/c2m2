@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_24_234154) do
+ActiveRecord::Schema.define(version: 2021_05_27_173804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -158,6 +158,19 @@ ActiveRecord::Schema.define(version: 2021_05_24_234154) do
     t.index ["work_id_int", "director_id_int"], name: "index_directors_works_on_work_id_int_and_director_id_int", unique: true
   end
 
+  create_table "events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.uuid "created_by_id", null: false
+    t.string "name", null: false
+    t.uuid "entity_id", null: false
+    t.jsonb "payload", default: {}, null: false
+    t.boolean "synthetic", default: false, null: false
+    t.index ["created_at"], name: "index_events_on_created_at"
+    t.index ["created_by_id"], name: "index_events_on_created_by_id"
+    t.index ["entity_id"], name: "index_events_on_entity_id"
+    t.index ["name"], name: "index_events_on_name"
+  end
+
   create_table "material_formats", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "id_int"
     t.string "name", null: false
@@ -303,6 +316,7 @@ ActiveRecord::Schema.define(version: 2021_05_24_234154) do
   add_foreign_key "directors", "catalogers", column: "updated_by_id"
   add_foreign_key "directors_works", "directors"
   add_foreign_key "directors_works", "works"
+  add_foreign_key "events", "catalogers", column: "created_by_id"
   add_foreign_key "material_formats", "catalogers", column: "created_by_id"
   add_foreign_key "material_formats", "catalogers", column: "updated_by_id"
   add_foreign_key "media_types", "catalogers", column: "created_by_id"
