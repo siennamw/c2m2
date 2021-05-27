@@ -1,5 +1,6 @@
 class Resolvers::CreateRepository < GraphQL::Function
   # arguments passed as "args"
+  argument :id, types.ID
   argument :name, !types.String
   argument :location, !types.String
   argument :website, types.String
@@ -14,6 +15,7 @@ class Resolvers::CreateRepository < GraphQL::Function
     end
 
     Repository.create!(
+      id: args[:id],
       name: args[:name],
       location: args[:location],
       website: args[:website],

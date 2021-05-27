@@ -32,6 +32,30 @@ class Resolvers::CreateCatalogerTest < ActiveSupport::TestCase
     }, @admin)
 
     assert cataloger.persisted?
+    assert_not_empty cataloger.id
+    assert_equal cataloger.name, name
+    assert_equal cataloger.email, email
+    assert_equal cataloger.description, description
+    assert cataloger.password.present?
+    assert_equal cataloger.created_by, @admin
+    assert_equal cataloger.admin, false
+  end
+
+  test 'creating new cataloger with predetermined ID' do
+    name = 'James Doe'
+    email = 'james.doe@example.com'
+    description = 'great cataloger'
+    id = SecureRandom.uuid
+
+    cataloger = perform({
+      id: id,
+      name: name,
+      email: email,
+      description: description,
+    }, @admin)
+
+    assert cataloger.persisted?
+    assert_equal cataloger.id, id
     assert_equal cataloger.name, name
     assert_equal cataloger.email, email
     assert_equal cataloger.description, description

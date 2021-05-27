@@ -29,6 +29,25 @@ class Resolvers::CreateMediaTypeTest < ActiveSupport::TestCase
     }, @admin)
 
     assert media_type.persisted?
+    assert_not_empty media_type.id
+    assert_equal media_type.name, name
+    assert_equal media_type.description, description
+    assert_equal media_type.created_by, @admin
+  end
+
+  test 'creating new media type with predetermined ID' do
+    name = 'another media type'
+    description = 'great media type'
+    id = SecureRandom.uuid
+
+    media_type = perform({
+      id: id,
+      name: name,
+      description: description,
+    }, @admin)
+
+    assert media_type.persisted?
+    assert_equal media_type.id, id
     assert_equal media_type.name, name
     assert_equal media_type.description, description
     assert_equal media_type.created_by, @admin

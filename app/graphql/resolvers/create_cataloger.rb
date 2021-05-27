@@ -1,5 +1,6 @@
 class Resolvers::CreateCataloger < GraphQL::Function
   # arguments passed as "args"
+  argument :id, types.ID
   argument :name, !types.String
   argument :email, !types.String
   argument :description, types.String
@@ -23,6 +24,7 @@ class Resolvers::CreateCataloger < GraphQL::Function
     end
 
     cataloger = Cataloger.create!(
+      id: args[:id],
       name: args[:name],
       email: args[:email],
       description: args[:description],

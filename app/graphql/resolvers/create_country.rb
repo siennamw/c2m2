@@ -1,5 +1,6 @@
 class Resolvers::CreateCountry < GraphQL::Function
   # arguments passed as "args"
+  argument :id, types.ID
   argument :name, !types.String
   argument :description, types.String
 
@@ -16,6 +17,7 @@ class Resolvers::CreateCountry < GraphQL::Function
     end
 
     Country.create!(
+      id: args[:id],
       name: args[:name],
       description: args[:description],
       created_by: ctx[:current_user],

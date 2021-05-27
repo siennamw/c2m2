@@ -19,6 +19,25 @@ class Resolvers::CreateDirectorTest < ActiveSupport::TestCase
     )
 
     assert director.persisted?
+    assert_not_empty director.id
+    assert_equal director.name, name
+    assert_equal director.imdb_link, imdb_link
+    assert_equal director.created_by, @cataloger
+  end
+
+  test 'creating new director with predetermined ID' do
+    name = 'Bruce Wayne'
+    imdb_link = 'example.com/batman'
+    id = SecureRandom.uuid
+
+    director = perform(
+      id: id,
+      name: name,
+      imdb_link: imdb_link,
+    )
+
+    assert director.persisted?
+    assert_equal director.id, id
     assert_equal director.name, name
     assert_equal director.imdb_link, imdb_link
     assert_equal director.created_by, @cataloger

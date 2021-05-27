@@ -1,5 +1,6 @@
 class Resolvers::CreateWork < GraphQL::Function
   # arguments passed as "args"
+  argument :id, types.ID
   argument :title, !types.String
   argument :secondary_title, types.String
   argument :alias_alternates, types.String
@@ -25,6 +26,7 @@ class Resolvers::CreateWork < GraphQL::Function
     end
 
     Work.create!(
+      id: args[:id],
       title: args[:title],
       secondary_title: args[:secondary_title],
       alias_alternates: args[:alias_alternates],

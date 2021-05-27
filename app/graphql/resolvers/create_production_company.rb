@@ -1,5 +1,6 @@
 class Resolvers::CreateProductionCompany < GraphQL::Function
   # arguments passed as "args"
+  argument :id, types.ID
   argument :name, !types.String
   argument :contact_info, types.String
 
@@ -13,6 +14,7 @@ class Resolvers::CreateProductionCompany < GraphQL::Function
     end
 
     ProductionCompany.create!(
+      id: args[:id],
       name: args[:name],
       contact_info: args[:contact_info],
       created_by: ctx[:current_user],

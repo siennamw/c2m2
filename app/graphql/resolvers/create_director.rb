@@ -1,5 +1,6 @@
 class Resolvers::CreateDirector < GraphQL::Function
   # arguments passed as "args"
+  argument :id, types.ID
   argument :name, !types.String
   argument :imdb_link, types.String
 
@@ -13,6 +14,7 @@ class Resolvers::CreateDirector < GraphQL::Function
     end
 
     Director.create!(
+      id: args[:id],
       name: args[:name],
       imdb_link: args[:imdb_link],
       created_by: ctx[:current_user],

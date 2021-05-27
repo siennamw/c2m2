@@ -1,5 +1,6 @@
 class Resolvers::CreateComposer < GraphQL::Function
   # arguments passed as "args"
+  argument :id, types.ID
   argument :name, !types.String
   argument :imdb_link, types.String
 
@@ -13,6 +14,7 @@ class Resolvers::CreateComposer < GraphQL::Function
     end
 
     Composer.create!(
+      id: args[:id],
       name: args[:name],
       imdb_link: args[:imdb_link],
       created_by: ctx[:current_user],
