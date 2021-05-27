@@ -2,7 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/client';
 
-import { CREATE_WORK, DELETE_WORK, UPDATE_WORK } from '../../../mutations';
+import {
+  CREATE_WORK,
+  DELETE_WORK,
+  UPDATE_WORK
+} from '../../../mutations';
 import { WORK_BY_ID } from '../../../queries';
 import {
   addIdToSchema,
@@ -22,7 +26,13 @@ const WorkForm = ({ match, successCallback }) => {
 
   const [createMutation] = useMutation(CREATE_WORK);
   const [updateMutation] = useMutation(UPDATE_WORK);
-  const [deleteMutation] = useMutation(DELETE_WORK);
+  const [deleteMutation] = useMutation(DELETE_WORK, {
+    update(cache) {
+      const normalizedId = cache.identify({ id, __typename: 'Work' });
+      cache.evict({ id: normalizedId });
+      cache.gc();
+    }
+  });
 
   const schema = id
     ? addIdToSchema(workValidationSchema)

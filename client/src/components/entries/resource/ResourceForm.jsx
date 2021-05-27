@@ -20,13 +20,19 @@ import QueryWrap from '../QueryWrap';
 import ResourceFormFields from './ResourceFormFields';
 
 const ResourceForm = ({ match, successCallback }) => {
-  const [createMutation] = useMutation(CREATE_RESOURCE);
-  const [updateMutation] = useMutation(UPDATE_RESOURCE);
-  const [deleteMutation] = useMutation(DELETE_RESOURCE);
-
   const id = match && match.params && match.params.id
     ? match.params.id
     : null;
+
+  const [createMutation] = useMutation(CREATE_RESOURCE);
+  const [updateMutation] = useMutation(UPDATE_RESOURCE);
+  const [deleteMutation] = useMutation(DELETE_RESOURCE, {
+    update(cache) {
+      const normalizedId = cache.identify({ id, __typename: 'Resource' });
+      cache.evict({ id: normalizedId });
+      cache.gc();
+    }
+  });
 
   const schema = id
     ? addIdToSchema(resourceValidationSchema)

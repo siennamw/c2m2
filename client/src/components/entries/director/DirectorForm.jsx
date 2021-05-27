@@ -20,13 +20,19 @@ import QueryWrap from '../QueryWrap';
 import DirectorFormFields from './DirectorFormFields';
 
 const DirectorForm = ({ match, successCallback }) => {
-  const [createMutation] = useMutation(CREATE_DIRECTOR);
-  const [updateMutation] = useMutation(UPDATE_DIRECTOR);
-  const [deleteMutation] = useMutation(DELETE_DIRECTOR);
-
   const id = match && match.params && match.params.id
     ? match.params.id
     : null;
+
+  const [createMutation] = useMutation(CREATE_DIRECTOR);
+  const [updateMutation] = useMutation(UPDATE_DIRECTOR);
+  const [deleteMutation] = useMutation(DELETE_DIRECTOR, {
+    update(cache) {
+      const normalizedId = cache.identify({ id, __typename: 'Director' });
+      cache.evict({ id: normalizedId });
+      cache.gc();
+    }
+  });
 
   const schema = id
     ? addIdToSchema(directorValidationSchema)
