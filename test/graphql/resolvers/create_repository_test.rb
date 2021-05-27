@@ -21,6 +21,28 @@ class Resolvers::CreateRepositoryTest < ActiveSupport::TestCase
     )
 
     assert repository.persisted?
+    assert_not_empty repository.id
+    assert_equal repository.name, name
+    assert_equal repository.location, location
+    assert_equal repository.website, website
+    assert_equal repository.created_by, @cataloger
+  end
+
+  test 'creating new repository with predetermined ID' do
+    name = 'Another Repo'
+    location = 'Boulder, CO'
+    website = 'another-repo.com'
+    id = SecureRandom.uuid
+
+    repository = perform(
+      id: id,
+      name: name,
+      location: location,
+      website: website,
+    )
+
+    assert repository.persisted?
+    assert_equal repository.id, id
     assert_equal repository.name, name
     assert_equal repository.location, location
     assert_equal repository.website, website

@@ -19,6 +19,25 @@ class Resolvers::CreateProductionCompanyTest < ActiveSupport::TestCase
     )
 
     assert production_co.persisted?
+    assert_not_empty production_co.id
+    assert_equal production_co.name, name
+    assert_equal production_co.contact_info, contact_info
+    assert_equal production_co.created_by, @cataloger
+  end
+
+  test 'creating new production company with predetermined ID' do
+    name = 'Prod Co Inc'
+    contact_info = 'prodcoinc.com'
+    id = SecureRandom.uuid
+
+    production_co = perform(
+      id: id,
+      name: name,
+      contact_info: contact_info,
+    )
+
+    assert production_co.persisted?
+    assert_equal production_co.id, id
     assert_equal production_co.name, name
     assert_equal production_co.contact_info, contact_info
     assert_equal production_co.created_by, @cataloger

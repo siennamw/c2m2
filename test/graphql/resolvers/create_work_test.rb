@@ -35,6 +35,28 @@ class Resolvers::CreateWorkTest < ActiveSupport::TestCase
     )
 
     assert work.persisted?
+    assert_not_empty work.id
+    assert_equal work.title, title
+    assert_equal work.year, year
+    assert_equal work.media_type, @media_type
+
+    assert_equal work.created_by, @cataloger
+  end
+
+  test 'creating new work with the minimum required fields and predetermined ID' do
+    title = 'Some Like it Hot'
+    year = 1959
+    id = SecureRandom.uuid
+
+    work = perform(
+      id: id,
+      title: title,
+      year: year,
+      media_type_id: @media_type.id,
+    )
+
+    assert work.persisted?
+    assert_equal work.id, id
     assert_equal work.title, title
     assert_equal work.year, year
     assert_equal work.media_type, @media_type

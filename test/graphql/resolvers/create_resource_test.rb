@@ -29,6 +29,25 @@ class Resolvers::CreateResourceTest < ActiveSupport::TestCase
     )
 
     assert resource.persisted?
+    assert_not_empty resource.id
+    assert_equal resource.work, @work
+    assert_equal resource.material_format, @material_format
+    assert_equal resource.publication_status, 'draft'
+
+    assert_equal resource.created_by, @cataloger
+  end
+
+  test 'creating new resource with the minimum required fields and predetermined ID' do
+    id = SecureRandom.uuid
+
+    resource = perform(
+      id: id,
+      work_id: @work.id,
+      material_format_id: @material_format.id,
+    )
+
+    assert resource.persisted?
+    assert_equal resource.id, id
     assert_equal resource.work, @work
     assert_equal resource.material_format, @material_format
     assert_equal resource.publication_status, 'draft'

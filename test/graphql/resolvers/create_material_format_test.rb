@@ -29,6 +29,25 @@ class Resolvers::CreateMaterialFormatTest < ActiveSupport::TestCase
     }, @admin)
 
     assert material_format.persisted?
+    assert_not_empty material_format.id
+    assert_equal material_format.name, name
+    assert_equal material_format.description, description
+    assert_equal material_format.created_by, @admin
+  end
+
+  test 'creating new material format country with predetermined ID' do
+    name = 'another material format'
+    description = 'great material format'
+    id = SecureRandom.uuid
+
+    material_format = perform({
+      id: id,
+      name: name,
+      description: description,
+    }, @admin)
+
+    assert material_format.persisted?
+    assert_equal material_format.id, id
     assert_equal material_format.name, name
     assert_equal material_format.description, description
     assert_equal material_format.created_by, @admin

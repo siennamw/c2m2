@@ -1,5 +1,6 @@
 class Resolvers::CreateCollection < GraphQL::Function
   # arguments passed as "args"
+  argument :id, types.ID
   argument :name, !types.String
   argument :description, types.String
   argument :finding_aid_link, types.String
@@ -18,6 +19,7 @@ class Resolvers::CreateCollection < GraphQL::Function
     return unless repository
 
     Collection.create!(
+      id: args[:id],
       name: args[:name],
       finding_aid_link: args[:finding_aid_link],
       description: args[:description],

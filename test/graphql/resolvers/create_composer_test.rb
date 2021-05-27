@@ -19,6 +19,25 @@ class Resolvers::CreateComposerTest < ActiveSupport::TestCase
     )
 
     assert composer.persisted?
+    assert_not_empty composer.id
+    assert_equal composer.name, name
+    assert_equal composer.imdb_link, imdb_link
+    assert_equal composer.created_by, @cataloger
+  end
+
+  test 'creating new composer with predetermined ID' do
+    name = 'Elizabeth I'
+    imdb_link = 'example.com/liz'
+    id = SecureRandom.uuid
+
+    composer = perform(
+      id: id,
+      name: name,
+      imdb_link: imdb_link,
+    )
+
+    assert composer.persisted?
+    assert_equal composer.id, id
     assert_equal composer.name, name
     assert_equal composer.imdb_link, imdb_link
     assert_equal composer.created_by, @cataloger

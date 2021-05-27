@@ -19,6 +19,25 @@ class Resolvers::CreateCountryTest < ActiveSupport::TestCase
     )
 
     assert country.persisted?
+    assert_not_empty country.id
+    assert_equal country.name, name
+    assert_equal country.description, description
+    assert_equal country.created_by, @cataloger
+  end
+
+  test 'creating new country with predetermined ID' do
+    name = 'Ecuador'
+    description = 'Named for its position along the equator'
+    id = SecureRandom.uuid
+
+    country = perform(
+      id: id,
+      name: name,
+      description: description,
+    )
+
+    assert country.persisted?
+    assert_equal country.id, id
     assert_equal country.name, name
     assert_equal country.description, description
     assert_equal country.created_by, @cataloger

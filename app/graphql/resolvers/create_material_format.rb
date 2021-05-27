@@ -1,5 +1,6 @@
 class Resolvers::CreateMaterialFormat < GraphQL::Function
   # arguments passed as "args"
+  argument :id, types.ID
   argument :name, !types.String
   argument :description, types.String
 
@@ -18,6 +19,7 @@ class Resolvers::CreateMaterialFormat < GraphQL::Function
     end
 
     MaterialFormat.create!(
+      id: args[:id],
       name: args[:name],
       description: args[:description],
       created_by: ctx[:current_user],
