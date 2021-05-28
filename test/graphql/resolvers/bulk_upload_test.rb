@@ -62,6 +62,9 @@ class Resolvers::BulkUploadTest < ActiveSupport::TestCase
   end
 
   test 'good data will import successfully' do
+    composer_count = Composer.count
+    count = 3
+
     results = perform(
       {
         model: 'composer',
@@ -73,6 +76,57 @@ class Resolvers::BulkUploadTest < ActiveSupport::TestCase
     assert_equal results.length, 3
     results.each do |result|
       assert_equal result, 'Success'
+    end
+    assert_equal composer_count + count, Composer.count
+  end
+
+  test 'does not create Events for rows that failed to import' do
+    event_count = Event.count
+    expected_successes = 1
+
+    results = perform(
+      {
+        model: 'composer',
+        file: @file_duplicates,
+      },
+      @admin
+    )
+
+    assert_equal results.length, 2
+    assert_equal event_count + expected_successes, Event.count
+  end
+
+  test 'creates expected Event for each row successfully imported' do
+    event_count = Event.count
+    count = 3
+
+    results = perform(
+      {
+        model: 'composer',
+        file: @file_good,
+      },
+      @admin
+    )
+
+    assert_equal results.length, count
+    assert_equal event_count + count, Event.count
+
+    Composer.order('created_at DESC').last(count).each do |composer|
+      event = Event.find_by(entity_id: composer.id)
+      event_payload = event.payload.to_h
+
+      # event record
+      assert_equal composer.created_by, event.created_by
+      assert_equal 'CreateComposer', event.name
+      assert_equal composer.id, event.entity_id
+
+      # event payload
+      assert_equal composer.name, event_payload['name']
+      if composer.imdb_link
+        assert_equal composer.imdb_link, event_payload['imdb_link']
+      else
+        assert_nil event_payload['imdb_link']
+      end
     end
   end
 

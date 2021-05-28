@@ -49,7 +49,7 @@ class Resolvers::BulkUpload < GraphQL::Function
     results = []
 
     CSV.foreach(tempfile, headers: true) do |row|
-      attributes = {}
+      attributes = { created_by: current_user }
       row.to_h.each do |k, v|
         if k === 'publication_status'
           # always draft status for bulk imports
@@ -62,13 +62,22 @@ class Resolvers::BulkUpload < GraphQL::Function
         end
       end
 
-      attributes['created_by'] = current_user
+      new_entry = model.create!(attributes)
 
-      new_entry = model.new(attributes)
-
-      result = new_entry.save! ? 'Success' : 'Failure'
-      results.push(result)
-
+      if new_entry.persisted?
+        # success
+        results.push('Success')
+        Event.create!(
+          created_by: new_entry.created_by,
+          entity_id: new_entry.id,
+          name: "Create#{model}",
+          payload: attributes.filter do |k|
+            !%i[id created_by].include?(k)
+          end
+        )
+      else
+        results.push('Failure')
+      end
     rescue ActiveRecord::RecordInvalid => e
       results.push(e)
     rescue ActiveModel::UnknownAttributeError => e
