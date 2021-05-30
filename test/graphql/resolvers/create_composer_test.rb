@@ -25,6 +25,31 @@ class Resolvers::CreateComposerTest < ActiveSupport::TestCase
     assert_equal composer.created_by, @cataloger
   end
 
+  test 'creating composer creates expected Event' do
+    event_count = Event.count
+    name = 'Josquin Desprez'
+    imdb_link = 'example.com/josquin'
+
+    record = perform(
+      name: name,
+      imdb_link: imdb_link,
+    )
+
+    assert event_count + 1, Event.count
+
+    event = Event.find_by(entity_id: record.id)
+    event_payload = event.payload.to_h
+
+    # event record
+    assert_equal record.created_by, event.created_by
+    assert_equal 'CreateComposer', event.name
+    assert_equal record.id, event.entity_id
+
+    # event payload
+    assert_equal record.name, event_payload['name']
+    assert_equal record.imdb_link, event_payload['imdb_link']
+  end
+
   test 'creating new composer with predetermined ID' do
     name = 'Elizabeth I'
     imdb_link = 'example.com/liz'

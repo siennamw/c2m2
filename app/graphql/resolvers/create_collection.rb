@@ -18,15 +18,30 @@ class Resolvers::CreateCollection < GraphQL::Function
     repository = Repository.find(args[:repository_id])
     return unless repository
 
-    Collection.create!(
-      id: args[:id],
+    attributes = {
       name: args[:name],
       finding_aid_link: args[:finding_aid_link],
       description: args[:description],
-      repository: repository,
+      repository_id: repository.id,
+      id: args[:id],
       created_by: ctx[:current_user],
-    )
+    }
 
+    record = Collection.create!(attributes)
+
+    if record.persisted?
+      Event.create!(
+        created_by: record.created_by,
+        entity_id: record.id,
+        name: 'CreateCollection',
+        payload: attributes.filter do |k|
+          !%i[id created_by].include?(k)
+        end
+      )
+    end
+
+    # return new record
+    record
   rescue ActiveRecord::RecordInvalid => e
     # this would catch all validation errors and translate them to GraphQL::ExecutionError
     GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")

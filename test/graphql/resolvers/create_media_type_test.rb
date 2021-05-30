@@ -35,6 +35,31 @@ class Resolvers::CreateMediaTypeTest < ActiveSupport::TestCase
     assert_equal media_type.created_by, @admin
   end
 
+  test 'creates expected Event' do
+    event_count = Event.count
+    name = 'cool media type'
+    description = 'nice media type'
+
+    record = perform({
+      name: name,
+      description: description,
+    }, @admin)
+
+    assert event_count + 1, Event.count
+
+    event = Event.find_by(entity_id: record.id)
+    event_payload = event.payload.to_h
+
+    # event record
+    assert_equal record.created_by, event.created_by
+    assert_equal 'CreateMediaType', event.name
+    assert_equal record.id, event.entity_id
+
+    # event payload
+    assert_equal record.name, event_payload['name']
+    assert_equal record.description, event_payload['description']
+  end
+
   test 'creating new media type with predetermined ID' do
     name = 'another media type'
     description = 'great media type'

@@ -108,6 +108,55 @@ class Resolvers::CreateWorkTest < ActiveSupport::TestCase
     assert_equal work.created_by, @cataloger
   end
 
+  test 'creates expected Event' do
+    event_count = Event.count
+    title = 'flkmsdf'
+    secondary_title = 'vlknegruho'
+    alias_alternates = 'nvdshuwrg'
+    imdb_link = 'http://www.flkmsdf.com'
+    year = 1987
+
+    record = perform(
+      title: title,
+      secondary_title: secondary_title,
+      alias_alternates: alias_alternates,
+      imdb_link: imdb_link,
+
+      year: year,
+
+      country_id: @country.id,
+      media_type_id: @media_type.id,
+
+      composer_ids: @composer_ids,
+      director_ids: @director_ids,
+      orchestrator_ids: @orchestrator_ids,
+      production_company_ids: @production_company_ids,
+    )
+
+    assert event_count + 1, Event.count
+
+    event = Event.find_by(entity_id: record.id)
+    event_payload = event.payload.to_h
+
+    # event record
+    assert_equal record.created_by, event.created_by
+    assert_equal 'CreateWork', event.name
+    assert_equal record.id, event.entity_id
+
+    # event payload
+    assert_equal record.title, event_payload['title']
+    assert_equal record.secondary_title, event_payload['secondary_title']
+    assert_equal record.alias_alternates, event_payload['alias_alternates']
+    assert_equal record.imdb_link, event_payload['imdb_link']
+    assert_equal record.year, event_payload['year']
+    assert_equal record.country_id, event_payload['country_id']
+    assert_equal record.media_type_id, event_payload['media_type_id']
+    assert_equal record.composer_ids, event_payload['composer_ids']
+    assert_equal record.director_ids, event_payload['director_ids']
+    assert_equal record.orchestrator_ids, event_payload['orchestrator_ids']
+    assert_equal record.production_company_ids, event_payload['production_company_ids']
+  end
+
   test 'duplicate imdb_link returns expected error' do
     title = 'Princess Bride'
     year = 1987

@@ -21,13 +21,28 @@ class Resolvers::CreateMediaType < GraphQL::Function
       raise GraphQL::ExecutionError.new("You do not have permission to create media type entries")
     end
 
-    MediaType.create!(
+    attributes = {
       id: args[:id],
       name: args[:name],
       description: args[:description],
       created_by: ctx[:current_user],
-    )
+    }
 
+    record = MediaType.create!(attributes)
+
+    if record.persisted?
+      Event.create!(
+        created_by: record.created_by,
+        entity_id: record.id,
+        name: 'CreateMediaType',
+        payload: attributes.filter do |k|
+          !%i[id created_by].include?(k)
+        end
+      )
+    end
+
+    # return new record
+    record
   rescue ActiveRecord::RecordInvalid => e
     # this would catch all validation errors and translate them to GraphQL::ExecutionError
     GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")

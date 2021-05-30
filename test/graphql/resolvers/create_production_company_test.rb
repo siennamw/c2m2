@@ -25,6 +25,31 @@ class Resolvers::CreateProductionCompanyTest < ActiveSupport::TestCase
     assert_equal production_co.created_by, @cataloger
   end
 
+  test 'creates expected Event' do
+    event_count = Event.count
+    name = 'wefihukjnwefjknsd'
+    contact_info = 'wefihukjnwefjknsd.com'
+
+    record = perform(
+      name: name,
+      contact_info: contact_info,
+    )
+
+    assert event_count + 1, Event.count
+
+    event = Event.find_by(entity_id: record.id)
+    event_payload = event.payload.to_h
+
+    # event record
+    assert_equal record.created_by, event.created_by
+    assert_equal 'CreateProductionCompany', event.name
+    assert_equal record.id, event.entity_id
+
+    # event payload
+    assert_equal record.name, event_payload['name']
+    assert_equal record.contact_info, event_payload['contact_info']
+  end
+
   test 'creating new production company with predetermined ID' do
     name = 'Prod Co Inc'
     contact_info = 'prodcoinc.com'

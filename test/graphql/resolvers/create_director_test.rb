@@ -25,6 +25,31 @@ class Resolvers::CreateDirectorTest < ActiveSupport::TestCase
     assert_equal director.created_by, @cataloger
   end
 
+  test 'creates expected Event' do
+    event_count = Event.count
+    name = 'Rob Reiner'
+    imdb_link = 'example.com/reiner'
+
+    record = perform(
+      name: name,
+      imdb_link: imdb_link,
+    )
+
+    assert event_count + 1, Event.count
+
+    event = Event.find_by(entity_id: record.id)
+    event_payload = event.payload.to_h
+
+    # event record
+    assert_equal record.created_by, event.created_by
+    assert_equal 'CreateDirector', event.name
+    assert_equal record.id, event.entity_id
+
+    # event payload
+    assert_equal record.name, event_payload['name']
+    assert_equal record.imdb_link, event_payload['imdb_link']
+  end
+
   test 'creating new director with predetermined ID' do
     name = 'Bruce Wayne'
     imdb_link = 'example.com/batman'

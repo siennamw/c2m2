@@ -14,14 +14,29 @@ class Resolvers::CreateRepository < GraphQL::Function
       raise GraphQL::ExecutionError.new("Authentication required")
     end
 
-    Repository.create!(
+    attributes = {
       id: args[:id],
       name: args[:name],
       location: args[:location],
       website: args[:website],
       created_by: ctx[:current_user],
-    )
+    }
 
+    record = Repository.create!(attributes)
+
+    if record.persisted?
+      Event.create!(
+        created_by: record.created_by,
+        entity_id: record.id,
+        name: 'CreateRepository',
+        payload: attributes.filter do |k|
+          !%i[id created_by].include?(k)
+        end
+      )
+    end
+
+    # return new record
+    record
   rescue ActiveRecord::RecordInvalid => e
     # this would catch all validation errors and translate them to GraphQL::ExecutionError
     GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")

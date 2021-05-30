@@ -25,7 +25,7 @@ class Resolvers::CreateWork < GraphQL::Function
       raise GraphQL::ExecutionError.new("Authentication required")
     end
 
-    Work.create!(
+    attributes = {
       id: args[:id],
       title: args[:title],
       secondary_title: args[:secondary_title],
@@ -43,8 +43,23 @@ class Resolvers::CreateWork < GraphQL::Function
       production_company_ids: args[:production_company_ids],
 
       created_by: ctx[:current_user],
-    )
+    }
 
+    record = Work.create!(attributes)
+
+    if record.persisted?
+      Event.create!(
+        created_by: record.created_by,
+        entity_id: record.id,
+        name: 'CreateWork',
+        payload: attributes.filter do |k|
+          !%i[id created_by].include?(k)
+        end
+      )
+    end
+
+    # return new record
+    record
   rescue ActiveRecord::RecordInvalid => e
     # this would catch all validation errors and translate them to GraphQL::ExecutionError
     GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")

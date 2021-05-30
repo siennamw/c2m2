@@ -41,6 +41,35 @@ class Resolvers::CreateCatalogerTest < ActiveSupport::TestCase
     assert_equal cataloger.admin, false
   end
 
+  test 'creates expected Event' do
+    event_count = Event.count
+    name = 'Jenny Doe'
+    email = 'jenny.doe@example.com'
+    description = 'great cataloger'
+
+    cataloger = perform({
+      name: name,
+      email: email,
+      description: description,
+    }, @admin)
+
+    assert event_count + 1, Event.count
+
+    event = Event.find_by(entity_id: cataloger.id)
+    event_payload = event.payload.to_h
+
+    # event record
+    assert_equal cataloger.created_by, event.created_by
+    assert_equal 'CreateCataloger', event.name
+    assert_equal cataloger.id, event.entity_id
+
+    # event payload
+    assert_equal cataloger.name, event_payload['name']
+    assert_equal cataloger.email, event_payload['email']
+    assert_equal cataloger.description, event_payload['description']
+    assert_equal cataloger.admin, event_payload['admin']
+  end
+
   test 'creating new cataloger with predetermined ID' do
     name = 'James Doe'
     email = 'james.doe@example.com'
