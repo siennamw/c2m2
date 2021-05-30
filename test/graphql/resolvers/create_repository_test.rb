@@ -28,6 +28,34 @@ class Resolvers::CreateRepositoryTest < ActiveSupport::TestCase
     assert_equal repository.created_by, @cataloger
   end
 
+  test 'creates expected Event' do
+    event_count = Event.count
+    name = 'uhwfeinjzsfmc'
+    location = 'Nonesuch, CO'
+    website = 'uhwfeinjzsfmc.com'
+
+    record = perform(
+      name: name,
+      location: location,
+      website: website,
+    )
+
+    assert event_count + 1, Event.count
+
+    event = Event.find_by(entity_id: record.id)
+    event_payload = event.payload.to_h
+
+    # event record
+    assert_equal record.created_by, event.created_by
+    assert_equal 'CreateRepository', event.name
+    assert_equal record.id, event.entity_id
+
+    # event payload
+    assert_equal record.name, event_payload['name']
+    assert_equal record.location, event_payload['location']
+    assert_equal record.website, event_payload['website']
+  end
+
   test 'creating new repository with predetermined ID' do
     name = 'Another Repo'
     location = 'Boulder, CO'

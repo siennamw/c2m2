@@ -23,7 +23,7 @@ class Resolvers::CreateResource < GraphQL::Function
 
     publication_status = args[:publication_status] || 'draft'
 
-    Resource.create!(
+    attributes = {
       id: args[:id],
       digital_copy_link: args[:digital_copy_link],
       citation_source: args[:citation_source],
@@ -36,8 +36,23 @@ class Resolvers::CreateResource < GraphQL::Function
       created_by: ctx[:current_user],
 
       collection_ids: args[:collection_ids],
-    )
+    }
 
+    record = Resource.create!(attributes)
+
+    if record.persisted?
+      Event.create!(
+        created_by: record.created_by,
+        entity_id: record.id,
+        name: 'CreateResource',
+        payload: attributes.filter do |k|
+          !%i[id created_by].include?(k)
+        end
+      )
+    end
+
+    # return new record
+    record
   rescue ActiveRecord::RecordInvalid => e
     # this would catch all validation errors and translate them to GraphQL::ExecutionError
     GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")

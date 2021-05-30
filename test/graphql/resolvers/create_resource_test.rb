@@ -87,4 +87,43 @@ class Resolvers::CreateResourceTest < ActiveSupport::TestCase
 
     assert_equal resource.created_by, @cataloger
   end
+
+  test 'creates expected Event' do
+    event_count = Event.count
+    digital_copy_link = 'digital_copy_link'
+    citation_source = 'citation_source'
+    cataloging_notes = 'cataloging_notes'
+    publication_status = 'provisional'
+
+    record = perform(
+      digital_copy_link: digital_copy_link,
+      citation_source: citation_source,
+      cataloging_notes: cataloging_notes,
+      publication_status: publication_status,
+
+      work_id: @work.id,
+      material_format_id: @material_format.id,
+
+      collection_ids: @collection_ids,
+    )
+
+    assert event_count + 1, Event.count
+
+    event = Event.find_by(entity_id: record.id)
+    event_payload = event.payload.to_h
+
+    # event record
+    assert_equal record.created_by, event.created_by
+    assert_equal 'CreateResource', event.name
+    assert_equal record.id, event.entity_id
+
+    # event payload
+    assert_equal record.digital_copy_link, event_payload['digital_copy_link']
+    assert_equal record.citation_source, event_payload['citation_source']
+    assert_equal record.cataloging_notes, event_payload['cataloging_notes']
+    assert_equal record.publication_status, event_payload['publication_status']
+    assert_equal record.work_id, event_payload['work_id']
+    assert_equal record.material_format_id, event_payload['material_format_id']
+    assert_equal record.collection_ids, event_payload['collection_ids']
+  end
 end

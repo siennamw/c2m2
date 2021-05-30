@@ -31,6 +31,36 @@ class Resolvers::CreateCollectionTest < ActiveSupport::TestCase
     assert_equal collection.created_by, @cataloger
   end
 
+  test 'creates expected Event' do
+    event_count = Event.count
+    name = 'Fantastic Collection'
+    description = 'Super great'
+    finding_aid_link = 'http://www.fantasticcollection.com'
+
+    record = perform(
+      name: name,
+      finding_aid_link: finding_aid_link,
+      description: description,
+      repository_id: @repository.id,
+    )
+
+    assert event_count + 1, Event.count
+
+    event = Event.find_by(entity_id: record.id)
+    event_payload = event.payload.to_h
+
+    # event record
+    assert_equal record.created_by, event.created_by
+    assert_equal 'CreateCollection', event.name
+    assert_equal record.id, event.entity_id
+
+    # event payload
+    assert_equal record.name, event_payload['name']
+    assert_equal record.finding_aid_link, event_payload['finding_aid_link']
+    assert_equal record.description, event_payload['description']
+    assert_equal record.repository_id, event_payload['repository_id']
+  end
+
   test 'creating new collection with predetermined ID' do
     name = 'Another Collection'
     description = 'Fantastic'

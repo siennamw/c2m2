@@ -15,28 +15,41 @@ class Resolvers::CreateCataloger < GraphQL::Function
   # _ctx - is the GraphQL context
   def call(_obj, args, ctx)
     if ctx[:current_user].blank?
-      raise GraphQL::ExecutionError.new("Authentication required")
+      raise GraphQL::ExecutionError.new('Authentication required')
     end
 
     # only admins can create other catalogers
     unless ctx[:current_user].admin
-      raise GraphQL::ExecutionError.new("Only administrators can create catalogers")
+      raise GraphQL::ExecutionError.new('Only administrators can create catalogers')
     end
 
-    cataloger = Cataloger.create!(
-      id: args[:id],
+    attributes = {
       name: args[:name],
       email: args[:email],
       description: args[:description],
       admin: !!args[:admin],
+      id: args[:id],
       created_by: ctx[:current_user],
-    )
+    }
+
+    record = Cataloger.create!(attributes)
+
+    if record.persisted?
+      Event.create!(
+        created_by: record.created_by,
+        entity_id: record.id,
+        name: 'CreateCataloger',
+        payload: attributes.filter do |k|
+          !%i[id created_by].include?(k)
+        end
+      )
+    end
 
     # Tell the UserMailer to send a welcome email asynchronously
-    UserMailer.welcome_email(cataloger).deliver_later
+    UserMailer.welcome_email(record).deliver_later
 
-    # Return cataloger
-    cataloger
+    # return new record
+    record
   rescue ActiveRecord::RecordInvalid => e
     # this would catch all validation errors and translate them to GraphQL::ExecutionError
     GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")
