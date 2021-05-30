@@ -11,13 +11,20 @@ class Resolvers::DeleteComposer < GraphQL::Function
       raise GraphQL::ExecutionError.new('Authentication required')
     end
 
-    composer = Composer.find(args[:id])
+    record = Composer.find(args[:id])
 
-    unless composer.deletable
+    unless record.deletable
       raise GraphQL::ExecutionError.new('Record has associated works and cannot be deleted')
     end
 
-    composer.destroy!
+    record.destroy!
+
+    Event.create!(
+      created_by: ctx[:current_user],
+      entity_id: record.id,
+      name: 'DeleteComposer',
+    )
+
     true
   end
 end

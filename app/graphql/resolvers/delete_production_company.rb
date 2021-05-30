@@ -11,13 +11,20 @@ class Resolvers::DeleteProductionCompany < GraphQL::Function
       raise GraphQL::ExecutionError.new('Authentication required')
     end
 
-    production_company = ProductionCompany.find(args[:id])
+    record = ProductionCompany.find(args[:id])
 
-    unless production_company.deletable
+    unless record.deletable
       raise GraphQL::ExecutionError.new('Record has associated works and cannot be deleted')
     end
 
-    production_company.destroy!
+    record.destroy!
+
+    Event.create!(
+      created_by: ctx[:current_user],
+      entity_id: record.id,
+      name: 'DeleteProductionCompany',
+    )
+
     true
   end
 end

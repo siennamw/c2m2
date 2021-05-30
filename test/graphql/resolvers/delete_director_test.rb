@@ -25,6 +25,10 @@ class Resolvers::DeleteDirectorTest < ActiveSupport::TestCase
       name: 'Director 1',
       created_by: @cataloger,
     )
+    @director2 = Director.create!(
+      name: 'Director 2',
+      created_by: @cataloger,
+    )
     @director_with_works = Director.create!(
       name: 'Director with work',
       created_by: @cataloger,
@@ -58,6 +62,23 @@ class Resolvers::DeleteDirectorTest < ActiveSupport::TestCase
     assert_raises ActiveRecord::RecordNotFound do
       Director.find(@director.id)
     end
+  end
+
+  test 'creates the expected Event' do
+    event_count = Event.count
+    perform(id: @director2.id)
+
+    assert event_count + 1, Event.count
+
+    event = Event.find_by(entity_id: @director2.id)
+
+    # event record
+    assert_equal @new_cataloger, event.created_by
+    assert_equal 'DeleteDirector', event.name
+    assert_equal @director2.id, event.entity_id
+
+    # event payload
+    assert_empty event.payload
   end
 
   test 'attempting to delete a director with works fails and returns expected error' do

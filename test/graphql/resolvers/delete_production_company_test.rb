@@ -25,6 +25,10 @@ class Resolvers::DeleteProductionCompanyTest < ActiveSupport::TestCase
       name: 'ProductionCompany 1',
       created_by: @cataloger,
     )
+    @production_company2 = ProductionCompany.create!(
+      name: 'ProductionCompany 2',
+      created_by: @cataloger,
+    )
     @production_company_with_works = ProductionCompany.create!(
       name: 'ProductionCompany with work',
       created_by: @cataloger,
@@ -58,6 +62,23 @@ class Resolvers::DeleteProductionCompanyTest < ActiveSupport::TestCase
     assert_raises ActiveRecord::RecordNotFound do
       ProductionCompany.find(@production_company.id)
     end
+  end
+
+  test 'creates the expected Event' do
+    event_count = Event.count
+    perform(id: @production_company2.id)
+
+    assert event_count + 1, Event.count
+
+    event = Event.find_by(entity_id: @production_company2.id)
+
+    # event record
+    assert_equal @new_cataloger, event.created_by
+    assert_equal 'DeleteProductionCompany', event.name
+    assert_equal @production_company2.id, event.entity_id
+
+    # event payload
+    assert_empty event.payload
   end
 
   test 'attempting to delete a production company with works fails and returns expected error' do

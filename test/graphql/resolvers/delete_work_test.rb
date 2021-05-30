@@ -36,6 +36,12 @@ class Resolvers::DeleteWorkTest < ActiveSupport::TestCase
       media_type: media_type,
       created_by: @cataloger,
     )
+    @work2 = Work.create!(
+      title: 'Work 2',
+      year: 1998,
+      media_type: media_type,
+      created_by: @cataloger,
+    )
     @work_with_resources = Work.create!(
       title: 'Work with work',
       year: 1998,
@@ -77,6 +83,23 @@ class Resolvers::DeleteWorkTest < ActiveSupport::TestCase
     assert_raises ActiveRecord::RecordNotFound do
       Work.find(@work.id)
     end
+  end
+
+  test 'creates the expected Event' do
+    event_count = Event.count
+    perform(id: @work2.id)
+
+    assert event_count + 1, Event.count
+
+    event = Event.find_by(entity_id: @work2.id)
+
+    # event record
+    assert_equal @new_cataloger, event.created_by
+    assert_equal 'DeleteWork', event.name
+    assert_equal @work2.id, event.entity_id
+
+    # event payload
+    assert_empty event.payload
   end
 
   test 'attempting to delete a work with resources fails and returns expected error' do

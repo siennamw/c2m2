@@ -32,6 +32,12 @@ class Resolvers::DeleteCollectionTest < ActiveSupport::TestCase
       repository_id: @repository.id,
       created_by: @cataloger,
     )
+    @collection2 = Collection.create!(
+      name: 'Collection 2',
+      finding_aid_link: 'http://www.collection.com',
+      repository_id: @repository.id,
+      created_by: @cataloger,
+    )
 
     @collection_with_resources = Collection.create!(
       name: 'another collection 3',
@@ -76,6 +82,23 @@ class Resolvers::DeleteCollectionTest < ActiveSupport::TestCase
     assert_raises ActiveRecord::RecordNotFound do
       Collection.find(@collection.id)
     end
+  end
+
+  test 'creates the expected Event' do
+    event_count = Event.count
+    perform(id: @collection2.id)
+
+    assert event_count + 1, Event.count
+
+    event = Event.find_by(entity_id: @collection2.id)
+
+    # event record
+    assert_equal @new_cataloger, event.created_by
+    assert_equal 'DeleteCollection', event.name
+    assert_equal @collection2.id, event.entity_id
+
+    # event payload
+    assert_empty event.payload
   end
 
   test 'attempting to delete a collection with resources fails and returns expected error' do

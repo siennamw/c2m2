@@ -11,13 +11,20 @@ class Resolvers::DeleteResource < GraphQL::Function
       raise GraphQL::ExecutionError.new('Authentication required')
     end
 
-    resource = Resource.find(args[:id])
+    record = Resource.find(args[:id])
 
-    unless resource.deletable
+    unless record.deletable
       raise GraphQL::ExecutionError.new('Record has associated works and cannot be deleted')
     end
 
-    resource.destroy!
+    record.destroy!
+
+    Event.create!(
+      created_by: ctx[:current_user],
+      entity_id: record.id,
+      name: 'DeleteResource',
+    )
+
     true
   end
 end

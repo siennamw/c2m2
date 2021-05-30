@@ -25,6 +25,10 @@ class Resolvers::DeleteMediaTypeTest < ActiveSupport::TestCase
       name: 'MediaType 1',
       created_by: @cataloger,
     )
+    @media_type2 = MediaType.create!(
+      name: 'MediaType 2',
+      created_by: @cataloger,
+    )
     @media_type_with_works = MediaType.create!(
       name: 'MediaType with work',
       created_by: @cataloger,
@@ -53,6 +57,23 @@ class Resolvers::DeleteMediaTypeTest < ActiveSupport::TestCase
     assert_raises ActiveRecord::RecordNotFound do
       MediaType.find(@media_type.id)
     end
+  end
+
+  test 'creates the expected Event' do
+    event_count = Event.count
+    perform(id: @media_type2.id)
+
+    assert event_count + 1, Event.count
+
+    event = Event.find_by(entity_id: @media_type2.id)
+
+    # event record
+    assert_equal @new_cataloger, event.created_by
+    assert_equal 'DeleteMediaType', event.name
+    assert_equal @media_type2.id, event.entity_id
+
+    # event payload
+    assert_empty event.payload
   end
 
   test 'attempting to delete a media_type with works fails and returns expected error' do
