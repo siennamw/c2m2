@@ -11,13 +11,20 @@ class Resolvers::DeleteMaterialFormat < GraphQL::Function
       raise GraphQL::ExecutionError.new('Authentication required')
     end
 
-    material_format = MaterialFormat.find(args[:id])
+    record = MaterialFormat.find(args[:id])
 
-    unless material_format.deletable
+    unless record.deletable
       raise GraphQL::ExecutionError.new('Record has associated resources and cannot be deleted')
     end
 
-    material_format.destroy!
+    record.destroy!
+
+    Event.create!(
+      created_by: ctx[:current_user],
+      entity_id: record.id,
+      name: 'DeleteMaterialFormat',
+    )
+
     true
   end
 end

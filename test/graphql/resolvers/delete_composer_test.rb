@@ -25,6 +25,10 @@ class Resolvers::DeleteComposerTest < ActiveSupport::TestCase
       name: 'Composer 1',
       created_by: @cataloger,
     )
+    @composer2 = Composer.create!(
+      name: 'Composer 2',
+      created_by: @cataloger,
+    )
     @composer_with_works = Composer.create!(
       name: 'Composer with work',
       created_by: @cataloger,
@@ -63,6 +67,23 @@ class Resolvers::DeleteComposerTest < ActiveSupport::TestCase
     assert_raises ActiveRecord::RecordNotFound do
       Composer.find(@composer.id)
     end
+  end
+
+  test 'creates the expected Event' do
+    event_count = Event.count
+    perform(id: @composer2.id)
+
+    assert event_count + 1, Event.count
+
+    event = Event.find_by(entity_id: @composer2.id)
+
+    # event record
+    assert_equal @new_cataloger, event.created_by
+    assert_equal 'DeleteComposer', event.name
+    assert_equal @composer2.id, event.entity_id
+
+    # event payload
+    assert_empty event.payload
   end
 
   test 'attempting to delete a composer with works fails and returns expected error' do

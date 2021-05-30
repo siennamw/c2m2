@@ -11,13 +11,20 @@ class Resolvers::DeleteDirector < GraphQL::Function
       raise GraphQL::ExecutionError.new('Authentication required')
     end
 
-    director = Director.find(args[:id])
+    record = Director.find(args[:id])
 
-    unless director.deletable
+    unless record.deletable
       raise GraphQL::ExecutionError.new('Record has associated works and cannot be deleted')
     end
 
-    director.destroy!
+    record.destroy!
+
+    Event.create!(
+      created_by: ctx[:current_user],
+      entity_id: record.id,
+      name: 'DeleteDirector',
+    )
+
     true
   end
 end

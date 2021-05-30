@@ -26,6 +26,11 @@ class Resolvers::DeleteRepositoryTest < ActiveSupport::TestCase
       location: 'here',
       created_by: @cataloger,
     )
+    @repository2 = Repository.create!(
+      name: 'Repository 2',
+      location: 'here',
+      created_by: @cataloger,
+    )
     @repository_with_collections = Repository.create!(
       name: 'Repository with collection',
       location: 'here',
@@ -54,6 +59,23 @@ class Resolvers::DeleteRepositoryTest < ActiveSupport::TestCase
     assert_raises ActiveRecord::RecordNotFound do
       Repository.find(@repository.id)
     end
+  end
+
+  test 'creates the expected Event' do
+    event_count = Event.count
+    perform(id: @repository2.id)
+
+    assert event_count + 1, Event.count
+
+    event = Event.find_by(entity_id: @repository2.id)
+
+    # event record
+    assert_equal @new_cataloger, event.created_by
+    assert_equal 'DeleteRepository', event.name
+    assert_equal @repository2.id, event.entity_id
+
+    # event payload
+    assert_empty event.payload
   end
 
   test 'attempting to delete a repository with collections fails and returns expected error' do

@@ -11,13 +11,20 @@ class Resolvers::DeleteRepository < GraphQL::Function
       raise GraphQL::ExecutionError.new('Authentication required')
     end
 
-    repository = Repository.find(args[:id])
+    record = Repository.find(args[:id])
 
-    unless repository.deletable
+    unless record.deletable
       raise GraphQL::ExecutionError.new('Record has associated collections and cannot be deleted')
     end
 
-    repository.destroy!
+    record.destroy!
+
+    Event.create!(
+      created_by: ctx[:current_user],
+      entity_id: record.id,
+      name: 'DeleteRepository',
+    )
+
     true
   end
 end

@@ -53,6 +53,12 @@ class Resolvers::DeleteResourceTest < ActiveSupport::TestCase
       work: work,
       created_by: @cataloger,
     )
+    @resource2 = Resource.create!(
+      material_format: material_format,
+      collections: [collection],
+      work: work,
+      created_by: @cataloger,
+    )
   end
 
   test 'unauthenticated user attempting to delete a resource' do
@@ -62,6 +68,23 @@ class Resolvers::DeleteResourceTest < ActiveSupport::TestCase
     end
 
     assert Resource.exists?(@resource.id), true
+  end
+
+  test 'creates the expected Event' do
+    event_count = Event.count
+    perform(id: @resource2.id)
+
+    assert event_count + 1, Event.count
+
+    event = Event.find_by(entity_id: @resource2.id)
+
+    # event record
+    assert_equal @new_cataloger, event.created_by
+    assert_equal 'DeleteResource', event.name
+    assert_equal @resource2.id, event.entity_id
+
+    # event payload
+    assert_empty event.payload
   end
 
   test 'deleting a resource' do

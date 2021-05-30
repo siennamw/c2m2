@@ -25,6 +25,10 @@ class Resolvers::DeleteCountryTest < ActiveSupport::TestCase
       name: 'Country 1',
       created_by: @cataloger,
     )
+    @country2 = Country.create!(
+      name: 'Country 2',
+      created_by: @cataloger,
+    )
     @country_with_works = Country.create!(
       name: 'Country with work',
       created_by: @cataloger,
@@ -58,6 +62,23 @@ class Resolvers::DeleteCountryTest < ActiveSupport::TestCase
     assert_raises ActiveRecord::RecordNotFound do
       Country.find(@country.id)
     end
+  end
+
+  test 'creates the expected Event' do
+    event_count = Event.count
+    perform(id: @country2.id)
+
+    assert event_count + 1, Event.count
+
+    event = Event.find_by(entity_id: @country2.id)
+
+    # event record
+    assert_equal @new_cataloger, event.created_by
+    assert_equal 'DeleteCountry', event.name
+    assert_equal @country2.id, event.entity_id
+
+    # event payload
+    assert_empty event.payload
   end
 
   test 'attempting to delete a country with works fails and returns expected error' do

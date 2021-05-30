@@ -25,6 +25,10 @@ class Resolvers::DeleteMaterialFormatTest < ActiveSupport::TestCase
       name: 'MaterialFormat 1',
       created_by: @cataloger,
     )
+    @material_format2 = MaterialFormat.create!(
+      name: 'MaterialFormat 2',
+      created_by: @cataloger,
+    )
     @material_format_with_resources = MaterialFormat.create!(
       name: 'MaterialFormat with work',
       created_by: @cataloger,
@@ -74,6 +78,23 @@ class Resolvers::DeleteMaterialFormatTest < ActiveSupport::TestCase
     assert_raises ActiveRecord::RecordNotFound do
       MaterialFormat.find(@material_format.id)
     end
+  end
+
+  test 'creates the expected Event' do
+    event_count = Event.count
+    perform(id: @material_format2.id)
+
+    assert event_count + 1, Event.count
+
+    event = Event.find_by(entity_id: @material_format2.id)
+
+    # event record
+    assert_equal @new_cataloger, event.created_by
+    assert_equal 'DeleteMaterialFormat', event.name
+    assert_equal @material_format2.id, event.entity_id
+
+    # event payload
+    assert_empty event.payload
   end
 
   test 'attempting to delete a material format with resources fails and returns expected error' do

@@ -11,13 +11,20 @@ class Resolvers::DeleteCountry < GraphQL::Function
       raise GraphQL::ExecutionError.new('Authentication required')
     end
 
-    country = Country.find(args[:id])
+    record = Country.find(args[:id])
 
-    unless country.deletable
+    unless record.deletable
       raise GraphQL::ExecutionError.new('Record has associated works and cannot be deleted')
     end
 
-    country.destroy!
+    record.destroy!
+
+    Event.create!(
+      created_by: ctx[:current_user],
+      entity_id: record.id,
+      name: 'DeleteCountry',
+    )
+
     true
   end
 end
