@@ -17,6 +17,7 @@ gem 'puma', '~> 3.12'
 gem 'bcrypt', '~> 3.1.7'
 # Use JSON web tokens for authentication
 gem 'json_web_token', '~> 0.3.5'
+gem 'jwt_claims', '~> 0.1.0'
 # For CORS
 gem 'rack-cors', require: 'rack/cors'
 # For JS uglification

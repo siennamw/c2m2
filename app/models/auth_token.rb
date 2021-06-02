@@ -4,15 +4,18 @@ class AuthToken
   end
 
   def self.token(cataloger)
+    time = Time.new
     payload = {
       id: cataloger.id,
-      admin: cataloger.admin
+      admin: cataloger.admin,
+      exp: time.at_end_of_day.to_i, # expire just before midnight
     }
     JsonWebToken.sign(payload, key: key)
   end
 
   def self.verify(token)
-    result = JsonWebToken.verify(token, key: key)
+    result = JwtClaims.verify(token, key: key)
+    return nil unless result[:ok][:exp] # reject if exp claim is missing
     return nil if result[:error]
     Cataloger.find_by(id: result[:ok][:id])
   end
