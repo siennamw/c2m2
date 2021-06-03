@@ -31,6 +31,15 @@ class Resolvers::ResetPassword < GraphQL::Function
       cataloger.save!
       cataloger.clear_password_token!
 
+      Event.create!(
+        created_by: cataloger,
+        entity_id: cataloger.id,
+        name: 'ResetPassword',
+        payload: args.filter do |k|
+          !%i[reset_token new_password].include?(k)
+        end
+      )
+
       # Return true to signal success
       return true
     end

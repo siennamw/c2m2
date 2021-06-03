@@ -6,9 +6,9 @@ class Resolvers::ResetPasswordTest < ActiveSupport::TestCase
   end
 
   setup do
-    cataloger = Cataloger.create!(name: 'test', email: 'test@email.com', password: 'test_test')
-    Resolvers::GetResetPasswordToken.new.call(nil, {email: cataloger.email}, {})
-    @cataloger = Cataloger.find_by(email: cataloger.email)
+    @cataloger = Cataloger.create!(name: 'test', email: 'test@email.com', password: 'test_test')
+    Resolvers::GetResetPasswordToken.new.call(nil, {email: @cataloger.email}, {})
+    @cataloger.reload
   end
 
   test 'returns false if cataloger does not exist' do
@@ -85,5 +85,30 @@ class Resolvers::ResetPasswordTest < ActiveSupport::TestCase
     updated_cataloger = Cataloger.find_by(email: @cataloger.email)
     assert updated_cataloger.reset_password_token.equal?(nil)
     assert updated_cataloger.reset_password_token_expires_at.equal?(nil)
+  end
+
+  test 'creates expected Event' do
+    event_count = Event.count
+    new_pwd = 'new_password4'
+
+    perform(
+      email: @cataloger.email,
+      reset_token: @cataloger.reset_password_token,
+      new_password: new_pwd
+    )
+
+    assert event_count + 1, Event.count
+
+    event = Event.find_by(entity_id: @cataloger.id, name: 'ResetPassword')
+    event_payload = event.payload.to_h
+
+    # event record
+    assert_equal @cataloger, event.created_by
+    assert_equal 'ResetPassword', event.name
+    assert_equal @cataloger.id, event.entity_id
+
+    # event payload
+    assert_equal event_payload.keys.sort, %w[email]
+    assert_equal @cataloger.email, event_payload['email']
   end
 end
