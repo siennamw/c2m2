@@ -40,4 +40,31 @@ class Resolvers::UpdateComposerTest < ActiveSupport::TestCase
     assert_equal composer.created_by, @cataloger
     assert_equal composer.updated_by, @new_cataloger
   end
+
+  test 'creates expected Event' do
+    event_count = Event.count
+    name = 'Ludwig van Beethoven'
+    imdb_link = 'example.com/beethoven'
+
+    record = perform(
+      id: @composer.id,
+      name: name,
+      imdb_link: imdb_link,
+    )
+
+    assert event_count + 1, Event.count
+
+    event = Event.find_by(entity_id: record.id)
+    event_payload = event.payload.to_h
+
+    # event record
+    assert_equal record.updated_by, event.created_by
+    assert_equal 'UpdateComposer', event.name
+    assert_equal record.id, event.entity_id
+
+    # event payload
+    assert_equal event_payload.keys.sort, %w[imdb_link name]
+    assert_equal record.name, event_payload['name']
+    assert_equal record.imdb_link, event_payload['imdb_link']
+  end
 end

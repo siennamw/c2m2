@@ -23,10 +23,22 @@ class Resolvers::UpdateMediaType < GraphQL::Function
     end
 
     media_type = MediaType.find(args[:id])
-    media_type.update!(
+
+    attributes = {
       name: args[:name],
       description: args[:description],
       updated_by: ctx[:current_user],
+    }
+
+    media_type.update!(attributes)
+
+    Event.create!(
+      created_by: attributes[:updated_by],
+      entity_id: args[:id],
+      name: 'UpdateMediaType',
+      payload: attributes.filter do |k|
+        !%i[updated_by].include?(k)
+      end
     )
 
     MediaType.find(args[:id])

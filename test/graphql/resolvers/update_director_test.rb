@@ -40,4 +40,31 @@ class Resolvers::UpdateDirectorTest < ActiveSupport::TestCase
     assert_equal updated_director.created_by, @cataloger
     assert_equal updated_director.updated_by, @new_cataloger
   end
+
+  test 'creates expected Event' do
+    event_count = Event.count
+    name = 'John Krasinski'
+    imdb_link = 'example.com/krasinski'
+
+    record = perform(
+      id: @director.id,
+      name: name,
+      imdb_link: imdb_link,
+    )
+
+    assert event_count + 1, Event.count
+
+    event = Event.find_by(entity_id: record.id)
+    event_payload = event.payload.to_h
+
+    # event record
+    assert_equal record.updated_by, event.created_by
+    assert_equal 'UpdateDirector', event.name
+    assert_equal record.id, event.entity_id
+
+    # event payload
+    assert_equal event_payload.keys.sort, %w[imdb_link name]
+    assert_equal record.name, event_payload['name']
+    assert_equal record.imdb_link, event_payload['imdb_link']
+  end
 end

@@ -32,7 +32,7 @@ class Resolvers::UpdateResource < GraphQL::Function
       new_status = args[:publication_status] || 'draft'
     end
 
-    resource.update!(
+    attributes = {
       digital_copy_link: args[:digital_copy_link],
       citation_source: args[:citation_source],
       cataloging_notes: args[:cataloging_notes],
@@ -45,6 +45,17 @@ class Resolvers::UpdateResource < GraphQL::Function
       collection_ids: args[:collection_ids],
 
       updated_by: ctx[:current_user],
+    }
+
+    resource.update!(attributes)
+
+    Event.create!(
+      created_by: attributes[:updated_by],
+      entity_id: args[:id],
+      name: 'UpdateResource',
+      payload: attributes.filter do |k|
+        !%i[updated_by].include?(k)
+      end
     )
 
     Resource.find(args[:id])

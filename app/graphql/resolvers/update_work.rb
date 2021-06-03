@@ -27,7 +27,8 @@ class Resolvers::UpdateWork < GraphQL::Function
     end
 
     work = Work.find(args[:id])
-    work.update!(
+
+    attributes = {
       title: args[:title],
       secondary_title: args[:secondary_title],
       alias_alternates: args[:alias_alternates],
@@ -44,6 +45,17 @@ class Resolvers::UpdateWork < GraphQL::Function
       production_company_ids: args[:production_company_ids],
 
       updated_by: ctx[:current_user],
+    }
+
+    work.update!(attributes)
+
+    Event.create!(
+      created_by: attributes[:updated_by],
+      entity_id: args[:id],
+      name: 'UpdateWork',
+      payload: attributes.filter do |k|
+        !%i[updated_by].include?(k)
+      end
     )
 
     Work.find(args[:id])

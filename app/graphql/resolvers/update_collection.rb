@@ -20,12 +20,24 @@ class Resolvers::UpdateCollection < GraphQL::Function
     return unless repository
 
     collection = Collection.find(args[:id])
-    collection.update!(
+
+    attributes = {
       name: args[:name],
       finding_aid_link: args[:finding_aid_link],
       description: args[:description],
-      repository: repository,
+      repository_id: repository.id,
       updated_by: ctx[:current_user],
+    }
+
+    collection.update!(attributes)
+
+    Event.create!(
+      created_by: attributes[:updated_by],
+      entity_id: args[:id],
+      name: 'UpdateCollection',
+      payload: attributes.filter do |k|
+        !%i[updated_by].include?(k)
+      end
     )
 
     Collection.find(args[:id])

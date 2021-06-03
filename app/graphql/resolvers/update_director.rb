@@ -15,10 +15,22 @@ class Resolvers::UpdateDirector < GraphQL::Function
     end
 
     director = Director.find(args[:id])
-    director.update!(
+
+    attributes = {
       name: args[:name],
       imdb_link: args[:imdb_link],
       updated_by: ctx[:current_user],
+    }
+
+    director.update!(attributes)
+
+    Event.create!(
+      created_by: attributes[:updated_by],
+      entity_id: args[:id],
+      name: 'UpdateDirector',
+      payload: attributes.filter do |k|
+        !%i[updated_by].include?(k)
+      end
     )
 
     Director.find(args[:id])

@@ -44,4 +44,34 @@ class Resolvers::UpdateRepositoryTest < ActiveSupport::TestCase
     assert_equal updated_repository.created_by, @cataloger
     assert_equal updated_repository.updated_by, @new_cataloger
   end
+
+  test 'creates expected Event' do
+    event_count = Event.count
+    name = 'Another Repo'
+    location = 'Not Boulder, CO'
+    website = 'anotherrepo.com'
+
+    record = perform(
+      id: @repository.id,
+      name: name,
+      location: location,
+      website: website,
+    )
+
+    assert event_count + 1, Event.count
+
+    event = Event.find_by(entity_id: record.id)
+    event_payload = event.payload.to_h
+
+    # event record
+    assert_equal record.updated_by, event.created_by
+    assert_equal 'UpdateRepository', event.name
+    assert_equal record.id, event.entity_id
+
+    # event payload
+    assert_equal event_payload.keys.sort, %w[location name website]
+    assert_equal record.name, event_payload['name']
+    assert_equal record.location, event_payload['location']
+    assert_equal record.website, event_payload['website']
+  end
 end

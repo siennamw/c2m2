@@ -15,10 +15,22 @@ class Resolvers::UpdateProductionCompany < GraphQL::Function
     end
 
     production_company = ProductionCompany.find(args[:id])
-    production_company.update!(
+
+    attributes = {
       name: args[:name],
       contact_info: args[:contact_info],
       updated_by: ctx[:current_user],
+    }
+
+    production_company.update!(attributes)
+
+    Event.create!(
+      created_by: attributes[:updated_by],
+      entity_id: args[:id],
+      name: 'UpdateProductionCompany',
+      payload: attributes.filter do |k|
+        !%i[updated_by].include?(k)
+      end
     )
 
     ProductionCompany.find(args[:id])

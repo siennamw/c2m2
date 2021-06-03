@@ -16,11 +16,23 @@ class Resolvers::UpdateRepository < GraphQL::Function
     end
 
     repository = Repository.find(args[:id])
-    repository.update!(
+
+    attributes = {
       name: args[:name],
       location: args[:location],
       website: args[:website],
       updated_by: ctx[:current_user],
+    }
+
+    repository.update!(attributes)
+
+    Event.create!(
+      created_by: attributes[:updated_by],
+      entity_id: args[:id],
+      name: 'UpdateRepository',
+      payload: attributes.filter do |k|
+        !%i[updated_by].include?(k)
+      end
     )
 
     Repository.find(args[:id])

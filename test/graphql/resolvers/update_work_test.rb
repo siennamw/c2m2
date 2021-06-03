@@ -45,8 +45,8 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
     @media_types = []
     @countries = []
 
-    3.times do |n|
-      @countries << Country.create(
+    4.times do |n|
+      @countries << Country.create!(
         name: "country #{n}",
         created_by: @cataloger
       )
@@ -141,5 +141,71 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
     assert_equal updated_work.directors.map { |obj| obj.id }, @director_ids
     assert_equal updated_work.orchestrators.map { |obj| obj.id }, @orchestrator_ids
     assert_equal updated_work.production_companies.map { |obj| obj.id }, @production_company_ids
+  end
+
+  test 'creates expected Event' do
+    event_count = Event.count
+    title = 'New Main Title'
+    secondary_title = 'New Secondary Title'
+    alias_alternates = 'new_alias_alternates'
+    imdb_link = 'http://www.newexample.com'
+    year = 2021
+
+    record = perform(
+      {
+        id: @work.id,
+        title: title,
+        secondary_title: secondary_title,
+        alias_alternates: alias_alternates,
+        imdb_link: imdb_link,
+
+        year: year,
+
+        country_id: @countries[3].id,
+        media_type_id: @media_types[3].id,
+
+        composer_ids: @composer_ids,
+        director_ids: @director_ids,
+        orchestrator_ids: @orchestrator_ids,
+        production_company_ids: @production_company_ids,
+      },
+      @cataloger
+    )
+
+    assert event_count + 1, Event.count
+
+    event = Event.find_by(entity_id: record.id)
+    event_payload = event.payload.to_h
+
+    # event record
+    assert_equal record.updated_by, event.created_by
+    assert_equal 'UpdateWork', event.name
+    assert_equal record.id, event.entity_id
+
+    # event payload
+    assert_equal event_payload.keys.sort, %w[
+      alias_alternates
+      composer_ids
+      country_id
+      director_ids
+      imdb_link
+      media_type_id
+      orchestrator_ids
+      production_company_ids
+      secondary_title
+      title
+      year
+    ]
+    assert_equal record.title, event_payload['title']
+    assert_equal record.secondary_title, event_payload['secondary_title']
+    assert_equal record.alias_alternates, event_payload['alias_alternates']
+    assert_equal record.imdb_link, event_payload['imdb_link']
+    assert_equal record.year, event_payload['year']
+    assert_equal record.country_id, event_payload['country_id']
+    assert_equal record.media_type_id, event_payload['media_type_id']
+    assert_equal record.composer_ids, event_payload['composer_ids']
+    assert_equal record.director_ids, event_payload['director_ids']
+    assert_equal record.orchestrator_ids, event_payload['orchestrator_ids']
+    assert_equal record.production_company_ids, event_payload['production_company_ids']
   end
 end

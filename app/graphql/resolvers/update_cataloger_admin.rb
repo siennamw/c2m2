@@ -21,18 +21,29 @@ class Resolvers::UpdateCatalogerAdmin < GraphQL::Function
       raise GraphQL::ExecutionError.new("You do not have permission to edit cataloger entries")
     end
 
-    cataloger = Cataloger.find_by(id: args[:id])
-
-    cataloger.update!(
+    attributes = {
       name: args[:name],
       email: args[:email],
       description: args[:description],
       admin: !!args[:admin],
       updated_by: ctx[:current_user],
+    }
+
+    record = Cataloger.find_by(id: args[:id])
+
+    record.update!(attributes)
+
+    Event.create!(
+      created_by: attributes[:updated_by],
+      entity_id: args[:id],
+      name: "UpdateCatalogerAdmin",
+      payload: attributes.filter do |k|
+        !%i[updated_by].include?(k)
+      end
     )
 
     # Tell the UserMailer to send a user info change email asynchronously
-    UserMailer.info_change_email(cataloger, true).deliver_later
+    UserMailer.info_change_email(record, true).deliver_later
 
     # Return updated cataloger
     Cataloger.find(args[:id])
