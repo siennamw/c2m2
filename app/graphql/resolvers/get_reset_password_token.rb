@@ -14,6 +14,14 @@ class Resolvers::GetResetPasswordToken < GraphQL::Function
 
     if cataloger
       updated_cataloger = cataloger.generate_password_token!
+
+      Event.create!(
+        created_by: updated_cataloger,
+        entity_id: updated_cataloger.id,
+        name: 'GetResetPasswordToken',
+        payload: args,
+      )
+
       UserMailer.reset_password_token_email(updated_cataloger, updated_cataloger.reset_password_token).deliver_later
     end
 
