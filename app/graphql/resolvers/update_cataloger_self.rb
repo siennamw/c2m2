@@ -29,13 +29,24 @@ class Resolvers::UpdateCatalogerSelf < GraphQL::Function
       raise GraphQL::ExecutionError.new("Authentication failed")
     end
 
-    cataloger.update!(
+    attributes = {
       name: args[:name],
       email: args[:email],
       password: args[:new_password] || args[:password],
       description: args[:description],
       admin: ctx[:current_user].admin ? !!args[:admin] : false,
       updated_by: ctx[:current_user],
+    }
+
+    cataloger.update!(attributes)
+
+    Event.create!(
+      created_by: attributes[:updated_by],
+      entity_id: args[:id],
+      name: 'UpdateCatalogerSelf',
+      payload: attributes.filter do |k|
+        !%i[new_password password updated_by].include?(k)
+      end
     )
 
     # Tell the UserMailer to send a user info change email asynchronously

@@ -15,10 +15,22 @@ class Resolvers::UpdateCountry < GraphQL::Function
     end
 
     country = Country.find(args[:id])
-    country.update!(
+
+    attributes = {
       name: args[:name],
       description: args[:description],
       updated_by: ctx[:current_user],
+    }
+
+    country.update!(attributes)
+
+    Event.create!(
+      created_by: attributes[:updated_by],
+      entity_id: args[:id],
+      name: 'UpdateCountry',
+      payload: attributes.filter do |k|
+        !%i[updated_by].include?(k)
+      end
     )
 
     Country.find(args[:id])

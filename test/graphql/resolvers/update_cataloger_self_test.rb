@@ -90,6 +90,43 @@ class Resolvers::UpdateCatalogerSelfTest < ActiveSupport::TestCase
     assert_equal updated_cataloger.updated_by, @non_admin
   end
 
+  test 'creates expected Event' do
+    event_count = Event.count
+    name = 'William Brown'
+    email = 'william.brown@example.com'
+    description = 'awesome cataloger'
+
+    record = perform({
+      id: @non_admin.id,
+      name: name,
+      email: email,
+      description: description,
+      password: @non_admin.password,
+    }, @non_admin)
+
+    assert event_count + 1, Event.count
+
+    event = Event.find_by(entity_id: record.id)
+    event_payload = event.payload.to_h
+
+    # event record
+    assert_equal record.updated_by, event.created_by
+    assert_equal 'UpdateCatalogerSelf', event.name
+    assert_equal record.id, event.entity_id
+
+    # event payload
+    assert_equal event_payload.keys.sort, %w[admin description email name]
+    assert_equal record.name, event_payload['name']
+    assert_equal record.email, event_payload['email']
+    assert_equal record.description, event_payload['description']
+    assert_equal record.admin, event_payload['admin']
+
+    # make sure no password fields
+    assert_nil event_payload['password']
+    assert_nil event_payload['new_password']
+    assert_nil event_payload['password_digest']
+  end
+
   test 'omitting new_password field means that password is not changed' do
     name = 'William Smith'
 

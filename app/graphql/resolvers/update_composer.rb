@@ -15,10 +15,22 @@ class Resolvers::UpdateComposer < GraphQL::Function
     end
 
     composer = Composer.find(args[:id])
-    composer.update!(
+
+    attributes = {
       name: args[:name],
       imdb_link: args[:imdb_link],
       updated_by: ctx[:current_user],
+    }
+
+    composer.update!(attributes)
+
+    Event.create!(
+      created_by: attributes[:updated_by],
+      entity_id: args[:id],
+      name: 'UpdateComposer',
+      payload: attributes.filter do |k|
+        !%i[updated_by].include?(k)
+      end
     )
 
     Composer.find(args[:id])

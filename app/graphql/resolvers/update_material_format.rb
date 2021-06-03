@@ -20,10 +20,22 @@ class Resolvers::UpdateMaterialFormat < GraphQL::Function
     end
 
     material_format = MaterialFormat.find(args[:id])
-    material_format.update!(
+
+    attributes = {
       name: args[:name],
       description: args[:description],
       updated_by: ctx[:current_user],
+    }
+
+    material_format.update!(attributes)
+
+    Event.create!(
+      created_by: attributes[:updated_by],
+      entity_id: args[:id],
+      name: 'UpdateMaterialFormat',
+      payload: attributes.filter do |k|
+        !%i[updated_by].include?(k)
+      end
     )
 
     MaterialFormat.find(args[:id])

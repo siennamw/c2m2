@@ -40,4 +40,31 @@ class Resolvers::UpdateCountryTest < ActiveSupport::TestCase
     assert_equal updated_country.created_by, @cataloger
     assert_equal updated_country.updated_by, @new_cataloger
   end
+
+  test 'creates expected Event' do
+    event_count = Event.count
+    name = 'Canada'
+    description = 'Home of maple syrup'
+
+    record = perform(
+      id: @country.id,
+      name: name,
+      description: description,
+    )
+
+    assert event_count + 1, Event.count
+
+    event = Event.find_by(entity_id: record.id)
+    event_payload = event.payload.to_h
+
+    # event record
+    assert_equal record.updated_by, event.created_by
+    assert_equal 'UpdateCountry', event.name
+    assert_equal record.id, event.entity_id
+
+    # event payload
+    assert_equal event_payload.keys.sort, %w[description name]
+    assert_equal record.name, event_payload['name']
+    assert_equal record.description, event_payload['description']
+  end
 end
