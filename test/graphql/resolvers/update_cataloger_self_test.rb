@@ -7,18 +7,16 @@ class Resolvers::UpdateCatalogerSelfTest < ActiveSupport::TestCase
 
   setup do
     @admin = Cataloger.create!(
-      name: 'test',
-      email: 'test@email.com',
-      password: 'test_test',
       admin: true,
-      description: 'test description'
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
+      description: Faker::Lorem.sentence,
     )
 
     @non_admin = Cataloger.create!(
-      name: 'non-admin',
-      email: 'non-admin@email.com',
-      password: 'test-test',
-      description: 'description test'
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
+      description: Faker::Lorem.sentence,
     )
   end
 
@@ -26,8 +24,8 @@ class Resolvers::UpdateCatalogerSelfTest < ActiveSupport::TestCase
     assert_raises GraphQL::ExecutionError do
       perform({
         id: @admin.id,
-        email: 'new@email.com',
-        name: 'New Name',
+        email: Faker::Internet.email,
+        name: Faker::Name.name,
       }, @non_admin)
     end
   end
@@ -36,17 +34,17 @@ class Resolvers::UpdateCatalogerSelfTest < ActiveSupport::TestCase
     assert_raises GraphQL::ExecutionError do
       perform({
         id: @non_admin.id,
-        email: 'new@email.com',
-        name: 'New Name',
+        email: Faker::Internet.email,
+        name: Faker::Name.name,
       }, @admin)
     end
   end
 
   test 'admin cataloger updating him/herself' do
-    name = 'Jane Doe'
-    email = 'jane.doe@example.com'
-    description = 'great cataloger'
-    new_password = 'new_password'
+    name = Faker::Name.name
+    email = Faker::Internet.email
+    description = Faker::Lorem.sentence
+    new_password = Faker::Internet.password(min_length: 8)
 
     updated_cataloger = perform({
       id: @admin.id,
@@ -67,10 +65,10 @@ class Resolvers::UpdateCatalogerSelfTest < ActiveSupport::TestCase
   end
 
   test 'non-admin cataloger updating him/herself' do
-    name = 'Bob Smith'
-    email = 'bob.smit@example.com'
-    description = 'super cataloger'
-    new_password = 'new_password'
+    name = Faker::Name.name
+    email = Faker::Internet.email
+    description = Faker::Lorem.sentence
+    new_password = Faker::Internet.password(min_length: 8)
 
     updated_cataloger = perform({
       id: @non_admin.id,
@@ -92,9 +90,9 @@ class Resolvers::UpdateCatalogerSelfTest < ActiveSupport::TestCase
 
   test 'creates expected Event' do
     event_count = Event.count
-    name = 'William Brown'
-    email = 'william.brown@example.com'
-    description = 'awesome cataloger'
+    name = Faker::Name.name
+    email = Faker::Internet.email
+    description = Faker::Lorem.sentence
 
     record = perform({
       id: @non_admin.id,
@@ -128,7 +126,7 @@ class Resolvers::UpdateCatalogerSelfTest < ActiveSupport::TestCase
   end
 
   test 'omitting new_password field means that password is not changed' do
-    name = 'William Smith'
+    name = Faker::Name.name
 
     updated_cataloger = perform({
       id: @non_admin.id,

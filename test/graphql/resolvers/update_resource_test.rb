@@ -7,22 +7,19 @@ class Resolvers::UpdateResourceTest < ActiveSupport::TestCase
 
   setup do
     @cataloger = Cataloger.create!(
-      name: 'test',
-      email: 'test@email.com',
-      password: 'test_test',
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
     )
 
     @new_cataloger = Cataloger.create!(
-      name: 'test2',
-      email: 'test2@email.com',
-      password: 'test_test2',
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
     )
 
     @admin_cataloger = Cataloger.create!(
-      name: 'test3',
-      email: 'test3@email.com',
-      password: 'test_test3',
       admin: true,
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
     )
 
     media_type = MediaType.create!(

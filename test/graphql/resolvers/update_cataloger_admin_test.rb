@@ -7,18 +7,16 @@ class Resolvers::UpdateCatalogerAdminTest < ActiveSupport::TestCase
 
   setup do
     @admin = Cataloger.create!(
-      name: 'test',
-      email: 'test@email.com',
-      password: 'test_test',
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
+      description: Faker::Lorem.sentence,
       admin: true,
-      description: 'test description'
     )
 
     @non_admin = Cataloger.create!(
-      name: 'non-admin',
-      email: 'non-admin@email.com',
-      password: 'test-test',
-      description: 'description test'
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
+      description: Faker::Lorem.sentence,
     )
   end
 
@@ -26,16 +24,16 @@ class Resolvers::UpdateCatalogerAdminTest < ActiveSupport::TestCase
     assert_raises GraphQL::ExecutionError do
       perform({
         id: @admin.id,
-        email: 'new@email.com',
-        name: 'New Name',
+        email: Faker::Internet.email,
+        name: Faker::Name.name,
       }, @non_admin)
     end
   end
 
   test 'admin cataloger updating him/herself' do
-    name = 'Jane Doe'
-    email = 'jane.doe@example.com'
-    description = 'great cataloger'
+    name = Faker::Name.name
+    email = Faker::Internet.email
+    description = Faker::Lorem.sentence
 
     updated_cataloger = perform({
       id: @admin.id,
@@ -53,9 +51,9 @@ class Resolvers::UpdateCatalogerAdminTest < ActiveSupport::TestCase
   end
 
   test 'admin cataloger updating another cataloger' do
-    name = 'Bill Brown'
-    email = 'bill.brown@example.com'
-    description = 'awesome cataloger'
+    name = Faker::Name.name
+    email = Faker::Internet.email
+    description = Faker::Lorem.sentence
 
     updated_cataloger = perform({
       id: @non_admin.id,
@@ -74,9 +72,9 @@ class Resolvers::UpdateCatalogerAdminTest < ActiveSupport::TestCase
 
   test 'creates expected Event' do
     event_count = Event.count
-    name = 'William Brown'
-    email = 'william.brown@example.com'
-    description = 'awesome cataloger'
+    name = Faker::Name.name
+    email = Faker::Internet.email
+    description = Faker::Lorem.sentence
 
     record = perform({
       id: @non_admin.id,
@@ -126,7 +124,7 @@ class Resolvers::UpdateCatalogerAdminTest < ActiveSupport::TestCase
       name: @non_admin.name,
       email: @non_admin.email,
       description: @non_admin.description,
-      password: 'new-password',
+      password: Faker::Internet.password(min_length: 8),
       admin: true,
     }, @admin)
 

@@ -8,13 +8,13 @@ class Resolvers::BulkUploadTest < ActiveSupport::TestCase
   setup do
     @admin = Cataloger.create!(
       admin: true,
-      email: 'admin@email.com',
-      name: 'admin',
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
     )
 
     @non_admin = Cataloger.create!(
-      email: 'non-admin@email.com',
-      name: 'non-admin',
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
     )
 
     @file_duplicates = Rack::Test::UploadedFile.new(file_fixture('bulk_upload/composers_duplicates.csv'), 'text/csv')

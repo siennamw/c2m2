@@ -15,7 +15,6 @@ class Resolvers::SearchCatalogersTest < ActiveSupport::TestCase
       @catalogers << Cataloger.create!(
         name: "name#{n}",
         email: "test#{n}@example.com",
-        password: '12345678',
       )
     end
 

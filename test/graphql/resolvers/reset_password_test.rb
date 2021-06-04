@@ -6,7 +6,10 @@ class Resolvers::ResetPasswordTest < ActiveSupport::TestCase
   end
 
   setup do
-    @cataloger = Cataloger.create!(name: 'test', email: 'test@email.com', password: 'test_test')
+    @cataloger = Cataloger.create!(
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
+    )
     Resolvers::GetResetPasswordToken.new.call(nil, {email: @cataloger.email}, {})
     @cataloger.reload
   end

@@ -7,9 +7,8 @@ class Resolvers::UpdateRepositoryTest < ActiveSupport::TestCase
 
   setup do
     @cataloger = Cataloger.create!(
-      name: 'test',
-      email: 'test@email.com',
-      password: 'test_test'
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
     )
     @repository = Repository.create!(
       name: 'a repository',
@@ -18,9 +17,8 @@ class Resolvers::UpdateRepositoryTest < ActiveSupport::TestCase
       created_by: @cataloger
     )
     @new_cataloger = Cataloger.create!(
-      name: 'test2',
-      email: 'test2@email.com',
-      password: 'test_test2'
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
     )
   end
 

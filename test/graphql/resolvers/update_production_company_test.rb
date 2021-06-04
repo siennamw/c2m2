@@ -7,9 +7,8 @@ class Resolvers::UpdateProductionCompanyTest < ActiveSupport::TestCase
 
   setup do
     @cataloger = Cataloger.create!(
-      name: 'test',
-      email: 'test@email.com',
-      password: 'test_test'
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
     )
     @production_co = ProductionCompany.create!(
       name: 'a company',
@@ -17,9 +16,8 @@ class Resolvers::UpdateProductionCompanyTest < ActiveSupport::TestCase
       created_by: @cataloger
     )
     @new_cataloger = Cataloger.create!(
-      name: 'test2',
-      email: 'test2@email.com',
-      password: 'test_test2'
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
     )
   end
 

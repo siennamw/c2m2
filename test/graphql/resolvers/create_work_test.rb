@@ -6,7 +6,10 @@ class Resolvers::CreateWorkTest < ActiveSupport::TestCase
   end
 
   setup do
-    @cataloger = Cataloger.create!(name: 'test', email: 'test@email.com', password: 'test_test')
+    @cataloger = Cataloger.create!(
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
+    )
 
     @country = Country.create!(name: 'a country', created_by: @cataloger)
     @media_type = MediaType.create!(name: 'a media type', created_by: @cataloger)

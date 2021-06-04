@@ -6,7 +6,10 @@ class Resolvers::CreateCollectionTest < ActiveSupport::TestCase
   end
 
   setup do
-    @cataloger = Cataloger.create!(name: 'test', email: 'test@email.com', password: 'test_test')
+    @cataloger = Cataloger.create!(
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
+    )
     @repository = Repository.create!(name: 'Parent Repo', location: 'Boulder, CO', created_by: @cataloger)
   end
 

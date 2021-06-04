@@ -2,7 +2,10 @@ require 'test_helper'
 
 class UserMailerTest < ActionMailer::TestCase
   setup do
-    @cataloger = Cataloger.create!(name: 'test', email: 'test@email.com', password: 'test_test')
+    @cataloger = Cataloger.create!(
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
+    )
   end
 
   def test_welcome_email
