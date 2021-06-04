@@ -85,6 +85,8 @@ GEM
       railties (>= 3.2)
     erubi (1.10.0)
     execjs (2.7.0)
+    faker (2.18.0)
+      i18n (>= 1.6, < 2)
     ffi (1.15.0)
     foreman (0.87.2)
     globalid (0.4.2)
@@ -200,6 +202,7 @@ DEPENDENCIES
   byebug
   capybara (~> 2.13)
   dotenv-rails (~> 2.5)
+  faker
   foreman (~> 0.87.1)
   graphiql-rails (= 1.4.4)
   graphql (= 1.8)
