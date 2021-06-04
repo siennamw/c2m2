@@ -6,7 +6,10 @@ class Resolvers::CreateProductionCompanyTest < ActiveSupport::TestCase
   end
 
   setup do
-    @cataloger = Cataloger.create!(name: 'test', email: 'test@email.com', password: 'test_test')
+    @cataloger = Cataloger.create!(
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
+    )
   end
 
   test 'creating new production company' do

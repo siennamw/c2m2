@@ -7,21 +7,18 @@ class Resolvers::UpdateMaterialFormatTest < ActiveSupport::TestCase
 
   setup do
     @admin = Cataloger.create!(
-      name: 'test',
-      email: 'test@email.com',
-      password: 'test_test',
       admin: true,
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
     )
     @admin2 = Cataloger.create!(
-      name: 'test2',
-      email: 'test2@email.com',
-      password: 'test_test2',
       admin: true,
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
     )
     @non_admin = Cataloger.create!(
-      name: 'non-admin',
-      email: 'non.admin@email.com',
-      password: 'test_test'
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
     )
     @material_format = MaterialFormat.create!(
       name: 'old material format',

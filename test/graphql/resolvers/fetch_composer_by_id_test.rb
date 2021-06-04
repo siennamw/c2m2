@@ -7,9 +7,8 @@ class Resolvers::FetchComposerByIdTest < ActiveSupport::TestCase
 
   setup do
     @cataloger = Cataloger.create!(
-      name: 'test',
-      email: 'test@example.com',
-      password: '12345678',
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
     )
     @composer = Composer.create!(
       created_by: @cataloger,

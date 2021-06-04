@@ -7,9 +7,8 @@ class Resolvers::FetchProductionCompanyByIdTest < ActiveSupport::TestCase
 
   setup do
     @cataloger = Cataloger.create!(
-      name: 'test',
-      email: 'test@example.com',
-      password: '12345678',
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
     )
     @production_company = ProductionCompany.create!(
       created_by: @cataloger,

@@ -7,16 +7,14 @@ class Resolvers::CreateCatalogerTest < ActiveSupport::TestCase
 
   setup do
     @admin = Cataloger.create!(
-      name: 'test',
-      email: 'test@email.com',
-      password: 'test_test',
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
       admin: true,
     )
 
     @non_admin = Cataloger.create!(
-      name: 'non-admin',
-      email: 'non-admin@email.com',
-      password: 'test-test',
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
     )
   end
 

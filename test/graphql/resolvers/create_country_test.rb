@@ -6,12 +6,15 @@ class Resolvers::CreateCountryTest < ActiveSupport::TestCase
   end
 
   setup do
-    @cataloger = Cataloger.create!(name: 'test', email: 'test@email.com', password: 'test_test')
+    @cataloger = Cataloger.create!(
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
+    )
   end
 
   test 'creating new country' do
-    name = 'Namibia'
-    description = 'Home of the Namib desert'
+    name = Faker::Lorem.word
+    description = Faker::Lorem.sentence
 
     country = perform(
       name: name,
@@ -27,8 +30,8 @@ class Resolvers::CreateCountryTest < ActiveSupport::TestCase
 
   test 'creates expected Event' do
     event_count = Event.count
-    name = 'Japan'
-    description = 'Cherry blossoms'
+    name = Faker::Lorem.word
+    description = Faker::Lorem.sentence
 
     record = perform(
       name: name,
@@ -51,8 +54,8 @@ class Resolvers::CreateCountryTest < ActiveSupport::TestCase
   end
 
   test 'creating new country with predetermined ID' do
-    name = 'Ecuador'
-    description = 'Named for its position along the equator'
+    name = Faker::Lorem.word
+    description = Faker::Lorem.sentence
     id = SecureRandom.uuid
 
     country = perform(

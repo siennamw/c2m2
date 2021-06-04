@@ -7,9 +7,8 @@ class Resolvers::FetchCountryByIdTest < ActiveSupport::TestCase
 
   setup do
     @cataloger = Cataloger.create!(
-      name: 'test',
-      email: 'test@example.com',
-      password: '12345678',
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
     )
     @country = Country.create!(
       created_by: @cataloger,

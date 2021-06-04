@@ -7,9 +7,8 @@ class Resolvers::UpdateComposerTest < ActiveSupport::TestCase
 
   setup do
     @cataloger = Cataloger.create!(
-      name: 'test',
-      email: 'test@email.com',
-      password: 'test_test'
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
     )
     @composer = Composer.create!(
       name: 'a composer',
@@ -17,9 +16,8 @@ class Resolvers::UpdateComposerTest < ActiveSupport::TestCase
       created_by: @cataloger
     )
     @new_cataloger = Cataloger.create!(
-      name: 'test2',
-      email: 'test2@email.com',
-      password: 'test_test2'
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
     )
   end
 
