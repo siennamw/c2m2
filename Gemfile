@@ -30,6 +30,7 @@ group :development, :test do
   gem 'selenium-webdriver'
   # Manage environment variables
   gem 'dotenv-rails', '~> 2.5'
+  gem 'faker'
 end
 
 group :development do
