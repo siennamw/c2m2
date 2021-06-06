@@ -11,6 +11,7 @@ const MediaTypesList = ({ filter }) => (
     <h3>Media Types</h3>
     <QueryWrap
       filter={filter}
+      pagination
       query={LIST_ALL_MEDIA_TYPES}
       queryName="allMediaTypes"
     >

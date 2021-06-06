@@ -13,6 +13,7 @@ const CatalogersList = () => {
     <QueryWrap
       sortAscending={sortAscending}
       sortBy={sortBy}
+      pagination
       query={SEARCH_CATALOGERS}
       queryName="allCatalogers"
     >

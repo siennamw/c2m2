@@ -13,6 +13,7 @@ const WorksList = ({ initialSortField, initialSortAscending, filter }) => {
   return (
     <QueryWrap
       filter={filter}
+      pagination
       query={SEARCH_WORKS}
       queryName="allWorks"
       sortAscending={sortAscending}

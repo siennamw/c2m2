@@ -15,6 +15,7 @@ const CollectionsList = ({ filter }) => {
       <h3>Collections</h3>
       <QueryWrap
         filter={filter}
+        pagination
         sortAscending={sortAscending}
         sortBy={sortBy}
         query={SEARCH_COLLECTIONS}

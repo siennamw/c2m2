@@ -11,6 +11,7 @@ const ResourcesList = () => {
 
   return (
     <QueryWrap
+      pagination
       query={SEARCH_RESOURCES}
       queryName="allResources"
       sortAscending={sortAscending}

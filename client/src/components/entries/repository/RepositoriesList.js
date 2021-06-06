@@ -15,6 +15,7 @@ const RepositoriesList = ({ filter }) => {
       <h3>Repositories</h3>
       <QueryWrap
         filter={filter}
+        pagination
         sortAscending={sortAscending}
         sortBy={sortBy}
         query={SEARCH_REPOSITORIES}

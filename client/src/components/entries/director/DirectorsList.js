@@ -15,6 +15,7 @@ const DirectorsList = ({ filter }) => {
       <h3>Directors</h3>
       <QueryWrap
         filter={filter}
+        pagination
         sortAscending={sortAscending}
         sortBy={sortBy}
         query={SEARCH_DIRECTORS}
