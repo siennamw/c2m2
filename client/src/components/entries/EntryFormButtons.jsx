@@ -56,11 +56,9 @@ export const DeleteButton = ({
   return (
     <button
       className={`button-delete u-full-width`}
-      // disabled={isSubmitting || !data.deletable}
-      disabled
+      disabled={isSubmitting || !data.deletable}
       onClick={() => handleDelete(values, setSubmitting, setStatus, resetForm)}
-      // title={data.deletable ? 'delete this record' : 'record cannot be deleted'}
-      title="deletion is currently disabled"
+      title={data.deletable ? 'delete this record' : 'record cannot be deleted'}
       type="button"
     >
       Delete
