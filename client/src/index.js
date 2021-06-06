@@ -8,7 +8,7 @@ import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
 import { createUploadLink } from 'apollo-upload-client';
 
-import registerServiceWorker from './registerServiceWorker';
+import { unregister } from './registerServiceWorker';
 
 import './styles/index.css';
 import App from './components/App';
@@ -73,4 +73,4 @@ ReactDOM.render(
   document.getElementById('root'),
 );
 
-registerServiceWorker();
+unregister();
