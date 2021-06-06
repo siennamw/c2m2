@@ -15,6 +15,7 @@ const CountriesList = ({ filter }) => {
       <h3>Countries</h3>
       <QueryWrap
         filter={filter}
+        pagination
         sortAscending={sortAscending}
         sortBy={sortBy}
         query={SEARCH_COUNTRIES}

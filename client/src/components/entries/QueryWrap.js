@@ -149,7 +149,7 @@ QueryWrap.defaultProps = {
   filter: {},
   id: undefined,
   limit: 25,
-  pagination: true,
+  pagination: false,
   sortAscending: true,
   sortBy: 'id',
 };

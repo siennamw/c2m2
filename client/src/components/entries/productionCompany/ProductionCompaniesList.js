@@ -17,6 +17,7 @@ const ProductionCompaniesList = ({ filter }) => {
         filter={filter}
         sortAscending={sortAscending}
         sortBy={sortBy}
+        pagination
         query={SEARCH_PRODUCTION_COMPANIES}
         queryName="allProductionCompanies"
       >

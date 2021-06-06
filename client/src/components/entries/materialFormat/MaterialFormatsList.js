@@ -11,6 +11,7 @@ const MaterialFormatsList = ({ filter }) => (
     <h3>Material Formats</h3>
     <QueryWrap
       filter={filter}
+      pagination
       query={LIST_ALL_MATERIAL_FORMATS}
       queryName="allMaterialFormats"
     >
