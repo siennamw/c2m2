@@ -30,8 +30,8 @@ const ResourcesList = () => {
                 label: 'Material Format',
               },
               {
-                field: 'collection',
-                label: 'Collection',
+                field: 'collections',
+                label: 'Collections',
               },
               {
                 field: 'publication_status',
