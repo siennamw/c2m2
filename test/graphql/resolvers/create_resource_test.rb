@@ -12,7 +12,7 @@ class Resolvers::CreateResourceTest < ActiveSupport::TestCase
     )
 
     media_type = MediaType.create!(name: 'a media type', created_by: @cataloger)
-    @work = Work.create!(title: 'a film', media_type: media_type, year: 1990, created_by: @cataloger)
+    @work = Work.create!(title: 'a film', media_type: media_type, year_start: 1990, created_by: @cataloger)
 
     @material_format = MaterialFormat.create!(name: 'a material format', created_by: @cataloger)
 

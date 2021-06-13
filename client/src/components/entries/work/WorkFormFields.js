@@ -51,12 +51,23 @@ const WorkFormFields = () => {
         fieldType="url"
         modelName={model}
       />
-      <InputField
-        displayName="Year"
-        fieldName="year"
-        fieldType="number"
-        modelName={model}
-      />
+      <label htmlFor={['start', 'end']}>
+        Date Range
+        <InputField
+          displayName="Starting Year"
+          fieldName="year_start"
+          fieldType="number"
+          id="start"
+          modelName={model}
+        />
+        <InputField
+          displayName="Ending Year"
+          fieldName="year_end"
+          fieldType="number"
+          id="end"
+          modelName={model}
+        />
+      </label>
       <SelectFieldWithQuery
         componentForModal={CountryForm}
         displayName="Country"

@@ -499,7 +499,8 @@ export const WORK_BY_ID = gql`
       secondary_title
       alias_alternates
       imdb_link
-      year
+      year_start
+      year_end
       deletable
       country {
         id
@@ -756,7 +757,8 @@ export const SEARCH_RESOURCES = gql`
       work {
         id
         title
-        year
+        year_start
+        year_end
       }
     }
   }
@@ -778,7 +780,8 @@ export const SEARCH_WORKS = gql`
       id
       title
       secondary_title
-      year
+      year_start
+      year_end
       composers {
         id
         name

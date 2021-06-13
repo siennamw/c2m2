@@ -40,7 +40,7 @@ class Resolvers::DeleteResourceTest < ActiveSupport::TestCase
     )
     work = Work.create!(
       title: 'work 1',
-      year: 1998,
+      year_start: 1998,
       media_type: media_type,
       created_by: @cataloger,
     )

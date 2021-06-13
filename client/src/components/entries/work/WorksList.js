@@ -32,7 +32,7 @@ const WorksList = ({ initialSortField, initialSortAscending, filter }) => {
                 label: 'Secondary Title',
               },
               {
-                field: 'year',
+                field: 'year_start',
                 label: 'Year',
               },
               {

@@ -59,7 +59,7 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
         production_companies: [@production_companies[n]],
         secondary_title: "secondary#{n}",
         title: "title#{n}",
-        year: 2000 + n,
+        year_start: 2000 + n,
       )
 
       # works with minimum required fields
@@ -67,7 +67,7 @@ class Resolvers::SearchWorksTest < ActiveSupport::TestCase
         created_by: @cataloger,
         media_type: @media_type,
         title: "minimum#{n}",
-        year: 1900 + n,
+        year_start: 1900 + n,
       )
     end
 

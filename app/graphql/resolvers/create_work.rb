@@ -6,7 +6,8 @@ class Resolvers::CreateWork < GraphQL::Function
   argument :alias_alternates, types.String
   argument :imdb_link, types.String
 
-  argument :year, !types.Int
+  argument :year_start, types.Int
+  argument :year_end, types.Int
 
   argument :country_id, types.ID
   argument :media_type_id, !types.ID
@@ -32,7 +33,8 @@ class Resolvers::CreateWork < GraphQL::Function
       alias_alternates: args[:alias_alternates],
       imdb_link: args[:imdb_link],
 
-      year: args[:year],
+      year_start: args[:year_start] || args[:year_end],
+      year_end: args[:year_end] || args[:year_start],
 
       country_id: args[:country_id],
       media_type_id: args[:media_type_id],

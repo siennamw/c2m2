@@ -125,12 +125,12 @@ const SearchAdvanced = () => {
       .label('End')
       .min(1900)
       .max(year)
-      .test('yearValidation', 'Ending Year must be after Starting Year', validateDateRange),
+      .test('yearValidation', 'Ending Year must be same as or after Starting Year', validateDateRange),
     dateRangeStart: Yup.number()
       .label('Start')
       .min(1900)
       .max(year)
-      .test('yearValidation', 'Starting Year must be before Ending Year', validateDateRange),
+      .test('yearValidation', 'Starting Year must be same as or before Ending Year', validateDateRange),
     director: Yup.string()
       .label('Director')
       .trim(),

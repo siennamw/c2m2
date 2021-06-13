@@ -38,7 +38,6 @@ class Resolvers::DeleteProductionCompanyTest < ActiveSupport::TestCase
     )
     Work.create!(
       title: 'work 1',
-      year: 1998,
       production_companies: [@production_company_with_works],
       media_type: media_type,
       created_by: @cataloger,

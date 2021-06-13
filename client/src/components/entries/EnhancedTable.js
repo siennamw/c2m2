@@ -138,6 +138,11 @@ const EnhancedTable = ({
         : 'No';
     }
 
+    if (fieldName === 'year_start' && row.year_end && row.year_start !== row.year_end) {
+      // year range
+      return `${row.year_start}-${row.year_end}`
+    }
+
     return row[fieldName];
   };
 

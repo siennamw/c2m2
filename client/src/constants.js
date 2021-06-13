@@ -379,11 +379,18 @@ export const tooltip = {
         'Omit initial articles from titles, but put full title in alias field.',
       ],
     },
-    year: {
+    year_start: {
       semantics: 'Copyright, release, or air date of the work.',
       rules: [
         'Enter year alone, in Arabic numerals.',
         'The year should be year of release of work within its market of production. Use earliest release date in market. The date listed in the IMDB header on the top of the film\'s entry can be considered authoritative.',
+      ],
+    },
+    year_end: {
+      semantics: 'Ending copyright, release, or air date of the work if different from starting year.',
+      rules: [
+        'Enter year alone, in Arabic numerals.',
+        'Will be automatically populated with starting year if left blank.',
       ],
     },
   },

@@ -360,7 +360,7 @@ polygram = ProductionCompany.create(
 # Works
 silverado = Work.create(
   title: 'Silverado',
-  year: 1985,
+  year_start: 1985,
   country: us,
   media_type: ff_narrative,
   created_by: michael,
@@ -370,7 +370,7 @@ silverado = Work.create(
 )
 matrix = Work.create(
   title: 'Matrix',
-  year: 1999,
+  year_start: 1999,
   country: us,
   media_type: ff_narrative,
   created_by: michael,
@@ -380,7 +380,7 @@ matrix = Work.create(
 )
 batman = Work.create(
   title: 'Batman',
-  year: 1989,
+  year_start: 1989,
   country: us,
   media_type: ff_narrative,
   created_by: michael,
@@ -390,7 +390,7 @@ batman = Work.create(
 )
 scissorhands = Work.create(
   title: 'Edward Scissorhands',
-  year: 1990,
+  year_start: 1990,
   country: us,
   media_type: ff_narrative,
   created_by: michael,
@@ -400,7 +400,7 @@ scissorhands = Work.create(
 )
 willow = Work.create(
   title: 'Willow',
-  year: 1988,
+  year_start: 1988,
   country: us,
   media_type: ff_narrative,
   created_by: sienna,
@@ -410,7 +410,7 @@ willow = Work.create(
 )
 back_to_the_future = Work.create(
   title: 'Back to the future',
-  year: 1985,
+  year_start: 1985,
   country: us,
   media_type: ff_narrative,
   created_by: sienna,
@@ -420,7 +420,7 @@ back_to_the_future = Work.create(
 )
 rashomon = Work.create(
   title: 'Rashōmon',
-  year: 1950,
+  year_start: 1950,
   country: japan,
   media_type: ff_narrative,
   created_by: sienna,
@@ -430,7 +430,7 @@ rashomon = Work.create(
 )
 lawrence = Work.create(
   title: 'Lawrence of Arabia',
-  year: 1962,
+  year_start: 1962,
   country: uk,
   media_type: ff_narrative,
   created_by: sienna,
@@ -440,7 +440,7 @@ lawrence = Work.create(
 )
 goonies = Work.create(
   title: 'Goonies',
-  year: 1985,
+  year_start: 1985,
   country: us,
   media_type: ff_narrative,
   created_by: sienna,
@@ -451,7 +451,7 @@ goonies = Work.create(
 samurai = Work.create(
   title: 'Shichinin no samurai',
   secondary_title: 'Seven Samurai',
-  year: 1954,
+  year_start: 1954,
   country: japan,
   media_type: ff_narrative,
   created_by: sienna,

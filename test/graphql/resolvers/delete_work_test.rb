@@ -30,19 +30,19 @@ class Resolvers::DeleteWorkTest < ActiveSupport::TestCase
 
     @work = Work.create!(
       title: 'Work 1',
-      year: 1998,
+      year_start: 1998,
       media_type: media_type,
       created_by: @cataloger,
     )
     @work2 = Work.create!(
       title: 'Work 2',
-      year: 1998,
+      year_start: 1998,
       media_type: media_type,
       created_by: @cataloger,
     )
     @work_with_resources = Work.create!(
       title: 'Work with work',
-      year: 1998,
+      year_start: 1998,
       media_type: media_type,
       created_by: @cataloger,
     )

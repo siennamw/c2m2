@@ -49,7 +49,7 @@ class Resolvers::UpdateResourceTest < ActiveSupport::TestCase
     4.times do |n|
       @works << Work.create!(
         title: "work #{n}",
-        year: 1990,
+        year_start: 1990,
         media_type: media_type,
         created_by: @cataloger,
       )
