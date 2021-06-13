@@ -56,7 +56,7 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
 
     @work = Work.create!(
       title: 'Fight Club',
-      year: 1999,
+      year_start: 1999,
       country_id: @countries[0].id,
       media_type_id: @media_types[0].id,
       created_by: @cataloger
@@ -65,13 +65,11 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
 
   test 'updating a work with the minimum required fields' do
     title = 'Casa Blanca'
-    year = 1942
 
     updated_work = perform(
       {
         id: @work.id,
         title: title,
-        year: year,
         media_type_id: @media_types[1].id,
       },
       @new_cataloger
@@ -80,7 +78,6 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
     assert updated_work.persisted?
     assert_equal updated_work.id, @work.id
     assert_equal updated_work.title, title
-    assert_equal updated_work.year, year
 
     assert_equal updated_work.media_type, @media_types[1]
     assert_equal updated_work.created_by, @cataloger
@@ -88,6 +85,60 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
 
     # optional fields not passed are removed
     assert_nil updated_work.country
+  end
+
+  test 'if year_start is provided but year_end is not, year_start is copied to year_end' do
+    year = 1942
+
+    updated_work = perform(
+      {
+        id: @work.id,
+        title: @work.title,
+        media_type_id: @work.media_type_id,
+        year_start: year,
+      },
+      @new_cataloger
+    )
+
+    assert updated_work.persisted?
+    assert updated_work.year_start, year
+    assert updated_work.year_end, year
+  end
+
+  test 'if year_end is provided but year_start is not, year_end is copied to year_start' do
+    year = 1988
+
+    updated_work = perform(
+      {
+        id: @work.id,
+        title: @work.title,
+        media_type_id: @work.media_type_id,
+        year_end: year,
+      },
+      @new_cataloger
+    )
+
+    assert updated_work.persisted?
+    assert updated_work.year_start, year
+    assert updated_work.year_end, year
+  end
+
+  test 'invalid year range returns expected error' do
+    year = 1973
+
+    result = perform(
+      {
+        id: @work.id,
+        title: @work.title,
+        media_type_id: @work.media_type_id,
+        year_start: year,
+        year_end: year - 3,
+      },
+      @new_cataloger
+    )
+
+    assert_instance_of GraphQL::ExecutionError, result
+    assert_equal "Invalid input: Year start must be less than or equal to #{year - 3}, Year end must be greater than or equal to #{year}", result.message
   end
 
   test 'updating a work with all possible fields' do
@@ -106,7 +157,8 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
         alias_alternates: alias_alternates,
         imdb_link: imdb_link,
 
-        year: year,
+        year_start: year,
+        year_end: year + 3,
 
         country_id: @countries[2].id,
         media_type_id: @media_types[2].id,
@@ -127,7 +179,8 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
     assert_equal updated_work.alias_alternates, alias_alternates
     assert_equal updated_work.imdb_link, imdb_link
 
-    assert_equal updated_work.year, year
+    assert_equal updated_work.year_start, year
+    assert_equal updated_work.year_end, year + 3
 
     assert_equal updated_work.country, @countries[2]
     assert_equal updated_work.media_type, @media_types[2]
@@ -157,7 +210,7 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
         alias_alternates: alias_alternates,
         imdb_link: imdb_link,
 
-        year: year,
+        year_start: year,
 
         country_id: @countries[3].id,
         media_type_id: @media_types[3].id,
@@ -192,13 +245,15 @@ class Resolvers::UpdateWorkTest < ActiveSupport::TestCase
       production_company_ids
       secondary_title
       title
-      year
+      year_end
+      year_start
     ]
     assert_equal record.title, event_payload['title']
     assert_equal record.secondary_title, event_payload['secondary_title']
     assert_equal record.alias_alternates, event_payload['alias_alternates']
     assert_equal record.imdb_link, event_payload['imdb_link']
-    assert_equal record.year, event_payload['year']
+    assert_equal record.year_end, event_payload['year_end']
+    assert_equal record.year_start, event_payload['year_start']
     assert_equal record.country_id, event_payload['country_id']
     assert_equal record.media_type_id, event_payload['media_type_id']
     assert_equal record.composer_ids, event_payload['composer_ids']

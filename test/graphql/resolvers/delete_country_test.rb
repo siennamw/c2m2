@@ -38,7 +38,6 @@ class Resolvers::DeleteCountryTest < ActiveSupport::TestCase
     )
     Work.create!(
       title: 'work 1',
-      year: 1998,
       country: @country_with_works,
       media_type: media_type,
       created_by: @cataloger,

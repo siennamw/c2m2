@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_05_005327) do
+ActiveRecord::Schema.define(version: 2021_06_13_145950) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -202,13 +202,14 @@ ActiveRecord::Schema.define(version: 2021_06_05_005327) do
     t.string "secondary_title"
     t.text "alias_alternates"
     t.string "imdb_link"
-    t.integer "year", null: false
+    t.integer "year_start"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "created_by_id", null: false
     t.uuid "updated_by_id"
     t.uuid "country_id"
     t.uuid "media_type_id", null: false
+    t.integer "year_end"
     t.index ["imdb_link"], name: "index_works_on_imdb_link", unique: true
   end
 

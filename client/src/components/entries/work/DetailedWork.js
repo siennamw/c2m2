@@ -22,7 +22,8 @@ const DisplayWork = ({ values }) => {
     orchestrators,
     production_companies,
     resources,
-    year,
+    year_start,
+    year_end,
   } = values;
 
   const resourcesWithDisplayText = resources.reduce((result, r) => {
@@ -47,6 +48,10 @@ const DisplayWork = ({ values }) => {
     return result;
   }, []);
 
+  const formattedYear = year_start === year_end
+    ? year_start
+    : `${year_start}-${year_end}`;
+
   return (
     <tbody>
       <tr>
@@ -67,7 +72,7 @@ const DisplayWork = ({ values }) => {
       </tr>
       <tr>
         <th>Year</th>
-        <td>{year}</td>
+        <td>{formattedYear}</td>
       </tr>
       <tr>
         <th>Country</th>
@@ -200,7 +205,8 @@ DisplayWork.propTypes = {
         publication_status: PropTypes.string,
       }),
     ),
-    year: PropTypes.number,
+    year_start: PropTypes.number,
+    year_end: PropTypes.number,
   }),
 };
 

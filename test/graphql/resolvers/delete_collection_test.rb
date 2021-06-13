@@ -53,7 +53,6 @@ class Resolvers::DeleteCollectionTest < ActiveSupport::TestCase
     )
     work = Work.create!(
       title: 'work 1',
-      year: 1998,
       media_type: media_type,
       created_by: @cataloger,
     )

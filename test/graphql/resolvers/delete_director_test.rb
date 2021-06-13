@@ -38,7 +38,7 @@ class Resolvers::DeleteDirectorTest < ActiveSupport::TestCase
     )
     Work.create!(
       title: 'work 1',
-      year: 1998,
+      year_start: 1998,
       directors: [@director_with_works],
       media_type: media_type,
       created_by: @cataloger,

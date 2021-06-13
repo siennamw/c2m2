@@ -67,7 +67,7 @@ class EventRakeTest < ActiveSupport::TestCase
       production_companies: [@production_company],
       secondary_title: Faker::Lorem.word,
       title: Faker::Lorem.word,
-      year: 2021,
+      year_start: 2021,
     )
     @resource = Resource.create!(
       cataloging_notes: Faker::Lorem.sentence,
@@ -299,7 +299,8 @@ class EventRakeTest < ActiveSupport::TestCase
       production_company_ids
       secondary_title
       title
-      year
+      year_end
+      year_start
     ]
     assert_equal record.alias_alternates, event_payload['alias_alternates']
     assert_equal record.composer_ids, event_payload['composer_ids']
@@ -311,6 +312,7 @@ class EventRakeTest < ActiveSupport::TestCase
     assert_equal record.production_company_ids, event_payload['production_company_ids']
     assert_equal record.secondary_title, event_payload['secondary_title']
     assert_equal record.title, event_payload['title']
-    assert_equal record.year, event_payload['year']
+    assert_equal record.year_start, event_payload['year_start']
+    assert_equal record.year_end, event_payload['year_end']
   end
 end

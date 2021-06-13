@@ -53,11 +53,11 @@ class Resolvers::SearchWorks
       end
 
       if value['dateRangeEnd'] && !value['dateRangeEnd'].blank?
-        scope = scope.where('year <= ?', value['dateRangeEnd'])
+        scope = scope.where('year_end <= ?', value['dateRangeEnd'])
       end
 
       if value['dateRangeStart'] && !value['dateRangeStart'].blank?
-        scope = scope.where('year >= ?', value['dateRangeStart'])
+        scope = scope.where('year_start >= ?', value['dateRangeStart'])
       end
 
       if value['director'] && !value['director'].blank?

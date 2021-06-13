@@ -212,7 +212,8 @@ export const CREATE_WORK = gql`
     $secondary_title: String,
     $alias_alternates: String,
     $imdb_link: String,
-    $year: Int!,
+    $year_start: Int,
+    $year_end: Int,
     $country_id: ID,
     $media_type_id: ID!,
     $composer_ids: [ID],
@@ -225,7 +226,8 @@ export const CREATE_WORK = gql`
       secondary_title: $secondary_title,
       alias_alternates: $alias_alternates,
       imdb_link: $imdb_link,
-      year: $year,
+      year_start: $year_start,
+      year_end: $year_end,
       country_id: $country_id,
       media_type_id: $media_type_id,
       composer_ids: $composer_ids,
@@ -238,7 +240,8 @@ export const CREATE_WORK = gql`
       secondary_title
       alias_alternates
       imdb_link
-      year
+      year_start
+      year_end
       deletable
       country {
         id
@@ -738,7 +741,8 @@ export const UPDATE_WORK = gql`
     $secondary_title: String,
     $alias_alternates: String,
     $imdb_link: String,
-    $year: Int!,
+    $year_start: Int,
+    $year_end: Int,
     $country_id: ID,
     $media_type_id: ID!,
     $composer_ids: [ID],
@@ -752,7 +756,8 @@ export const UPDATE_WORK = gql`
       secondary_title: $secondary_title,
       alias_alternates: $alias_alternates,
       imdb_link: $imdb_link,
-      year: $year,
+      year_start: $year_start,
+      year_end: $year_end,
       country_id: $country_id,
       media_type_id: $media_type_id,
       composer_ids: $composer_ids,
@@ -765,7 +770,8 @@ export const UPDATE_WORK = gql`
       secondary_title
       alias_alternates
       imdb_link
-      year
+      year_start
+      year_end
       deletable
       country {
         id

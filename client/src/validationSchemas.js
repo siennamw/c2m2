@@ -50,6 +50,15 @@ export const getInitialFormValuesForSchema = (schema, values) => {
   }, {});
 };
 
+function validateDateRange() {
+  // eslint-disable-next-line react/no-this-in-sfc
+  const { year_start, year_end } = this.parent;
+  if (!year_start || !year_end) {
+    return true;
+  }
+  return year_end >= year_start;
+}
+
 export const catalogerValidationSchema = Yup.object().shape({
   name: Yup.string()
     .trim()
@@ -112,11 +121,14 @@ export const workValidationSchema = Yup.object().shape({
     .trim(),
   imdb_link: Yup.string()
     .url('Website is not a valid URL'),
-  year: Yup.number()
-    .integer('Year must be an integer')
-    .positive('Year must be a positive number')
-    .min(1900, 'Year must be 1900 or after')
-    .required('Year is required'),
+  year_start: Yup.number()
+    .integer('Starting Year must be an integer')
+    .min(1900, 'Starting Year must be 1900 or after')
+    .test('yearValidation', 'Starting Year must be same as or before Ending Year', validateDateRange),
+  year_end: Yup.number()
+    .integer('Ending Year must be an integer')
+    .min(1900, 'Ending Year must be 1900 or after')
+    .test('yearValidation', 'Ending Year must be same as or after Starting Year', validateDateRange),
   country_id: Yup.string()
     .uuid('Country ID is invalid'),
   media_type_id: Yup.string()

@@ -42,7 +42,7 @@ class Resolvers::DeleteComposerTest < ActiveSupport::TestCase
     )
     Work.create!(
       title: 'work 1',
-      year: 1998,
+      year_start: 1998,
       composers: [@composer_with_works],
       orchestrators: [@composer_with_works_as_orch],
       media_type: media_type,

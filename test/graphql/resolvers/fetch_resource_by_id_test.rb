@@ -14,7 +14,7 @@ class Resolvers::FetchResourceByIdTest < ActiveSupport::TestCase
     work = Work.create!(
       title: 'a film',
       media_type: media_type,
-      year: 1990,
+      year_start: 1990,
       created_by: @cataloger,
     )
     material_format = MaterialFormat.create!(

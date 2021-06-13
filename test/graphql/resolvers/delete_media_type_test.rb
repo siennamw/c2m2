@@ -34,7 +34,7 @@ class Resolvers::DeleteMediaTypeTest < ActiveSupport::TestCase
 
     Work.create!(
       title: 'work 1',
-      year: 1998,
+      year_start: 1998,
       media_type: @media_type_with_works,
       created_by: @cataloger,
     )
