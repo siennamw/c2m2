@@ -744,7 +744,7 @@ export const SEARCH_RESOURCES = gql`
       sorting: $sorting,
     ) {
       id
-      collection {
+      collections {
         id
         name
       }
