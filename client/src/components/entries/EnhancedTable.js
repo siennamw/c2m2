@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import EntryListWithLinks from './EntryListWithLinks';
 import LinkToEntry from './LinkToEntry';
+import PublicationStatusBanner from './PublicationStatusBanner';
 
 import { MODEL_NAMES } from '../../constants';
 import { fieldNameToSingular } from '../../utils';
@@ -115,9 +116,7 @@ const EnhancedTable = ({
 
     if (fieldName === 'publication_status') {
       return (
-        <span className={`publication-status tag ${row[fieldName]}`}>
-          {row[fieldName]}
-        </span>
+        <PublicationStatusBanner publicationStatus={row[fieldName]} />
       );
     }
 

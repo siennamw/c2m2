@@ -46,11 +46,11 @@ const DetailedEntry = ({
           return (
             <div className="detailed-entry">
               <div>
-                <PublicationStatusBanner
-                  publicationStatus={values.publication_status}
-                />
                 <div className="entry-type">
-                  {`${entryTypeForDisplay}:`}
+                  <span className="entry-type-title">{`${entryTypeForDisplay}:`}</span>
+                  <PublicationStatusBanner
+                    publicationStatus={values.publication_status}
+                  />
                 </div>
                 {heading()}
                 <table className="u-full-width">

@@ -235,18 +235,24 @@ footer {
 }
 
 .entry-type {
-  .uppercase();
-  color: @gray;
-  font-size: 1.5rem;
+  display: flex;
+  justify-content: space-between;
 
-  ~ h3, ~.h3 {
-    margin-top: 0;
+  .entry-type-title {
+    .uppercase();
+    color: @gray;
+    font-size: 1.5rem;
   }
 }
 
 .publication-status {
+  .uppercase();
   color: white;
   background-color: @gray;
+  display: inline-block;
+  padding: .15em 10px;
+  border-radius: 5px;
+  font-size: .7em;
 
   &.approved {
     background-color: @success;
@@ -254,31 +260,6 @@ footer {
 
   &.provisional {
     background-color: @warn;
-  }
-
-  &.bar { // for detailed resource view
-    padding: 10px 20px;
-    margin-bottom: 15px;
-    text-align: center;
-
-    h3, .h3 {
-      .uppercase();
-      font-size: 1.5rem;
-      margin: 0 10px 0 0;
-      display: inline-block;
-    }
-
-    span {
-      display: inline-block;
-    }
-  }
-
-  &.tag {
-    .uppercase();
-    display: inline-block;
-    padding: .15em 10px;
-    border-radius: 5px;
-    font-size: .7em;
   }
 }
 

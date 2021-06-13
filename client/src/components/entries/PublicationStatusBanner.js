@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Tooltip from '../Tooltip';
 
 const PublicationStatusBanner = ({ publicationStatus }) => {
   const descriptionByPubStatus = {
@@ -14,13 +15,16 @@ const PublicationStatusBanner = ({ publicationStatus }) => {
     return null;
   }
 
-  return (
-    <div className={`publication-status bar ${publicationStatus}`}>
-      <span className="h3">
-        {`${publicationStatus}:`}
-      </span>
-      <span>{description}</span>
+  const anchor = (
+    <div className={`publication-status ${publicationStatus}`}>
+      {publicationStatus}
     </div>
+  );
+
+  return (
+    <Tooltip align="right" anchor={anchor}>
+      {description}
+    </Tooltip>
   );
 };
 
