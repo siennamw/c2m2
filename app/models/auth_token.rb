@@ -15,8 +15,8 @@ class AuthToken
 
   def self.verify(token)
     result = JwtClaims.verify(token, key: key)
-    return nil unless result[:ok][:exp] # reject if exp claim is missing
     return nil if result[:error]
+    return nil unless result[:ok][:exp] # reject if exp claim is missing
     Cataloger.find_by(id: result[:ok][:id])
   end
 end
