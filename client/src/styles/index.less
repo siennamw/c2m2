@@ -336,14 +336,15 @@ footer {
 }
 
 // Citations
-.field-info-tooltip {
+.tooltip {
+  cursor: help;
   display: inline-block;
+  position: relative;
 
   .tooltip-anchor {
     border-radius: 50%;
     background-color: @gray;
     color: @white;
-    cursor: help;
     width: 1em;
     height: 1em;
     margin: 0.1rem 0.5rem;
@@ -365,11 +366,18 @@ footer {
     display: block;
     position: absolute;
     top: 1em;
-    right: 1em;
-    left: 1em;
     padding: 1rem;
     border-radius: 4px;
     z-index: 2;
+    min-width: 20rem;
+
+    &.left {
+      left: 1em;
+    }
+
+    &.right {
+      right: 1em;
+    }
 
     &:after {
       content: '';
