@@ -12,7 +12,7 @@ gem 'rails', '~> 6.0'
 # Use PostgreSQL as the database
 gem 'pg'
 # Use Puma as the app server
-gem 'puma', '~> 3.12'
+gem 'puma', '~> 4.3'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 # Use JSON web tokens for authentication
