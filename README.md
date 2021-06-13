@@ -7,8 +7,11 @@ and [Michael W. Harris, Ph.D.](http://www.michaelwharris.net/), librarian, archi
 See the ongoing project at [http://www.c2m2.org](http://www.c2m2.org).
 
 ## Development
-This project consists of a Ruby on Rails back-end serving a GraphQL endpoint, and a React front-end
-with the Apollo client. The database is Postgres. To run on your local machine:
+This project consists of a Ruby on Rails back-end serving a GraphQL endpoint, and a React front-end with the Apollo client.
+The database is Postgres.
+To run on your local machine, ensure that you have the correct versions of Ruby and Node installed (see `/client/package.json` and `Gemfile` to determine these versions), and install and start Postgres.
+If running `which yarn` returns nothing, run `npm install -g yarn` to install yarn globally.
+Then, run the following commands:
 ```
 // copy code to your computer
 git clone https://github.com/siennamw/c2m2.git
@@ -21,8 +24,11 @@ bundle
 cd client
 yarn
 
-// run
+// set up database
 cd ..
+bin/rake db:reset
+
+// run
 bin/rake start
 ```
 
