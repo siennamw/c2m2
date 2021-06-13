@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect, useLocation } from 'react-router-dom';
 
@@ -10,8 +10,12 @@ const PrivateRoute = ({
   path,
   ...rest
 }) => {
-  const { authenticated } = useContext(AuthContext);
+  const { authenticated, refreshAuthenticated } = useContext(AuthContext);
   const location = useLocation();
+
+  useEffect(() => {
+    refreshAuthenticated();
+  }, [location, refreshAuthenticated]);
 
   return (
     <Route

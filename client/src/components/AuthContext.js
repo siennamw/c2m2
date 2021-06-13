@@ -18,12 +18,18 @@ const AuthContextProvider = ({ children }) => {
     setId(authTokenData ? authTokenData.id : false);
   }, [authenticated]);
 
+  const refreshAuthenticated = () => {
+    // re-check if user token exists in storage
+    setAuthenticated(isAuthenticated());
+  };
+
   return (
     <AuthContext.Provider
       value={{
         admin,
         authenticated,
         id,
+        refreshAuthenticated,
         setAuthenticated,
       }}
     >
