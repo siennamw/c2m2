@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const CatalogerHome = () => (
+const CatalogerResources = () => (
   <div>
-    <h3>Cataloger Home</h3>
-    <h4>Resources</h4>
+    <h3>Resources</h3>
     <ul>
       <li>
         <Link to="/dashboard/material-formats">Material Format Descriptions</Link>
@@ -16,4 +15,4 @@ const CatalogerHome = () => (
   </div>
 );
 
-export default CatalogerHome;
+export default CatalogerResources;

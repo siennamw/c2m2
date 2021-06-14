@@ -120,7 +120,7 @@ const CatalogerSignIn = ({ location }) => {
 
   const from = location.state && location.state.from !== '/sign-out'
     ? location.state.from
-    : '/dashboard/home';
+    : '/dashboard';
 
   if (redirect) {
     return <Redirect to={from} />;
