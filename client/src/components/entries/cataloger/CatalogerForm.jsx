@@ -133,17 +133,18 @@ const CatalogerForm = ({ match, location, successCallback }) => {
 };
 
 CatalogerForm.defaultProps = {
-  self: false,
   successCallback: null,
 };
 
 CatalogerForm.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+  }),
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
     }),
   }),
-  self: PropTypes.bool,
   successCallback: PropTypes.func,
 };
 
