@@ -25,7 +25,7 @@ const CatalogerFormFields = ({ hidePasswordFields }) => {
     reactSelectOnChange(evt, name, setFieldValue);
   };
 
-  const entryIsSelf = Number(values.id) === id;
+  const entryIsSelf = values.id === id;
   const disabled = !admin && !entryIsSelf;
 
   return (
