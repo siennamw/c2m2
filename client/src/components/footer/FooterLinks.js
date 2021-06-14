@@ -27,7 +27,7 @@ const FooterLinks = () => {
             authenticated
               ? (
                 <li>
-                  <NavLink to="/dashboard/home">Cataloger Home</NavLink>
+                  <NavLink to="/dashboard">Cataloger Dashboard</NavLink>
                 </li>
               )
               : undefined
