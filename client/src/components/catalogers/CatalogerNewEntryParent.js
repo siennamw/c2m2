@@ -20,19 +20,14 @@ import ProductionCompanyForm from '../entries/productionCompany/ProductionCompan
 import RepositoryForm from '../entries/repository/RepositoryForm';
 import ResourceForm from '../entries/resource/ResourceForm';
 import WorkForm from '../entries/work/WorkForm';
+import LinkToParentRoute from '../nav/LinkToParentRoute';
 
 const CatalogerNewEntryParent = ({ match }) => {
-  const location = useLocation();
   const { admin } = useContext(AuthContext);
 
   return (
     <div>
-      {
-        // add back arrow to root path for all but root path
-        match.path !== location.pathname
-          ? <Link to={`${match.path}`}>&larr; Back</Link>
-          : null
-      }
+      <LinkToParentRoute />
       <Switch>
         <Route exact path={`${match.path}/cataloger`} component={CatalogerForm} />
         <Route exact path={`${match.path}/collection`} component={CollectionForm} />
