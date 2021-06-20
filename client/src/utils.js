@@ -79,3 +79,14 @@ export const fieldNameToSingular = (field) => {
   }
   return result;
 };
+
+export const convertFieldNameToDisplayName = (field) => {
+  if (typeof field !== 'string') {
+    return field;
+  }
+
+  // convert _ to space and capitalize all words
+  const words = field.split('_').map((string) => `${string[0].toUpperCase()}${string.substring(1)}`);
+
+  return words.join(' ');
+};

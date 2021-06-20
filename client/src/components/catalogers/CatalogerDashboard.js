@@ -12,11 +12,10 @@ import CatalogerEditEntryParent from './CatalogerEditEntryParent';
 import CatalogerForm from '../entries/cataloger/CatalogerForm';
 import CatalogerNewEntryParent from './CatalogerNewEntryParent';
 import CatalogerResources from './CatalogerResources';
+import CatalogerView from './CatalogerView';
 
 import MaterialFormatsList from '../entries/materialFormat/MaterialFormatsList';
 import MediaTypesList from '../entries/mediaType/MediaTypesList';
-
-import UnknownRoute from '../UnknownRoute';
 
 const CatalogerDashboard = ({ match }) => {
   const { admin } = useContext(AuthContext);
@@ -31,6 +30,7 @@ const CatalogerDashboard = ({ match }) => {
             ? <NavLink to={`${match.path}/bulk-upload`}>Bulk Upload</NavLink>
             : null
         }
+        <NavLink to={`${match.path}/view`}>View Entries</NavLink>
         <NavLink to={`${match.path}/resources`}>Resources</NavLink>
         <NavLink to={`${match.path}/directory`}>Directory</NavLink>
         <NavLink to={`${match.path}/account`}>Account</NavLink>
@@ -43,6 +43,7 @@ const CatalogerDashboard = ({ match }) => {
         <Route path={`${match.path}/edit`} component={CatalogerEditEntryParent} />
         <Route path={`${match.path}/new`} component={CatalogerNewEntryParent} />
         <Route path={`${match.path}/resources`} component={CatalogerResources} />
+        <Route path={`${match.path}/view`} component={CatalogerView} />
 
         <Route path={`${match.path}/material-formats`} component={MaterialFormatsList} />
         <Route path={`${match.path}/media-types`} component={MediaTypesList} />
