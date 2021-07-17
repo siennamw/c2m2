@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   post "/graphql", to: "graphql#execute"
 
+  get '/robots.txt', to: "application#robots"
+
   get '*path', to: "application#fallback_index_html", constraints: ->(request) do
     !request.xhr? && request.format.html?
   end
