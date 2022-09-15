@@ -4,7 +4,7 @@
   "private": true,
   "proxy": "http://localhost:3000",
   "engines": {
-    "node": "10.24.0"
+    "node": "14.19.3"
   },
   "dependencies": {
     "@apollo/client": "^3.3.19",
@@ -30,9 +30,7 @@
     "sienna-boilerplate": "github:siennamw/sienna-boilerplate#cb121f10ccdec91af24d8e9b35fb5ab1552ec76c",
     "yup": "^0.32.9"
   },
-  "devDependencies": {
-    "@apollo/react-testing": "^3.0.1"
-  },
+  "devDependencies": {},
   "scripts": {
     "build-css": "less-watch-compiler --run-once --main-file=index.less src/styles src/styles",
     "watch-css": "npm run build-css && less-watch-compiler --main-file=index.less src/styles src/styles",
