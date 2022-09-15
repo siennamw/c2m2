@@ -18,10 +18,13 @@ class AddIndexesToJoinTables < ActiveRecord::Migration[5.1]
       name: 'index_pcs_films_on_pc_id_and_film_id',
       unique: true
 
+    remove_index :orchestrators_films, name: "index_orch_films_on_orch_id_and_film_id"
     add_index :orchestrators_films,
       [:composer_id, :film_id],
       name: "index_orch_films_on_orch_id_and_film_id",
       unique: true
+
+    remove_index :orchestrators_films, name: "index_orch_films_on_film_id_and_orch_id"
     add_index :orchestrators_films,
       [:film_id, :composer_id],
       name: "index_orch_films_on_film_id_and_orch_id",
