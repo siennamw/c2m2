@@ -58,7 +58,7 @@ const Home = () => (
 
     <dt>Heather Fisher</dt>
     <dd>
-      {'Heather is the Metadata/Catalog Librarian at Saginaw Valley State University. She holds degrees in music performance, musicology (with an emphasis on film, television, and radio music from 1930-1960), and library and information science. Her thesis studied Max Steiner\'s score for '}
+      {'Heather is the Head of Access Services at Saginaw Valley State University. She holds degrees in music performance, musicology (with an emphasis on film, television, and radio music from 1930-1960), and library and information science. Her thesis studied Max Steiner\'s score for '}
       <i>Gone with the Wind</i>
       {', particularly the influence of traditional music on the film\'s narrative.'}
     </dd>
