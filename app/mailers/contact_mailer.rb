@@ -1,5 +1,5 @@
 class ContactMailer < ApplicationMailer
-  default to: ENV['CONTACT_TO_EMAIL']
+  default to: ENV['GMAIL_USERNAME']
 
   def contact_email(name, email, message)
     @name = name
