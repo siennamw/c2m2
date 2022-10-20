@@ -12,7 +12,7 @@ class ContactMailerTest < ActionMailer::TestCase
 
     # Test the body of the sent email contains what we expect it to
     assert_equal [email_address], email.from
-    assert_equal [ENV['CONTACT_TO_EMAIL']], email.to
+    assert_equal [ENV['GMAIL_USERNAME']], email.to
     assert_equal 'Contact Form Submission from C2M2', email.subject
 
     # TODO: implement more tests when email body is finalized
@@ -34,7 +34,7 @@ class ContactMailerTest < ActionMailer::TestCase
 
     # Test the body of the sent email contains what we expect it to
     assert_equal [email_address], email.from
-    assert_equal [ENV['CONTACT_TO_EMAIL']], email.to
+    assert_equal [ENV['GMAIL_USERNAME']], email.to
     assert_equal 'Suggestion Form Submission from C2M2', email.subject
 
     fields.each_pair do |k, v|
