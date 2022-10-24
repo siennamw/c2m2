@@ -50,7 +50,7 @@ class Resolvers::UpdateCatalogerSelf < GraphQL::Function
     )
 
     # Tell the UserMailer to send a user info change email asynchronously
-    UserMailer.info_change_email(cataloger, false).deliver_later
+    UserMailer.info_change_email(cataloger, false).deliver_now
 
     # Return updated cataloger
     Cataloger.find(args[:id])

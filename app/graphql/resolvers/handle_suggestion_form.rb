@@ -25,7 +25,7 @@ class Resolvers::HandleSuggestionForm < GraphQL::Function
     }
 
     # Tell the ContactMailer to send a suggestion email asynchronously
-    ContactMailer.suggestion_email(args[:name], args[:email], fields).deliver_later
+    ContactMailer.suggestion_email(args[:name], args[:email], fields).deliver_now
 
     # Return true
     true

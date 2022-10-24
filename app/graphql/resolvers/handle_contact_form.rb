@@ -13,7 +13,7 @@ class Resolvers::HandleContactForm < GraphQL::Function
   # _ctx - is the GraphQL context
   def call(_obj, args, _ctx)
     # Tell the ContactMailer to send a contact email asynchronously
-    ContactMailer.contact_email(args[:name], args[:email], args[:message]).deliver_later
+    ContactMailer.contact_email(args[:name], args[:email], args[:message]).deliver_now
 
     # Return true
     true

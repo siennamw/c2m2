@@ -22,7 +22,7 @@ class Resolvers::GetResetPasswordToken < GraphQL::Function
         payload: args,
       )
 
-      UserMailer.reset_password_token_email(updated_cataloger, updated_cataloger.reset_password_token).deliver_later
+      UserMailer.reset_password_token_email(updated_cataloger, updated_cataloger.reset_password_token).deliver_now
     end
 
     # return true regardless

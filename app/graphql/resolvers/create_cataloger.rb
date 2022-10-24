@@ -46,7 +46,7 @@ class Resolvers::CreateCataloger < GraphQL::Function
     end
 
     # Tell the UserMailer to send a welcome email asynchronously
-    UserMailer.welcome_email(record).deliver_later
+    UserMailer.welcome_email(record).deliver_now
 
     # return new record
     record
