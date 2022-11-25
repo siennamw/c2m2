@@ -36,6 +36,12 @@ The Rails server will run on `http://localhost:3000/`
 (GraphiQL will be available at `http://localhost:3000/graphiql`).
 The React app will run on `http://localhost:3001/`.
 
+### Run Tests
+From the root of the app, run
+```
+bin/rake test
+```
+
 ## Deployment
 This project is set up to be deployed to Heroku.  In production there is only one server.  The React
 app is built, then the build is moved to `/public` where it is served up by the Rails server in

@@ -1,7 +1,7 @@
 {
   "name": "c2m2",
   "engines": {
-    "node": "10.24.0"
+    "node": "14.19.3"
   },
   "scripts": {
     "build": "cd client && yarn && yarn run build && cd ..",
