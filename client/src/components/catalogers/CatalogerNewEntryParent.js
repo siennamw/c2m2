@@ -4,7 +4,6 @@ import {
   Link,
   Route,
   Switch,
-  useLocation,
 } from 'react-router-dom';
 
 import { AuthContext } from '../AuthContext';
