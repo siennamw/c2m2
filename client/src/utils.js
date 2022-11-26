@@ -5,11 +5,41 @@ import jwtDecode from 'jwt-decode';
 import * as constants from './constants';
 import { FIELD_TO_PLURAL, FIELD_TO_SINGULAR, MODEL_NAMES } from './constants';
 
-export const isAuthenticated = () => !!localStorage.getItem(constants.LOCAL_STORAGE_KEY);
+const getTokenFromLocalStorage = () => {
+  return localStorage.getItem(constants.LOCAL_STORAGE_KEY) || null;
+};
+
+const decodeToken = (token) => {
+  return jwtDecode(token);
+};
+
+const isTokenExpired = (token) => {
+  if (!token) return true;
+
+  const decoded = decodeToken(token);
+
+  const nowInMilliseconds = Date.now();
+  const expireInMilliseconds = decoded.exp * 1000;
+
+  return nowInMilliseconds >= expireInMilliseconds;
+};
+
+export const isAuthenticated = () => {
+  const token = getTokenFromLocalStorage();
+
+  if (token && !isTokenExpired(token)) {
+    return true;
+  }
+
+  // remove expired token from local storage
+  if (token) signOut();
+
+  return false;
+};
 
 export const getAuthorizationToken = () => {
   if (isAuthenticated()) {
-    return localStorage.getItem(constants.LOCAL_STORAGE_KEY);
+    return getTokenFromLocalStorage();
   }
 
   return null;
@@ -18,7 +48,7 @@ export const getAuthorizationToken = () => {
 export const getAuthorizationTokenData = () => {
   const token = getAuthorizationToken();
   if (token) {
-    return jwtDecode(token);
+    return decodeToken(token);
   }
 
   return null;
@@ -37,7 +67,7 @@ export const wrapWithLink = (itemName, itemID, itemType) => (
 );
 
 export const sortByField = (items = [], field) => (
-  [ ...items ].sort((a, b) => {
+  [...items].sort((a, b) => {
     const aTitle = a[field].toLowerCase();
     const bTitle = b[field].toLowerCase();
     return aTitle.localeCompare(bTitle);
@@ -64,7 +94,7 @@ export const fieldNameToPlural = (field) => {
     console.warn('fieldNameToPlural called with unknown value', field);
     return field;
   }
-  return FIELD_TO_PLURAL[field] || `${field}s`
+  return FIELD_TO_PLURAL[field] || `${field}s`;
 };
 
 export const fieldNameToSingular = (field) => {

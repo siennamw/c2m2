@@ -14,6 +14,7 @@ const PrivateRoute = ({
   const location = useLocation();
 
   useEffect(() => {
+    // re-check authentication on every location change
     refreshAuthenticated();
   }, [location, refreshAuthenticated]);
 
