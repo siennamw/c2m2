@@ -39,8 +39,8 @@ import UnknownRoute from './UnknownRoute';
 import AuthContextProvider from './AuthContext';
 
 const App = () => (
-  <AuthContextProvider>
-    <ApolloContext>
+  <ApolloContext>
+    <AuthContextProvider>
       <div className="app container" id="top">
         <Header />
         <main>
@@ -178,8 +178,8 @@ const App = () => (
         </main>
         <Footer />
       </div>
-    </ApolloContext>
-  </AuthContextProvider>
+    </AuthContextProvider>
+  </ApolloContext>
 );
 
 export default App;
